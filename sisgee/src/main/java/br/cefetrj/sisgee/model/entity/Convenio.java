@@ -17,6 +17,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.Date;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -27,60 +31,70 @@ import javax.persistence.OneToMany;
 @Entity
 public class Convenio {
 
-	@Id
-	@GeneratedValue
-	private Integer idConvenio;
+    @Id
+    @GeneratedValue
+    private Integer idConvenio;
 
-	@Column(length = 10, nullable = false)
-	private String numeroConvenio;
+    @Column(length = 10, nullable = false)
+    private String numeroConvenio;
 
-        @JsonbTransient
-	@ManyToOne()
-	@JoinColumn(nullable = false)
-	private Empresa empresa;
+    /*@JsonbTransient
+    @ManyToOne()
+    @JoinColumn(nullable = false)
+    private Empresa empresa;*/
+    
+    @JsonbTransient
+    @OneToMany(mappedBy = "convenio", fetch = FetchType.LAZY)
+    private List <TermoEstagio> termoEstagios;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dataAssinatura;
+    
+    @OneToOne()
+    private Pessoa conveniado;
+    
+    public Convenio() {}
 
-        @JsonbTransient
-	@OneToMany(mappedBy = "convenio", fetch = FetchType.LAZY)
-	private List <TermoEstagio> termoEstagios;
+    public Convenio(String numeroConvenio) {
+            this.numeroConvenio = numeroConvenio;
+    }
 
-	public Convenio() {}
-	
-	public Convenio(String numeroConvenio) {
-		this.numeroConvenio = numeroConvenio;
-	}
+    public Integer getIdConvenio() {
+            return idConvenio;
+    }
 
-	public Integer getIdConvenio() {
-		return idConvenio;
-	}
+    public void setIdConvenio(Integer idConvenio) {
+            this.idConvenio = idConvenio;
+    }
 
-	public void setIdConvenio(Integer idConvenio) {
-		this.idConvenio = idConvenio;
-	}
+    public String getNumeroConvenio() {
+            return numeroConvenio;
+    }
 
-	public String getNumeroConvenio() {
-		return numeroConvenio;
-	}
+    public void setNumeroConvenio(String numeroConvenio) {
+            this.numeroConvenio = numeroConvenio;
+    }
 
-	public void setNumeroConvenio(String numeroConvenio) {
-		this.numeroConvenio = numeroConvenio;
-	}
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public List<TermoEstagio> getTermoEstagio() {
+            return termoEstagios;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+    public void setTermoEstagio(List<TermoEstagio> termoEstagios) {
+            this.termoEstagios = termoEstagios;
+    }
 
-	public List<TermoEstagio> getTermoEstagio() {
-		return termoEstagios;
-	}
+    public Date getDataAssinatura() {
+        return dataAssinatura;
+    }
 
-	public void setTermoEstagio(List<TermoEstagio> termoEstagios) {
-		this.termoEstagios = termoEstagios;
-	}
-
+    public void setDataAssinatura(Date dataAssinatura) {
+        this.dataAssinatura = dataAssinatura;
+    }
+        
+        
+        
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;
 
@@ -19,8 +20,8 @@ import org.apache.log4j.Logger;
  * 
  */
 @Entity
-public class Empresa {
-
+public class Empresa extends Pessoa implements Serializable{
+        
 	@Id
 	@GeneratedValue
 	private Integer idEmpresa;
@@ -30,9 +31,12 @@ public class Empresa {
 
 	@Column(length = 100, nullable = false, unique = true)
 	private String nomeEmpresa;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private AgenteIntegracao agenteIntegracao;
+        
+        @Column(nullable = false)
+	private boolean isAgenteIntegracao;
+        
+        @Column(length = 100)
+        private String pessoaContato;
 
         @JsonbTransient
 	@OneToMany(mappedBy = "empresa")
@@ -41,11 +45,9 @@ public class Empresa {
 	
 	public Empresa(){}
 	
-	public Empresa(String cnpjEmpresa, String nomeEmpresa, AgenteIntegracao agenteIntegracao ){
-		
+	public Empresa(String cnpjEmpresa, String nomeEmpresa){
 		this.cnpjEmpresa = cnpjEmpresa;
 		this.nomeEmpresa = nomeEmpresa;
-		this.agenteIntegracao = agenteIntegracao;
 
 	}
 	
@@ -110,14 +112,6 @@ public class Empresa {
 		this.nomeEmpresa = nomeEmpresa;
 	}
 
-	public AgenteIntegracao getAgenteIntegracao() {
-		return agenteIntegracao;
-	}
-
-	public void setAgenteIntegracao(AgenteIntegracao agenteIntegracao) {
-		this.agenteIntegracao = agenteIntegracao;
-	}
-
 	public List<Convenio> getConvenios() {
 		return convenios;
 	}
@@ -126,6 +120,22 @@ public class Empresa {
 		this.convenios = convenios;
 	}
 
+        public boolean getIsAgenteIntegracao() {
+            return isAgenteIntegracao;
+        }
+
+        public void setIsAgenteIntegracao(boolean isAgenteIntegracao) {
+            this.isAgenteIntegracao = isAgenteIntegracao;
+        }
+
+        public String getPessoaContato() {
+            return pessoaContato;
+        }
+
+        public void setPessoaContato(String pessoaContato) {
+            this.pessoaContato = pessoaContato;
+        }
+        
 	@Override
 	public int hashCode() {
 		final int prime = 31;
