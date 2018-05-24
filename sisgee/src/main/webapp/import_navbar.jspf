@@ -19,6 +19,20 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<fmt:message key = "br.cefetrj.sisgee.resources.form.convenio"/>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="form_convenio.jsp">
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.cadastrarConvenio"/>
+					</a>
+                                        <a class="dropdown-item" href="form_renovar_convenio.jsp">
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.renovarConvenio"/>
+					</a>
+				</div>
+			</li>
+                        <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
+				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<fmt:message key = "br.cefetrj.sisgee.resources.form.termoEstagio"/> 
 				</a>					
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -30,17 +44,7 @@
 					</a> 
 				</div>
 			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
-				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<fmt:message key = "br.cefetrj.sisgee.resources.form.empresa"/>
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="form_empresa.jsp">
-						<fmt:message key = "br.cefetrj.sisgee.resources.form.cadastrarEmpresa"/>
-					</a>
-				</div>
-			</li>
+			
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,6 +53,9 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="relatorio_consolidado.jsp">
 						<fmt:message key = "br.cefetrj.sisgee.resources.form.relatorioConsolidado"/>
+					</a>
+                                        <a class="dropdown-item" href="form_convenios_a_vencer.jsp">
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.conveniosAVencer"/>
 					</a>
 				</div>
 			</li>
