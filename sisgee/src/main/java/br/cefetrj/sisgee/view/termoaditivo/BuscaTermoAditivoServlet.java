@@ -63,7 +63,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
                 if (termoEstagio.getDataRescisaoTermoEstagio() == null || 
                         termoEstagio.getDataRescisaoTermoEstagio().equals("")) {
                     request.setAttribute("termoAtivo", termoEstagio);
-                    request.setAttribute("termosAditivos", termoEstagio.getTermosAditivos());
+                    //request.setAttribute("termosAditivos", termoEstagio.getTermosAditivos());
                     break;
                 }
             }

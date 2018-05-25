@@ -489,7 +489,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 			
 		}		
 
-		if (isValid) {
+		/*if (isValid) {
 			TermoAditivo termoAditivo = null;
 			List <TermoAditivo> termosAditivos = termoEstagio.getTermosAditivos();		
 			
@@ -618,7 +618,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 			request.setAttribute("aditivo", aditivo);
 			
 			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
-		}
+		}*/
 
 	}
 

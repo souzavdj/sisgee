@@ -35,7 +35,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 		String agenteIntegracao = request.getParameter("agenteIntegracao");
 
 
-		Empresa empresa = new Empresa(cnpjEmpresa, nomeEmpresa, null);
+		//Empresa empresa = new Empresa(cnpjEmpresa, nomeEmpresa, null);
 		AgenteIntegracao agente = new AgenteIntegracao(nomeEmpresa, cnpjEmpresa);
 		
 
@@ -43,7 +43,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 			System.out.println(agenteIntegracao);
 			String msg = "";
 			Logger lg = Logger.getLogger(IncluirCadastroEmpresaServlet.class);
-			try {
+			/*try {
 				EmpresaServices.incluirEmpresa(empresa);
 				msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_empresa_cadastrada");
 				request.setAttribute("msg", msg);
@@ -56,7 +56,7 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
 				lg.error("Exception ao tentar inserir uma Empresa", e);
 				request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
 
-			}
+			}*/
 
 		} else {
 			String msg = "";

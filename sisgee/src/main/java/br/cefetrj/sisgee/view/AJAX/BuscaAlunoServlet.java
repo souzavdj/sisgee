@@ -44,7 +44,7 @@ public class BuscaAlunoServlet extends HttpServlet {
                 String idTermoEstagioAtivo = "";
 		
 		Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
-		if(aluno != null) {
+		/*if(aluno != null) {
 			Pessoa pessoa = aluno.getPessoa();
 			Curso curso = aluno.getCurso();
 			Campus campus = curso.getCampus();
@@ -86,7 +86,7 @@ public class BuscaAlunoServlet extends HttpServlet {
 		String jsonData = stWriter.toString();
 		
 		response.setContentType("application/json");
-		response.getWriter().print(jsonData);
+		response.getWriter().print(jsonData);*/
 	}
 
 }

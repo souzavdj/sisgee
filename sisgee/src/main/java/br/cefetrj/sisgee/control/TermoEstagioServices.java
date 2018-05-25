@@ -81,7 +81,7 @@ public class TermoEstagioServices {
 		 * 
 		 */
 
-		PersistenceManager.getTransaction().begin();
+		/*PersistenceManager.getTransaction().begin();
 		try{
 			
 			GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);
@@ -142,7 +142,7 @@ public class TermoEstagioServices {
 			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
-
+                */
 	}
 	
 	public static void alterarTermoEstagio(TermoEstagio termoEstagio) {
