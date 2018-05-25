@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,75 +10,83 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class ProfessorOrientador {
+public class ProfessorOrientador implements Serializable {
 
-	@Id
-	@GeneratedValue
-	private Integer idProfessorOrientador;
-	
-	@Column(length = 80, nullable = false)
-	private String nomeProfessorOrientador;
+    private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "professorOrientador")
-	private List<TermoEstagio> termoEstagios;
+    @Id
+    @GeneratedValue
+    private Integer idProfessorOrientador;
 
-	public ProfessorOrientador() {}
-	
-	public ProfessorOrientador(Integer idProfessorOrientador) {
-		this.idProfessorOrientador = idProfessorOrientador;
-	}
-	
-	public Integer getIdProfessorOrientador() {
-		return idProfessorOrientador;
-	}
+    @Column(length = 80, nullable = false)
+    private String nomeProfessorOrientador;
 
-	public void setIdProfessorOrientador(Integer idProfessorOrientador) {
-		this.idProfessorOrientador = idProfessorOrientador;
-	}
+    @OneToMany(mappedBy = "professorOrientador")
+    private List<TermoEstagio> termoEstagios;
 
-	public String getNomeProfessorOrientador() {
-		return nomeProfessorOrientador;
-	}
+    public ProfessorOrientador() {
+    }
 
-	public void setNomeProfessorOrientador(String nomeProfessorOrientador) {
-		this.nomeProfessorOrientador = nomeProfessorOrientador;
-	}
+    public ProfessorOrientador(Integer idProfessorOrientador) {
+        this.idProfessorOrientador = idProfessorOrientador;
+    }
 
-	public List<TermoEstagio> getTermoEstagios() {
-		return termoEstagios;
-	}
+    public Integer getIdProfessorOrientador() {
+        return idProfessorOrientador;
+    }
 
-	public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
-		this.termoEstagios = termoEstagios;
-	}
+    public void setIdProfessorOrientador(Integer idProfessorOrientador) {
+        this.idProfessorOrientador = idProfessorOrientador;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idProfessorOrientador == null) ? 0 : idProfessorOrientador.hashCode());
-		return result;
-	}
+    public String getNomeProfessorOrientador() {
+        return nomeProfessorOrientador;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProfessorOrientador other = (ProfessorOrientador) obj;
-		if (idProfessorOrientador == null) {
-			if (other.idProfessorOrientador != null)
-				return false;
-		} else if (!idProfessorOrientador.equals(other.idProfessorOrientador))
-			return false;
-		return true;
-	}
+    public void setNomeProfessorOrientador(String nomeProfessorOrientador) {
+        this.nomeProfessorOrientador = nomeProfessorOrientador;
+    }
 
-	@Override
-	public String toString() {
-		return nomeProfessorOrientador;
-	}
+    public List<TermoEstagio> getTermoEstagios() {
+        return termoEstagios;
+    }
+
+    public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
+        this.termoEstagios = termoEstagios;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idProfessorOrientador == null) ? 0 : idProfessorOrientador.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ProfessorOrientador other = (ProfessorOrientador) obj;
+        if (idProfessorOrientador == null) {
+            if (other.idProfessorOrientador != null) {
+                return false;
+            }
+        } else if (!idProfessorOrientador.equals(other.idProfessorOrientador)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return nomeProfessorOrientador;
+    }
 }

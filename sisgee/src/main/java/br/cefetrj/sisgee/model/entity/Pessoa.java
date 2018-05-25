@@ -15,20 +15,20 @@ import javax.persistence.OneToOne;
  * @author paducantuaria
  * @since 1.0
  */
-@MappedSuperclass
+//@MappedSuperclass
 public class Pessoa {
 
-    @Id
-    @GeneratedValue
+    //@Id
+    //@GeneratedValue
     private Long idPessoa;
 
-    @Column(length = 255)
+    //@Column(length = 255)
     private String email;
 
-    @Column(length = 15)
+    //@Column(length = 15)
     private String telefone;
     
-    @OneToOne(mappedBy = "conveniado")
+    //@OneToOne(mappedBy = "conveniado")
     private Convenio convenioPessoa;
     
     /*@OneToMany(mappedBy = "pessoa")

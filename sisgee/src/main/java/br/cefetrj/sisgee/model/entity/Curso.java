@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,98 +12,106 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- * 
+ *
  * @author Paulo Cantuária
  * @since 1.0
  */
 @Entity
-public class Curso {
-	
-	@Id
-	@GeneratedValue
-	private Integer idCurso;
-	
-	@Column(length=50, nullable=false)
-	private String codigoCurso;
+public class Curso implements Serializable {
 
-	@Column(length=255, nullable=false)
-	private String nomeCurso;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	private Campus campus;
-		
-	@OneToMany(mappedBy="curso")
-	private List<Aluno> alunos;
+    private static final long serialVersionUID = 1L;
 
-	public Curso() {}	
+    @Id
+    @GeneratedValue
+    private Integer idCurso;
 
-	public Integer getIdCurso() {
-		return idCurso;
-	}
+    @Column(length = 50, nullable = false)
+    private String codigoCurso;
 
-	public void setIdCurso(Integer idCurso) {
-		this.idCurso = idCurso;
-	}
+    @Column(length = 255, nullable = false)
+    private String nomeCurso;
 
-	public String getCodigoCurso() {
-		return codigoCurso;
-	}
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Campus campus;
 
-	public void setCodigoCurso(String codigoCurso) {
-		this.codigoCurso = codigoCurso;
-	}
+    @OneToMany(mappedBy = "curso")
+    private List<Aluno> alunos;
 
-	public String getNomeCurso() {
-		return nomeCurso;
-	}
+    public Curso() {
+    }
 
-	public void setNomeCurso(String nomeCurso) {
-		this.nomeCurso = nomeCurso;
-	}
+    public Integer getIdCurso() {
+        return idCurso;
+    }
 
-	public Campus getCampus() {
-		return campus;
-	}
+    public void setIdCurso(Integer idCurso) {
+        this.idCurso = idCurso;
+    }
 
-	public void setCampus(Campus campus) {
-		this.campus = campus;
-	}
+    public String getCodigoCurso() {
+        return codigoCurso;
+    }
 
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
+    public void setCodigoCurso(String codigoCurso) {
+        this.codigoCurso = codigoCurso;
+    }
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
-	}
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idCurso == null) ? 0 : idCurso.hashCode());
-		return result;
-	}
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Curso other = (Curso) obj;
-		if (idCurso == null) {
-			if (other.idCurso != null)
-				return false;
-		} else if (!idCurso.equals(other.idCurso))
-			return false;
-		return true;
-	}
+    public Campus getCampus() {
+        return campus;
+    }
 
-	@Override
-	public String toString() {
-		return nomeCurso;
-	}
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idCurso == null) ? 0 : idCurso.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Curso other = (Curso) obj;
+        if (idCurso == null) {
+            if (other.idCurso != null) {
+                return false;
+            }
+        } else if (!idCurso.equals(other.idCurso)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return nomeCurso;
+    }
 }

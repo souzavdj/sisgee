@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,77 +10,85 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * 
+ *
  * @author Paulo Cantuária
  * @since 1.0
  *
  */
 @Entity
-public class Campus {
+public class Campus implements Serializable {
 
-	@Id
-	@GeneratedValue
-	private Integer idCampus;
+    private static final long serialVersionUID = 1L;
 
-	@Column(length = 100, nullable = false, unique = true)
-	private String nomeCampus;
+    @Id
+    @GeneratedValue
+    private Integer idCampus;
 
-	@OneToMany(mappedBy = "campus")
-	private List<Curso> cursos;
+    @Column(length = 100, nullable = false, unique = true)
+    private String nomeCampus;
 
-	public Campus() {}
+    @OneToMany(mappedBy = "campus")
+    private List<Curso> cursos;
 
-	public Integer getIdCampus() {
-		return idCampus;
-	}
+    public Campus() {
+    }
 
-	public void setIdCampus(Integer idCampus) {
-		this.idCampus = idCampus;
-	}
+    public Integer getIdCampus() {
+        return idCampus;
+    }
 
-	public String getNomeCampus() {
-		return nomeCampus;
-	}
+    public void setIdCampus(Integer idCampus) {
+        this.idCampus = idCampus;
+    }
 
-	public void setNomeCampus(String nomeCampus) {
-		this.nomeCampus = nomeCampus;
-	}
+    public String getNomeCampus() {
+        return nomeCampus;
+    }
 
-	public List<Curso> getCursos() {
-		return cursos;
-	}
+    public void setNomeCampus(String nomeCampus) {
+        this.nomeCampus = nomeCampus;
+    }
 
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
-	}
+    public List<Curso> getCursos() {
+        return cursos;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idCampus == null) ? 0 : idCampus.hashCode());
-		return result;
-	}
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Campus other = (Campus) obj;
-		if (idCampus == null) {
-			if (other.idCampus != null)
-				return false;
-		} else if (!idCampus.equals(other.idCampus))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idCampus == null) ? 0 : idCampus.hashCode());
+        return result;
+    }
 
-	@Override
-	public String toString() {
-		return nomeCampus;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Campus other = (Campus) obj;
+        if (idCampus == null) {
+            if (other.idCampus != null) {
+                return false;
+            }
+        } else if (!idCampus.equals(other.idCampus)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return nomeCampus;
+    }
 }

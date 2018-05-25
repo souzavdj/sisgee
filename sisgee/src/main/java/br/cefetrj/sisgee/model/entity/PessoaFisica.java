@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
  *
  * @author vinicius
  */
-@Entity
+//@Entity
 public class PessoaFisica extends Pessoa implements Serializable{
     
     @Column(length = 100, nullable = false)
