@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,104 +13,122 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- * 
+ *
  * @author Paulo Cantuaria
  * @since 1.0
  *
  */
 @Entity
-public class Aluno {
+public class Aluno implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue
+    private Integer idAluno;
 
-	@Id
-	@GeneratedValue
-	private Integer idAluno;
+    @Column(length = 100, nullable = false, unique = true)
+    private String matricula;
 
-	@Column(length = 100, nullable = false, unique = true)
-	private String matricula;
+    /*@ManyToOne(fetch = FetchType.EAGER)
+	private Pessoa pessoa;*/
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Curso curso;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
+    @OneToMany(mappedBy = "aluno")
+    private List<TermoEstagio> termoEstagios;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	private Curso curso;
+    @Column(length = 100, nullable = false)
+    private String nome;
 
-	@OneToMany(mappedBy = "aluno")
-	private List<TermoEstagio> termoEstagios;
+    public Aluno() {
+    }
 
-	public Aluno() {}
+    public Aluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
 
-	public Aluno(Integer idAluno) {
-		this.idAluno = idAluno;
-	}
+    public Integer getIdAluno() {
+        return idAluno;
+    }
 
-	public Integer getIdAluno() {
-		return idAluno;
-	}
+    public void setIdAluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
 
-	public void setIdAluno(Integer idAluno) {
-		this.idAluno = idAluno;
-	}
+    public String getMatricula() {
+        return matricula;
+    }
 
-	public String getMatricula() {
-		return matricula;
-	}
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-	public Pessoa getPessoa() {
+    /*public Pessoa getPessoa() {
 		return pessoa;
 	}
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
-	}
+	}*/
+    public Curso getCurso() {
+        return curso;
+    }
 
-	public Curso getCurso() {
-		return curso;
-	}
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
+    public List<TermoEstagio> getTermoEstagios() {
+        return termoEstagios;
+    }
 
-	public List<TermoEstagio> getTermoEstagios() {
-		return termoEstagios;
-	}
+    public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
+        this.termoEstagios = termoEstagios;
+    }
 
-	public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
-		this.termoEstagios = termoEstagios;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idAluno == null) ? 0 : idAluno.hashCode());
-		return result;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Aluno other = (Aluno) obj;
-		if (idAluno == null) {
-			if (other.idAluno != null)
-				return false;
-		} else if (!idAluno.equals(other.idAluno))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idAluno == null) ? 0 : idAluno.hashCode());
+        return result;
+    }
 
-	@Override
-	public String toString() {
-		return matricula;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Aluno other = (Aluno) obj;
+        if (idAluno == null) {
+            if (other.idAluno != null) {
+                return false;
+            }
+        } else if (!idAluno.equals(other.idAluno)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return matricula;
+    }
 
 }

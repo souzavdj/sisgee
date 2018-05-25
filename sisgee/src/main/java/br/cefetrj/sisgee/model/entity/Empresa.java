@@ -19,27 +19,27 @@ import org.apache.log4j.Logger;
  * @since 1.0
  * 
  */
-@Entity
+//@Entity
 public class Empresa extends Pessoa implements Serializable{
         
-	@Id
-	@GeneratedValue
+	//@Id
+	//@GeneratedValue
 	private Integer idEmpresa;
 
-	@Column(length = 14, nullable = false, unique = true)
+	//@Column(length = 14, nullable = false, unique = true)
 	private String cnpjEmpresa;
 
-	@Column(length = 100, nullable = false, unique = true)
+	//@Column(length = 100, nullable = false, unique = true)
 	private String nomeEmpresa;
         
-        @Column(nullable = false)
+        //@Column(nullable = false)
 	private boolean isAgenteIntegracao;
         
-        @Column(length = 100)
+        //@Column(length = 100)
         private String pessoaContato;
 
-        @JsonbTransient
-	@OneToMany(mappedBy = "empresa")
+        //@JsonbTransient
+	//@OneToMany(mappedBy = "empresa")
 	private List<Convenio> convenios;
 
 	
