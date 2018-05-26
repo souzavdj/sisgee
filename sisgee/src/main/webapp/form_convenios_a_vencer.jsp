@@ -22,20 +22,29 @@
                             <th>Vigência</th>
                             <th>Convênio</th>
                             <th>CNPJ/CPF</th>
+                            <th>Razão Social/Nome</th>
                             <th> E-mail </th>
                             <th> Telefone</th>
                             <th> Pessoa de contato</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Vigência</td>
-                            <td>Convênio</td>
-                            <td>CNPJ/CPF</td>
-                            <td>E-mail </td>
-                            <td>Telefone</td>
-                            <td>Pessoa de contato</td>
-                        </tr>
+                        <c:if test="${not empty ListaConveniosAVencer}">
+                            <c:forEach items="${ListaConveniosAVencer}" var="conv">
+                                <tr>
+                                    <td>${conv.dataAssinatura}</td>
+                                    <td>${conv.numeroConvenio}</td>
+                                    <td>${conv.cpf_cnpj}</td>
+                                    <td>${conv.nomeConveniado}</td>
+                                    <td>${conv.email}</td>
+                                    <td>${conv.telefone}</td>
+                                    <td>${conv.pessoaContato}</td>
+                                   
+                                </tr>
+                                
+                                
+                            </c:forEach>
+                        </c:if>
                         
                     </tbody>
                 </table>
