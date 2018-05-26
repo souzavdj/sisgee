@@ -33,14 +33,23 @@ public class Aluno implements Serializable{
     /*@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;*/
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Curso curso;
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    private Curso curso;*/
 
     @OneToMany(mappedBy = "aluno")
     private List<TermoEstagio> termoEstagios;
 
     @Column(length = 100, nullable = false)
     private String nome;
+    
+    @Column(length = 100, nullable = false)
+    private String nomeCampus;
+    
+    @Column(length = 50, nullable = false)
+    private String codigoCurso;
+
+    @Column(length = 255, nullable = false)
+    private String nomeCurso;
 
     public Aluno() {
     }
@@ -71,14 +80,14 @@ public class Aluno implements Serializable{
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
-	}*/
+	}
     public Curso getCurso() {
         return curso;
     }
 
     public void setCurso(Curso curso) {
         this.curso = curso;
-    }
+    }*/
 
     public List<TermoEstagio> getTermoEstagios() {
         return termoEstagios;
@@ -96,6 +105,32 @@ public class Aluno implements Serializable{
         this.nome = nome;
     }
 
+    public String getNomeCampus() {
+        return nomeCampus;
+    }
+
+    public void setNomeCampus(String nomeCampus) {
+        this.nomeCampus = nomeCampus;
+    }
+
+    public String getCodigoCurso() {
+        return codigoCurso;
+    }
+
+    public void setCodigoCurso(String codigoCurso) {
+        this.codigoCurso = codigoCurso;
+    }
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+    
+    
+    
     @Override
     public int hashCode() {
         final int prime = 31;

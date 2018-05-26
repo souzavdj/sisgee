@@ -15,20 +15,20 @@ import javax.persistence.OneToMany;
  * @since 1.0
  *
  */
-@Entity
+//@Entity
 public class Campus implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
+    //@Id
+    //@GeneratedValue
     private Integer idCampus;
 
-    @Column(length = 100, nullable = false, unique = true)
+    //@Column(length = 100, nullable = false, unique = true)
     private String nomeCampus;
 
-    @OneToMany(mappedBy = "campus")
-    private List<Curso> cursos;
+    //@OneToMany(mappedBy = "campus")
+    //private List<Curso> cursos;
 
     public Campus() {
     }
@@ -48,7 +48,7 @@ public class Campus implements Serializable {
     public void setNomeCampus(String nomeCampus) {
         this.nomeCampus = nomeCampus;
     }
-
+/*
     public List<Curso> getCursos() {
         return cursos;
     }
@@ -56,7 +56,7 @@ public class Campus implements Serializable {
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-
+*/
     @Override
     public int hashCode() {
         final int prime = 31;

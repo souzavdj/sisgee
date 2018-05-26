@@ -38,8 +38,8 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
     
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    
-		Date dataInicio = (Date) request.getAttribute("dataInicio");
-		Date dataTermino = (Date) request.getAttribute("dataTermino");    	
+        Date dataInicio = (Date) request.getAttribute("dataInicio");
+        Date dataTermino = (Date) request.getAttribute("dataTermino");    	
     	Boolean estagioObrig = (Boolean) request.getAttribute("estagioObrig");
     	Boolean estagioNaoObrig = (Boolean) request.getAttribute("estagioNaoObrig");
     	
@@ -47,10 +47,10 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
     	Locale locale = (Locale) request.getAttribute("Locale");
 
     	
-		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 		
     	System.out.println(dataInicio);
-		System.out.println(dataTermino);
+	System.out.println(dataTermino);
     	System.out.println(estagioObrig);
     	System.out.println(estagioNaoObrig);
 		
@@ -59,20 +59,26 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
     	List<Object []> termosAditivoLista = null;
     	
     	if(estagioObrig == true && estagioNaoObrig == true) {
-    		termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(null, dataInicio , dataTermino);
-    		termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(null, dataInicio, dataTermino);
+    		termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
+                termosEstagioLista.addAll(TermoEstagioServices.listarTermoEstagioFiltrado(false, dataInicio , dataTermino));
+                System.out.println("Ambos Obrigatorio Vinicius Termos: "+termosEstagioLista.size());
+    		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(null, dataInicio, dataTermino);
     	}else {
     		
     		if(estagioObrig == true && estagioNaoObrig == false) {
-    			termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(true, dataInicio , dataTermino);
-        		termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(true, dataInicio, dataTermino);
+                    System.out.println("br.cefetrj.sisgee.view.relatorio.BuscaRelatorioConsolidadoServlet.service()");
+                    termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
+                    System.out.println("Obrigatorio Vinicius Termos: "+termosEstagioLista.size());  
+                        
+                    
+        		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(true, dataInicio, dataTermino);
 
     		}
     		
     		if(estagioObrig == false && estagioNaoObrig == true) {
-    			termosEstagioLista = TermoEstagioServices.listarTermoEstagioFiltrado(false, dataInicio , dataTermino);
-        		termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(false, dataInicio, dataTermino);
-
+    			termosEstagioLista = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
+        		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(false, dataInicio, dataTermino);
+                        System.out.println("Nao Obrigatorio Vinicius Termos: "+termosEstagioLista.size());
     		}
     	}
     	
