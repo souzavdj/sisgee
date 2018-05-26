@@ -7,6 +7,7 @@
 		<title>
 			<fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.title"/>	
 		</title>
+                
 	</head>
 	
 	<body>
@@ -77,9 +78,14 @@
 							${ msgCheckEstagio }
 						</div>
 					</c:if>
-					</div>				
+					</div>
+                                        
+                                        <div align="right">                        
+                                            <button type="submit" class="btn btn-primary"><fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.btn_pesquisar" /></button>
+                                            <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+                                        </div>
 				</fieldset>
-				<button type="submit" class="btn btn-primary"><fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.btn_pesquisar" /></button>
+				
 			</form>
 			<c:if test="${ not empty msgRelatorio }">
 						<div class="alert alert-warning" role="alert">

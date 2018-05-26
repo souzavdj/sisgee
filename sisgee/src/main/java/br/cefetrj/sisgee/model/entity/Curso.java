@@ -16,25 +16,25 @@ import javax.persistence.OneToMany;
  * @author Paulo Cantuária
  * @since 1.0
  */
-@Entity
+//@Entity
 public class Curso implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
+    //@Id
+    //@GeneratedValue
     private Integer idCurso;
 
-    @Column(length = 50, nullable = false)
+    //@Column(length = 50, nullable = false)
     private String codigoCurso;
 
-    @Column(length = 255, nullable = false)
+    //@Column(length = 255, nullable = false)
     private String nomeCurso;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    //@ManyToOne(fetch = FetchType.EAGER)
     private Campus campus;
 
-    @OneToMany(mappedBy = "curso")
+    //@OneToMany(mappedBy = "curso")
     private List<Aluno> alunos;
 
     public Curso() {

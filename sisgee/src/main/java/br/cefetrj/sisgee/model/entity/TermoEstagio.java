@@ -77,7 +77,16 @@ public class TermoEstagio implements Serializable {
 
     @Column(nullable = false)
     private Boolean eEstagioObrigatorio;
-
+    
+    @Column(length = 100, nullable = false)
+    private String nomeSupervisor;
+    
+    @Column(length = 50)
+    private String cargoSupervisor;
+    
+    @Column(length = 50)
+    private String motivoAditivo;
+    
     @JsonbTransient
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
@@ -125,6 +134,28 @@ public class TermoEstagio implements Serializable {
         this.cidadeEnderecoTermoEstagio = cidadeEnderecoTermoEstagio;
         this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
         this.eEstagioObrigatorio = eEstagioObrigatorio;
+        this.aluno = aluno;
+        this.convenio = convenio;
+        this.professorOrientador = professorOrientador;
+    }
+
+    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String numeroEnderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
+        this.dataInicioTermoEstagio = dataInicioTermoEstagio;
+        this.dataFimTermoEstagio = dataFimTermoEstagio;
+        this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
+        this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
+        this.valorBolsa = valorBolsa;
+        this.enderecoTermoEstagio = enderecoTermoEstagio;
+        this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
+        this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
+        this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
+        this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
+        this.cidadeEnderecoTermoEstagio = cidadeEnderecoTermoEstagio;
+        this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
+        this.eEstagioObrigatorio = eEstagioObrigatorio;
+        this.nomeSupervisor = nomeSupervisor;
+        this.cargoSupervisor = cargoSupervisor;
+        this.motivoAditivo = motivoAditivo;
         this.aluno = aluno;
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
@@ -264,6 +295,54 @@ public class TermoEstagio implements Serializable {
 
     public void setProfessorOrientador(ProfessorOrientador professorOrientador) {
         this.professorOrientador = professorOrientador;
+    }
+
+    public Boolean geteEstagioObrigatorio() {
+        return eEstagioObrigatorio;
+    }
+
+    public void seteEstagioObrigatorio(Boolean eEstagioObrigatorio) {
+        this.eEstagioObrigatorio = eEstagioObrigatorio;
+    }
+
+    public String getNomeSupervisor() {
+        return nomeSupervisor;
+    }
+
+    public void setNomeSupervisor(String nomeSupervisor) {
+        this.nomeSupervisor = nomeSupervisor;
+    }
+
+    public String getCargoSupervisor() {
+        return cargoSupervisor;
+    }
+
+    public void setCargoSupervisor(String cargoSupervisor) {
+        this.cargoSupervisor = cargoSupervisor;
+    }
+
+    public TermoEstagio getTermoEstagioAditivo() {
+        return termoEstagioAditivo;
+    }
+
+    public void setTermoEstagioAditivo(TermoEstagio termoEstagioAditivo) {
+        this.termoEstagioAditivo = termoEstagioAditivo;
+    }
+
+    public List<TermoEstagio> getTermosAditivos() {
+        return termosAditivos;
+    }
+
+    public void setTermosAditivos(List<TermoEstagio> termosAditivos) {
+        this.termosAditivos = termosAditivos;
+    }
+
+    public String getMotivoAditivo() {
+        return motivoAditivo;
+    }
+
+    public void setMotivoAditivo(String motivoAditivo) {
+        this.motivoAditivo = motivoAditivo;
     }
 /*
     public List<TermoAditivo> getTermosAditivos() {
