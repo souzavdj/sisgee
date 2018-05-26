@@ -26,24 +26,28 @@
 			<fieldset class="form-group">
 				
 				<div class="form-row" >
-                                    
-                                   
-
                                     <div class="custom-controls-stacked d-block my-3">
                                             <label for="Tipo"><fmt:message key="br.cefetrj.sisgee.form_convenio.msg_tipo_de_pessoa" /></label>
                                             <label class="custom-control custom-radio"> 
-                                                    <input id="Juridica" name="tipoPessoa" type="radio" class="custom-control-input" required value = "true" > 
+                                                    <input id="Juridica" name="tipoPessoa" type="radio" class="custom-control-input TipoPessoa ${ not empty tipoPessoaMsg ? 'is-invalid' : '' }" required value = "JU" ${ not empty tipoPessoaMsg ? '' : param.tipoPessoaMsg == 'JU' ? 'checked' : '' }> 
                                                     <span class="custom-control-indicator"></span> 
                                                     <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_juridica"/></span>
                                             </label> 
                                             <label class="custom-control custom-radio"> 
-                                                    <input id="Fisica" name="tipoPessoa" type="radio" class="custom-control-input" required value = "false" > 
+                                                    <input id="Fisica" name="tipoPessoa" type="radio" class="custom-control-input TipoPessoa ${ not empty tipoPessoaMsg ? 'is-invalid' : '' }" required value = "FI" ${ not empty tipoPessoaMsg ? '' : param.tipoPessoaMsg == 'FI' ? 'checked' : '' }> 
                                                     <span class="custom-control-indicator"></span> 
                                                     <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_fisica"/></span>
                                             </label>
+                                            
+                                            <c:if test="${ not empty tipoPessoaMsg }">
+                                                <div class="invalid-feedback">${ tipoPessoaMsg }</div>
+                                            </c:if>
                                     </div>
                                             
+                                         
+                                            
                                 </div>
+                                            
 				
                         </fieldset>
 					

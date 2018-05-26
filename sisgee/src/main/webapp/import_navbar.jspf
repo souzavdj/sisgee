@@ -51,12 +51,13 @@
 					<fmt:message key = "br.cefetrj.sisgee.resources.form.relatorios"/>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="relatorio_consolidado.jsp">
-						<fmt:message key = "br.cefetrj.sisgee.resources.form.relatorioConsolidado"/>
-					</a>
-                                        <a class="dropdown-item" href="form_convenios_a_vencer.jsp">
+                                        <a class="dropdown-item" href="ConveniosVencerServlet">
 						<fmt:message key = "br.cefetrj.sisgee.resources.form.conveniosAVencer"/>
 					</a>
+                                        <a class="dropdown-item" href="relatorio_consolidado.jsp">
+						<fmt:message key = "br.cefetrj.sisgee.resources.form.relatorioConsolidado"/>
+					</a>
+                                        
 				</div>
 			</li>
 		</ul>
