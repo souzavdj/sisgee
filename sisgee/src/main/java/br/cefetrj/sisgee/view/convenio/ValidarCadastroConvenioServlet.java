@@ -31,7 +31,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
      * @throws IOException 
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     
                 Locale locale = ServletUtils.getLocale(req);
 		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
