@@ -53,7 +53,7 @@
                         </div>
 
 
-
+                        <div class=" isBusca Busca" ${ empty param.isAgenteIntegracao ? "style='display:none'" : param.isAgenteIntegracao == "nao" ? "style='display:none'" : "" }>        
                         <button id="btnListarConvenios" type="button" onclick="document.forms['dadosAluno'].submit()" class="btn btn-secondary" disabled="true"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>        
                         <table class="table table-striped">
                             <thead>
@@ -74,10 +74,7 @@
                                     </tr>
                                 </c:forEach>
                         </table>
-
-
-
-
+                        </div>
                         <div align='center'>
                             <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_cancelar"/></button>
                         </div>
