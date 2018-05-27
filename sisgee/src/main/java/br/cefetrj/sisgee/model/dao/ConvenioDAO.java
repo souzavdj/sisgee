@@ -23,10 +23,18 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 	}
         /**
          * Metodo que faz uma query que busca na tabela do convenio um convenio com um nome de conveniado especifico.
-         * @param nome o nome do conveniado ligado ao objeto convenio
+         * @param nome  nome do conveniado ligado ao objeto convenio
          * @return Um unico Convenio com o nome do conveniado utilizado como parametro.Caso não exista retorna um null.
          */
         public Convenio buscarByNomeConveniado(String nome){
             return (Convenio) manager.createQuery("SELECT c FROM Convenio c WHERE c.nomeConveniado = :nome").setParameter("nome",nome).getSingleResult();
+        }
+        /**
+         * Metodo que faz uma query de busca de um convenio com número específico do banco de dados.
+         * @param numero numero do convenio
+         * @return Um convenio de um numero especifico
+         */
+        public Convenio buscarByNumero(String numero){
+            return (Convenio) manager.createQuery("SELECT c FROM Convenio c WHERE c.numeroConvenio = :numero").setParameter("numero",numero).getSingleResult();
         }
 }
