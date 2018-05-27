@@ -9,7 +9,8 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
- * Serviços de Convenios.Trata a lógica de negócios associada com a entidade Convênio.
+ * Serviços de Convenios. 
+ * Trata a lógica de negócios associada com a entidade Convênio.
  * 
  * @author Paulo Cantuária
  * @since 1.0
