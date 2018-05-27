@@ -9,8 +9,7 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
- * Serviços de alunos. Trata a lógica de negócios
- * associada com a entidade Convênio.
+ * Serviços de Convenios.Trata a lógica de negócios associada com a entidade Convênio.
  * 
  * @author Paulo Cantuária
  * @since 1.0
@@ -26,12 +25,19 @@ public class ConvenioServices {
 		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
 		return convenioDao.buscarTodos();
 	}
-	
+	/**
+         * Serviço que busca um convenio atraves do seu id no banco de dados
+         * @param convenio
+         * @return o objeto convenio encontrado ou null caso não encontre.
+         */
 	public static Convenio buscarConvenio(Convenio convenio) {
 		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
 		return convenioDao.buscar(convenio.getIdConvenio());
 	}
-	
+	/**
+         * Serviço que inclui no banco de dados um convenio 
+         * @param convenio 
+         */
 	public static void incluirConvenio(Convenio convenio){
 		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);		
 		PersistenceManager.getTransaction().begin();
@@ -52,4 +58,18 @@ public class ConvenioServices {
 			return null;
 		}
 	}
+        /**
+         * 
+         * @param nomeConveniado que representa o nome da pessoa fisica ou a razão social da pessoa juridica. 
+         * @return Um unico Convenio com o nome do conveniado utilizado como parametro.Caso não exista retorna um null.
+         */
+        public static Convenio buscarConvenioByNomeConveniado(String nomeConveniado){
+            ConvenioDAO convenioDao = new ConvenioDAO();
+            try{
+                Convenio c= convenioDao.buscarByNomeConveniado(nomeConveniado);
+                return c;
+            }catch(Exception e){
+                return null;
+            }
+        }
 }
