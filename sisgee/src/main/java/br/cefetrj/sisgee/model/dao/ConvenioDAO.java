@@ -32,7 +32,7 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
         /**
          * Metodo que faz uma query de busca de um convenio com número específico do banco de dados.
          * @param numero numero do convenio
-         * @return Um convenio de um numero especifico
+         * @return Um convenio de um numero especifico ou null caso não seja encontrado.
          */
         public Convenio buscarByNumero(String numero){
             return (Convenio) manager.createQuery("SELECT c FROM Convenio c WHERE c.numeroConvenio = :numero").setParameter("numero",numero).getSingleResult();
