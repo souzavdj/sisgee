@@ -37,7 +37,7 @@
                             <div class="custom-controls-stacked" >
                                 <div class="form-inline">
                                     <label class="custom-control custom-radio"> 
-                                        <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk ${ not empty isEmpresaMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty isEmpresaMsg ? '' : param.isEmpresa == 'sim' ? 'checked' : '' } > 
+                                        <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk ${ not empty isEmpresaMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty isEmpresaMsg ? '' : param.isEmpresa == 'sim' ? 'checked' : '' } checked> 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                                     </label> 
@@ -54,7 +54,7 @@
 
                         </div>
 
-                        <div class="form-row isEM EM" ${ empty param.isEmpresa ? "style='display:none'" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>
+                        <div class="form-row isEM EM" ${ empty param.isEmpresa ? "" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>
                             <div class="form-inline" >
                                 <div class="form-group col-md-7" >
                                     <label for="agente"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_agente" /></label>
@@ -63,12 +63,12 @@
                                 <div class="custom-controls-stacked" >
                                     <div class="form-inline">
                                         <label class="custom-control custom-radio"> 
-                                            <input id="agenteSim" name="agente" type="radio" class="custom-control-input ${ not empty isAgenteMsg ? 'is-invalid' : '' }" value = "Sim" > 
+                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty isAgenteMsg ? 'is-invalid' : '' }" value = "Sim" > 
                                             <span class="custom-control-indicator"></span> 
                                             <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_sim"/></span>
                                         </label> 
                                         <label class="custom-control custom-radio"> 
-                                            <input id="agenteNao" name="agente" type="radio" class="custom-control-input ${ not empty isAgenteMsg ? 'is-invalid' : '' }" value = "Não" checked> 
+                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty isAgenteMsg ? 'is-invalid' : '' }" value = "Não" checked> 
                                             <span class="custom-control-indicator"></span> 
                                             <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_nao"/></span>
                                         </label>
@@ -80,14 +80,14 @@
                             </div>
                         </div>
 
-                        <div class=" isEM EM" ${ empty param.isEmpresa ? "style='display:none'" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>
-                          <div class="form-group col-md-6">
+                        <div class=" isEM EM" ${ empty param.isEmpresa ? "" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>
+                            <div class="form-group col-md-6">
                                 <label for="cnpj_cpf">
 
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cnpj"/>
                                 </label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty cnpjCpfMsg ? 'is-invalid': 'is-valid' }" id="cnpj_cpf1" name="cnpj_cpf" maxlength="100" value="${ param.cnpj_cpf }">
+                                    <input type="text" class="form-control ${ not empty cnpjCpfMsg ? 'is-invalid': 'is-valid' }" id="cnpj" name="cnpj" maxlength="100" value="${ param.cnpj_cpf }">
 
                                     <c:if test="${ not empty cnpj_cpfMsg }">
                                         <div class="invalid-feedback">${ cnpj_cpfMsg }</div>
@@ -101,55 +101,14 @@
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_razaoSocial"/>
                                 </label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado1" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }">
+                                    <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="razaoSocial" name="razaoSocial" maxlength="100" value="${ param.nomeConveniado }">
                                     <c:if test="${ not empty nomeConveniadoMsg }">
                                         <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
                                     </c:if>
                                 </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="dataAssiatura"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_dataAssinatura"/></label>
-                                <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty dataAssinaturaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinatura1" name="dataAssinatura" maxlength="100" value="${ param.dataAssinatura }">
-
-                                    <c:if test="${ not empty dataAssinaturaMsg }">
-                                        <div class="invalid-feedback">${ dataAssinaturaMsg }</div>
-                                    </c:if>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="email"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_email"/></label>
-                                <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty emailMsg ? 'is-invalid': 'is-valid' }" id="email1" name="email" maxlength="100" value="${ param.email }">
-
-                                    <c:if test="${ not empty emailMsg }">
-                                        <div class="invalid-feedback">${ emailMsg }</div>
-                                    </c:if>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                <label for="telefone"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_telefone"/></label>
-                                <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty telefoneMsg? 'is-invalid': 'is-valid' }" id="telefoneMsg1" name="telefone" maxlength="100" value="${ param.telefone }">
-
-                                    <c:if test="${ not empty telefoneMsg }">
-                                        <div class="invalid-feedback">${ telefoneMsg }</div>
-                                    </c:if>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="pessoaContato"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_pessoaContato"/></label>
-                                <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty pessoaContatoMsg ? 'is-invalid': 'is-valid' }" id="pessoaCotato" name="pessoaContato" maxlength="100" value="${ param.pessoaContato }">
-
-                                    <c:if test="${ not empty pessoaContatoMsg }">
-                                        <div class="invalid-feedback">${ pessoaContatoMsg }</div>
-                                    </c:if>
-                                </div>
-                            </div>
                         </div>
-                        
+
                         <div class=" notEM EM" ${ empty param.isEmpresa ? "style='display:none'" : param.isEmpresa == "sim" ? "style='display:none'" : "" }>                
                             <div class="form-group col-md-6">
                                 <label for="cnpj_cpf">
@@ -157,7 +116,7 @@
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cpf"/>
                                 </label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty cnpjCpfMsg ? 'is-invalid': 'is-valid' }" id="cnpj_cpf" name="cnpj_cpf" maxlength="100" value="${ param.cnpj_cpf }">
+                                    <input type="text" class="form-control ${ not empty cnpjCpfMsg ? 'is-invalid': 'is-valid' }" id="cpf" name="cpf" maxlength="100" value="${ param.cnpj_cpf }">
 
                                     <c:if test="${ not empty cnpj_cpfMsg }">
                                         <div class="invalid-feedback">${ cnpj_cpfMsg }</div>
@@ -177,43 +136,68 @@
                                     </c:if>
                                 </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="dataAssiatura"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_dataAssinatura"/></label>
-                                <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty dataAssinaturaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinatura" name="dataAssinatura" maxlength="100" value="${ param.dataAssinatura }">
+                        </div>            
 
-                                    <c:if test="${ not empty dataAssinaturaMsg }">
-                                        <div class="invalid-feedback">${ dataAssinaturaMsg }</div>
-                                    </c:if>
-                                </div>
+                        <div class="form-group col-md-2">
+                            <label for="dataAssiatura"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_dataAssinatura"/></label>
+                            <div class="input-group">   
+                                <input type="text" class="form-control ${ not empty dataAssinaturaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinatura" name="dataAssinatura" maxlength="100" value="${ param.dataAssinatura }">
+
+                                <c:if test="${ not empty dataAssinaturaMsg }">
+                                    <div class="invalid-feedback">${ dataAssinaturaMsg }</div>
+                                </c:if>
                             </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_email"/></label>
+                            <div class="input-group">   
+                                <input type="text" class="form-control ${ not empty emailMsg ? 'is-invalid': 'is-valid' }" id="email" name="email" maxlength="100" value="${ param.email }">
+
+                                <c:if test="${ not empty emailMsg }">
+                                    <div class="invalid-feedback">${ emailMsg }</div>
+                                </c:if>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="telefone"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_telefone"/></label>
+                            <div class="input-group">   
+                                <input type="text" class="form-control ${ not empty telefoneMsg? 'is-invalid': 'is-valid' }" id="telefone" name="telefone" maxlength="100" value="${ param.telefone }">
+                                <c:if test="${ not empty telefoneMsg }">
+                                    <div class="invalid-feedback">${ telefoneMsg }</div>
+                                </c:if>
+                            </div>
+                        </div>
+
+
+
+                        <div class=" isEM EM" ${ empty param.isEmpresa ? "" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>            
                             <div class="form-group col-md-6">
-                                <label for="email"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_email"/></label>
+                                <label for="pessoaContato"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_pessoaContato"/></label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty emailMsg ? 'is-invalid': 'is-valid' }" id="email" name="email" maxlength="100" value="${ param.email }">
+                                    <input type="text" class="form-control ${ not empty pessoaContatoMsg ? 'is-invalid': 'is-valid' }" id="pessoaCotato" name="pessoaContato" maxlength="100" value="${ param.pessoaContato }">
 
-                                    <c:if test="${ not empty emailMsg }">
-                                        <div class="invalid-feedback">${ emailMsg }</div>
-                                    </c:if>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                <label for="telefone"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_telefone"/></label>
-                                <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty telefoneMsg? 'is-invalid': 'is-valid' }" id="telefoneMsg" name="telefone" maxlength="100" value="${ param.telefone }">
-
-                                    <c:if test="${ not empty telefoneMsg }">
-                                        <div class="invalid-feedback">${ telefoneMsg }</div>
+                                    <c:if test="${ not empty pessoaContatoMsg }">
+                                        <div class="invalid-feedback">${ pessoaContatoMsg }</div>
                                     </c:if>
                                 </div>
                             </div>
                         </div>
-                                    
+
+                        </div>
 
                     </fieldset>
                     <%@include file="import_footer.jspf"%>
                     <%@include file="import_finalbodyscripts.jspf"%>
                     <%@include file="import_scripts.jspf"%>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('#dataAssinatura').mask('99/99/9999');
+                            $('#cnpj').mask('99.999.999/9999-99');
+                            $('#cpf').mask('999.999.999-99');
+                            $('#telefone').mask('(21) 9999-9999');
+                        });
+                    </script>
                     </body>
                     </html>
