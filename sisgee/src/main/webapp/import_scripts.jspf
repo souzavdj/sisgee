@@ -162,6 +162,9 @@
 	    $('.isEmpresaChk').change(function(){
                 $('.EM').hide();
                 $(".EM input").val("");
+                $("#dataAssinatura").val("");
+                $("#email").val("");
+                $("#telefone").val("");
                 $(this).val() == 'sim' ? $('.isEM').show("slow"): $('.notEM').show("slow");
                 });
                 

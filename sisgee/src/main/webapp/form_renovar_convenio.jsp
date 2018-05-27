@@ -32,7 +32,7 @@
                     <fieldset class="form-group">
                         <div class="form-group col-md-6">
                             <label for="numConvenio"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_numConvenio"/></label>
-                            <input type="text" class="form-control ${ not empty numConvenio ? 'is-invalid': 'is-valid' }" id="numConvenio" name="numConvenio" required value="${ param.numConvenio }">
+                            <input type="text" class="form-control ${ not empty numConvenio ? 'is-invalid': 'is-valid' }" id="numConvenio" name="numConvenio" value="${ param.numConvenio }">
                             <c:if test="${ not empty numConvenio }">
                                 <div class="invalid-feedback">${ numConvenio }</div>
                             </c:if>
@@ -41,7 +41,7 @@
                         <div class="form-group col-md-6">
                             <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/></label>
                             <div class="input-group">   
-                                <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" required value="${ param.nomeConveniado }">
+                                <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }">
 
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>

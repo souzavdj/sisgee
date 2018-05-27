@@ -5,10 +5,12 @@
  */
 package br.cefetrj.sisgee.view.convenio;
 
+import javax.servlet.http.HttpServlet;
+
 /**
  *
  * @author denis
  */
-public class ValidaConvenioServlet {
+public class IncluirConvenioServlet extends HttpServlet {
     
 }

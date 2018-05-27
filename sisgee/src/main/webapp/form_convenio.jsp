@@ -10,6 +10,17 @@
     <html>
         <head>
             <%@include file="import_head.jspf"%>
+            <style type="text/css">
+                botoes{
+                    margin-right: 5px;
+                }
+                
+                div.container {
+                margin-bottom: 2em;
+            }
+           
+
+        </style>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title><fmt:message key="br.cefetrj.sisgee.form_convenio.msg_titulo" /></title>
         </head>
@@ -27,7 +38,7 @@
                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_titulo"/>
                 </h5>
 
-                <form action=ValidaConvenioServlet method="post" name="validaConvenio">
+                <form action=ValidaCadastroConvenioServlet method="post" name="validaConvenio">
                     <fieldset class="form-group">
                         <div class="form-inline" >
                             <div class="form-group col-md-3" >
@@ -51,7 +62,6 @@
                             <c:if test="${ not empty isEmpresaMsg }">
                                 <div class="invalid-feedback">${ isEmpresaMsg }</div>
                             </c:if>
-
                         </div>
 
                         <div class="form-row isEM EM" ${ empty param.isEmpresa ? "" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>
@@ -59,7 +69,6 @@
                                 <div class="form-group col-md-7" >
                                     <label for="agente"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_agente" /></label>
                                 </div>
-
                                 <div class="custom-controls-stacked" >
                                     <div class="form-inline">
                                         <label class="custom-control custom-radio"> 
@@ -82,10 +91,7 @@
 
                         <div class=" isEM EM" ${ empty param.isEmpresa ? "" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>
                             <div class="form-group col-md-6">
-                                <label for="cnpj_cpf">
-
-                                    <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cnpj"/>
-                                </label>
+                                <label for="cnpj"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cnpj"/></label>
                                 <div class="input-group">   
                                     <input type="text" class="form-control ${ not empty cnpjCpfMsg ? 'is-invalid': 'is-valid' }" id="cnpj" name="cnpj" maxlength="100" value="${ param.cnpj_cpf }">
 
@@ -95,9 +101,8 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group col-md-6">
-                                <label for="nomeConveniado">                                                                    
+                                <label for="razaoSocia">                                                                    
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_razaoSocial"/>
                                 </label>
                                 <div class="input-group">   
@@ -111,7 +116,7 @@
 
                         <div class=" notEM EM" ${ empty param.isEmpresa ? "style='display:none'" : param.isEmpresa == "sim" ? "style='display:none'" : "" }>                
                             <div class="form-group col-md-6">
-                                <label for="cnpj_cpf">
+                                <label for="cpf">
 
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cpf"/>
                                 </label>
@@ -124,13 +129,12 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group col-md-6">
-                                <label for="nomeConveniado">                                                                    
+                                <label for="nome">                                                                    
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_nome"/>
                                 </label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }">
+                                    <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="nome" name="nome" maxlength="100" value="${ param.nomeConveniado }">
                                     <c:if test="${ not empty nomeConveniadoMsg }">
                                         <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
                                     </c:if>
@@ -148,6 +152,7 @@
                                 </c:if>
                             </div>
                         </div>
+
                         <div class="form-group col-md-6">
                             <label for="email"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_email"/></label>
                             <div class="input-group">   
@@ -169,8 +174,6 @@
                             </div>
                         </div>
 
-
-
                         <div class=" isEM EM" ${ empty param.isEmpresa ? "" : param.isEmpresa == "nao" ? "style='display:none'" : "" }>            
                             <div class="form-group col-md-6">
                                 <label for="pessoaContato"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_pessoaContato"/></label>
@@ -183,21 +186,23 @@
                                 </div>
                             </div>
                         </div>
-
-                        </div>
-
+                                    <div align='right' id='botoes' class='botoes' >                
+                                        <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_salvar"/></button>                
+                                        <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cancelar"/></button>                
+                                    </div>
                     </fieldset>
-                    <%@include file="import_footer.jspf"%>
-                    <%@include file="import_finalbodyscripts.jspf"%>
-                    <%@include file="import_scripts.jspf"%>
-
-                    <script>
-                        $(document).ready(function () {
-                            $('#dataAssinatura').mask('99/99/9999');
-                            $('#cnpj').mask('99.999.999/9999-99');
-                            $('#cpf').mask('999.999.999-99');
-                            $('#telefone').mask('(21) 9999-9999');
-                        });
-                    </script>
-                    </body>
-                    </html>
+                </form>
+            </div>
+            <%@include file="import_footer.jspf"%>
+            <%@include file="import_finalbodyscripts.jspf"%>
+            <%@include file="import_scripts.jspf"%>
+            <script>
+                $(document).ready(function () {
+                    $('#dataAssinatura').mask('99/99/9999');
+                    $('#cnpj').mask('99.999.999/9999-99');
+                    $('#cpf').mask('999.999.999-99');
+                    $('#telefone').mask('(21) 9999-9999');
+                });
+            </script>
+        </body>
+    </html>
