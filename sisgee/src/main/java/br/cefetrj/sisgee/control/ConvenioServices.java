@@ -9,8 +9,8 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
- * Serviços de alunos. Trata a lógica de negócios
- * associada com a entidade Convênio.
+ * Serviços de Convenios. 
+ * Trata a lógica de negócios associada com a entidade Convênio.
  * 
  * @author Paulo Cantuária
  * @since 1.0
@@ -26,12 +26,19 @@ public class ConvenioServices {
 		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
 		return convenioDao.buscarTodos();
 	}
-	
+	/**
+         * Serviço que busca um convenio atraves do seu id no banco de dados
+         * @param convenio
+         * @return o objeto convenio encontrado ou null caso não encontre.
+         */
 	public static Convenio buscarConvenio(Convenio convenio) {
 		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
 		return convenioDao.buscar(convenio.getIdConvenio());
 	}
-	
+	/**
+         * Serviço que inclui no banco de dados um convenio 
+         * @param convenio convenio que será incluido
+         */
 	public static void incluirConvenio(Convenio convenio){
 		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);		
 		PersistenceManager.getTransaction().begin();
@@ -42,7 +49,6 @@ public class ConvenioServices {
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
-	
 	public static Convenio buscarConvenioByNumeroEmpresa(String numero, Empresa emp) {
 		ConvenioDAO convenioDao = new ConvenioDAO();
 		try{
@@ -51,5 +57,49 @@ public class ConvenioServices {
 		}catch(Exception e){
 			return null;
 		}
+	}
+        /**
+         * Serviço que busca no banco de dados um convenio atraves de seu número.
+         * @param numero convenio
+         * @return Um convenio de um numero especifico ou null caso não seja encontrado. 
+         */
+        public static Convenio buscarConvenioByNumero(String numero) {
+		ConvenioDAO convenioDao = new ConvenioDAO();
+		try{
+			Convenio c = convenioDao.buscarByNumero(numero);
+			return c;
+		}catch(Exception e){
+			return null;
+		}
+	}
+        /**
+         * Serviço que busca um Convenio com uma razão social ou o nome de pessoa fisica especifico no banco de dados
+         * @param nomeConveniado Representa o nome da pessoa fisica ou a razão social da pessoa juridica. 
+         * @return Um unico Convenio com o nome do conveniado utilizado como parametro.Caso não exista retorna um null.
+         */
+        public static Convenio buscarConvenioByNomeConveniado(String nomeConveniado){
+            ConvenioDAO convenioDao = new ConvenioDAO();
+            try{
+                Convenio c= convenioDao.buscarByNomeConveniado(nomeConveniado);
+                return c;
+            }catch(Exception e){
+                return null;
+            }
+        }
+        
+        /**
+         * Serviço que busca um Convenio com um CNPJ ou CPF do conveniado especifico no banco de dados
+         * @param cnpj_cpf Representa o CNPJ ou CPF do conveniado. 
+         * @return Um unico Convenio com o CNPJ ou CPF utilizado como parametro.Caso não exista retorna um null.
+         */
+        public static Convenio buscarConvenioByCnpj_Cpf(String cnpj_cpf) {
+		ConvenioDAO convenioDao = new ConvenioDAO();
+		try{
+			Convenio e = convenioDao.buscarByCnpj_Cpf(cnpj_cpf);
+			return e;
+		}catch(Exception e){
+			return null;
+		}
+		
 	}
 }

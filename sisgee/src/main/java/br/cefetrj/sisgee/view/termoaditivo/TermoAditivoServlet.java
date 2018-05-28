@@ -94,7 +94,7 @@ public class TermoAditivoServlet extends HttpServlet {
 		
 		if(termoEstagio != null) {
 			//TODO implementar lógica de encaminhamento para a tela de registro
-			termosAditivos = termoEstagio.getTermosAditivos();
+			//termosAditivos = termoEstagio.getTermosAditivos();
 			if(termosAditivos != null && !termosAditivos.isEmpty()) {
 				termoAditivo = termosAditivos.get(termosAditivos.size() - 1);
 			}

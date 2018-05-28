@@ -83,4 +83,3 @@
                 <%@include file="import_footer.jspf"%>
                 <%@include file="import_finalbodyscripts.jspf"%>
         </body>
-    </html>
