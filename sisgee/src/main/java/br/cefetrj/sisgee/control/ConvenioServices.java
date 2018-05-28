@@ -92,10 +92,10 @@ public class ConvenioServices {
          * @param cnpj_cpf Representa o CNPJ ou CPF do conveniado. 
          * @return Um unico Convenio com o CNPJ ou CPF utilizado como parametro.Caso não exista retorna um null.
          */
-        public static Convenio buscarConvenioByCnpj_Cpf(String cnpj_cpf) {
+        public static Convenio buscarConvenioByCpf_Cnpj(String cpf_cnpj) {
 		ConvenioDAO convenioDao = new ConvenioDAO();
 		try{
-			Convenio e = convenioDao.buscarByCnpj_Cpf(cnpj_cpf);
+			Convenio e = convenioDao.buscarByCpf_Cnpj(cpf_cnpj);
 			return e;
 		}catch(Exception e){
 			return null;

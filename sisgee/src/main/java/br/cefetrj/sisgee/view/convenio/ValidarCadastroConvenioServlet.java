@@ -82,14 +82,13 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         } else {
             tipoMsg = messages.getString(tipoMsg);
             req.setAttribute("tipoMsg", tipoMsg);
-            isValid = false;
+            isValid = false;         
         }
         
         /**
          * Caso seja pessoa jurídica
          */
-        if (Boolean.parseBoolean(tipo)) {
-            
+        if (tipo.equals("sim")) {            
             
             /**
              * Validação do campo Agente Integração, usando métodos da Classe
@@ -106,11 +105,13 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     agenteMsg = messages.getString(agenteMsg);
                     req.setAttribute("agenteMsg", agenteMsg);
                     isValid = false;
+                    
                 }
             } else {
                 agenteMsg = messages.getString(agenteMsg);
                 req.setAttribute("agenteMsg", agenteMsg);
                 isValid = false;
+                
             }
 
             /**
@@ -128,7 +129,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 if (cnpjMsg.trim().isEmpty()) {
                     cnpjMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpj);
                     if (cnpjMsg.trim().isEmpty()) {
-                        Convenio e = ConvenioServices.buscarConvenioByCnpj_Cpf(cnpj);
+                        Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cnpj);
                         if (e == null) {
                             if (!(cnpjMsg.trim().isEmpty())) {
                                 req.setAttribute("cnpj", cnpj);
@@ -137,22 +138,26 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                             cnpjMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
                             req.setAttribute("cnpjMsg", cnpjMsg);
                             isValid = false;
+                            
                         }
                     } else {
                         cnpjMsg = messages.getString(cnpjMsg);
                         cnpjMsg = ServletUtils.mensagemFormatada(cnpjMsg, locale, tamanho);
                         req.setAttribute("cnpjMsg", cnpjMsg);
                         isValid = false;
+                        
                     }
                 } else {
                     cnpjMsg = messages.getString(cnpjMsg);
                     req.setAttribute("cnpjMsg", cnpjMsg);
                     isValid = false;
+                    
                 }
             } else {
                 cnpjMsg = messages.getString(cnpjMsg);
                 req.setAttribute("cnpjMsg", cnpjMsg);
                 isValid = false;
+                
             }
 
             /**
@@ -173,12 +178,14 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         razaoSocialMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
                         req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                         isValid = false;
+                        
                     }
                 } else {
                     razaoSocialMsg = messages.getString(razaoSocialMsg);
                     razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
                     req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                     isValid = false;
+                    
                 }
             } else {
                 razaoSocialMsg = messages.getString(razaoSocialMsg);
@@ -221,7 +228,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 if (cpfMsg.trim().isEmpty()) {
                     cpfMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpf);
                     if (cpfMsg.trim().isEmpty()) {
-                        Convenio e = ConvenioServices.buscarConvenioByCnpj_Cpf(cpf);
+                        Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
                         if (e == null) {
                             req.setAttribute("cpf", cpf);
                         } else {

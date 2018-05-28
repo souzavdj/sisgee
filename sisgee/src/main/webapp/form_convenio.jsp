@@ -37,7 +37,7 @@
                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_titulo"/>
                 </h5>
 
-                <form action=ValidaCadastroConvenioServlet method="post" name="validaConvenio">
+                <form action=ValidarCadastroConvenioServlet method="post" name="validarConvenio">
                     <fieldset class="form-group">
                         <div class="form-inline" >
                             <div class="form-group col-md-3" >
@@ -71,19 +71,19 @@
                                 <div class="custom-controls-stacked" >
                                     <div class="form-inline">
                                         <label class="custom-control custom-radio"> 
-                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty isAgenteMsg ? 'is-invalid' : '' }" value = "Sim" > 
+                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty agenteMsg ? 'is-invalid' : '' }" value = "Sim" > 
                                             <span class="custom-control-indicator"></span> 
                                             <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_sim"/></span>
                                         </label> 
                                         <label class="custom-control custom-radio"> 
-                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty isAgenteMsg ? 'is-invalid' : '' }" value = "Não" checked> 
+                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty agenteMsg ? 'is-invalid' : '' }" value = "Não" checked> 
                                             <span class="custom-control-indicator"></span> 
                                             <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_nao"/></span>
                                         </label>
                                     </div>
                                 </div>
-                                <c:if test="${ not empty isAgenteMsg }">
-                                    <div class="invalid-feedback">${ isAgenteMsg }</div>
+                                <c:if test="${ not empty agenteMsg }">
+                                    <div class="invalid-feedback">${ agenteMsg }</div>
                                 </c:if>
                             </div>
                         </div>

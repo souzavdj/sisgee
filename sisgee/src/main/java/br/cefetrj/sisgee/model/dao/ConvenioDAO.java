@@ -22,10 +22,10 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 		    .getSingleResult();
 	}
         
-        public Convenio buscarByCnpj_Cpf(String cnpj_cpf){
+        public Convenio buscarByCpf_Cnpj(String cpf_cnpj){
 		return (Convenio) manager.createQuery(
-		    "SELECT e FROM Convenio e WHERE e.cnpj_cpf LIKE :cnpj_cpf")
-		    .setParameter("cnpj_cpf", cnpj_cpf)
+		    "SELECT e FROM Convenio e WHERE e.cpf_cnpj LIKE :cpf_cnpj")
+		    .setParameter("cnpj_cpf", cpf_cnpj)
 		    .getSingleResult();
 	}
         
