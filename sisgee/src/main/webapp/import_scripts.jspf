@@ -107,8 +107,8 @@
                         }
                         else{
                             $(".dadosAluno input:not([id=matricula])").val("");
-                            $("#myModalLabel").html("Aluno não encontrado");
-                            $(".modal-body").html("A matrícula não corresponde a um aluno cadastrado.");	        	
+                            $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.aluno_nao_encontrado"/>");
+                            $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_nao_encontrou_aluno"/>");	        	
                             $('#myModal').modal('show');	        	
                         }
                         if(typeof buscarAlunoCallback != 'undefined'){

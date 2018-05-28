@@ -720,14 +720,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 	
 	private static HttpServletRequest carregarListas(HttpServletRequest request) {
 		
-		List<AgenteIntegracao> agentesIntegracao = AgenteIntegracaoServices.listarAgenteIntegracao();
-		List<Empresa> empresas = EmpresaServices.listarEmpresas();
+		//List<AgenteIntegracao> agentesIntegracao = AgenteIntegracaoServices.listarAgenteIntegracao();
+		//List<Empresa> empresas = EmpresaServices.listarEmpresas();
 		List<Aluno> alunos = AlunoServices.listarAlunos();
 		List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
 		UF[] uf = UF.asList();
 		
-		request.setAttribute("agentesIntegracao", agentesIntegracao);
-		request.setAttribute("empresas", empresas);
+		//request.setAttribute("agentesIntegracao", agentesIntegracao);
+		//request.setAttribute("empresas", empresas);
 		request.setAttribute("alunos", alunos);
 		request.setAttribute("professores", professores);
 		request.setAttribute("uf", uf);
