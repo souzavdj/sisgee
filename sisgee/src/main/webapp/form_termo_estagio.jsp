@@ -50,38 +50,43 @@
                 </div>
             </c:if>
 
-            <p class="tituloForm">
+            <p class="tituloForm">           
 
-            <h5>		
-                <c:choose>
-                    <c:when test="${ not empty termoEstagio }">
-                        <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
-                    </c:when>
-                    <c:otherwise>
-                        <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoEstagio"/>
-                    </c:otherwise>
-                </c:choose>
-            </h5>		
-        </p>		
+                <h5 class="text-center">
+                    <c:choose>
+                        <c:when test="${ not empty termoEstagio }">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoAditivo"/>
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermoEstagio"/>
+                        </c:otherwise>
+                    </c:choose>
+                </h5>		
+           </p>		
 
-        <c:choose>
-            <c:when test="${ not empty termoEstagio }">
-                <form action="FormTermoAditivoServlet" method="post">
+            <c:choose>
+                <c:when test="${ not empty termoEstagio }">
+                    <form action="FormTermoAditivoServlet" method="post">
                 </c:when>
                 <c:otherwise>
                     <form action="FormTermoEstagioServlet" method="post">
-                    </c:otherwise>
-                </c:choose>
+                </c:otherwise>
+            </c:choose>
+                <fieldset class="form-group dadosAluno" ${ not empty termoEstagio ? 'disabled' :'' }>
+                    <%@include file="import_busca_aluno.jspf"%>
+                </fieldset>
 
                 <fieldset class="form-group" ${ not empty termoEstagio ? 'disabled' : '' }>
-                    <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosEmpresaConveniada"/></legend>
+                    <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosDoConvenio"/></legend>
                     <div class="form-group col-md-6">
+
                         <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
                         <input type="hidden" id="idEmpresa" name="idEmpresa" value="${ param.idEmpresa }">
                         <input type="text" class="form-control col-sm-4 ${ not empty numeroConvenioMsg ? 'is-invalid': 'is-valid' }" id="numeroConvenio" name="numeroConvenio" maxlength="10" value="${ param.numeroConvenio }" >
                         <c:if test="${ not empty numeroConvenioMsg }">
                             <div class="invalid-feedback">${ numeroConvenioMsg }</div>
                         </c:if>
+
                     </div>
 
                     <div class="form-row">
@@ -159,12 +164,6 @@
                         </div>
                     </div>							
                 </fieldset>
-
-
-                <fieldset class="form-group dadosAluno" ${ not empty termoEstagio ? 'disabled' :'' }>
-                    <%@include file="import_busca_aluno.jspf"%>
-                </fieldset>
-
 
                 <c:if test="${ not empty periodoMsg }">
                     <div class="alert alert-danger" role="alert">${ periodoMsg }</div>
@@ -286,11 +285,11 @@
 
 
                 <div class="form-row" >
-                    <div class="form-group col-md-3" ${ isVisualizacao eq true ? 'disabled' :'' } >
+                    <div class="form-group d-inline" ${ isVisualizacao eq true ? 'disabled' :'' } >
                         <label for="eEstagioObrigatorio"><fmt:message key = "br.cefetrj.sisgee.resources.form.estagioObrigatorio"/></label>
                     </div>
 
-                    <div class="custom-controls-stacked d-block my-3" ${ isVisualizacao eq true ? 'disabled' :'' }>
+                    <div class="custom-controls-stacked d-inline ml-4" ${ isVisualizacao eq true ? 'disabled' :'' }>
                         <label class="custom-control custom-radio"> 
                             <input id="estagioSim" name="eEstagioObrigatorio" type="radio" class="custom-control-input ${ not empty eEstagioObrigatorioMsg ? 'is-invalid' : '' }" value = "sim" ${ not empty termoEstagio ? 'disabled' :'' } ${ not empty eEstagioObrigatorioMsg ? '' : param.eEstagioObrigatorio == 'sim' ? 'checked' : '' }> 
                             <span class="custom-control-indicator"></span> 
@@ -305,9 +304,26 @@
                 </div>
 
                 <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
-                    <div class="form-group col-md-8">
-                        <label for="idProfessorOrientador"><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
-                        <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" ${ empty termoEstagio ? '' : empty updProfessor ? 'disabled' : '' }>
+                    <div class="form-group">
+                        <label for="nomeSupervisor" ><fmt:message key = "br.cefetrj.sisgee.resources.form.nomeSupervisor"/></label>
+                        <input type="text" maxlength="50" class="form-control ${ not empty nomeSupervisorMsg ? 'is-invalid': not empty nomeSupervisorMsg ? 'is-invalid' : 'is-valid' }" id="nomeSupervisor" name="nomeSupervisor" value="${ param.nomeSupervisor }">                            
+                        <c:if test="${ not empty nomeSupervisorMsg }">
+                            <div class="invalid-feedback">${ nomeSupervisorMsg }</div>
+                        </c:if>				
+                    </div>
+                    <div class="form-group">
+                        <label for="cargoSupervisor" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cargoSupervisor"/></label>
+                        <input type="text" maxlength="50" class="form-control ${ not empty cargoSupervisorMsg ? 'is-invalid': not empty cargoSupervisorMsg ? 'is-invalid' : 'is-valid' }" id="cargoSupervisor" name="cargoSupervisor" value="${ param.cargoSupervisor }">                            
+                        <c:if test="${ not empty cargoSupervisorMsg }">
+                            <div class="invalid-feedback">${ cargoSupervisorMsg }</div>
+                        </c:if>				
+                    </div>        
+                </fieldset>
+                        
+                <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
+                    <div class="form-group row">
+                        <label for="idProfessorOrientador" class="col-form-label col-sm-2" ><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
+                        <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control col-sm-10 ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" ${ empty termoEstagio ? '' : empty updProfessor ? 'disabled' : '' }>
                             <option value="" selected>---</option>
                             <c:forEach items="${ professores }" var="professor">
                                 <option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
@@ -317,7 +333,7 @@
                             <div class="invalid-feedback">${ idProfessorMsg }</div>
                         </c:if>				
                     </div>
-                </fieldset>
+                </fieldset>            
 
                 <c:if test="${ not empty termoEstagio }">
                     <input type="hidden" name="idTermoEstagio" value="${ termoEstagio.idTermoEstagio }" />
@@ -355,21 +371,22 @@
                     </div>
                 </div>
             </div>
+                        
 
-    </div>
-    <%@include file="import_footer.jspf"%>
-    <%@include file="import_finalbodyscripts.jspf"%>
-    <%@include file="import_scripts.jspf"%>
-    <script>
-        $(document).ready(function () {
-            $('#cargaHorariaTermoEstagio').mask('9');
-            $('#valorBolsa').mask('000.000,00', {reverse: true});
-            $('#dataInicioTermoEstagio').mask('99/99/9999');
-            $('#dataFimTermoEstagio').mask('99/99/9999');
-            $('#cnpjEmpresa1').mask('99.999.999/9999-99');
-            $('#cnpjEmpresa2').mask('99.999.999/9999-99');
-            $('#cepEnderecoTermoEstagio').mask('99.999-999');
-        });
-    </script>
-</body>
+        </div>
+        <%@include file="import_footer.jspf"%>
+        <%@include file="import_finalbodyscripts.jspf"%>
+        <%@include file="import_scripts.jspf"%>
+        <script>
+            $(document).ready(function () {
+                $('#cargaHorariaTermoEstagio').mask('9');
+                $('#valorBolsa').mask('000.000,00', {reverse: true});
+                $('#dataInicioTermoEstagio').mask('99/99/9999');
+                $('#dataFimTermoEstagio').mask('99/99/9999');
+                $('#cnpjEmpresa1').mask('99.999.999/9999-99');
+                $('#cnpjEmpresa2').mask('99.999.999/9999-99');
+                $('#cepEnderecoTermoEstagio').mask('99.999-999');
+            });
+        </script>
+    </body>
 </html>
