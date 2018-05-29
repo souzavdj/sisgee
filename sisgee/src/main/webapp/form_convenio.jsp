@@ -120,7 +120,7 @@
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cpf"/>
                                 </label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty cpfMsg ? 'is-invalid': 'is-valid' }" id="cpf" name="cpf" maxlength="100" value="${ param.cpf }">
+                                    <input type="text" class="form-control ${ not empty cpfMsg ? 'is-invalid': 'is-valid' }" id="cpf" name="cpf" maxlength="100" value="${param.cpf}">
 
                                     <c:if test="${ not empty cpfMsg }">
                                         <div class="invalid-feedback">${ cpfMsg }</div>

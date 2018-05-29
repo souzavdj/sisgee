@@ -223,7 +223,9 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             cpf = ValidaUtils.validaObrigatorio("CPF", cpf);
             if (cpfMsg.trim().isEmpty()) {
                 //remove caracteres especiais antes de vazer a validação numérica do CPF
-                cpf = cpf.replaceAll("[.|-]", "");
+                cpf = cpf.replaceAll(".", "");
+                cpf = cpf.replaceAll("-", "");
+                cpf = cpf.trim();
                 cpfMsg = ValidaUtils.validaInteger("CPF", cpf);
                 if (cpfMsg.trim().isEmpty()) {
                     cpfMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpf);
