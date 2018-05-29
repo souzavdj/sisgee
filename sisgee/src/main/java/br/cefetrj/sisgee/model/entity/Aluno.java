@@ -27,7 +27,7 @@ public class Aluno implements Serializable{
     @GeneratedValue
     private Integer idAluno;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 10, nullable = false, unique = true)
     private String matricula;
 
     /*@ManyToOne(fetch = FetchType.EAGER)
