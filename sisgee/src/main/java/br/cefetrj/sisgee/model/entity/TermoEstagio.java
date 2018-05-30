@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;

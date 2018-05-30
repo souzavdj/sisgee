@@ -40,8 +40,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 
 	
 	/**
-	 * Método doGet: carrega as listas necessárias para seleção dos atributos de relacionamento e redireciona para a tela de Registro de Termo de Estágio
-	 */
+         * Método doGet: carrega as listas necessárias para seleção dos atributos de relacionamento e redireciona para a tela de Registro de Termo de Estágio
+         * @param request
+         * @param response
+         * @throws ServletException
+         * @throws IOException 
+         */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -53,10 +57,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 	}
 	
 	/**
-	 * Método doPost: Valida os campos da tela de Registro de Termo de Estágio. 
+         * Método doPost: Valida os campos da tela de Registro de Termo de Estágio. 
 	 * Retorna para a tela caso não passe em alguma validação 
 	 * ou encaminha para o servlet de inclusão de Termo.
-	 */
+         * @param request
+         * @param response
+         * @throws ServletException
+         * @throws IOException 
+         */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

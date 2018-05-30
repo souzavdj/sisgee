@@ -45,8 +45,8 @@ public class Aluno implements Serializable{
     @Column(length = 100, nullable = false)
     private String nomeCampus;
     
-    @Column(length = 50, nullable = false)
-    private String codigoCurso;
+    //@Column(length = 50, nullable = false)
+    //private String codigoCurso;
 
     @Column(length = 255, nullable = false)
     private String nomeCurso;
@@ -113,13 +113,13 @@ public class Aluno implements Serializable{
         this.nomeCampus = nomeCampus;
     }
 
-    public String getCodigoCurso() {
+    /*public String getCodigoCurso() {
         return codigoCurso;
     }
 
     public void setCodigoCurso(String codigoCurso) {
         this.codigoCurso = codigoCurso;
-    }
+    }*/
 
     public String getNomeCurso() {
         return nomeCurso;
