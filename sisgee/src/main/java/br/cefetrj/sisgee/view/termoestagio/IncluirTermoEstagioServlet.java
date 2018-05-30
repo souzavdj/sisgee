@@ -52,6 +52,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		String cidadeEnderecoTermoEstagio = (String)request.getAttribute("cidadeEnderecoTermoEstagio");
 		String estadoEnderecoTermoEstagio = (String)request.getAttribute("estadoEnderecoTermoEstagio");
 		Boolean eEstagioObrigatorio = (Boolean)request.getAttribute("obrigatorio");
+                boolean eAtivo = true;
 		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));		
 		//Convenio convenio = (Convenio)request.getAttribute("convenio");
 		Convenio convenio = new Convenio((String)request.getAttribute("numeroConvenio"));
@@ -87,7 +88,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio, cargaHorariaTermoEstagio,
 				 valorBolsa,  enderecoTermoEstagio,  numeroEnderecoTermoEstagio,
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
-				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio,
+				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, eAtivo, 
 				 aluno,  convenio,  professorOrientador);
 		
 		String msg = "";

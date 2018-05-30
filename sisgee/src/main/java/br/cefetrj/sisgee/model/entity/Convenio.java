@@ -74,6 +74,9 @@ public class Convenio implements Serializable {
 
     @Column(length = 15)
     private String telefone;
+    
+    @Column(nullable = false)
+    private boolean eAtivo;
 
     public Convenio() {
     }
@@ -82,16 +85,17 @@ public class Convenio implements Serializable {
         this.numeroConvenio = numeroConvenio;
     }
 
-    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, String email, String telefone) {
+    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, String email, String telefone, boolean eAtivo) {
         this.dataAssinatura = dataAssinatura;
         this.cpf_cnpj = cpf_cnpj;
         this.nomeConveniado = nomeConveniado;
         this.isPessoaJuridica = isPessoaJuridica;
         this.email = email;
         this.telefone = telefone;
+        this.eAtivo = eAtivo;
     }
 
-    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, boolean isAgenteIntegracao, String pessoaContato, String email, String telefone) {
+    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, boolean isAgenteIntegracao, String pessoaContato, String email, String telefone, boolean eAtivo) {
         this.dataAssinatura = dataAssinatura;
         this.cpf_cnpj = cpf_cnpj;
         this.nomeConveniado = nomeConveniado;
@@ -100,6 +104,7 @@ public class Convenio implements Serializable {
         this.pessoaContato = pessoaContato;
         this.email = email;
         this.telefone = telefone;
+        this.eAtivo = eAtivo;
     }
 
     public Integer getIdConvenio() {
@@ -188,6 +193,14 @@ public class Convenio implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public boolean getEAtivo() {
+        return eAtivo;
+    }
+
+    public void setEAtivo(boolean eAtivo) {
+        this.eAtivo = eAtivo;
     }
 
     @Override

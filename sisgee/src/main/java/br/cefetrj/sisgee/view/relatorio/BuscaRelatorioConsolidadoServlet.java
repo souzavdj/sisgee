@@ -69,7 +69,7 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
                     System.out.println("br.cefetrj.sisgee.view.relatorio.BuscaRelatorioConsolidadoServlet.service()");
                     termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
                     System.out.println("Obrigatorio Vinicius Termos: "+termosEstagioLista.size());  
-                        
+                    System.out.println(dataInicio);    
                     
         		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(true, dataInicio, dataTermino);
 

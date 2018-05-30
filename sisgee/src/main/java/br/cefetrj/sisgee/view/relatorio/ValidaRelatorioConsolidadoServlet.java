@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import java.text.SimpleDateFormat;
+import javafx.scene.input.DataFormat;
 
 /**
  * 
@@ -96,8 +98,11 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 		
 		if(!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty())) {
 			try {
-				DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-				
+				//DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                                //System.out.println("O data Format: " + DateFormat.SHORT);
+                                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+                                
+                                System.out.println("A data inicio antes do Format: " + dataDeInicio);
 				dataInicio = format.parse(dataDeInicio);
 
 				dataTermino = format.parse(dataDeTermino);
