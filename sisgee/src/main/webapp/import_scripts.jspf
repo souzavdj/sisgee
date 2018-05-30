@@ -165,7 +165,7 @@
                 $("#dataAssinatura").val("");
                 $("#email").val("");
                 $("#telefone").val("");
-                $(this).val() == 'sim' ? $('.isEM').show("slow"): $('.notEM').show("slow");
+                $(this).val() == 'true' ? $('.isEM').show("slow"): $('.notEM').show("slow");
                 });
                 
                

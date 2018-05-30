@@ -24,8 +24,8 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
         
         public Convenio buscarByCpf_Cnpj(String cpf_cnpj){
 		return (Convenio) manager.createQuery(
-		    "SELECT e FROM Convenio e WHERE e.cpf_cnpj LIKE :cpf_cnpj")
-		    .setParameter("cnpj_cpf", cpf_cnpj)
+		    "SELECT c FROM Convenio c WHERE c.cpf_cnpj LIKE :cpf_cnpj")
+		    .setParameter("cpf_cnpj", cpf_cnpj)
 		    .getSingleResult();
 	}
         

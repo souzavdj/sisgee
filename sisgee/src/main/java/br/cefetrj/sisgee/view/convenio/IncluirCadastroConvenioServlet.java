@@ -50,25 +50,20 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
         String telefone = req.getParameter("telefone");
         String email = req.getParameter("email");
 
-        Convenio convenio;
-        boolean agenteB;
+        
+        
 
         String msg = "";
         Logger lg = Logger.getLogger(IncluirCadastroConvenioServlet.class);
-        try {
-
-            if (agente.equals("sim")) {
-                agenteB = true;
+        try {            
+            if (Boolean.parseBoolean(tipo)) {
+               Convenio convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, Boolean.parseBoolean(agente), pessoaContato, email, telefone,true);
+               ConvenioServices.incluirConvenio(convenio);
             } else {
-                agenteB = false;
+                Convenio convenio1 = new Convenio(dataAssinatura, cpf, nome, false,email, telefone,true);
+                ConvenioServices.incluirConvenio(convenio1);
             }
-            if (tipo.equals("sim")) {
-                convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, agenteB, pessoaContato, email, telefone);
-
-            } else {
-                convenio = new Convenio(dataAssinatura, cpf, nome, false,email, telefone);
-            }
-            ConvenioServices.incluirConvenio(convenio);
+            
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
             req.setAttribute("msg", msg);
             lg.info(msg);

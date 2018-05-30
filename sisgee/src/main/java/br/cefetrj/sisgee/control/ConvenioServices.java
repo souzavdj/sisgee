@@ -95,8 +95,8 @@ public class ConvenioServices {
         public static Convenio buscarConvenioByCpf_Cnpj(String cpf_cnpj) {
 		ConvenioDAO convenioDao = new ConvenioDAO();
 		try{
-			Convenio e = convenioDao.buscarByCpf_Cnpj(cpf_cnpj);
-			return e;
+			Convenio c = convenioDao.buscarByCpf_Cnpj(cpf_cnpj);
+			return c;
 		}catch(Exception e){
 			return null;
 		}

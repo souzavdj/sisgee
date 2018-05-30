@@ -7,6 +7,7 @@ import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -72,8 +73,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         if (tipoMsg.trim().isEmpty()) {
             tipoMsg = ValidaUtils.validaBoolean("Tipo de Pessoa", tipo);
             if (tipoMsg.trim().isEmpty()) {
-                Boolean obrigatorio = Boolean.parseBoolean(tipo);
-                req.setAttribute("obrigatorio", obrigatorio);
+                Boolean tipoB = Boolean.parseBoolean(tipo);
+                req.setAttribute("tipo", tipoB);
             } else {
                 tipoMsg = messages.getString(tipoMsg);
                 req.setAttribute("tipoMsg", tipoMsg);
@@ -88,7 +89,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         /**
          * Caso seja pessoa jurídica
          */
-        if (tipo.equals("sim")) {            
+        if (Boolean.parseBoolean(tipo)) {            
             
             /**
              * Validação do campo Agente Integração, usando métodos da Classe
@@ -99,8 +100,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             if (agenteMsg.trim().isEmpty()) {
                 agenteMsg = ValidaUtils.validaBoolean("Agente Integração", agente);
                 if (agenteMsg.trim().isEmpty()) {
-                    Boolean obrigatorio = Boolean.parseBoolean(agente);
-                    req.setAttribute("obrigatorio", obrigatorio);
+                    Boolean agenteB = Boolean.parseBoolean(agente);
+                    req.setAttribute("agente", agenteB);
                 } else {
                     agenteMsg = messages.getString(agenteMsg);
                     req.setAttribute("agenteMsg", agenteMsg);
@@ -129,35 +130,29 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 if (cnpjMsg.trim().isEmpty()) {
                     cnpjMsg = ValidaUtils.validaTamanhoExato("CNPJ", tamanho, cnpj);
                     if (cnpjMsg.trim().isEmpty()) {
-                        Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cnpj);
-                        if (e == null) {
-                            if (!(cnpjMsg.trim().isEmpty())) {
-                                req.setAttribute("cnpj", cnpj);
-                            }
+                        Convenio c = ConvenioServices.buscarConvenioByCpf_Cnpj(cnpj);
+                        if (c == null) {
+                           req.setAttribute("cnpj", cnpj);
                         } else {
                             cnpjMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
                             req.setAttribute("cnpjMsg", cnpjMsg);
                             isValid = false;
-                            
                         }
                     } else {
                         cnpjMsg = messages.getString(cnpjMsg);
                         cnpjMsg = ServletUtils.mensagemFormatada(cnpjMsg, locale, tamanho);
                         req.setAttribute("cnpjMsg", cnpjMsg);
                         isValid = false;
-                        
                     }
                 } else {
                     cnpjMsg = messages.getString(cnpjMsg);
                     req.setAttribute("cnpjMsg", cnpjMsg);
                     isValid = false;
-                    
                 }
             } else {
                 cnpjMsg = messages.getString(cnpjMsg);
                 req.setAttribute("cnpjMsg", cnpjMsg);
                 isValid = false;
-                
             }
 
             /**
@@ -178,14 +173,12 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         razaoSocialMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
                         req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                         isValid = false;
-                        
                     }
                 } else {
                     razaoSocialMsg = messages.getString(razaoSocialMsg);
                     razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
                     req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                     isValid = false;
-                    
                 }
             } else {
                 razaoSocialMsg = messages.getString(razaoSocialMsg);
@@ -232,6 +225,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     if (cpfMsg.trim().isEmpty()) {
                         Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
                         if (e == null) {
+                            
                             req.setAttribute("cpf", cpf);
                         } else {
                             cpfMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_pessoa_duplicada");

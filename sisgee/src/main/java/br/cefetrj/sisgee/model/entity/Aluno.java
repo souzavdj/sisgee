@@ -45,8 +45,8 @@ public class Aluno implements Serializable{
     @Column(length = 100, nullable = false)
     private String nomeCampus;
     
-    @Column(length = 50, nullable = false)
-    private String codigoCurso;
+    //@Column(length = 50, nullable = false)
+    //private String codigoCurso;
 
     @Column(length = 255, nullable = false)
     private String nomeCurso;
@@ -112,7 +112,7 @@ public class Aluno implements Serializable{
     public void setNomeCampus(String nomeCampus) {
         this.nomeCampus = nomeCampus;
     }
-
+/*
     public String getCodigoCurso() {
         return codigoCurso;
     }
@@ -120,7 +120,7 @@ public class Aluno implements Serializable{
     public void setCodigoCurso(String codigoCurso) {
         this.codigoCurso = codigoCurso;
     }
-
+*/
     public String getNomeCurso() {
         return nomeCurso;
     }
@@ -128,8 +128,6 @@ public class Aluno implements Serializable{
     public void setNomeCurso(String nomeCurso) {
         this.nomeCurso = nomeCurso;
     }
-    
-    
     
     @Override
     public int hashCode() {

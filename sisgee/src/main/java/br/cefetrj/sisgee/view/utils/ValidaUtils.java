@@ -147,7 +147,7 @@ public class ValidaUtils {
 		String msg = "";
 		
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 			@SuppressWarnings("unused")
 			Date dataFormatada = format.parse(param);
 		}catch(Exception e) {
