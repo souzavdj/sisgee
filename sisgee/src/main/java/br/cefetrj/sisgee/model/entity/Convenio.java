@@ -77,7 +77,9 @@ public class Convenio implements Serializable {
 
     public Convenio() {
     }
-
+    public Convenio(int id){
+        this.idConvenio=id;
+    }
     public Convenio(String numeroConvenio) {
         this.numeroConvenio = numeroConvenio;
     }
@@ -234,5 +236,10 @@ public class Convenio implements Serializable {
         return jobj;
     }
 
-    
+    /*public String getVigencia(){
+        String ass = this.dataAssinatura;
+        
+        
+        return "MES/ANO" a "MES/ANO+5";
+    }*/
 }

@@ -5,16 +5,22 @@
  */
 package br.cefetrj.sisgee.view.convenio;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,17 +41,52 @@ public class ConveniosVencerServlet extends HttpServlet {
 	ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String msg ="";
         
-        List<Convenio> listaVencidos = null;
+        List<Convenio> listaVencidos = new ArrayList<Convenio>();
         
         
-        Calendar cal = new GregorianCalendar();
+        /*Calendar cal = new GregorianCalendar();
         Date dataAtual = new Date();
         Date dataAntiga= new Date();
         int anoAtual=cal.get(Calendar.YEAR);
         int mesAtual=cal.get(Calendar.MONTH);//pegar daqui a 1 e 2 meses
         int diaAtual=cal.get(Calendar.DAY_OF_MONTH);
-        String formatoDataAtual = diaAtual +"/" +mesAtual +"/"+anoAtual; 
+        String formatoDataAtual = diaAtual +"/" +mesAtual +"/"+anoAtual;*/ 
         
+        Convenio c = ConvenioServices.buscarConvenio(new Convenio(1));
+        Date d = c.getDataAssinatura();
+        System.out.println(d.toString());
+        
+        SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat out = new SimpleDateFormat("MM/yy");
+        
+        String result;
+        String ano,mes;
+        
+        String anoFuturo,tempoFuturo;
+        try {
+            result = out.format(in.parse(d.toString()));
+             System.out.println(result);
+             ano = result.substring(3);
+             mes=result.substring(0,2);
+             System.out.println(ano);
+             System.out.println(mes);
+             
+             
+             anoFuturo=String.valueOf(Integer.parseInt(ano+5));
+             tempoFuturo=mes+"/"+anoFuturo;
+             System.out.println(tempoFuturo);
+             
+        } catch (ParseException ex) {
+            Logger.getLogger(ConveniosVencerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int b =6;
+        String s = String.valueOf(b);
+        System.out.println(b);
+        
+        listaVencidos.add(c);
+        req.setAttribute("ListaConveniosAVencer", listaVencidos); 
+       
         //Tenho que conseguir a lista dos convenios que serão vencidos daqui a 1 mes e 2 meses.
         
         //Objetivo fazer um listaVencidos =(List<Convenio>) ConveniosService.buscarListaDeVencidos(anoAtual,dataAntiga,dataAtual).

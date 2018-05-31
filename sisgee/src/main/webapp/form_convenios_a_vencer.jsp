@@ -21,8 +21,8 @@
                         <tr class="table-active">
                             <th>Vigência</th>
                             <th>Convênio</th>
-                            <th>CNPJ/CPF</th>
                             <th>Razão Social/Nome</th>
+                            <th>CNPJ/CPF</th>
                             <th> E-mail </th>
                             <th> Telefone</th>
                             <th> Pessoa de contato</th>
@@ -34,8 +34,8 @@
                                 <tr>
                                     <td>${conv.dataAssinatura}</td>
                                     <td>${conv.numeroConvenio}</td>
-                                    <td>${conv.cpf_cnpj}</td>
                                     <td>${conv.nomeConveniado}</td>
+                                    <td>${conv.cpf_cnpj}</td>
                                     <td>${conv.email}</td>
                                     <td>${conv.telefone}</td>
                                     <td>${conv.pessoaContato}</td>
