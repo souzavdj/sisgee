@@ -213,7 +213,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
              */
             String cpfMsg = "";
             tamanho = 11;
-            cpf = ValidaUtils.validaObrigatorio("CPF", cpf);
+            cpfMsg = ValidaUtils.validaObrigatorio("CPF", cpf);
             if (cpfMsg.trim().isEmpty()) {
                 //remove caracteres especiais antes de vazer a validação numérica do CPF
                 cpf = cpf.replaceAll(".", "");
@@ -287,7 +287,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             dataAssinaturaMsg = ValidaUtils.validaDate("Data de Assintura", dataAssinaturaConvenio);
             if (dataAssinaturaMsg.trim().isEmpty()) {
                 try {
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
                     dataAssinatura = format.parse(dataAssinaturaConvenio);
                     req.setAttribute("dataAssinatura", dataAssinatura);
                 } catch (Exception e) {
@@ -353,7 +353,6 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             String msg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_atencao");
             req.setAttribute("msg", msg);
             req.getRequestDispatcher("/form_convenio.jsp").forward(req, resp);
-
         }
 
     }

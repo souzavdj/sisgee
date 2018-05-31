@@ -159,14 +159,15 @@
 	        }
 	    }
 	    
-	    $('.isEmpresaChk').change(function(){
+
+            $('.isEmpresaChk').change(function(){
                 $('.EM').hide();
                 $(".EM input").val("");
                 $("#dataAssinatura").val("");
                 $("#email").val("");
                 $("#telefone").val("");
+                $("#agente").val("false");
                 $(this).val() == 'true' ? $('.isEM').show("slow"): $('.notEM').show("slow");
                 });
-                
-               
+
     </script>

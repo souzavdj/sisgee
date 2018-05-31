@@ -92,7 +92,7 @@
                             <div class="form-group col-md-6">
                                 <label for="cnpj"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_cnpj"/></label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty cnpjMsg ? 'is-invalid': 'is-valid' }" id="cnpj" name="cnpj" maxlength="100" value="${ param.cnpj }">
+                                    <input type="text" class="form-control ${ not empty cnpjMsg ? 'is-invalid': 'is-valid' }" id="cnpj" name="cnpj" maxlength="14" value="${ param.cnpj }">
 
                                     <c:if test="${ not empty cnpjMsg }">
                                         <div class="invalid-feedback">${ cnpjMsg }</div>
@@ -144,7 +144,7 @@
                         <div class="form-group col-md-3">
                             <label for="dataAssiatura"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_dataAssinatura"/></label>
                             <div class="input-group">   
-                                <input type="text" class="form-control ${ not empty dataAssinaturaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinatura" name="dataAssinatura" maxlength="100" value="${ param.dataAssinatura }">
+                                <input type="text" class="form-control ${ not empty dataAssinaturaMsg ? 'is-invalid': 'is-valid' }" id="dataAssinatura" name="dataAssinatura" maxlength="8" value="${ param.dataAssinatura }">
 
                                 <c:if test="${ not empty dataAssinaturaMsg }">
                                     <div class="invalid-feedback">${ dataAssinaturaMsg }</div>
@@ -209,4 +209,5 @@
 	    });
             </script>
         </body>
+</html>
    
