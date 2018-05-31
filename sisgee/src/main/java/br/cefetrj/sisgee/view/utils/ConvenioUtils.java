@@ -6,6 +6,8 @@
 package br.cefetrj.sisgee.view.utils;
 
 import br.cefetrj.sisgee.model.entity.Convenio;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.log4j.Logger;
 
 /**
@@ -75,5 +77,54 @@ public class ConvenioUtils {
             return null;
         }
     }
-    
+
+    public String getNumeroConvenioFormatado(String numConv) {
+        if(numConv != null && numConv.trim().length() > 0){
+            StringBuilder cpfFormatado = new StringBuilder();
+            try{
+                cpfFormatado.append(numConv.charAt(0));
+                cpfFormatado.append(numConv.charAt(1));
+                cpfFormatado.append(numConv.charAt(2));
+                cpfFormatado.append(numConv.charAt(3));
+                cpfFormatado.append(numConv.charAt(4));
+                cpfFormatado.append(numConv.charAt(5));
+                cpfFormatado.append("/");
+                cpfFormatado.append(numConv.charAt(6));
+                cpfFormatado.append(numConv.charAt(7));
+                cpfFormatado.append(numConv.charAt(8));
+                cpfFormatado.append(numConv.charAt(9));
+                
+            }catch(IndexOutOfBoundsException e){
+                Logger lg = Logger.getLogger(Convenio.class);
+                lg.error("Numero Convenio com menos de 10 caracteres. NumeroConvenio = " + numConv, e);
+                return numConv;
+            }
+            return cpfFormatado.toString();
+        }else{
+            return null;
+        }
+    }
+
+    public String getVigencia(Date d){
+        String presente="";
+        SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat out = new SimpleDateFormat("MM/yy");
+        String ano,mes;
+        String futuro;
+        
+        try{
+            presente = out.format(in.parse(d.toString()));
+            ano = presente.substring(3);
+            mes=presente.substring(0,2);
+            futuro=mes+"/"+ String.valueOf(Integer.parseInt(ano)+5);
+            return presente + " a " + futuro;
+
+        }catch(Exception e){
+            Logger lg = Logger.getLogger(Convenio.class);
+            lg.error("Numero Convenio com menos de 10 caracteres. NumeroConvenio = " + presente, e);
+            return presente;
+        }
+        
+        
+    }
 }

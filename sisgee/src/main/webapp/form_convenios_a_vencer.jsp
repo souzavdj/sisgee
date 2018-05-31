@@ -16,38 +16,47 @@
         <div class="container">
             
                 <h4><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.msg_titulo" /></h4>
-                <table class="table table-striped table-bordered col-6">
-                    <thead>
-                        <tr class="table-active">
-                            <th>Vigência</th>
-                            <th>Convênio</th>
-                            <th>Razão Social/Nome</th>
-                            <th>CNPJ/CPF</th>
-                            <th> E-mail </th>
-                            <th> Telefone</th>
-                            <th> Pessoa de contato</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:if test="${not empty ListaConveniosAVencer}">
-                            <c:forEach items="${ListaConveniosAVencer}" var="conv">
-                                <tr>
-                                    <td>${conv.dataAssinatura}</td>
-                                    <td>${conv.numeroConvenio}</td>
-                                    <td>${conv.nomeConveniado}</td>
-                                    <td>${conv.cpf_cnpj}</td>
-                                    <td>${conv.email}</td>
-                                    <td>${conv.telefone}</td>
-                                    <td>${conv.pessoaContato}</td>
-                                   
-                                </tr>
-                                
-                                
-                            </c:forEach>
-                        </c:if>
-                        
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="table-active">
+                                <th>Vigência</th>
+                                <th>Convênio</th>
+                                <th>Razão Social/Nome</th>
+                                <th>CNPJ/CPF</th>
+                                <th> E-mail </th>
+                                <th> Telefone</th>
+                                <th> Pessoa de contato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:if test="${not empty ListaConveniosAVencer}">
+                                <c:forEach items="${ListaConveniosAVencer}" var="conv">
+                                    <tr>
+                                        <td>${convenioUtils.getVigencia(conv.dataAssinatura)}</td>
+                                        <td>${convenioUtils.getNumeroConvenioFormatado(conv.numeroConvenio)}</td>
+                                        <td>${conv.nomeConveniado}</td>
+                                        <c:choose>
+                                            <c:when test="${conv.isPessoaJuridica eq true }">
+                                                <td>${convenioUtils.getCnpjEmpresaFormatado(conv.cpf_cnpj)}</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td >${convenioUtils.getCpfFormatado(conv.cpf_cnpj)}</td>
+                                            </c:otherwise>    
+                                        </c:choose>    
+                                        <td>${conv.email}</td>
+                                        <td>${conv.telefone}</td>
+                                        <td>${conv.pessoaContato}</td>
+
+                                    </tr>
+
+
+                                </c:forEach>
+                            </c:if>
+
+                        </tbody>
+                    </table>
+                </div>    
                 <div class="text-center">
                     <button type="button" class="btn btn-secondary mx-auto" onclick="javascript:location.href='index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_convenios_a_vencer.msg_cancelar"/></button>
                 </div> 
