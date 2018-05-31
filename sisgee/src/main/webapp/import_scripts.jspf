@@ -162,7 +162,9 @@
 
             $('.isEmpresaChk').change(function(){
                 $('.EM').hide();
+                $('.EMA').hide();
                 $(".EM input").val("");
+                $(".EMA input").val("false");
                 $("#dataAssinatura").val("");
                 $("#email").val("");
                 $("#telefone").val("");

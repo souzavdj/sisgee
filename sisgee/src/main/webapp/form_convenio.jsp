@@ -63,7 +63,7 @@
                             </c:if>
                         </div>
 
-                        <div class="form-row isEM EM" ${ empty param.tipo ? "" : param.tipo == "false" ? "style='display:none'" : "" }>
+                        <div class="form-row isEM EMA" ${ empty param.tipo ? "" : param.tipo == "false" ? "style='display:none'" : "" }>
                             <div class="form-inline" >
                                 <div class="form-group col-md-7" >
                                     <label for="agente"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_agente" /></label>
@@ -200,7 +200,7 @@
                     $('#dataAssinatura').mask('99/99/9999');
                     $('#cnpj').mask('99.999.999/9999-99');
                     $('#cpf').mask('999.999.999-99');
-                    $('#telefone').mask('(21) 9999-9999');
+                    $('#telefone').mask('(99) 9999-9999');
                 });
                 $('#dataAssinatura').datepicker({
 	    	<c:if test="${ lang eq 'pt_BR' }">

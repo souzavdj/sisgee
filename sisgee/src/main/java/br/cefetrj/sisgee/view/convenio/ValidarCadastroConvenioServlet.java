@@ -1,13 +1,10 @@
 package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
-import br.cefetrj.sisgee.control.EmpresaServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
-import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -216,16 +213,13 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             cpfMsg = ValidaUtils.validaObrigatorio("CPF", cpf);
             if (cpfMsg.trim().isEmpty()) {
                 //remove caracteres especiais antes de vazer a validação numérica do CPF
-                cpf = cpf.replaceAll(".", "");
-                cpf = cpf.replaceAll("-", "");
-                cpf = cpf.trim();
+                cpf = cpf.replaceAll("[.|/|-]", "");
                 cpfMsg = ValidaUtils.validaInteger("CPF", cpf);
                 if (cpfMsg.trim().isEmpty()) {
                     cpfMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpf);
                     if (cpfMsg.trim().isEmpty()) {
-                        Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
-                        if (e == null) {
-                            
+                        Convenio c = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
+                        if (c == null) {
                             req.setAttribute("cpf", cpf);
                         } else {
                             cpfMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_pessoa_duplicada");
@@ -336,16 +330,23 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             String telefoneMsg = "";
             tamanho = 11;
                 telefone = telefone.replaceAll("[(|)|-]", "");
-                telefoneMsg = ValidaUtils.validaTamanho("Telefone", tamanho, telefone);
-                if (emailMsg.trim().isEmpty()) {
+                telefoneMsg = ValidaUtils.validaTelefone("Telefone", telefone);
+                if(telefoneMsg.trim().isEmpty()){
+                    telefoneMsg = ValidaUtils.validaTamanho("Telefone", tamanho, telefone);
+                    if (telefoneMsg.trim().isEmpty()) {
                     req.setAttribute("Telefone", telefone);
-                } else {
+                    } else {
+                        telefoneMsg = messages.getString(telefoneMsg);
+                        telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
+                        req.setAttribute("telefoneMsg", telefoneMsg);
+                        isValid = false;
+                    }
+                }else{
                     telefoneMsg = messages.getString(telefoneMsg);
                     telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
                     req.setAttribute("telefoneMsg", telefoneMsg);
                     isValid = false;
-                }
-
+                }    
          
         if (isValid) {
             req.getRequestDispatcher("/IncluirCadastroConvenioServlet").forward(req, resp);

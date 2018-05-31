@@ -211,6 +211,22 @@ public class ValidaUtils {
 			msg = validaTamanho(nomeCampo, tamanho, param);
 		}
 		return msg;
-	}		
+	}
+        
+        /**
+	 * Método para validar campos que recebem telefone
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param String do Telefone.
+	 * @return String com mensagem de erro ou vazia
+	 */
+	public static String validaTelefone(String nomeCampo,String param) {
+		String msg = "";
+                if(!(param.trim().isEmpty())){
+                    if(param.length()<10){
+                        msg = "br.cefetrj.sisgee.valida_utils.msg_valida_telefone";
+                    }   
+                }
+		return msg;
+	}
 }
 

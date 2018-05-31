@@ -38,6 +38,9 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 
             TypedQuery<Integer> query = manager.createQuery(consulta, Integer.class);
             Integer qtdTermosEstagio = query.getSingleResult();
+            if(qtdTermosEstagio == null){
+                qtdTermosEstagio = 0;
+            }
             
             return qtdTermosEstagio;
         }
