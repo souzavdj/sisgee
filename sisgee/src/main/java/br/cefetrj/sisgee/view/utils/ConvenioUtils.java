@@ -5,7 +5,10 @@
  */
 package br.cefetrj.sisgee.view.utils;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.log4j.Logger;
 
 /**
@@ -76,4 +79,11 @@ public class ConvenioUtils {
         }
     }
     
+    public static String gerarNumeroConvenio (Date dataAssinatura) {
+        String numeroConvenio;
+        SimpleDateFormat ano = new SimpleDateFormat("yyyy");
+        Integer idConvenio = ConvenioServices.getMaxIdConvenio()+1;
+        numeroConvenio = String.format("%06d", idConvenio) + ano.format(dataAssinatura);
+        return numeroConvenio;
+    }
 }

@@ -157,5 +157,13 @@
 	        }
 	    }
 	    
+            $('.isEmpresaChk').change(function(){
+                $('.EM').hide();
+                $(".EM input").val("");
+                $("#dataAssinatura").val("");
+                $("#email").val("");
+                $("#telefone").val("");
+                $(this).val() == 'true' ? $('.isEM').show("slow"): $('.notEM').show("slow");
+                });
 	    
     </script>

@@ -2,6 +2,10 @@ package br.cefetrj.sisgee.model.dao;
 
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 /**
  * Classe que atua no banco de dados com query especificas com o foco na tabela de convenio  
  * @author Andre
@@ -21,6 +25,23 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 		    .setParameter("empresa", emp)
 		    .getSingleResult();
 	}
+        
+        public Convenio buscarByCpf_Cnpj(String cpf_cnpj){
+		return (Convenio) manager.createQuery(
+		    "SELECT c FROM Convenio c WHERE c.cpf_cnpj LIKE :cpf_cnpj")
+		    .setParameter("cpf_cnpj", cpf_cnpj)
+		    .getSingleResult();
+	}
+        
+        public Integer getMaxIdConvenio () {
+            String consulta = "SELECT MAX(c.idConvenio) FROM Convenio c";
+
+            TypedQuery<Integer> query = manager.createQuery(consulta, Integer.class);
+            Integer qtdTermosEstagio = query.getSingleResult();
+            
+            return qtdTermosEstagio;
+        }
+        
         /**
          * Metodo que faz uma query que busca na tabela do convenio um convenio com um nome de conveniado especifico.
          * @param nome  nome do conveniado ligado ao objeto convenio
