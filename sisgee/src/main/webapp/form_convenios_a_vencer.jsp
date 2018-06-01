@@ -14,53 +14,59 @@
     <body>
         <%@include file="import_navbar.jspf"%>
         <div class="container">
-            
-                <h4><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.msg_titulo" /></h4>
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr class="table-active">
-                                <th>Vigência</th>
-                                <th>Convênio</th>
-                                <th>Razão Social/Nome</th>
-                                <th>CNPJ/CPF</th>
-                                <th> E-mail </th>
-                                <th> Telefone</th>
-                                <th> Pessoa de contato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:if test="${not empty ListaConveniosAVencer}">
-                                <c:forEach items="${ListaConveniosAVencer}" var="conv">
-                                    <tr>
-                                        <td>${convenioUtils.getVigencia(conv.dataAssinatura)}</td>
-                                        <td>${convenioUtils.getNumeroConvenioFormatado(conv.numeroConvenio)}</td>
-                                        <td>${conv.nomeConveniado}</td>
-                                        <c:choose>
-                                            <c:when test="${conv.isPessoaJuridica eq true }">
-                                                <td>${convenioUtils.getCnpjEmpresaFormatado(conv.cpf_cnpj)}</td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td >${convenioUtils.getCpfFormatado(conv.cpf_cnpj)}</td>
-                                            </c:otherwise>    
-                                        </c:choose>    
-                                        <td>${conv.email}</td>
-                                        <td>${conv.telefone}</td>
-                                        <td>${conv.pessoaContato}</td>
+            <h4><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.msg_titulo" /></h4>
+            <c:choose>
+                <c:when test="${not empty ListaConveniosAVencer}">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr class="table-active">
+                                    <th>Vigência</th>
+                                    <th>Convênio</th>
+                                    <th>Razão Social/Nome</th>
+                                    <th>CNPJ/CPF</th>
+                                    <th> E-mail </th>
+                                    <th> Telefone</th>
+                                    <th> Pessoa de contato</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                    </tr>
+                                    <c:forEach items="${ListaConveniosAVencer}" var="conv">
+                                        <tr>
+                                            <td>${convenioUtils.getVigencia(conv.dataAssinatura)}</td>
+                                            <td>${conv.numeroConvenio}</td>
+                                            <td>${conv.nomeConveniado}</td>
+                                            <c:choose>
+                                                <c:when test="${conv.isPessoaJuridica eq true }">
+                                                    <td>${convenioUtils.getCnpjEmpresaFormatado(conv.cpf_cnpj)}</td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td >${convenioUtils.getCpfFormatado(conv.cpf_cnpj)}</td>
+                                                </c:otherwise>    
+                                            </c:choose>    
+                                            <td>${conv.email}</td>
+                                            <td>${conv.telefone}</td>
+                                            <td>${conv.pessoaContato}</td>
+
+                                        </tr>
 
 
-                                </c:forEach>
-                            </c:if>
+                                    </c:forEach>
 
-                        </tbody>
-                    </table>
-                </div>    
-                <div class="text-center">
-                    <button type="button" class="btn btn-secondary mx-auto" onclick="javascript:location.href='index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_convenios_a_vencer.msg_cancelar"/></button>
-                </div> 
-                       
+                            </tbody>
+                        </table>
+                    </div>    
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary mx-auto" onclick="javascript:location.href='index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_convenios_a_vencer.msg_cancelar"/></button>
+                    </div> 
+                </c:when>
+                <c:otherwise>
+                    <div class="alert alert-warning" role="alert">
+                            <h2>${ msg }</h2>
+                    </div>
+                </c:otherwise>
+            </c:choose>    
         </div>
                 
         <%@include file="import_footer.jspf"%>

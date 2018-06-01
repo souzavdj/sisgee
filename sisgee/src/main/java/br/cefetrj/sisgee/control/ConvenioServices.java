@@ -7,6 +7,7 @@ import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
+import java.util.Date;
 
 /**
  * Serviços de Convenios. 
@@ -82,6 +83,16 @@ public class ConvenioServices {
             try{
                 Convenio c= convenioDao.buscarByNomeConveniado(nomeConveniado);
                 return c;
+            }catch(Exception e){
+                return null;
+            }
+        }
+        
+        public static List<Convenio> buscarListaDeVencidos(Date dataInicio,Date dataFim){
+            ConvenioDAO convenioDao = new ConvenioDAO();
+            try{
+                List<Convenio> vencidos= convenioDao.buscaVencidos(dataInicio,dataFim);
+                return vencidos;
             }catch(Exception e){
                 return null;
             }

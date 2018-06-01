@@ -78,32 +78,7 @@ public class ConvenioUtils {
         }
     }
 
-    public String getNumeroConvenioFormatado(String numConv) {
-        if(numConv != null && numConv.trim().length() > 0){
-            StringBuilder cpfFormatado = new StringBuilder();
-            try{
-                cpfFormatado.append(numConv.charAt(0));
-                cpfFormatado.append(numConv.charAt(1));
-                cpfFormatado.append(numConv.charAt(2));
-                cpfFormatado.append(numConv.charAt(3));
-                cpfFormatado.append(numConv.charAt(4));
-                cpfFormatado.append(numConv.charAt(5));
-                cpfFormatado.append("/");
-                cpfFormatado.append(numConv.charAt(6));
-                cpfFormatado.append(numConv.charAt(7));
-                cpfFormatado.append(numConv.charAt(8));
-                cpfFormatado.append(numConv.charAt(9));
-                
-            }catch(IndexOutOfBoundsException e){
-                Logger lg = Logger.getLogger(Convenio.class);
-                lg.error("Numero Convenio com menos de 10 caracteres. NumeroConvenio = " + numConv, e);
-                return numConv;
-            }
-            return cpfFormatado.toString();
-        }else{
-            return null;
-        }
-    }
+    
 
     public String getVigencia(Date d){
         String presente="";
