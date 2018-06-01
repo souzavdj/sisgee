@@ -70,8 +70,10 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
             String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
             msgConvenio = msgConvenio + convenio.getNumeroConvenio();
+            StringBuilder stringBuilder = new StringBuilder(msgConvenio);
+            stringBuilder.insert(msgConvenio.length() - 4, '/');
             req.setAttribute("msg", msg);
-            req.setAttribute("msgConvenio", msgConvenio);
+            req.setAttribute("msgConvenio", stringBuilder);
             lg.info(msg);
             lg.info(msgConvenio);
             req.getRequestDispatcher("/convenio.jsp").forward(req, resp);
