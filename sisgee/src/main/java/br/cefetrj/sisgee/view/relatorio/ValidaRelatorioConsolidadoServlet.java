@@ -68,7 +68,10 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 
         msgDataInicio = ValidaUtils.validaDate("", dataDeInicio);
         msgDataTermino = ValidaUtils.validaDate("", dataDeTermino);
-
+        
+        boolean isValid = true;
+        int tamanho;
+        
         if (!(msgDataInicio.isEmpty())) {
             msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
             request.setAttribute("msgDataInicio", msgDataInicio);
