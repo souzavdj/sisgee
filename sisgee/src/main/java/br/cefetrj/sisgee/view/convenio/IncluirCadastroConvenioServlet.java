@@ -49,37 +49,32 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
         String pessoaContato = req.getParameter("pessoaContato");
         Date dataAssinatura = (Date) req.getAttribute("dataAssinatura");
         String telefone = req.getParameter("telefone");
-        String email = req.getParameter("email");    
-        
-        System.out.println("Convenio campos:");
-        System.out.println("Tipo: "+tipo);
-        System.out.println("Agente: "+agente);
-        System.out.println("cnpj: "+cnpj);
-        System.out.println("Razao: "+razaoSocial);
-        System.out.println("Data: "+dataAssinatura);
-        System.out.println("Tel: "+telefone);
-        System.out.println("Email: "+email);
-        System.out.println("Pessoa Contato: "+pessoaContato);
+        String email = req.getParameter("email");
+        Convenio convenio;
 
         String msg = "";
         Logger lg = Logger.getLogger(IncluirCadastroConvenioServlet.class);
         try {            
             if (Boolean.parseBoolean(tipo)) {
-               Convenio convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, Boolean.parseBoolean(agente), pessoaContato, email, telefone);
+               convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, Boolean.parseBoolean(agente), pessoaContato, email, telefone);
                System.out.println("NumeroConvenio: " + ConvenioUtils.gerarNumeroConvenio(dataAssinatura));
                convenio.setNumeroConvenio(ConvenioUtils.gerarNumeroConvenio(dataAssinatura));
                ConvenioServices.incluirConvenio(convenio);
             } else {
-                Convenio convenio1 = new Convenio(dataAssinatura, cpf, nome, false,email, telefone);
+                convenio = new Convenio(dataAssinatura, cpf, nome, false,email, telefone);
                 System.out.println("NumeroConvenio: " + ConvenioUtils.gerarNumeroConvenio(dataAssinatura));
-                convenio1.setNumeroConvenio(ConvenioUtils.gerarNumeroConvenio(dataAssinatura));
-                ConvenioServices.incluirConvenio(convenio1);
+                convenio.setNumeroConvenio(ConvenioUtils.gerarNumeroConvenio(dataAssinatura));
+                ConvenioServices.incluirConvenio(convenio);
             }
             
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
+            String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
+            msgConvenio = msgConvenio + convenio.getNumeroConvenio();
             req.setAttribute("msg", msg);
+            req.setAttribute("msgConvenio", msgConvenio);
             lg.info(msg);
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            lg.info(msgConvenio);
+            req.getRequestDispatcher("/convenio.jsp").forward(req, resp);
 
         } catch (Exception e) {
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_ocorreu_erro");

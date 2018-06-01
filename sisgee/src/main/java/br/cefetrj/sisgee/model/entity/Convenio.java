@@ -38,7 +38,7 @@ public class Convenio implements Serializable {
     @GeneratedValue
     private Integer idConvenio;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 11, nullable = false)
     private String numeroConvenio;
 
     /*@JsonbTransient

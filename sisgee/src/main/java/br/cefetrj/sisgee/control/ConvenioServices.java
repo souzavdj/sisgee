@@ -50,7 +50,6 @@ public class ConvenioServices {
             convenioDao.incluir(convenio);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println("No exception!!!");
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -71,7 +70,6 @@ public class ConvenioServices {
             Integer maxIdConvenio = convenioDAO.getMaxIdConvenio();
             return maxIdConvenio;
         } catch (Exception e) {
-            System.out.println("No Exception do GetMax!!!");
             return 0;
         }
     }    

@@ -83,7 +83,7 @@ public class ConvenioUtils {
         String numeroConvenio;
         SimpleDateFormat ano = new SimpleDateFormat("yyyy");
         Integer idConvenio = ConvenioServices.getMaxIdConvenio()+1;
-        numeroConvenio = String.format("%06d", idConvenio) + ano.format(dataAssinatura);
+        numeroConvenio = String.format("%06d", idConvenio) +"/" +ano.format(dataAssinatura);
         return numeroConvenio;
     }
 }
