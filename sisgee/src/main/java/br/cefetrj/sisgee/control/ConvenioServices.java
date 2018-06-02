@@ -160,5 +160,22 @@ public class ConvenioServices {
         }
     }
     
+    /**
+     * Serviço que busca no banco de dados um convenio atraves de seu id.
+     *
+     * @param id convenio
+     * @return Um convenio de um numero especifico ou null caso não seja
+     * encontrado.
+     */
+    public static Convenio buscarConvenioById(String id) {
+        ConvenioDAO convenioDao = new ConvenioDAO();
+        try {
+            Convenio c = convenioDao.buscarById(id);
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }
 

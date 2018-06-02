@@ -171,5 +171,11 @@
                 $("#agente").val("false");
                 $(this).val() == 'true' ? $('.isEM').show("slow"): $('.notEM').show("slow");
                 });
+                
+            $('.selecionadoChk').change(function(){
+                $("#btnRenovarConvenio").prop("disabled", false);
+                $("#btnRenovarConvenio").removeClass("btn-secondary");
+                $("#btnRenovarConvenio").addClass("btn-primary");
+                });
 
     </script>

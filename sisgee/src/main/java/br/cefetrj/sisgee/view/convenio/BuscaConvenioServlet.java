@@ -37,6 +37,7 @@ public class BuscaConvenioServlet extends HttpServlet {
         
         String numConvenio = req.getParameter("numConvenio");
         String nomeConvenio = req.getParameter("nomeConveniado");
+        nomeConvenio = nomeConvenio.toUpperCase();
         
         
         if(!numConvenio.trim().isEmpty()){
@@ -47,8 +48,12 @@ public class BuscaConvenioServlet extends HttpServlet {
             req.setAttribute("listaBusca", listaBusca);
         }
         
+        if(listaBusca.isEmpty()){
+            String msgBusca = messages.getString("br.cefetrj.sisgee.busca_convenio_servlet.msg_erroBusca");
+            req.setAttribute("msgBusca",msgBusca);
+        }
+            
         req.getRequestDispatcher("/form_renovar_convenio.jsp").forward(req, resp);
-        
         
     }
 

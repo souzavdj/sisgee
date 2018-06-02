@@ -66,7 +66,8 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
          * @return Uma lista de Convenios com parte do nome do conveniado utilizado como parametro.Caso não exista nenhum retorna um null.
          */
         public List<Convenio> buscarByNomeParcial(String nome){
-            return (List<Convenio>) manager.createQuery("SELECT c FROM Convenio c WHERE c.nomeConveniado LIKE :nome").setParameter("nome",nome).getResultList();
+            String consulta = "SELECT c FROM Convenio c WHERE c.nomeConveniado LIKE '%" +nome +"%'";
+            return (List<Convenio>) manager.createQuery(consulta,Convenio.class).getResultList();
         }
         
         /**
@@ -75,6 +76,17 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
          * @return Uma lista de Convenios com parte do numero do conenio utilizado como parametro.Caso não exista nenhum retorna um null.
          */
         public List<Convenio> buscarByNumeroParcial(String numero){
-            return (List<Convenio>) manager.createQuery("SELECT c FROM Convenio c WHERE c.numeroConvenio LIKE :numero").setParameter("numero",numero).getResultList();
+            String consulta = "SELECT c FROM Convenio c WHERE c.numeroConvenio LIKE '%" +numero +"%'";
+            return (List<Convenio>) manager.createQuery(consulta,Convenio.class).getResultList();
         }
+        
+        /**
+         * Metodo que faz uma query de busca de um convenio com o id.
+         * @param id id do convenio
+         * @return Um convenio de um id especifico ou null caso não seja encontrado.
+         */
+        public Convenio buscarById(String idconvenio){
+            return (Convenio) manager.createQuery("SELECT c FROM Convenio c WHERE c.idconvenio = :idconvenio",Convenio.class).setParameter("idconvenio",idconvenio).getSingleResult();
+        }
+        
 }

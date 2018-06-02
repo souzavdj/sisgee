@@ -41,12 +41,15 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
         //remove caracteres especiais antes de salvar o CNPJ
         cnpj = cnpj.replaceAll("[.|/|-]", "");
         String razaoSocial = req.getParameter("razaoSocial");
+        razaoSocial = razaoSocial.toUpperCase(locale);
         String agente = req.getParameter("agente");
         String cpf = req.getParameter("cpf");
         //remove caracteres especiais antes de salvar o CPF
         cpf = cpf.replaceAll("[.|-]", "");
         String nome = req.getParameter("nome");
+        nome = nome.toUpperCase(locale);
         String pessoaContato = req.getParameter("pessoaContato");
+        pessoaContato = pessoaContato.toUpperCase(locale);
         Date dataAssinatura = (Date) req.getAttribute("dataAssinatura");
         String telefone = req.getParameter("telefone");
         String email = req.getParameter("email");
@@ -74,11 +77,9 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
             
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
             String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
-            msgConvenio = msgConvenio + convenio.getNumeroConvenio();
-            StringBuilder stringBuilder = new StringBuilder(msgConvenio);
-            stringBuilder.insert(msgConvenio.length() - 4, '/');
+            msgConvenio = msgConvenio + ConvenioUtils.getNumeroCovenioFormatado(convenio.getNumeroConvenio());
             req.setAttribute("msg", msg);
-            req.setAttribute("msgConvenio", stringBuilder);
+            req.setAttribute("msgConvenio", msgConvenio);
             lg.info(msg);
             lg.info(msgConvenio);
             req.getRequestDispatcher("/convenio.jsp").forward(req, resp);
