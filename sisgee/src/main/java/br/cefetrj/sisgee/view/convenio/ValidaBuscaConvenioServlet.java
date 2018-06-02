@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ValidaBuscaConvenioServlet")
 public class ValidaBuscaConvenioServlet extends HttpServlet {
     
+    private static final long serialVersionUID = 1L;
+    
     /**
      *
      * Metodo que recebe informações do formulario da pagina de renovacao de
@@ -45,36 +47,66 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
         boolean isValid = true;
         
         String campoMsg = "";
-        if(numConvenio.trim().isEmpty()) && nomeConveniado.trim().isEmpty()){
-            campoMsg = messages.getString(campoMsg);
+        if(numConvenio.trim().isEmpty() && nomeConveniado.trim().isEmpty()){
+            campoMsg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_campos");
             req.setAttribute("campoMsg", campoMsg);
             isValid = false;
-        }else{
-                
+        }else if(!(numConvenio.trim().isEmpty()) && !(nomeConveniado.trim().isEmpty())){
+            campoMsg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_umCampo");
+            req.setAttribute("campoMsg", campoMsg);
+            isValid = false;
         }
         
-        /**
-         * Validação do campo Numero Convenio, usando métodos da Classe ValidaUtils. Deve
-         * ser campo booleano
-         */
-        String tipoMsg = "";
-        tipoMsg = ValidaUtils.validaObrigatorio("Tipo de Pessoa", tipo);
-        if (tipoMsg.trim().isEmpty()) {
-            tipoMsg = ValidaUtils.validaBoolean("Tipo de Pessoa", tipo);
-            if (tipoMsg.trim().isEmpty()) {
-                Boolean tipoB = Boolean.parseBoolean(tipo);
-                req.setAttribute("tipo", tipoB);
-            } else {
-                tipoMsg = messages.getString(tipoMsg);
-                req.setAttribute("tipoMsg", tipoMsg);
+        if(!(numConvenio.trim().isEmpty()) && nomeConveniado.trim().isEmpty()){
+        /***
+             * Validação do  campo Número do Convênio
+             * Tipo númerico
+             * Máximo de 6 caracteres
+             */
+        String numConvenioMsg ="";
+        numConvenioMsg = ValidaUtils.validaTamanho("Número do Convênio", 6, numConvenio);
+        if (numConvenioMsg.trim().isEmpty()) {
+            numConvenioMsg = ValidaUtils.validaInteger("Número do Convênio", numConvenio);
+            if (numConvenioMsg.trim().isEmpty()) {
+                req.setAttribute("Número do Convêniop", numConvenio);
+            }else{
+                numConvenioMsg = messages.getString(numConvenioMsg);
+                numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 6);
+                req.setAttribute("numConvenioMsg", numConvenioMsg);
                 isValid = false;
             }
-        } else {
-            tipoMsg = messages.getString(tipoMsg);
-            req.setAttribute("tipoMsg", tipoMsg);
-            isValid = false;         
+        }else{
+            numConvenioMsg = messages.getString(numConvenioMsg);
+            numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 6);
+            req.setAttribute("numConvenioMsg", numConvenioMsg);
+            isValid = false;
+        }
+        }else if(numConvenio.trim().isEmpty() && !(nomeConveniado.trim().isEmpty())){
+            
+        /***
+             * Validação do  campo Nome do Conveniado
+             * Tipo String
+             * Máximo de 100 caracteres
+             */
+            String nomeConveniadoMsg = "";
+            nomeConveniadoMsg = ValidaUtils.validaTamanho("Nome do Conveniado", 100, nomeConveniado);
+            if (nomeConveniadoMsg.trim().isEmpty()) {
+                req.setAttribute("Nome do Convêniado", nomeConveniado);
+            } else {
+                nomeConveniadoMsg = messages.getString(nomeConveniadoMsg);
+                nomeConveniadoMsg = ServletUtils.mensagemFormatada(nomeConveniadoMsg, locale, 100);
+                req.setAttribute("nomeConveniadoMsg", nomeConveniado);
+                isValid = false;
+            }
         }
         
-    
+        if (isValid) {
+            req.getRequestDispatcher("/BuscaConvenioServlet").forward(req, resp);
+        } else {
+            String msg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_atencao");
+            req.setAttribute("msg", msg);
+            req.getRequestDispatcher("/form_renovar_convenio.jsp").forward(req, resp);
+        }
+        
     }
 }

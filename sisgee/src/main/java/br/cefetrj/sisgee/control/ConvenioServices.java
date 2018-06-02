@@ -125,5 +125,40 @@ public class ConvenioServices {
             return null;
         }
     }
-
+    
+    /**
+     * Serviço que busca no banco de dados convenios atraves de parte do seu número.
+     *
+     * @param numero  parte do numero do convenio
+     * @return lista de convenios que contém aquele número
+     */
+    public static List<Convenio> buscarByNumeroParcial(String numero) {
+        ConvenioDAO convenioDao = new ConvenioDAO();
+        try {
+            List<Convenio> c = convenioDao.buscarByNumeroParcial(numero);            
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Serviço que busca no banco de dados convenios atraves de parte do seu nome.
+     * 
+     * @param nomeConveniado Representa parte do nome da pessoa fisica ou a razão
+     * social da pessoa juridica.
+     * @return lista de convenios que contém parte deste nome
+     * 
+     */
+    public static List<Convenio> buscarByNomeParcial(String nomeConveniado) {
+        ConvenioDAO convenioDao = new ConvenioDAO();
+        try {
+            List<Convenio> c = convenioDao.buscarByNomeParcial(nomeConveniado);
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }
+

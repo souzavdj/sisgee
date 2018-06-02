@@ -28,33 +28,39 @@
                     <fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_titulo"/>
                 </h5>
 
-                <form action=BuscaConvenioServlet method="post" name="renovarConvenio">
+                <form action=ValidaBuscaConvenioServlet method="post" name="renovarConvenio">
                     <fieldset class="form-group">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="numConvenio"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_numConvenio"/></label>
-                            <input type="text" class="form-control ${ not empty numConvenio ? 'is-invalid': 'is-valid' }" id="numConvenio" name="numConvenio" value="${ param.numConvenio }">
-                            <c:if test="${ not empty numConvenio }">
-                                <div class="invalid-feedback">${ numConvenio }</div>
-                            </c:if>
+                            <input type="text" class="form-control ${ not empty numConvenio ? 'is-invalid': 'is-valid' }" id="numConvenio" name="numConvenio" maxlength="6" value="${ param.numConvenio }">
                         </div>
-
+                        <c:if test="${ not empty campoMsg }">
+                                <div class="invalid-feedback">${ campoMsg }</div>
+                        </c:if>
+                        <c:if test="${ not empty numConvenioMsg }">
+                                <div class="invalid-feedback">${ numConvenioMsg }</div>
+                        </c:if>
+                                
                         <div class="form-group col-md-6">
                             <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/></label>
                             <div class="input-group">   
                                 <input type="text" class="form-control ${ not empty nomeConveniadoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }">
-
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>
                                 </span>
-                                <c:if test="${ not empty nomeConveniado }">
-                                    <div class="invalid-feedback">${ nomeConveniado }</div>
-                                </c:if>
                             </div>
                         </div>
-
-
-                        <div class=" isBusca Busca" ${ empty param.isAgenteIntegracao ? "style='display:none'" : param.isAgenteIntegracao == "nao" ? "style='display:none'" : "" }>        
-                        <button id="btnListarConvenios" type="button" onclick="document.forms['dadosAluno'].submit()" class="btn btn-secondary" disabled="true"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>        
+                        <c:if test="${ not empty campoMsg }">
+                                <div class="invalid-feedback">${ campoMsg }</div>
+                        </c:if>
+                        <c:if test="${ not empty nomeConveniadoMsg }">
+                                <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
+                        </c:if>        
+                        
+                                
+                                <%--<div class=" isBusca Busca" ${ empty param.isAgenteIntegracao ? "style='display:none'" : param.isAgenteIntegracao == "nao" ? "style='display:none'" : "" }>        
+                        <button id="btnListarConvenios" type="button" onclick="document.forms['dadosAluno'].submit()" class="btn btn-secondary" disabled="true"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>--%>        
+                        <c:if test="${not empty listaBusca}">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -65,15 +71,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${listagem}" var="i">
+                                <c:forEach items="${listaBusca}" var="i">
                                     <tr>
                                         <th <label class="radio-inline"><input type="radio" ></label></th>
-                                        <td>i.numConvenio</td>
-                                        <td>i.nomeCoveniado</td>
-                                        <td>i.cpf_cnpj</td>
+                                        <td>${i.numeroConvenio}</td>
+                                        <td>${i.nomeConveniado}</td>
+                                        <td>${i.cpf_cnpj}</td>
                                     </tr>
                                 </c:forEach>
                         </table>
+                        </c:if>
+                        <c:if test="${empty listaBusca}">
+                            <h2><fmt:message key = "br.cefetrj.sisgee.busca_convenio_servlet.msg_erroBusca"/></h2>
+                        </c:if>
                         </div>
                         <div align='center'>
                             <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_cancelar"/></button>

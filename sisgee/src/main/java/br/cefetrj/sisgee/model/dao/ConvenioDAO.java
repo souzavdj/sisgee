@@ -2,9 +2,7 @@ package br.cefetrj.sisgee.model.dao;
 
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 import javax.persistence.TypedQuery;
 /**
  * Classe que atua no banco de dados com query especificas com o foco na tabela de convenio  
@@ -60,5 +58,23 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
          */
         public Convenio buscarByNumero(String numero){
             return (Convenio) manager.createQuery("SELECT c FROM Convenio c WHERE c.numeroConvenio = :numero").setParameter("numero",numero).getSingleResult();
+        }
+        
+        /**
+         * Metodo que faz uma query que busca na tabela do convenio um convenio com um nome de conveniado parcial.
+         * @param nome  parte do nome do conveniado 
+         * @return Uma lista de Convenios com parte do nome do conveniado utilizado como parametro.Caso não exista nenhum retorna um null.
+         */
+        public List<Convenio> buscarByNomeParcial(String nome){
+            return (List<Convenio>) manager.createQuery("SELECT c FROM Convenio c WHERE c.nomeConveniado LIKE :nome").setParameter("nome",nome).getResultList();
+        }
+        
+        /**
+         * Metodo que faz uma query de busca de um convenio com número específico do banco de dados.
+         * @param numero parte numero do convenio
+         * @return Uma lista de Convenios com parte do numero do conenio utilizado como parametro.Caso não exista nenhum retorna um null.
+         */
+        public List<Convenio> buscarByNumeroParcial(String numero){
+            return (List<Convenio>) manager.createQuery("SELECT c FROM Convenio c WHERE c.numeroConvenio LIKE :numero").setParameter("numero",numero).getResultList();
         }
 }
