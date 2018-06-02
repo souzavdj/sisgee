@@ -75,11 +75,15 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 req.setAttribute("tipo", tipoB);
             } else {
                 tipoMsg = messages.getString(tipoMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                lg.info(tipoMsg);
                 req.setAttribute("tipoMsg", tipoMsg);
                 isValid = false;
             }
         } else {
             tipoMsg = messages.getString(tipoMsg);
+            Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+            lg.info(tipoMsg);
             req.setAttribute("tipoMsg", tipoMsg);
             isValid = false;         
         }
@@ -102,12 +106,16 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     req.setAttribute("agente", agenteB);
                 } else {
                     agenteMsg = messages.getString(agenteMsg);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(agenteMsg);
                     req.setAttribute("agenteMsg", agenteMsg);
                     isValid = false;
                     
                 }
             } else {
                 agenteMsg = messages.getString(agenteMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(agenteMsg);
                 req.setAttribute("agenteMsg", agenteMsg);
                 isValid = false;
                 
@@ -133,22 +141,30 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                            req.setAttribute("cnpj", cnpj);
                         } else {
                             cnpjMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
+                            Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                            lg.info(cnpjMsg);
                             req.setAttribute("cnpjMsg", cnpjMsg);
                             isValid = false;
                         }
                     } else {
                         cnpjMsg = messages.getString(cnpjMsg);
                         cnpjMsg = ServletUtils.mensagemFormatada(cnpjMsg, locale, tamanho);
+                        Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                        lg.info(cnpjMsg);
                         req.setAttribute("cnpjMsg", cnpjMsg);
                         isValid = false;
                     }
                 } else {
                     cnpjMsg = messages.getString(cnpjMsg);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(cnpjMsg);
                     req.setAttribute("cnpjMsg", cnpjMsg);
                     isValid = false;
                 }
             } else {
                 cnpjMsg = messages.getString(cnpjMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                lg.info(cnpjMsg);
                 req.setAttribute("cnpjMsg", cnpjMsg);
                 isValid = false;
             }
@@ -169,17 +185,23 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         req.setAttribute("razaoSocial", razaoSocial);
                     } else {
                         razaoSocialMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
+                        Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                        lg.info(razaoSocialMsg);
                         req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                         isValid = false;
                     }
                 } else {
                     razaoSocialMsg = messages.getString(razaoSocialMsg);
                     razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(razaoSocialMsg);
                     req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                     isValid = false;
                 }
             } else {
                 razaoSocialMsg = messages.getString(razaoSocialMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                lg.info(razaoSocialMsg);
                 req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                 isValid = false;
             }
@@ -196,6 +218,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 } else {
                     pessoaContatoMsg = messages.getString(pessoaContatoMsg);
                     pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(pessoaContatoMsg);
                     req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
                     isValid = false;
                 }
@@ -224,22 +248,30 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                             req.setAttribute("cpf", cpf);
                         } else {
                             cpfMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_pessoa_duplicada");
+                            Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                            lg.info(cpfMsg);
                             req.setAttribute("cpfMsg", cpfMsg);
                             isValid = false;
                         }
                     } else {
                         cpfMsg = messages.getString(cpfMsg);
                         cpfMsg = ServletUtils.mensagemFormatada(cpfMsg, locale, tamanho);
+                         Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                         lg.info(cpfMsg);
                         req.setAttribute("cpfMsg", cpfMsg);
                         isValid = false;
                     }
                 } else {
                     cpfMsg = messages.getString(cpfMsg);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(cpfMsg);
                     req.setAttribute("cpfMsg", cpfMsg);
                     isValid = false;
                 }
             } else {
                 cpfMsg = messages.getString(cpfMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                lg.info(cpfMsg);
                 req.setAttribute("cpfMsg", cpfMsg);
                 isValid = false;
             }
@@ -258,11 +290,15 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 } else {
                     nomeMsg = messages.getString(nomeMsg);
                     nomeMsg = ServletUtils.mensagemFormatada(nomeMsg, locale, tamanho);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(nomeMsg);
                     req.setAttribute("nomeMsg", nomeMsg);
                     isValid = false;
                 }
             } else {
                 nomeMsg = messages.getString(nomeMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                lg.info(nomeMsg);
                 req.setAttribute("nomeMsg", nomeMsg);
                 isValid = false;
             }
@@ -320,6 +356,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 } else {
                     emailMsg = messages.getString(emailMsg);
                     emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(emailMsg);
                     req.setAttribute("emailMsg", emailMsg);
                     isValid = false;
                 }
@@ -340,12 +378,16 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     } else {
                         telefoneMsg = messages.getString(telefoneMsg);
                         telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
+                        Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                        lg.info(telefoneMsg);
                         req.setAttribute("telefoneMsg", telefoneMsg);
                         isValid = false;
                     }
                 }else{
                     telefoneMsg = messages.getString(telefoneMsg);
                     telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.info(telefoneMsg);
                     req.setAttribute("telefoneMsg", telefoneMsg);
                     isValid = false;
                 }    
@@ -354,6 +396,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             req.getRequestDispatcher("/IncluirCadastroConvenioServlet").forward(req, resp);
         } else {
             String msg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_atencao");
+            Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+            lg.info(msg);
             req.setAttribute("msg", msg);
             req.getRequestDispatcher("/form_convenio.jsp").forward(req, resp);
         }
