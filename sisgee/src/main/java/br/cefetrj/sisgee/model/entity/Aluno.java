@@ -27,7 +27,7 @@ public class Aluno implements Serializable{
     @GeneratedValue
     private Integer idAluno;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 10, nullable = false, unique = true)
     private String matricula;
 
     /*@ManyToOne(fetch = FetchType.EAGER)
@@ -112,15 +112,7 @@ public class Aluno implements Serializable{
     public void setNomeCampus(String nomeCampus) {
         this.nomeCampus = nomeCampus;
     }
-/*
-    public String getCodigoCurso() {
-        return codigoCurso;
-    }
-
-    public void setCodigoCurso(String codigoCurso) {
-        this.codigoCurso = codigoCurso;
-    }
-*/
+    
     public String getNomeCurso() {
         return nomeCurso;
     }

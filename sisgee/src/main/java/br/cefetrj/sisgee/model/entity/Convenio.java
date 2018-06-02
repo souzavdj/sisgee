@@ -2,6 +2,7 @@ package br.cefetrj.sisgee.model.entity;
 
 import java.io.Serializable;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -80,7 +81,9 @@ public class Convenio implements Serializable {
 
     public Convenio() {
     }
-
+    public Convenio(int id){
+        this.idConvenio=id;
+    }
     public Convenio(String numeroConvenio) {
         this.numeroConvenio = numeroConvenio;
     }
@@ -248,4 +251,5 @@ public class Convenio implements Serializable {
     }
 
     
+   
 }

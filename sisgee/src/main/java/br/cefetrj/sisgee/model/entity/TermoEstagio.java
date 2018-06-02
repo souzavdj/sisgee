@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -56,20 +55,20 @@ public class TermoEstagio implements Serializable {
 
     @Column(length = 255, nullable = false)
     private String enderecoTermoEstagio;
+    //Acho que vai ter que tirar o numero
+    //@Column(length = 10, nullable = false)
+    //private String numeroEnderecoTermoEstagio;
 
-    @Column(length = 10, nullable = false)
-    private String numeroEnderecoTermoEstagio;
-
-    @Column(length = 150, nullable = false)
+    @Column(length = 100, nullable = true)
     private String complementoEnderecoTermoEstagio;
 
-    @Column(length = 150, nullable = false)
+    @Column(length = 100, nullable = true)
     private String bairroEnderecoTermoEstagio;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 8, nullable = true)
     private String cepEnderecoTermoEstagio;
 
-    @Column(length = 150, nullable = false)
+    @Column(length = 100, nullable = false)
     private String cidadeEnderecoTermoEstagio;
 
     @Column(length = 2, nullable = false)
@@ -130,7 +129,7 @@ public class TermoEstagio implements Serializable {
         this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
         this.valorBolsa = valorBolsa;
         this.enderecoTermoEstagio = enderecoTermoEstagio;
-        this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
+        //this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
         this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
         this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
         this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
@@ -150,7 +149,7 @@ public class TermoEstagio implements Serializable {
         this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
         this.valorBolsa = valorBolsa;
         this.enderecoTermoEstagio = enderecoTermoEstagio;
-        this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
+        //this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
         this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
         this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
         this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
@@ -222,14 +221,14 @@ public class TermoEstagio implements Serializable {
         this.enderecoTermoEstagio = enderecoTermoEstagio;
     }
 
-    public String getNumeroEnderecoTermoEstagio() {
+    /*public String getNumeroEnderecoTermoEstagio() {
         return numeroEnderecoTermoEstagio;
     }
 
     public void setNumeroEnderecoTermoEstagio(String numeroEnderecoTermoEstagio) {
         this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
     }
-
+    */
     public String getComplementoEnderecoTermoEstagio() {
         return complementoEnderecoTermoEstagio;
     }

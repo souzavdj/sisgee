@@ -5,16 +5,19 @@
  */
 package br.cefetrj.sisgee.view.convenio;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
+import br.cefetrj.sisgee.view.utils.ConvenioUtils;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,47 +38,50 @@ public class ConveniosVencerServlet extends HttpServlet {
 	ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String msg ="";
         
-        List<Convenio> listaVencidos = null;
+        ConvenioUtils cUtil = new ConvenioUtils();
+        List<Convenio> listaVencidos=null ;
+        Date dataInicio,dataFim;
+        SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
         
-        
+        /**
+         * Descobrindo data atual
+         */
         Calendar cal = new GregorianCalendar();
-        Date dataAtual = new Date();
-        Date dataAntiga= new Date();
         int anoAtual=cal.get(Calendar.YEAR);
-        int mesAtual=cal.get(Calendar.MONTH);//pegar daqui a 1 e 2 meses
-        int diaAtual=cal.get(Calendar.DAY_OF_MONTH);
-        String formatoDataAtual = diaAtual +"/" +mesAtual +"/"+anoAtual; 
+        int mesAtual=cal.get(Calendar.MONTH)+1;
+        int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
         
-        //Tenho que conseguir a lista dos convenios que serão vencidos daqui a 1 mes e 2 meses.
-        
-        //Objetivo fazer um listaVencidos =(List<Convenio>) ConveniosService.buscarListaDeVencidos(anoAtual,dataAntiga,dataAtual).
-       
-        /*Dentro desse metodo ConvenioDAO convenioDao = new ConvenioDAO();
-            try{
-                    List<Convenio> lista =List<Convenio> convenioDao.buscarVencidos(paramentros);
-                    return lista;
-            }catch(Exception e){
-                    return null;
-            }
-        
-        */
-        
-        //Fazer a query magica no ConvenioDAO que retorne a lista dos Vencidos .
-        
-        //Se retornar null é pq n tem convenios vencidos daqui a1 e 2 meses e botar msg de retorno
+        /**
+         * Fazendo intervalo a partir do dia 1 do mes seguinte que termina no ultimo dia do proximo mes 
+         */
         
         
+        String inicioMes1 =(anoAtual-5)+"-"+(mesAtual+1)+"-01";
+        String fimMes2 = (anoAtual-5)+"-"+(mesAtual+2)+"-31";
         
-
-        //Parte final para botar no jsp:req.setAttribute("ListaConveniosAVencer", listaVencidos);
+        /**
+         * Transformando o intervalo em Date e usando como parametro na busca de convenios vencidos dentro do intervalo
+         */
+        try{
+            dataInicio =(Date)in.parse(inicioMes1);
+            dataFim = (Date)in.parse(fimMes2);
+            listaVencidos =ConvenioServices.buscarListaDeVencidos(dataInicio,dataFim);
+        }catch(Exception e){
+            Logger lg = Logger.getLogger(ConveniosVencerServlet.class);
+            lg.error("Problema nas datas de inicio e fim :",e);
+            
+        }
         
-        
-        /*Mensagem caso a lista retorne nada e ira no jsp
-            if(listaVencidos==null){
+        req.setAttribute("ListaConveniosAVencer", listaVencidos); 
+        req.setAttribute("convenioUtils",cUtil);
+        if(listaVencidos==null || listaVencidos.isEmpty()){
             msg = messages.getString("br.cefetrj.sisgee.form_convenios_a_vencer.msg_relatorio_vazio");
-            req.setAttribute("MsgDeErro",msg);
-        }*/
-        
+            req.setAttribute("msg", msg);
+            
+        }else{
+            req.setAttribute("ListaConveniosAVencer", listaVencidos); 
+            req.setAttribute("convenioUtils",cUtil);
+        }
         req.getRequestDispatcher("/form_convenios_a_vencer.jsp").forward(req, resp);
     }
     

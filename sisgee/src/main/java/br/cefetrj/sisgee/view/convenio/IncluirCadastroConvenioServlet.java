@@ -59,7 +59,6 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
                convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, Boolean.parseBoolean(agente), pessoaContato, email, telefone);
                String numeroConvenio = ConvenioUtils.gerarNumeroConvenio(dataAssinatura);
                numeroConvenio = numeroConvenio.replace("/", "");
-               System.out.println("NumeroConvenio: " + numeroConvenio);
                
                convenio.setNumeroConvenio(numeroConvenio);
                ConvenioServices.incluirConvenio(convenio);
@@ -67,14 +66,13 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
                 convenio = new Convenio(dataAssinatura, cpf, nome, false,email, telefone);
                 String numeroConvenio = ConvenioUtils.gerarNumeroConvenio(dataAssinatura);
                 numeroConvenio = numeroConvenio.replace("/", "");
-                System.out.println("NumeroConvenio: " + numeroConvenio);
                 convenio.setNumeroConvenio(numeroConvenio);
                 ConvenioServices.incluirConvenio(convenio);
             }
             
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
             String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
-            msgConvenio = msgConvenio + convenio.getNumeroConvenio();
+            msgConvenio = msgConvenio + ConvenioUtils.getNumeroConvenioFormatado(convenio.getNumeroConvenio());
             req.setAttribute("msg", msg);
             req.setAttribute("msgConvenio", msgConvenio);
             lg.info(msg);

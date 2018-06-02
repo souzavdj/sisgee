@@ -44,15 +44,14 @@ public class BuscaAlunoServlet extends HttpServlet {
                 String idTermoEstagioAtivo = "";
 		
 		Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
-		/*if(aluno != null) {
-			Pessoa pessoa = aluno.getPessoa();
-			Curso curso = aluno.getCurso();
-			Campus campus = curso.getCampus();
-			
+		if(aluno != null) {
+			nome = aluno.getNome();
+                        nomeCurso=aluno.getNomeCurso();
+			nomeCampus=aluno.getNomeCampus();
 			idAluno = Integer.toString(aluno.getIdAluno());
-			nome = pessoa.getNome();
-			nomeCurso = curso.getNomeCurso();
-			nomeCampus = campus.getNomeCampus();
+			
+			
+			
                         List<TermoEstagio> termos = aluno.getTermoEstagios();
                         if(termos != null){
                             for (TermoEstagio termo : termos) {
@@ -62,8 +61,8 @@ public class BuscaAlunoServlet extends HttpServlet {
                                             termo.getIdTermoEstagio().toString() : 
                                             "" );
                                     termo.getDataInicioTermoEstagio();
-                                    termo.getConvenio().getEmpresa().getCnpjEmpresa();
-                                    termo.getConvenio().getEmpresa().getNomeEmpresa();
+                                    termo.getConvenio().getCpf_cnpj();
+                                    termo.getConvenio().getNomeConveniado();
                                    
                                 }
                             }
@@ -86,7 +85,7 @@ public class BuscaAlunoServlet extends HttpServlet {
 		String jsonData = stWriter.toString();
 		
 		response.setContentType("application/json");
-		response.getWriter().print(jsonData);*/
+		response.getWriter().print(jsonData);
 	}
 
 }
