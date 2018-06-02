@@ -21,13 +21,13 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr class="table-active">
-                                    <th>Vigência</th>
-                                    <th>Convênio</th>
-                                    <th>Razão Social/Nome</th>
-                                    <th>CNPJ/CPF</th>
-                                    <th> E-mail </th>
-                                    <th> Telefone</th>
-                                    <th> Pessoa de contato</th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.vigencia" /></th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.convenio" /></th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.nomeConveniado" /></th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.cpf_cnpj" /></th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.email" /></th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.telefone" /></th>
+                                    <th><fmt:message key="br.cefetrj.sisgee.form_convenios_a_vencer.contato" /></th>
                                 </tr>
                             </thead>
                             <tbody>
