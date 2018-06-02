@@ -72,8 +72,7 @@ public class ConveniosVencerServlet extends HttpServlet {
             
         }
         
-        req.setAttribute("ListaConveniosAVencer", listaVencidos); 
-        req.setAttribute("convenioUtils",cUtil);
+        
         if(listaVencidos==null || listaVencidos.isEmpty()){
             msg = messages.getString("br.cefetrj.sisgee.form_convenios_a_vencer.msg_relatorio_vazio");
             req.setAttribute("msg", msg);
