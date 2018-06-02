@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  * Classe responsavel por verificar se as informações dos campos da pagina de
@@ -285,23 +286,24 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     dataAssinatura = format.parse(dataAssinaturaConvenio);
                     req.setAttribute("dataAssinatura", dataAssinatura);
                 } catch (Exception e) {
-                    //TODO trocar saída de console por Log
-                    System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                    
+                    Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                    lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils :",e);
                     isValid = false;
                 }
             } else {
                 dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
+                Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+                lg.info(dataAssinaturaMsg);
                 req.setAttribute("dataInicioMsg", dataAssinaturaMsg);
                 isValid = false;
-                //TODO Fazer log
-                System.out.println(dataAssinaturaMsg);
             }
         } else {
             dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
+            Logger lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
+            lg.info(dataAssinaturaMsg);
             req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
             isValid = false;
-            //TODO Fazer log
-            System.out.println(dataAssinaturaMsg);
         }
         
         
