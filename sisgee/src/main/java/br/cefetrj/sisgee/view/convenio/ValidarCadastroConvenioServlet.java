@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ValidarCadastroConvenioServlet")
 public class ValidarCadastroConvenioServlet extends HttpServlet {
-
+    private static final long serialVersionUID = 1L;
     /**
      *
      * Metodo que recebe informações do formulario da pagina de cadastrar
@@ -163,14 +163,23 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             if (razaoSocialMsg.trim().isEmpty()) {
                 razaoSocialMsg = ValidaUtils.validaTamanho("Razão Social", tamanho, razaoSocial);
                 if (razaoSocialMsg.trim().isEmpty()) {
-                    Convenio e = ConvenioServices.buscarConvenioByNomeConveniado(razaoSocial);
-                    if (e == null) {
-                        req.setAttribute("razaoSocial", razaoSocial);
-                    } else {
-                        razaoSocialMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
+                    razaoSocialMsg = ValidaUtils.validaNaoInteger("Razão Social", razaoSocial);
+                    if (razaoSocialMsg.trim().isEmpty()) {                          
+                        Convenio e = ConvenioServices.buscarConvenioByNomeConveniado(razaoSocial);
+                        if (e == null) {
+                            req.setAttribute("razaoSocial", razaoSocial);
+                        }else {
+                            razaoSocialMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
+                            req.setAttribute("razaoSocialMsg", razaoSocialMsg);
+                            isValid = false;
+                    }
+                    }else{
+                        razaoSocialMsg = messages.getString(razaoSocialMsg);
+                        razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
                         req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                         isValid = false;
                     }
+                    
                 } else {
                     razaoSocialMsg = messages.getString(razaoSocialMsg);
                     razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
@@ -190,8 +199,17 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             String pessoaContatoMsg = "";
             tamanho = 50;
                 pessoaContatoMsg = ValidaUtils.validaTamanho("Pessoa de Contato", tamanho, pessoaContato);
-                if (pessoaContatoMsg.trim().isEmpty()) {
+                if (pessoaContatoMsg.trim().isEmpty()) {                    
+                    pessoaContatoMsg = ValidaUtils.validaNaoInteger("Pessoa de Contato", pessoaContato);
+                    if (pessoaContatoMsg.trim().isEmpty()) {  
                     req.setAttribute("Pessoa de Contato", pessoaContato);
+                    }
+                    else{
+                       pessoaContatoMsg = messages.getString(pessoaContatoMsg);
+                        pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
+                        req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                        isValid = false; 
+                    }
                 } else {
                     pessoaContatoMsg = messages.getString(pessoaContatoMsg);
                     pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
@@ -253,7 +271,16 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             if (nomeMsg.trim().isEmpty()) {
                 nomeMsg = ValidaUtils.validaTamanho("Nome", tamanho, nome);
                 if (nomeMsg.trim().isEmpty()) {
+                    nomeMsg = ValidaUtils.validaNaoInteger("Nome", nome);
+                    if (nomeMsg.trim().isEmpty()) {
                     req.setAttribute("Nome", nome);
+                    }
+                    else{
+                        nomeMsg = messages.getString(nomeMsg);
+                        nomeMsg = ServletUtils.mensagemFormatada(nomeMsg, locale, tamanho);
+                        req.setAttribute("nomeMsg", nomeMsg);
+                        isValid = false;
+                    }
                 } else {
                     nomeMsg = messages.getString(nomeMsg);
                     nomeMsg = ServletUtils.mensagemFormatada(nomeMsg, locale, tamanho);
@@ -314,7 +341,15 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             tamanho = 50;
                 emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
                 if (emailMsg.trim().isEmpty()) {
-                    req.setAttribute("Email", email);
+                    emailMsg = ValidaUtils.validaNaoInteger("Email", email);
+                    if (emailMsg.trim().isEmpty()) {
+                        req.setAttribute("Email", email);
+                    }else{
+                        emailMsg = messages.getString(emailMsg);
+                        emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
+                        req.setAttribute("emailMsg", emailMsg);
+                        isValid = false;
+                    }
                 } else {
                     emailMsg = messages.getString(emailMsg);
                     emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);

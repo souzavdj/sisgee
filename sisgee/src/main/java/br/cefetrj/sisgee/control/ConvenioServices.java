@@ -177,5 +177,21 @@ public class ConvenioServices {
         }
     }
     
+    /**
+     * Serviço que inclui no banco de dados um convenio
+     *
+     * @param convenio convenio que será incluido
+     */
+    public static void alterarConvenio(Convenio convenio) {
+        GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
+        PersistenceManager.getTransaction().begin();
+        try {
+            convenioDao.alterar(convenio);
+            PersistenceManager.getTransaction().commit();
+        } catch (Exception e) {
+            PersistenceManager.getTransaction().rollback();
+        }
+    }
+    
 }
 

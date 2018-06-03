@@ -228,5 +228,23 @@ public class ValidaUtils {
                 }
 		return msg;
 	}
+        
+        /**
+	 * Método para validar campos não numéricos inteiros
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param o texto que não pode ser numeros.
+	 * @return String com mensagem de erro ou vazia
+	 */
+	public static String validaNaoInteger(String nomeCampo, String param) {
+		String msg = "";
+                if(param.matches("\\d*")){
+                    msg = "br.cefetrj.sisgee.valida_utils.msg_valida_nao_numerico";
+                }
+				
+		return msg;
+                }    
+			
+              
+	
 }
 

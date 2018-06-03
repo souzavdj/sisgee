@@ -61,16 +61,13 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
             if (Boolean.parseBoolean(tipo)) {
                convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, Boolean.parseBoolean(agente), pessoaContato, email, telefone);
                String numeroConvenio = ConvenioUtils.gerarNumeroConvenio(dataAssinatura);
-               numeroConvenio = numeroConvenio.replace("/", "");
-               System.out.println("NumeroConvenio: " + numeroConvenio);
-               
+               numeroConvenio = numeroConvenio.replace("/", "");               
                convenio.setNumeroConvenio(numeroConvenio);
                ConvenioServices.incluirConvenio(convenio);
             } else {
                 convenio = new Convenio(dataAssinatura, cpf, nome, false,email, telefone);
                 String numeroConvenio = ConvenioUtils.gerarNumeroConvenio(dataAssinatura);
                 numeroConvenio = numeroConvenio.replace("/", "");
-                System.out.println("NumeroConvenio: " + numeroConvenio);
                 convenio.setNumeroConvenio(numeroConvenio);
                 ConvenioServices.incluirConvenio(convenio);
             }

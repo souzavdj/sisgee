@@ -89,4 +89,6 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
             return (Convenio) manager.createQuery("SELECT c FROM Convenio c WHERE c.idconvenio = :idconvenio",Convenio.class).setParameter("idconvenio",idconvenio).getSingleResult();
         }
         
+        
+        
 }

@@ -42,12 +42,12 @@
                             <div class="custom-controls-stacked" >
                                 <div class="form-inline">
                                     <label class="custom-control custom-radio"> 
-                                        <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "true" ${tipo == 'true' ? 'checked' : 'disabled="disabled"' } > 
+                                        <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "true" ${param.tipo or tipo == 'true' ? 'checked' : 'disabled="disabled"' } > 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                                     </label> 
                                     <label class="custom-control custom-radio"> 
-                                        <input id="empresaNao" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "false" ${tipo == 'false' ? 'checked' : 'disabled="disabled"' } > 
+                                        <input id="empresaNao" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "false" ${param.tipo or tipo == 'false' ? 'checked' : 'disabled="disabled"' } > 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                                     </label>

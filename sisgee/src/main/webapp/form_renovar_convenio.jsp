@@ -40,7 +40,6 @@
                         </c:if>
                     </div>
 
-
                     <div class="form-group col-md-5">
                         <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/></label>
                         <input type="text" class="form-control ${ not empty nomeConveniadoMsg or not empty campoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }" placeholder="${ param.nomeConveniado }">                           
@@ -56,6 +55,7 @@
                     </div>
                     </div>
                     </form>
+                    
                     <form action=InfoConvenioServlet method="post" name="info">
                     <c:if test="${not empty listaBusca}">
                         <%--<button id="btnRenovarConvenio" type="button" <%--onclick="javascript:location.href = 'form_renovar_convenio_infos.jsp'" class="btn btn-secondary" ${ not empty param.convenioSelecionado ? 'disabled=true' : '' }><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>--%>       
