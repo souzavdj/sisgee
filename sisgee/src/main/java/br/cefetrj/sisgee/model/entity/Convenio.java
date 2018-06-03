@@ -85,17 +85,17 @@ public class Convenio implements Serializable {
         this.numeroConvenio = numeroConvenio;
     }
 
-    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, String email, String telefone, boolean eAtivo) {
+    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, String email, String telefone) {
         this.dataAssinatura = dataAssinatura;
         this.cpf_cnpj = cpf_cnpj;
         this.nomeConveniado = nomeConveniado;
         this.isPessoaJuridica = isPessoaJuridica;
         this.email = email;
         this.telefone = telefone;
-        this.eAtivo = eAtivo;
+        this.eAtivo = true;
     }
 
-    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, boolean isAgenteIntegracao, String pessoaContato, String email, String telefone, boolean eAtivo) {
+    public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, boolean isAgenteIntegracao, String pessoaContato, String email, String telefone) {
         this.dataAssinatura = dataAssinatura;
         this.cpf_cnpj = cpf_cnpj;
         this.nomeConveniado = nomeConveniado;
@@ -104,7 +104,7 @@ public class Convenio implements Serializable {
         this.pessoaContato = pessoaContato;
         this.email = email;
         this.telefone = telefone;
-        this.eAtivo = eAtivo;
+        this.eAtivo = true;
     }
 
     public Integer getIdConvenio() {

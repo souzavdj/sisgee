@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.view.utils.ItemRelatorio;
+import java.text.SimpleDateFormat;
+
 /**
  * Servlet para buscar e processar os dados obtidos do banco.
- * 
+ *
  * @author Marcos E Carvalho
  * @since 1.0
  *
@@ -27,140 +29,94 @@ import br.cefetrj.sisgee.view.utils.ItemRelatorio;
 
 @WebServlet("/BuscaRelatorioConsolidadoServlet")
 public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public BuscaRelatorioConsolidadoServlet() {
         super();
     }
-    
+
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   
+
         Date dataInicio = (Date) request.getAttribute("dataInicio");
-        Date dataTermino = (Date) request.getAttribute("dataTermino");    	
-    	Boolean estagioObrig = (Boolean) request.getAttribute("estagioObrig");
-    	Boolean estagioNaoObrig = (Boolean) request.getAttribute("estagioNaoObrig");
-    	
-    	
-    	Locale locale = (Locale) request.getAttribute("Locale");
+        Date dataTermino = (Date) request.getAttribute("dataTermino");
+        Boolean estagioObrig = (Boolean) request.getAttribute("estagioObrig");
+        Boolean estagioNaoObrig = (Boolean) request.getAttribute("estagioNaoObrig");
 
-    	
+        Locale locale = (Locale) request.getAttribute("Locale");
+
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
-		
-    	System.out.println(dataInicio);
-	System.out.println(dataTermino);
-    	System.out.println(estagioObrig);
-    	System.out.println(estagioNaoObrig);
-		
-    	
-    	List<Object []> termosEstagioLista = null;
-    	List<Object []> termosAditivoLista = null;
-    	
-    	if(estagioObrig == true && estagioNaoObrig == true) {
-    		termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
-                termosEstagioLista.addAll(TermoEstagioServices.listarTermoEstagioFiltrado(false, dataInicio , dataTermino));
-                System.out.println("Ambos Obrigatorio Vinicius Termos: "+termosEstagioLista.size());
-    		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(null, dataInicio, dataTermino);
-    	}else {
-    		
-    		if(estagioObrig == true && estagioNaoObrig == false) {
-                    System.out.println("br.cefetrj.sisgee.view.relatorio.BuscaRelatorioConsolidadoServlet.service()");
-                    termosEstagioLista  = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
-                    System.out.println("Obrigatorio Vinicius Termos: "+termosEstagioLista.size());  
-                    System.out.println(dataInicio);    
-                    
-        		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(true, dataInicio, dataTermino);
 
-    		}
-    		
-    		if(estagioObrig == false && estagioNaoObrig == true) {
-    			termosEstagioLista = TermoEstagioServices.listarTermoEstagioFiltrado(estagioObrig, dataInicio , dataTermino);
-        		//termosAditivoLista = TermoAditivoServices.listarTermoAditivoFiltrado(false, dataInicio, dataTermino);
-                        System.out.println("Nao Obrigatorio Vinicius Termos: "+termosEstagioLista.size());
-    		}
-    	}
-    	
-    	
-    	List <ItemRelatorio> listaItemRelatorio = new ArrayList <ItemRelatorio> ();
-    	
-    	if(!(termosEstagioLista.isEmpty())) {
-    		if(!(termosAditivoLista.isEmpty())){
-    			
-    			listaItemRelatorio = qntdPorCurso(termosEstagioLista);
-    			Object [] aux = null;
-    			String cursoNome = null;
-    			for (Iterator<ItemRelatorio> iterator = listaItemRelatorio.iterator(); iterator.hasNext();) {
-					ItemRelatorio itemRelatorio = (ItemRelatorio) iterator.next();
-					for(int i = 0; i < termosAditivoLista.size(); i++) {
-					aux = termosAditivoLista.get(i);
-					cursoNome = (String) aux[0];
-					if(itemRelatorio.getNomeCurso().equals(cursoNome) ) {
-						itemRelatorio.setQntTermoAditivo(itemRelatorio.getQntTermoAditivo()+1);
-					}
-					}
-				}
-    			
-    			    			
-    		}else {
-    			
-    			listaItemRelatorio = qntdPorCurso(termosEstagioLista);
-    			
-    		}
-    			
-    		
-    		
-    	}else {
-    		System.out.println("Nenhum registro encontrado nesse período de tempo");
-    		String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
-    		request.setAttribute("msgRelatorio", msgRelatorio);
-    	}
-    	
-    	
-    	request.setAttribute("relatorio", listaItemRelatorio);
-    	
-    	
-    	request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
-    	
-    }
-    
-   
-    /**
-     * Metodo para relacionar nomecurso com termo estagio e termo rescisao.
-     * @param termosEstagioLista matriz com conteúdo obtido do banco
-     * @return listaItemRelatorio
-     */
-    public static List<ItemRelatorio> qntdPorCurso(List<Object []> termosEstagioLista ){
-    	List <ItemRelatorio> listaItemRelatorio = new ArrayList <ItemRelatorio> ();
-    	
-    	Object[] aux = null;
-		ItemRelatorio item = null;
-		String stg = null;
-		
-		 for (int i = 0; i < termosEstagioLista.size(); i++) {
-			 
-			 aux = termosEstagioLista.get(i);
-			 stg = (String) aux[1];
-			 int idx = 0;
-			 
-			 int verifResc = 0;
-			 
-			 if(aux[2] == null) verifResc = 0;
-			 else verifResc = 1;
-			 	
-			 
-			 if(listaItemRelatorio.contains(new ItemRelatorio(stg))) {
-				idx = listaItemRelatorio.indexOf(new ItemRelatorio(stg));
-				item = listaItemRelatorio.get(idx);
-				item.setQntTermoAditivo(item.getQntTermoEstagio() + 1);
-				item.setQntRescReg(item.getQntRescReg() + verifResc);
-			 }else {
-				 listaItemRelatorio.add(new ItemRelatorio(stg, 1 , verifResc));				 
-			 }
-		 }
-    	
-    	return listaItemRelatorio;
+        List<Object[]> termosEstagioLista = null;
+        List<Object[]> termosAditivoLista = null;
+        List<String> cursos = null;
+        List<Long> qtdTermosEstagio = null;
+        List<Long> qtdTermosAdivos = null;
+        List<Long> qtdTermosRescindido = null;
+
+        if (estagioObrig == true && estagioNaoObrig == true) {
+            cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(dataInicio, dataTermino);
+            qtdTermosEstagio = new ArrayList<Long>();
+            qtdTermosAdivos = new ArrayList<Long>();
+            qtdTermosRescindido = new ArrayList<Long>();
+            for (int i = 0; i < cursos.size(); i++) {
+                qtdTermosEstagio.add(TermoEstagioServices.buscarQuantidadeDeTermosEstagioParaNomeCurso(cursos.get(i)));
+                qtdTermosAdivos.add(TermoAditivoServices.buscarQuantidadeDeTermosAditivosParaNomeCurso(cursos.get(i)));
+                qtdTermosRescindido.add(TermoEstagioServices.buscarQuantidadeDeTermosEstagioRescindidoParaNomeCurso(cursos.get(i)));
+            }
+        } else {
+
+            if (estagioObrig == true && estagioNaoObrig == false) {
+                cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(estagioObrig, dataInicio, dataTermino);
+
+                qtdTermosEstagio = new ArrayList<Long>();
+                qtdTermosAdivos = new ArrayList<Long>();
+                qtdTermosRescindido = new ArrayList<Long>();
+                for (int i = 0; i < cursos.size(); i++) {
+                    qtdTermosEstagio.add(TermoEstagioServices.buscarQuantidadeDeTermosEstagioParaNomeCurso(cursos.get(i)));
+                    qtdTermosAdivos.add(TermoAditivoServices.buscarQuantidadeDeTermosAditivosParaNomeCurso(cursos.get(i)));
+                    qtdTermosRescindido.add(TermoEstagioServices.buscarQuantidadeDeTermosEstagioRescindidoParaNomeCurso(cursos.get(i)));
+                }
+
+            }
+
+            if (estagioObrig == false && estagioNaoObrig == true) {
+                cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(estagioObrig, dataInicio, dataTermino);
+
+                qtdTermosEstagio = new ArrayList<Long>();
+                qtdTermosAdivos = new ArrayList<Long>();
+                qtdTermosRescindido = new ArrayList<Long>();
+                for (int i = 0; i < cursos.size(); i++) {
+                    qtdTermosEstagio.add(TermoEstagioServices.buscarQuantidadeDeTermosEstagioParaNomeCurso(cursos.get(i)));
+                    qtdTermosAdivos.add(TermoAditivoServices.buscarQuantidadeDeTermosAditivosParaNomeCurso(cursos.get(i)));
+                    qtdTermosRescindido.add(TermoEstagioServices.buscarQuantidadeDeTermosEstagioRescindidoParaNomeCurso(cursos.get(i)));
+                }
+            }
+        }
+
+        List<ItemRelatorio> listaItemRelatorio = new ArrayList<ItemRelatorio>();
+
+        if (!(cursos.isEmpty())) {
+            for (int i = 0; i < cursos.size(); i++) {
+                ItemRelatorio ir = new ItemRelatorio(cursos.get(i), qtdTermosEstagio.get(i).intValue(), qtdTermosRescindido.get(i).intValue());
+                ir.setQntTermoAditivo(qtdTermosAdivos.get(i).intValue());
+                listaItemRelatorio.add(ir);
+            }
+
+        } else {
+            System.out.println("Nenhum registro encontrado nesse período de tempo");
+            String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
+            request.setAttribute("msgRelatorio", msgRelatorio);
+        }
+
+        request.setAttribute("relatorio", listaItemRelatorio);
+        //request.getSession().setAttribute("relatorio", listaItemRelatorio);
+
+        request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
+
     }
 
 }

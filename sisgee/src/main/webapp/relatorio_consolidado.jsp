@@ -38,13 +38,19 @@
 						<div class="form-group col-md-4" style="margin-left: 10px;">
 	
 							<label for="dataDeInicio"><fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.lbl_data_inicio" /></label>
-							<input type="text" class="form-control" id="dataInicio"  name="dataDeInicio" value="${ param.dataDeInicio }">
+							<input type="text" class="form-control ${ not empty msgDataInicio ? 'is-invalid': 'is-valid' }" id="dataInicio"  name="dataDeInicio" value="${ param.dataDeInicio }">
 						</div>
+                                                <c:if test="${ not empty msgDataInicio }">
+                                                    <div class="invalid-feedback">${ msgDataInicio }</div>
+                                                </c:if>
 						<div class="form-group col-md-4" style="margin-left: 10px;">
 							<label for="dataDeTermino"><fmt:message key="br.cefetrj.sisgee.relatorio.relatorio_consolidado.lbl_data_termino" /></label>
 	
-							<input type="text" class="form-control " id="dataFim"   name="dataDeTermino" value="${ param.dataDeTermino }">
+							<input type="text" class="form-control ${ not empty msgDataTermino ? 'is-invalid': 'is-valid' }" id="dataFim"   name="dataDeTermino" value="${ param.dataDeTermino }">
 						</div>
+                                                <c:if test="${ not empty msgDataTermino }">
+                                                    <div class="invalid-feedback">${ msgDataTermino }</div>
+                                                </c:if>
 						<c:if test="${ not empty msgDataTermino }">
 						<div class="alert alert-warning" role="alert">
 							${ msgDataTermino }

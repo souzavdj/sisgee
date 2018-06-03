@@ -5,7 +5,10 @@
  */
 package br.cefetrj.sisgee.view.utils;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.log4j.Logger;
 
 /**
@@ -14,7 +17,7 @@ import org.apache.log4j.Logger;
  */
 public class ConvenioUtils {
     
-    public String getCnpjEmpresaFormatado(String cnpjEmpresa) {
+    public static String getCnpjEmpresaFormatado(String cnpjEmpresa) {
         if(cnpjEmpresa != null && cnpjEmpresa.trim().length() > 0){
             StringBuilder cnpjFormatado = new StringBuilder();
             try{
@@ -76,4 +79,41 @@ public class ConvenioUtils {
         }
     }
     
+    public static String gerarNumeroConvenio (Date dataAssinatura) {
+        String numeroConvenio;
+        SimpleDateFormat ano = new SimpleDateFormat("yyyy");
+        Integer idConvenio = ConvenioServices.getMaxIdConvenio()+1;
+        numeroConvenio = String.format("%06d", idConvenio) +ano.format(dataAssinatura);
+        return numeroConvenio;
+    }
+    
+    public static String getNumeroCovenioFormatado(String num) {
+        if(num != null && num.trim().length() > 0){
+                String numConvenio = num;
+                long x = Long.parseLong(numConvenio);
+                numConvenio = Long.toString(x);
+                StringBuilder numConvenioFormatado = new StringBuilder(numConvenio);
+            try{
+                numConvenioFormatado.insert((numConvenio.length()-4),"/");
+                /*numConvenioFormatado.append(numConvenio.charAt(0));
+                numConvenioFormatado.append(numConvenio.charAt(1));
+                numConvenioFormatado.append(numConvenio.charAt(2));
+                numConvenioFormatado.append(numConvenio.charAt(3));
+                numConvenioFormatado.append(numConvenio.charAt(4));
+                numConvenioFormatado.append(numConvenio.charAt(5));
+                numConvenioFormatado.append("/");
+                numConvenioFormatado.append(numConvenio.charAt(6));
+                numConvenioFormatado.append(numConvenio.charAt(7));
+                numConvenioFormatado.append(numConvenio.charAt(8));
+                numConvenioFormatado.append(numConvenio.charAt(9));*/
+            }catch(IndexOutOfBoundsException e){
+                Logger lg = Logger.getLogger(Convenio.class);
+                lg.error("Numéro de Convênio com menos de 10 numeros. Número de Convênio = " + numConvenio, e);
+                return numConvenio;
+            }
+            return numConvenioFormatado.toString();
+        }else{
+            return null;
+        }
+    }
 }
