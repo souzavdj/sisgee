@@ -213,19 +213,16 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
              */
             String cpfMsg = "";
             tamanho = 11;
-            cpf = ValidaUtils.validaObrigatorio("CPF", cpf);
+            cpfMsg = ValidaUtils.validaObrigatorio("CPF", cpf);
             if (cpfMsg.trim().isEmpty()) {
                 //remove caracteres especiais antes de vazer a validação numérica do CPF
-                cpf = cpf.replaceAll(".", "");
-                cpf = cpf.replaceAll("-", "");
-                cpf = cpf.trim();
+                cpf = cpf.replaceAll("[.|/|-]", "");
                 cpfMsg = ValidaUtils.validaInteger("CPF", cpf);
                 if (cpfMsg.trim().isEmpty()) {
                     cpfMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpf);
                     if (cpfMsg.trim().isEmpty()) {
                         Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
                         if (e == null) {
-                            
                             req.setAttribute("cpf", cpf);
                         } else {
                             cpfMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_pessoa_duplicada");
