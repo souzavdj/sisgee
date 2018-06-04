@@ -193,5 +193,21 @@ public class ConvenioServices {
         }
     }
     
+    
+    /**
+         * Serviço que busca um Convenio com um CNPJ ou CPF do conveniado especifico no banco de dados
+         * @param cnpj_cpf Representa o CNPJ ou CPF do conveniado. 
+         * @return Um unico Convenio com o CNPJ ou CPF utilizado como parametro.Caso não exista retorna um null.
+         */
+        public static Convenio buscarConvenioCpf_Cnpj(String cpf_cnpj) {
+		ConvenioDAO convenioDao = new ConvenioDAO();
+		try{
+			Convenio c = convenioDao.buscarCpf_Cnpj(cpf_cnpj);
+			return c;
+		}catch(Exception e){
+			return null;
+		}
+		
+	}
 }
 

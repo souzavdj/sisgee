@@ -116,4 +116,13 @@ public class ConvenioUtils {
             return null;
         }
     }
+    
+    public static String gerarNumeroConvenioAtt (Date dataAssinatura,Convenio c) {
+        String numeroConvenio;
+        String num = c.getNumeroConvenio();
+        num = num.substring(0, num.length()-4);
+        SimpleDateFormat ano = new SimpleDateFormat("yyyy");
+        numeroConvenio = num +ano.format(dataAssinatura);
+        return numeroConvenio;
+    }
 }

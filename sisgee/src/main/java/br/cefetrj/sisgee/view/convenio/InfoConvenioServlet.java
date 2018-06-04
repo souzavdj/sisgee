@@ -34,7 +34,7 @@ public class InfoConvenioServlet extends HttpServlet {
         String convenio = ConvenioUtils.getNumeroCovenioFormatado(c.getNumeroConvenio());
         req.setAttribute("tipo", c.getIsPessoaJuridica());
         req.setAttribute("agente", c.getIsAgenteIntegracao());
-        req.setAttribute("nomeCoveniado", c.getNomeConveniado());
+        req.setAttribute("nomeConveniado", c.getNomeConveniado());
         req.setAttribute("cpf_cnpj", c.getCpf_cnpj());
         req.setAttribute("dataAssinatura",c.getDataAssinatura());
         req.setAttribute("email", c.getEmail());

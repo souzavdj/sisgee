@@ -40,7 +40,15 @@ public class AlteraConvenioServlet extends HttpServlet {
         String email = req.getParameter("email");
         String pessoaContato = req.getParameter("pessoaContato");
         String tipo = req.getParameter("tipo");
-        String cpf_cnpj = req.getParameter("cpf_cnpj");
+        String cpf_cnpj;
+        if(Boolean.parseBoolean(tipo)){
+            cpf_cnpj = req.getParameter("cnpj");
+        }else{
+            cpf_cnpj = req.getParameter("cpf");
+        }
+        
+        cpf_cnpj = cpf_cnpj.replaceAll("[.|/|-]", "");
+        
         
         String msg = "";
         Logger lg = Logger.getLogger(AlteraConvenioServlet.class);
@@ -49,11 +57,12 @@ public class AlteraConvenioServlet extends HttpServlet {
             c.setDataAssinatura(dataAssinatura);
             c.setTelefone(telefone);
             c.setEmail(email);
+            c.setNumeroConvenio(ConvenioUtils.gerarNumeroConvenioAtt(dataAssinatura, c));
             if(Boolean.parseBoolean(tipo)){
                 c.setPessoaContato(pessoaContato);
             }
             ConvenioServices.alterarConvenio(c);
-            msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
+            msg = messages.getString("br.cefetrj.sisgee.altera_covenio_servlet.msg_convenio_renovado");
             String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
             msgConvenio = msgConvenio + ConvenioUtils.getNumeroCovenioFormatado(c.getNumeroConvenio());
             req.setAttribute("msg", msg);
@@ -62,7 +71,7 @@ public class AlteraConvenioServlet extends HttpServlet {
             lg.info(msgConvenio);
             req.getRequestDispatcher("/convenio.jsp").forward(req, resp);
         } catch (Exception e) {
-            msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_ocorreu_erro");
+            msg = messages.getString("br.cefetrj.sisgee.altera_covenio_servlet.msg_ocorreu_erro");
             req.setAttribute("msg", msg);
             lg.error("Exception ao tentar alterar um Convênio", e);
             req.getRequestDispatcher("/form_renovar_convenio_infos.jsp").forward(req, resp);

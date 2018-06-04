@@ -169,7 +169,6 @@
                                 <label for="pessoaContato"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_pessoaContato"/></label>
                                 <div class="input-group">   
                                     <input type="text" class="form-control ${ not empty pessoaContatoMsg ? 'is-invalid': 'is-valid' }" id="pessoaCotato" name="pessoaContato" maxlength="50" value="${ param.pessoaContato }">
-
                                     <c:if test="${ not empty pessoaContatoMsg }">
                                         <div class="invalid-feedback">${ pessoaContatoMsg }</div>
                                     </c:if>

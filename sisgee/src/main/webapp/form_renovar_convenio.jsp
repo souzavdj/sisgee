@@ -109,8 +109,8 @@
             $(document).ready(function () {
                 $('#btnRenovarConvenio').click(function () {
                     if (!$("input[type='radio'][name='convenioSelecionado']").is(':checked')) {
-                        alert("Por favor, selecione um convênio.");
-                        //return false; //para submit habilite esta linha
+                        //alert("Por favor, selecione um convênio.");
+                        return false; //para submit habilite esta linha
                     }
                 });
             });

@@ -199,9 +199,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             String pessoaContatoMsg = "";
             tamanho = 50;
                 pessoaContatoMsg = ValidaUtils.validaTamanho("Pessoa de Contato", tamanho, pessoaContato);
-                if (pessoaContatoMsg.trim().isEmpty()) {                    
-                    pessoaContatoMsg = ValidaUtils.validaNaoInteger("Pessoa de Contato", pessoaContato);
-                    if (pessoaContatoMsg.trim().isEmpty()) {  
+                if (pessoaContatoMsg.trim().isEmpty()) {  
                     req.setAttribute("Pessoa de Contato", pessoaContato);
                     }
                     else{
@@ -210,12 +208,6 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
                         isValid = false; 
                     }
-                } else {
-                    pessoaContatoMsg = messages.getString(pessoaContatoMsg);
-                    pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
-                    req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
-                    isValid = false;
-                }
             
         } else {
             
@@ -341,8 +333,6 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             tamanho = 50;
                 emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
                 if (emailMsg.trim().isEmpty()) {
-                    emailMsg = ValidaUtils.validaNaoInteger("Email", email);
-                    if (emailMsg.trim().isEmpty()) {
                         req.setAttribute("Email", email);
                     }else{
                         emailMsg = messages.getString(emailMsg);
@@ -350,12 +340,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         req.setAttribute("emailMsg", emailMsg);
                         isValid = false;
                     }
-                } else {
-                    emailMsg = messages.getString(emailMsg);
-                    emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
-                    req.setAttribute("emailMsg", emailMsg);
-                    isValid = false;
-                }
+                
         
         /**
              * Validação do campo Telefone usando os métodos da Classe

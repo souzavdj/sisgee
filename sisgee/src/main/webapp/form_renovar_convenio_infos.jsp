@@ -26,6 +26,11 @@
         <body>
             <%@include file="import_navbar.jspf"%>
             <div class="container">
+                <c:if test="${ not empty msg }">
+                <div class="alert alert-warning" role="alert">
+                    ${ msg }
+                </div>
+                </c:if>
                 <p class="tituloForm">
                 <h5>
                     <fmt:message key="br.cefetrj.sisgee.form_renovar_infos.msg_titulo" />
@@ -42,12 +47,12 @@
                             <div class="custom-controls-stacked" >
                                 <div class="form-inline">
                                     <label class="custom-control custom-radio"> 
-                                        <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "true" ${param.tipo or tipo == 'true' ? 'checked' : 'disabled="disabled"' } > 
+                                        <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "true" ${tipo == 'true' ? 'checked' : 'disabled="disabled"' } > 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                                     </label> 
                                     <label class="custom-control custom-radio"> 
-                                        <input id="empresaNao" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "false" ${param.tipo or tipo == 'false' ? 'checked' : 'disabled="disabled"' } > 
+                                        <input id="empresaNao" name="tipo" type="radio" class="custom-control-input isEmpresaChk " value = "false" ${tipo == 'false' ? 'checked' : 'disabled="disabled"' } > 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                                     </label>
@@ -63,12 +68,12 @@
                                 <div class="custom-controls-stacked" >
                                     <div class="form-inline">
                                         <label class="custom-control custom-radio"> 
-                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input" value = "${tipo}" ${agente == 'true' ? 'checked' : 'disabled="disabled"' }> 
+                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input" value = "true" ${agente == 'true' ? 'checked' : 'disabled="disabled"' }> 
                                             <span class="custom-control-indicator"></span> 
                                             <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_sim"/></span>
                                         </label> 
                                         <label class="custom-control custom-radio"> 
-                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input" value = "${tipo}" ${tipo == 'true' ? 'checked' : 'disabled="disabled"' }> 
+                                            <input id="isAgente" name="agente" type="radio" class="custom-control-input" value = "false" ${agente == 'false' ? 'checked' : 'disabled="disabled"' }> 
                                             <span class="custom-control-indicator"></span> 
                                             <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_nao"/></span>
                                         </label>
@@ -87,7 +92,7 @@
                                 <label for="razaoSocial">                                                                    
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_razaoSocial"/>
                                 </label>
-                                <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" maxlength="100" value="${nomeCoveniado}" readonly="true">
+                                <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" maxlength="100" value="${nomeConveniado}" readonly="true">
                             </div>
                         </div>
 
@@ -104,7 +109,7 @@
                                 <label for="nome">                                                                    
                                     <fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_nome"/>
                                 </label>
-                                <input type="text" class="form-control" id="nome" name="nome" maxlength="100" value="${nomeCoveniado}" readonly="true">
+                                <input type="text" class="form-control" id="nome" name="nome" maxlength="100" value="${nomeConveniado}" readonly="true">
                             </div>
                         </div>            
 
@@ -141,7 +146,7 @@
                             <div class="form-group col-md-6">
                                 <label for="pessoaContato"><fmt:message key = "br.cefetrj.sisgee.form_convenio.msg_pessoaContato"/></label>
                                 <div class="input-group">   
-                                    <input type="text" class="form-control ${ not empty pessoaContatoMsg ? 'is-invalid': 'is-valid' }" id="pessoaCotato" name="pessoaContato" maxlength="50" value="${pessoaContato }">
+                                    <input type="text" class="form-control ${ not empty pessoaContatoMsg ? 'is-invalid': 'is-valid' }" id="pessoaCotato" name="pessoaContato" maxlength="50" value="${pessoaContato}">
 
                                     <c:if test="${ not empty pessoaContatoMsg }">
                                         <div class="invalid-feedback">${ pessoaContatoMsg }</div>
