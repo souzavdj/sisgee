@@ -30,7 +30,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
 		
-		request.getRequestDispatcher("/form_termo_rescisao.jsp").forward(request, response);
+		request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
 					}					
 					
 				} else {
-					idAlunoMsg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_AlunoEscolhido");
+					idAlunoMsg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_alunoEscolhido");
 					request.setAttribute("idAlunoMsg", idAlunoMsg);
 				}
 
@@ -157,7 +157,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 			request.setAttribute("Rescisao", rescisao);
 			
-			request.getRequestDispatcher("/form_termo_rescisao.jsp").forward(request, response);
+			request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 		}
 	}
 

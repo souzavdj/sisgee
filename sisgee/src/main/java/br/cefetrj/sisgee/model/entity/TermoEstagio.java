@@ -301,14 +301,6 @@ public class TermoEstagio implements Serializable {
         this.professorOrientador = professorOrientador;
     }
 
-    public Boolean geteEstagioObrigatorio() {
-        return eEstagioObrigatorio;
-    }
-
-    public void seteEstagioObrigatorio(Boolean eEstagioObrigatorio) {
-        this.eEstagioObrigatorio = eEstagioObrigatorio;
-    }
-
     public String getNomeSupervisor() {
         return nomeSupervisor;
     }

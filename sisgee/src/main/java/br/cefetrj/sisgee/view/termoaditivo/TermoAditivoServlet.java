@@ -125,9 +125,9 @@ public class TermoAditivoServlet extends HttpServlet {
 		}
 		
 		if (isValid) {
-			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
+			request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 		}else {
-			request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);
+			request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 		}
 
 	}

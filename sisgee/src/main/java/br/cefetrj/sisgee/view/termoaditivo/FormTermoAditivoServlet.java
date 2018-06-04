@@ -46,7 +46,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 		request = carregarListas(request);
 		request.setAttribute("aditivo", aditivo);
 
-		request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
+		request.getRequestDispatcher("/form_consulta_termo.jsp").forward(request, response);
 
 	}
 
