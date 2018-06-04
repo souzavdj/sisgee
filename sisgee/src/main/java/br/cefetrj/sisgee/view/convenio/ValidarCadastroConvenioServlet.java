@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  * Classe responsavel por verificar se as informações dos campos da pagina de
@@ -27,7 +28,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ValidarCadastroConvenioServlet")
 public class ValidarCadastroConvenioServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
+
     /**
      *
      * Metodo que recebe informações do formulario da pagina de cadastrar
@@ -56,8 +59,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         String dataAssinaturaConvenio = req.getParameter("dataAssinatura");
         String telefone = req.getParameter("telefone");
         String email = req.getParameter("email");
-        
-
+        Logger lg = Logger.getLogger(AlteraConvenioServlet.class);
         boolean isValid = true;
         int tamanho;
 
@@ -80,14 +82,14 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         } else {
             tipoMsg = messages.getString(tipoMsg);
             req.setAttribute("tipoMsg", tipoMsg);
-            isValid = false;         
+            isValid = false;
         }
-        
+
         /**
          * Caso seja pessoa jurídica
          */
-        if (Boolean.parseBoolean(tipo)) {            
-            
+        if (Boolean.parseBoolean(tipo)) {
+
             /**
              * Validação do campo Agente Integração, usando métodos da Classe
              * ValidaUtils. Deve ser campo booleano
@@ -103,13 +105,13 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     agenteMsg = messages.getString(agenteMsg);
                     req.setAttribute("agenteMsg", agenteMsg);
                     isValid = false;
-                    
+
                 }
             } else {
                 agenteMsg = messages.getString(agenteMsg);
                 req.setAttribute("agenteMsg", agenteMsg);
                 isValid = false;
-                
+
             }
 
             /**
@@ -129,7 +131,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                     if (cnpjMsg.trim().isEmpty()) {
                         Convenio c = ConvenioServices.buscarConvenioByCpf_Cnpj(cnpj);
                         if (c == null) {
-                           req.setAttribute("cnpj", cnpj);
+                            req.setAttribute("cnpj", cnpj);
                         } else {
                             cnpjMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
                             req.setAttribute("cnpjMsg", cnpjMsg);
@@ -158,28 +160,28 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
              * caracteres; Razão Social já existente.
              */
             String razaoSocialMsg = "";
-            tamanho=100;
+            tamanho = 100;
             razaoSocialMsg = ValidaUtils.validaObrigatorio("Razão Social", razaoSocial);
             if (razaoSocialMsg.trim().isEmpty()) {
                 razaoSocialMsg = ValidaUtils.validaTamanho("Razão Social", tamanho, razaoSocial);
                 if (razaoSocialMsg.trim().isEmpty()) {
                     razaoSocialMsg = ValidaUtils.validaNaoInteger("Razão Social", razaoSocial);
-                    if (razaoSocialMsg.trim().isEmpty()) {                          
+                    if (razaoSocialMsg.trim().isEmpty()) {
                         Convenio e = ConvenioServices.buscarConvenioByNomeConveniado(razaoSocial);
                         if (e == null) {
                             req.setAttribute("razaoSocial", razaoSocial);
-                        }else {
+                        } else {
                             razaoSocialMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_empresa_duplicada");
                             req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                             isValid = false;
-                    }
-                    }else{
+                        }
+                    } else {
                         razaoSocialMsg = messages.getString(razaoSocialMsg);
                         razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
                         req.setAttribute("razaoSocialMsg", razaoSocialMsg);
                         isValid = false;
                     }
-                    
+
                 } else {
                     razaoSocialMsg = messages.getString(razaoSocialMsg);
                     razaoSocialMsg = ServletUtils.mensagemFormatada(razaoSocialMsg, locale, tamanho);
@@ -194,25 +196,35 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
 
             /**
              * Validação do campo Pessoa de Contato usando os métodos da Classe
-             * ValidaUtils Campo não obrigatório; Tamanho máximo de 150 caracteres.
+             * ValidaUtils Campo não obrigatório; Tamanho máximo de 150
+             * caracteres.
              */
-            String pessoaContatoMsg = "";
-            tamanho = 50;
+            if (pessoaContato.trim().isEmpty()) {
+                req.setAttribute("pessoaContato", pessoaContato);
+            } else {
+                String pessoaContatoMsg = "";
+                tamanho = 50;
                 pessoaContatoMsg = ValidaUtils.validaTamanho("Pessoa de Contato", tamanho, pessoaContato);
-                if (pessoaContatoMsg.trim().isEmpty()) {  
-                    req.setAttribute("Pessoa de Contato", pessoaContato);
-                    }
-                    else{
-                       pessoaContatoMsg = messages.getString(pessoaContatoMsg);
+                if (pessoaContatoMsg.trim().isEmpty()) {
+                    pessoaContatoMsg = ValidaUtils.validaNaoInteger("Pessoa de Contato", pessoaContato);
+                    if (pessoaContatoMsg.trim().isEmpty()) {
+                        req.setAttribute("Pessoa de Contato", pessoaContato);
+                    } else {
+                        pessoaContatoMsg = messages.getString(pessoaContatoMsg);
                         pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
                         req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
-                        isValid = false; 
+                        isValid = false;
                     }
-            
+                } else {
+                    pessoaContatoMsg = messages.getString(pessoaContatoMsg);
+                    pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
+                    req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                    isValid = false;
+                }
+            }
+
         } else {
-            
-            
-            
+
             /**
              * Validação do CPF da pessoa usando os métodos da Classe
              * ValidaUtils Campo obrigatório; Tamanho de 11 caracteres; CPF
@@ -265,9 +277,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 if (nomeMsg.trim().isEmpty()) {
                     nomeMsg = ValidaUtils.validaNaoInteger("Nome", nome);
                     if (nomeMsg.trim().isEmpty()) {
-                    req.setAttribute("Nome", nome);
-                    }
-                    else{
+                        req.setAttribute("Nome", nome);
+                    } else {
                         nomeMsg = messages.getString(nomeMsg);
                         nomeMsg = ServletUtils.mensagemFormatada(nomeMsg, locale, tamanho);
                         req.setAttribute("nomeMsg", nomeMsg);
@@ -288,10 +299,9 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         }
 
         /**
-             * Validação do campo Data de Assinatura usando os métodos da Classe
-             * ValidaUtils Campo obrigatório; 
-             * Tipo Date.
-             */
+         * Validação do campo Data de Assinatura usando os métodos da Classe
+         * ValidaUtils Campo obrigatório; Tipo Date.
+         */
         Date dataAssinatura = null;
         String dataAssinaturaMsg = "";
 
@@ -300,74 +310,79 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             dataAssinaturaMsg = ValidaUtils.validaDate("Data de Assintura", dataAssinaturaConvenio);
             if (dataAssinaturaMsg.trim().isEmpty()) {
                 try {
-                    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     dataAssinatura = format.parse(dataAssinaturaConvenio);
                     req.setAttribute("dataAssinatura", dataAssinatura);
                 } catch (Exception e) {
-                    //TODO trocar saída de console por Log
-                    System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                    lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils", e);
                     isValid = false;
                 }
             } else {
                 dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
                 req.setAttribute("dataInicioMsg", dataAssinaturaMsg);
                 isValid = false;
-                //TODO Fazer log
-                System.out.println(dataAssinaturaMsg);
             }
         } else {
             dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
             req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
             isValid = false;
-            //TODO Fazer log
-            System.out.println(dataAssinaturaMsg);
         }
-        
-        
+
         /**
-             * Validação do campo Email usando os métodos da Classe
-             * ValidaUtils Campo não obrigatório; 
-             * Tamanho máximo de 50 caracteres.
-             */
+         * Validação do campo Email usando os métodos da Classe ValidaUtils
+         * Campo não obrigatório; Tamanho máximo de 50 caracteres.
+         */
+        if (email.trim().isEmpty()) {
+            req.setAttribute("email", email);
+        } else {
             String emailMsg = "";
             tamanho = 50;
-                emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
+            emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
+            if (emailMsg.trim().isEmpty()) {
+                emailMsg = ValidaUtils.validaNaoInteger("Email", email);
                 if (emailMsg.trim().isEmpty()) {
-                        req.setAttribute("Email", email);
-                    }else{
-                        emailMsg = messages.getString(emailMsg);
-                        emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
-                        req.setAttribute("emailMsg", emailMsg);
-                        isValid = false;
-                    }
-                
-        
-        /**
-             * Validação do campo Telefone usando os métodos da Classe
-             * ValidaUtils Campo não obrigatório; 
-             * Tamanho máximo de 11 caracteres.
-             */
-            String telefoneMsg = "";
-            tamanho = 11;
-                telefone = telefone.replaceAll("[(|)|-]", "");
-                telefoneMsg = ValidaUtils.validaTelefone("Telefone", telefone);
-                if(telefoneMsg.trim().isEmpty()){
-                    telefoneMsg = ValidaUtils.validaTamanho("Telefone", tamanho, telefone);
-                    if (telefoneMsg.trim().isEmpty()) {
-                    req.setAttribute("Telefone", telefone);
-                    } else {
-                        telefoneMsg = messages.getString(telefoneMsg);
-                        telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
-                        req.setAttribute("telefoneMsg", telefoneMsg);
-                        isValid = false;
-                    }
-                }else{
-                    telefoneMsg = messages.getString(telefoneMsg);
-                    telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
-                    req.setAttribute("telefoneMsg", telefoneMsg);
+                    req.setAttribute("email", email);
+                } else {
+                    emailMsg = messages.getString(emailMsg);
+                    emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
+                    req.setAttribute("emailMsg", emailMsg);
                     isValid = false;
-                }    
-         
+                }
+
+            } else {
+                emailMsg = messages.getString(emailMsg);
+                emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
+                req.setAttribute("emailMsg", emailMsg);
+                isValid = false;
+            }
+        }
+        /**
+         * Validação do campo Telefone usando os métodos da Classe ValidaUtils
+         * Campo não obrigatório; Tamanho máximo de 11 caracteres.
+         */
+
+        String telefoneMsg = "";
+        tamanho = 11;
+        telefone = telefone.replaceAll("[(|)|-]", "");
+        telefone = telefone.replaceAll(" ", "");
+        telefoneMsg = ValidaUtils.validaTelefone("Telefone", telefone);
+        if (telefoneMsg.trim().isEmpty()) {
+            telefoneMsg = ValidaUtils.validaTamanho("Telefone", tamanho, telefone);
+            if (telefoneMsg.trim().isEmpty()) {
+                req.setAttribute("telefone", telefone);
+            } else {
+                telefoneMsg = messages.getString(telefoneMsg);
+                telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
+                req.setAttribute("telefoneMsg", telefoneMsg);
+                isValid = false;
+            }
+        } else {
+            telefoneMsg = messages.getString(telefoneMsg);
+            telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
+            req.setAttribute("telefoneMsg", telefoneMsg);
+            isValid = false;
+        }
+
         if (isValid) {
             req.getRequestDispatcher("/IncluirCadastroConvenioServlet").forward(req, resp);
         } else {

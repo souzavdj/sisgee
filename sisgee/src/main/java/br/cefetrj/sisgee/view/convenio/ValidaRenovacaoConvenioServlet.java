@@ -5,6 +5,8 @@
  */
 package br.cefetrj.sisgee.view.convenio;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
+import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.io.IOException;
@@ -12,12 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.jws.WebService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -40,6 +42,27 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
         String pessoaContato = req.getParameter("pessoaContato");
         String tipo = req.getParameter("tipo");
         req.setAttribute("tipo", tipo);
+        Logger lg = Logger.getLogger(ValidaRenovacaoConvenioServlet.class);
+        Convenio c;
+        
+        if (Boolean.parseBoolean(tipo)) {
+            String agente = req.getParameter("agente");
+            req.setAttribute("agente", agente);
+
+            String razaoSocial = req.getParameter("razaoSocial");
+            req.setAttribute("nomeConveniado", razaoSocial);
+
+            String cnpj = req.getParameter("cnpj");
+            req.setAttribute("cpf_cnpj", cnpj);
+            c = ConvenioServices.buscarConvenioCpf_Cnpj(cnpj.replaceAll("[.|/|-]", ""));
+        } else {
+            String nome = req.getParameter("nome");
+            req.setAttribute("nomeConveniado", nome);
+
+            String cpf = req.getParameter("cpf");
+            req.setAttribute("cpf_cnpj", cpf);
+            c = ConvenioServices.buscarConvenioCpf_Cnpj(cpf.replaceAll("[.|/|-]", ""));
+        }
 
         int tamanho;
         boolean isValid = true;
@@ -53,48 +76,62 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
 
         dataAssinaturaMsg = ValidaUtils.validaObrigatorio("Data de Assintura", dataAssinaturaConvenio);
         if (dataAssinaturaMsg.trim().isEmpty()) {
-            dataAssinaturaMsg = ValidaUtils.validaDate("Data de Assintura", dataAssinaturaConvenio);
+            dataAssinaturaMsg = ValidaUtils.validaDate("Data de Assinatura", dataAssinaturaConvenio);
             if (dataAssinaturaMsg.trim().isEmpty()) {
                 try {
-                    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-                    dataAssinatura = format.parse(dataAssinaturaConvenio);
-                    req.setAttribute("dataAssinatura", dataAssinatura);
+                    SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+                    dataAssinatura = formata.parse(dataAssinaturaConvenio);
+                    Date dataAtual = formata.parse(formata.format(c.getDataAssinatura()));
+                    dataAssinaturaMsg = ValidaUtils.validaDataRenovacao(dataAtual, dataAssinatura);
+                    if (dataAssinaturaMsg.trim().isEmpty()) {
+                        req.setAttribute("dataAssinatura", dataAssinatura);
+                    } else {
+                        dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
+                        req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
+                        req.setAttribute("dataAssinatura", dataAssinatura);
+                        isValid = false;
+                    }
+
                 } catch (Exception e) {
-                    //TODO trocar saída de console por Log
-                    System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                    lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils", e);
                     isValid = false;
                 }
             } else {
                 dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
-                req.setAttribute("dataInicioMsg", dataAssinaturaMsg);
+                req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
                 req.setAttribute("dataAssinatura", dataAssinatura);
                 isValid = false;
-                //TODO Fazer log
-                System.out.println(dataAssinaturaMsg);
             }
         } else {
             dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
             req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
             req.setAttribute("dataAssinatura", dataAssinatura);
             isValid = false;
-            //TODO Fazer log
-            System.out.println(dataAssinaturaMsg);
         }
-
-        
 
         /**
          * Validação do campo Telefone usando os métodos da Classe ValidaUtils
          * Campo não obrigatório; Tamanho máximo de 11 caracteres.
          */
-        String telefoneMsg = "";
-        tamanho = 11;
-        telefone = telefone.replaceAll("[(|)|-]", "");
-        telefoneMsg = ValidaUtils.validaTelefone("Telefone", telefone);
-        if (telefoneMsg.trim().isEmpty()) {
-            telefoneMsg = ValidaUtils.validaTamanho("Telefone", tamanho, telefone);
+        if (telefone.trim().isEmpty()) {
+            req.setAttribute("telefone", telefone);
+        } else {
+            String telefoneMsg = "";
+            tamanho = 11;
+            telefone = telefone.replaceAll("[(|)|-]", "");
+            telefone = telefone.replaceAll(" ", "");
+            telefoneMsg = ValidaUtils.validaTelefone("Telefone", telefone);
             if (telefoneMsg.trim().isEmpty()) {
-                req.setAttribute("telefone", telefone);
+                telefoneMsg = ValidaUtils.validaTamanho("Telefone", tamanho, telefone);
+                if (telefoneMsg.trim().isEmpty()) {
+                    req.setAttribute("telefone", telefone);
+                } else {
+                    telefoneMsg = messages.getString(telefoneMsg);
+                    telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
+                    req.setAttribute("telefone", telefone);
+                    req.setAttribute("telefoneMsg", telefoneMsg);
+                    isValid = false;
+                }
             } else {
                 telefoneMsg = messages.getString(telefoneMsg);
                 telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
@@ -102,26 +139,30 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                 req.setAttribute("telefoneMsg", telefoneMsg);
                 isValid = false;
             }
-        } else {
-            telefoneMsg = messages.getString(telefoneMsg);
-            telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
-            req.setAttribute("telefone", telefone);
-            req.setAttribute("telefoneMsg", telefoneMsg);
-            isValid = false;
 
         }
-        
+
         /**
          * Validação do campo Email usando os métodos da Classe ValidaUtils
          * Campo não obrigatório; Tamanho máximo de 50 caracteres.
          */
-        String emailMsg = "";
-        tamanho = 50;
-        emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
-        if (emailMsg.trim().isEmpty()) {
-            emailMsg = ValidaUtils.validaNaoInteger("Email", email);
+        if (email.trim().isEmpty()) {
+            req.setAttribute("email", email);
+        } else {
+            String emailMsg = "";
+            tamanho = 50;
+            emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
             if (emailMsg.trim().isEmpty()) {
-                req.setAttribute("email", email);
+                emailMsg = ValidaUtils.validaNaoInteger("Email", email);
+                if (emailMsg.trim().isEmpty()) {
+                    req.setAttribute("email", email);
+                } else {
+                    emailMsg = messages.getString(emailMsg);
+                    emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
+                    req.setAttribute("email", email);
+                    req.setAttribute("emailMsg", emailMsg);
+                    isValid = false;
+                }
             } else {
                 emailMsg = messages.getString(emailMsg);
                 emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
@@ -129,12 +170,6 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                 req.setAttribute("emailMsg", emailMsg);
                 isValid = false;
             }
-        } else {
-            emailMsg = messages.getString(emailMsg);
-            emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
-            req.setAttribute("email", email);
-            req.setAttribute("emailMsg", emailMsg);
-            isValid = false;
         }
 
         if (Boolean.parseBoolean(tipo)) {
@@ -143,39 +178,33 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
              * ValidaUtils Campo não obrigatório; Tamanho máximo de 150
              * caracteres.
              */
-            String pessoaContatoMsg = "";
-            tamanho = 50;
-            pessoaContatoMsg = ValidaUtils.validaTamanho("Pessoa de Contato", tamanho, pessoaContato);
-            if (pessoaContatoMsg.trim().isEmpty()) {
+            if (pessoaContato.trim().isEmpty()) {
                 req.setAttribute("pessoaContato", pessoaContato);
             } else {
+                String pessoaContatoMsg = "";
+                tamanho = 50;
+                pessoaContatoMsg = ValidaUtils.validaTamanho("Pessoa de Contato", tamanho, pessoaContato);
+                if (pessoaContatoMsg.trim().isEmpty()) {
+                    pessoaContatoMsg = ValidaUtils.validaNaoInteger("Pessoa do Contato", pessoaContato);
+                    if (pessoaContatoMsg.trim().isEmpty()) {
+                        req.setAttribute("pessoaContato", pessoaContato);
+                    } else {
+                        pessoaContatoMsg = messages.getString(pessoaContatoMsg);
+                        pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
+                        req.setAttribute("pessoaContato", pessoaContato);
+                        req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                        isValid = false;
+                    }
+                } else {
                     pessoaContatoMsg = messages.getString(pessoaContatoMsg);
                     pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
                     req.setAttribute("pessoaContato", pessoaContato);
                     req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
                     isValid = false;
+                }
             }
-            
         }
 
-        if (Boolean.parseBoolean(tipo)) {
-            String agente = req.getParameter("agente");
-            req.setAttribute("agente", agente);
-
-            String razaoSocial = req.getParameter("razaoSocial");
-            req.setAttribute("nomeConveniado", razaoSocial);
-
-            String cnpj = req.getParameter("cnpj");
-            req.setAttribute("cpf_cnpj", cnpj);
-        } else {
-            String nome = req.getParameter("nome");
-            req.setAttribute("nomeConveniado", nome);
-            
-            String cpf = req.getParameter("cpf");
-            req.setAttribute("cpf_cnpj", cpf);
-        }
-        
-        
         if (isValid) {
             req.getRequestDispatcher("/AlteraConvenioServlet").forward(req, resp);
         } else {

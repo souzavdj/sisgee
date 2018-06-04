@@ -244,7 +244,20 @@ public class ValidaUtils {
 		return msg;
                 }    
 			
-              
+    /**
+	 * Método para validar duas datas (iní­cio e fim de um perí­odo)
+	 * 
+	 * @param dataAnterior data que marca a data assinatura anterior.
+	 * @param dataNova data que marca a nova data de assinatura.
+	 * @return String com mensagem de erro ou vazia.
+	 */
+	public static String validaDataRenovacao(Date dataAnterior, Date dataNova) {
+		String msg = "";
+		if(dataAnterior.compareTo(dataNova) > 0) {
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_data_renovacao";
+		}		
+		return msg;
+	}
 	
 }
 

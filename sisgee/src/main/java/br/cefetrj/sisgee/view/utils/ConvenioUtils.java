@@ -7,6 +7,8 @@ package br.cefetrj.sisgee.view.utils;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.model.entity.Convenio;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.log4j.Logger;
@@ -124,5 +126,12 @@ public class ConvenioUtils {
         SimpleDateFormat ano = new SimpleDateFormat("yyyy");
         numeroConvenio = num +ano.format(dataAssinatura);
         return numeroConvenio;
+    }
+    
+    public static Date formataDate (Date date) throws ParseException {
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");  
+        String result = out.format(date);
+        Date d = out.parse(result);
+        return d;
     }
 }
