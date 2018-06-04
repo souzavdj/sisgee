@@ -228,13 +228,8 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                 if (cpfMsg.trim().isEmpty()) {
                     cpfMsg = ValidaUtils.validaTamanhoExato("CPF", tamanho, cpf);
                     if (cpfMsg.trim().isEmpty()) {
-<<<<<<< HEAD
-                        Convenio e = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
-                        if (e == null) {
-=======
                         Convenio c = ConvenioServices.buscarConvenioByCpf_Cnpj(cpf);
                         if (c == null) {
->>>>>>> 19cd3ff008b716c21fd21b0da5a625bbf551e23b
                             req.setAttribute("cpf", cpf);
                         } else {
                             cpfMsg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_pessoa_duplicada");
