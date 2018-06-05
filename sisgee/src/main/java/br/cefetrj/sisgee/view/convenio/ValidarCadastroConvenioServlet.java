@@ -31,6 +31,10 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/form_convenio.jsp").forward(req, resp);
+    }
+    
     /**
      *
      * Metodo que recebe informações do formulario da pagina de cadastrar
@@ -42,7 +46,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Locale locale = ServletUtils.getLocale(req);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
