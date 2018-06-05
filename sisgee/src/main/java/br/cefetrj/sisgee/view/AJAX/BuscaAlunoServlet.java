@@ -46,8 +46,7 @@ public class BuscaAlunoServlet extends HttpServlet {
         String nomeCurso = "";
         String nomeCampus = "";
         String idTermoEstagioAtivo = "";
-        ItemTermo itemTermo = new ItemTermo();
-
+        
         Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
         if (aluno != null) {
             nome = aluno.getNome();
@@ -69,10 +68,7 @@ public class BuscaAlunoServlet extends HttpServlet {
                     }
                 }
             }
-            itemTermo.setItemTermoByTermo(termos.get(0));
-            request.getSession().setAttribute("termoEstagio", itemTermo);
-            //request.getSession().setAttribute("aluno", aluno);
-
+            
         }
 
         //JSON
@@ -81,7 +77,6 @@ public class BuscaAlunoServlet extends HttpServlet {
                 .add("nome", nome)
                 .add("nomeCurso", nomeCurso)
                 .add("nomeCampus", nomeCampus)
-                .add("tipoTermo", itemTermo.getTipo())
                 .add("idTermoEstagioAtivo", idTermoEstagioAtivo)
                 .build();
 

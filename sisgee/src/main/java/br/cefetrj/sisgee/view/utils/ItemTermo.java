@@ -38,10 +38,10 @@ public class ItemTermo {
     public void setItemTermoByTermo(TermoEstagio termo) {
         
         //Tipo
-        if (termo.getEEstagioObrigatorio()) {
-            this.tipo = "Obrigatório";
+        if (termo.getTermoEstagioAditivo()==null) {
+            this.tipo = "Termo Estagio";
         }else {
-            this.tipo = "Não é obrigatório";
+            this.tipo = "Termo Aditivo";
         }
         
         //Status

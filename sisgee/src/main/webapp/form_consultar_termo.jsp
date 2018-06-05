@@ -5,12 +5,13 @@
 --%>
 
 <!DOCTYPE html>
+<%@page import="br.cefetrj.sisgee.view.utils.ConvenioUtils"%>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%@include file="import_head.jspf"%>
-
+        <jsp:useBean id="convenioUtils" class="br.cefetrj.sisgee.view.utils.ConvenioUtils" scope="page"/>
         <title>
             <fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.titulo"/>
         </title>
@@ -45,7 +46,7 @@
             </div>
 
             <div class="container" id="tabela" style="display: ${not empty termoEstagio ? 'block' : 'none' }">
-                <table class = "table table dadosAluno">
+                <table class = "table table">
                     <thead>		
                         <tr>
                             <th><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.tipo"/></th>
@@ -57,14 +58,38 @@
                         </tr>
                     </thead>			
                     <tbody>
-                        <tr>
-                            <td>${ termoEstagio.tipo }</td>
-                            <td>${ termoEstagio.status }</td>
-                            <td>${ termoEstagio.dataDeCadastro }</td>
-                            <td>${ termoEstagio.vigencia }</td>
-                            <td>${ termoEstagio.cnpj_cpf }</td>
-                            <td>${ termoEstagio.nomeConveniado }</td>					
-                        </tr>
+                        <c:forEach items="${termoEstagio}" var="termo" varStatus="status">
+                            <tr>
+                                <c:choose>
+                                    <c:when test="${empty termo.getTermoEstagioAditivo()}">
+                                        <td>Termo Estagio</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>Termo Aditivo</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${termo.getEAtivo()}">
+                                        <td>Ativo</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>Inativo</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                        <td><fmt:formatDate value="${termo.getDataInicioTermoEstagio()}" type="date" dateStyle="short"/></td>
+                                <td>${convenioUtils.getVigencia(termo.getDataInicioTermoEstagio())}</td>
+                                <c:choose>
+                                    <c:when test="${termo.getConvenio().getIsPessoaJuridica()}">
+                                        <td>${convenioUtils.getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj())}</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>${convenioUtils.getCpfFormatado(termo.getConvenio().getCpf_cnpj())}</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <td>${termo.getConvenio().getNomeConveniado()}</td>					
+                            </tr>
+                            
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -230,6 +255,7 @@
                             //tem termo de estágio, ativa os botões
                             
                             hablitarButoes();
+                            document.forms['dadosAluno'].submit();
                         } else {
                             desablitarButoes();
                             esconderTabela();
@@ -262,7 +288,7 @@
                     $('#idAlunoAdt').val($("#idAluno").val());
                 });
                 
-                <c:if test="${not empty termoEstagio.idTermoEstagio}">
+                <c:if test="${not empty termoEstagio.get(0).idTermoEstagio}">
                     hablitarButoes();
                 </c:if>
                 

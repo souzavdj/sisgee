@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
  * @since 1.0
  */
 @Entity
-public class TermoEstagio implements Serializable {
+public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
 
     private static final long serialVersionUID = 1L;
 
@@ -403,4 +403,11 @@ public class TermoEstagio implements Serializable {
         return builder.build().toString();
 
     }
+
+    @Override
+    public int compareTo(TermoEstagio o) {
+        return this.dataInicioTermoEstagio.compareTo(o.dataInicioTermoEstagio);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
