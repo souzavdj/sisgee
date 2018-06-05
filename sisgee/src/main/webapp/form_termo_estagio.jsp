@@ -295,6 +295,60 @@
                 $('#cnpjEmpresa2').mask('99.999.999/9999-99');
                 $('#cepEnderecoTermoEstagio').mask('99.999-999');
             });
+            
+            $('#numeroConvenio').on('keypress', function(e){
+	        if (e.keyCode == 13) {
+	            e.preventDefault();
+	            $("#btnBuscarConvenio").click();
+	        }
+	    });	    
+	    
+            $('#nomeConveniado').on('keypress', function(e){
+	        if (e.keyCode == 13) {
+	            e.preventDefault();
+	            $("#btnBuscarConvenio").click();
+	        }
+	    });	  
+	    $('#btnBuscarConvenio').click(function(){
+	    	
+	    	if($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConveniado').val()) == "") ){
+                    $(".dadosConvenio input:not([id=matricula])").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.campo_vazio"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_vazia"/>");      	
+                    $('#myModal').modal('show');
+                    return;
+	    	}
+	    	
+	    	var result = null;
+                
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
+	            async: true, // habilita a função ajax() repassar os dados para a função pai
+	            data: $('#matricula').serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+                        if(result.idConvenio != ""){
+                            $("#idConvenio").val(result.idConvenio);
+                            $("#nome").val(result.nome);
+                            $("#cpf_cnpj").val(result.nomeCurso);
+                            $("#razaoSocial").val(result.razaoSocial);
+                        }
+                        else{
+                            $(".dadosConvenio input:not([id=matricula])").val("");
+                            $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.aluno_nao_encontrado"/>");
+                            $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_nao_encontrou_aluno"/>");	        	
+                            $('#myModal').modal('show');	        	
+                        }
+                        
+                        
+	            }
+	        });
+	        
+	        
+	        
+	    });
         </script>
     </body>
 </html>

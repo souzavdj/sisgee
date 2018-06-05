@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AgenteIntegracaoServices;
 import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.ConvenioServices;
 import br.cefetrj.sisgee.control.EmpresaServices;
 import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
@@ -745,12 +747,13 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		List<Aluno> alunos = AlunoServices.listarAlunos();
 		List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
 		UF[] uf = UF.asList();
-		
+		List<Convenio> conv = ConvenioServices.listarConvenios();
 		//request.setAttribute("agentesIntegracao", agentesIntegracao);
 		//request.setAttribute("empresas", empresas);
 		request.setAttribute("alunos", alunos);
 		request.setAttribute("professores", professores);
 		request.setAttribute("uf", uf);
+		request.setAttribute("convenios", conv);
 		
 		return request;		
 	}	

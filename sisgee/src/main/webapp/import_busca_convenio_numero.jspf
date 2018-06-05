@@ -6,26 +6,26 @@
             <input type="hidden" id="numeroConvenio" name="numeroConvenio" value="${ param.numeroConvenio }">
             <input type="text" maxlength="10" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${ param.numeroConvenio }">
             <span class="input-group-btn"> 
-                <button class="btn btn-primary" type="button" onClick="BuscaConveno" id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                <button class="btn btn-primary convenioBotao" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
             </span>
 
-            <c:if test="${ not empty idAlunoMsg }">
-                <div class="invalid-feedback">${ idAlunoMsg }</div>
+            <c:if test="${ not empty idConvenioMsg }">
+                <div class="invalid-feedback">${ idConvenioMsg }</div>
             </c:if>            
         </div>           
 
     </div>
     <div class="form-group col-md">
-        <label for="nome"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
+        <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
         <div class="input-group">
             <input type="hidden" id="nomeConveniado" name="nomeConveniado" value="${ param.nomeConveniado }">
             <input type="text" maxlength="10" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${ param.nomeConvenio }">
             <span class="input-group-btn"> 
-                <button class="btn btn-primary" type="button" onClick="BuscaConvenioServlet" id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                <button class="btn btn-primary convenioBotao" type="button" id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
             </span>
 
-            <c:if test="${ not empty idAlunoMsg }">
-                <div class="invalid-feedback">${ idAlunoMsg }</div>
+            <c:if test="${ not empty idConvenioMsg }">
+                <div class="invalid-feedback">${ idConvenioMsg }</div>
             </c:if>            
         </div>
     </div>
@@ -78,14 +78,14 @@
         <!--  c:if, caso sej apor agente de integração -->
    <div class="form-group col-md-4">
         <label for="agenciada"><fmt:message key = "br.cefetrj.sisgee.resources.form.agenciada"/></label>
-        <input type="text" class="form-control" id="agenciada"  name="agenciada" value="${ param.mudar }" readonly>
+        <input type="text" class="form-control" id="agenciada"  name="agenciada" value="${ param.agencia }">
     </div>
     <div class="form-group col-md-4">
        <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
-        <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ param.cnpjEmpresa }" readonly>
+        <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ param.CpfCnpj }" readonly>
     </div>
     <div class="form-group col-md-4">
         <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></label>
-        <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ param.mudar }" readonly>
+        <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ param.razaoSocial }" readonly>
     </div>
 </div>    
