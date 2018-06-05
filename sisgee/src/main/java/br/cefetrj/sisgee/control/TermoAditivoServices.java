@@ -17,7 +17,7 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
  * @since 1.0
  */
 public class TermoAditivoServices {
-
+        
     /**
      * Recupera todos os Termos Aditivos e retorna em uma lista.
      *
@@ -27,7 +27,7 @@ public class TermoAditivoServices {
         GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
         return termoAditivoDao.buscarTodos();
     }
-
+    
     /**
      * Método para persistir um termo aditivo no banco
      *
@@ -45,7 +45,7 @@ public class TermoAditivoServices {
             PersistenceManager.getTransaction().rollback();
         }
     }
-
+    
     /**
      * Método para buscar um termo aditivo por id
      *
@@ -67,7 +67,7 @@ public class TermoAditivoServices {
             
         }
     }
-
+    
     /**
      *
      * Metodo para receber uma matriz de com conteudo do banco
@@ -94,58 +94,58 @@ public class TermoAditivoServices {
             return null;
         }
     }
-
+	
     /**
-     *
+     * 
      * @param termoAditivo termo aditivo que irá atualizar o termo de estágio
      * @return termoEstagio termo de estágio atualizado pelo termo aditivo
      */
     public static TermoEstagio termoEstagioAtualizadoByTermoAditivo(TermoAditivo termoAditivo) {
-        TermoEstagio termoEstagio = TermoEstagioServices.buscarTermoEstagio(termoAditivo.getTermoEstagio().getIdTermoEstagio());
+            TermoEstagio termoEstagio = TermoEstagioServices.buscarTermoEstagio(termoAditivo.getTermoEstagio().getIdTermoEstagio());
 
-        if (termoAditivo != null) {
-            if (termoAditivo.getDataFimTermoAditivo() != null) {
-                termoEstagio.setDataFimTermoEstagio(termoAditivo.getDataFimTermoAditivo());
+            if (termoAditivo != null) {
+                    if (termoAditivo.getDataFimTermoAditivo() != null) {
+                            termoEstagio.setDataFimTermoEstagio(termoAditivo.getDataFimTermoAditivo());
+                    }
+
+                    if (termoAditivo.getCargaHorariaTermoAditivo() != null) {
+                            termoEstagio.setCargaHorariaTermoEstagio(termoAditivo.getCargaHorariaTermoAditivo());
+                    }
+
+                    if (termoAditivo.getValorBolsaTermoAditivo() != null) {
+                            termoEstagio.setValorBolsa(termoAditivo.getValorBolsaTermoAditivo());
+                    }
+
+                    if (termoAditivo.getEnderecoTermoAditivo() != null) {
+                            termoEstagio.setEnderecoTermoEstagio(termoAditivo.getEnderecoTermoAditivo());
+                    }
+
+                    /*if (termoAditivo.getNumeroEnderecoTermoAditivo() != null) {
+                            termoEstagio.setNumeroEnderecoTermoEstagio(termoAditivo.getNumeroEnderecoTermoAditivo());
+                    }*/
+
+                    if (termoAditivo.getComplementoEnderecoTermoAditivo() != null) {
+                            termoEstagio.setComplementoEnderecoTermoEstagio(termoAditivo.getComplementoEnderecoTermoAditivo());
+                    }
+
+                    if (termoAditivo.getBairroEnderecoTermoAditivo() != null) {
+                            termoEstagio.setBairroEnderecoTermoEstagio(termoAditivo.getBairroEnderecoTermoAditivo());
+                    }
+
+                    if (termoAditivo.getCepEnderecoTermoAditivo() != null) {
+                            termoEstagio.setCepEnderecoTermoEstagio(termoAditivo.getCepEnderecoTermoAditivo());
+                    }
+
+                    if (termoAditivo.getCidadeEnderecoTermoAditivo() != null) {
+                            termoEstagio.setCidadeEnderecoTermoEstagio(termoAditivo.getCidadeEnderecoTermoAditivo());
+                    }
+
+                    if (termoAditivo.getProfessorOrientador() != null) {
+                            termoEstagio.setProfessorOrientador(termoAditivo.getProfessorOrientador());
+                    }
             }
 
-            if (termoAditivo.getCargaHorariaTermoAditivo() != null) {
-                termoEstagio.setCargaHorariaTermoEstagio(termoAditivo.getCargaHorariaTermoAditivo());
-            }
-
-            if (termoAditivo.getValorBolsaTermoAditivo() != null) {
-                termoEstagio.setValorBolsa(termoAditivo.getValorBolsaTermoAditivo());
-            }
-
-            if (termoAditivo.getEnderecoTermoAditivo() != null) {
-                termoEstagio.setEnderecoTermoEstagio(termoAditivo.getEnderecoTermoAditivo());
-            }
-
-            if (termoAditivo.getNumeroEnderecoTermoAditivo() != null) {
-                termoEstagio.setNumeroEnderecoTermoEstagio(termoAditivo.getNumeroEnderecoTermoAditivo());
-            }
-
-            if (termoAditivo.getComplementoEnderecoTermoAditivo() != null) {
-                termoEstagio.setComplementoEnderecoTermoEstagio(termoAditivo.getComplementoEnderecoTermoAditivo());
-            }
-
-            if (termoAditivo.getBairroEnderecoTermoAditivo() != null) {
-                termoEstagio.setBairroEnderecoTermoEstagio(termoAditivo.getBairroEnderecoTermoAditivo());
-            }
-
-            if (termoAditivo.getCepEnderecoTermoAditivo() != null) {
-                termoEstagio.setCepEnderecoTermoEstagio(termoAditivo.getCepEnderecoTermoAditivo());
-            }
-
-            if (termoAditivo.getCidadeEnderecoTermoAditivo() != null) {
-                termoEstagio.setCidadeEnderecoTermoEstagio(termoAditivo.getCidadeEnderecoTermoAditivo());
-            }
-
-            if (termoAditivo.getProfessorOrientador() != null) {
-                termoEstagio.setProfessorOrientador(termoAditivo.getProfessorOrientador());
-            }
-        }
-
-        return termoEstagio;
+            return termoEstagio;
     }
-
+        
 }

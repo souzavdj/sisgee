@@ -4,6 +4,8 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import java.util.List;
 import javax.persistence.TypedQuery;
+import java.util.Date;
+import java.util.List;
 /**
  * Classe que atua no banco de dados com query especificas com o foco na tabela de convenio  
  * @author Andre
@@ -96,4 +98,17 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 		    .getSingleResult();
 	}
         
+        /**
+         * Metodo que faz uma query de busca de todos os convenio dentro de um intervalo de duas datas 
+         * @param dataInicio
+         * @param dataFim
+         * @return lista de convenios dentro do intervalo de datas
+         */
+        public List<Convenio> buscaVencidos(Date dataInicio,Date dataFim){
+            return (List<Convenio>) manager.createQuery(
+                        "SELECT c FROM Convenio c WHERE c.dataAssinatura BETWEEN :inicio AND :fim")
+                        .setParameter("inicio", dataInicio)
+                        .setParameter("fim", dataFim)
+                        .getResultList();
+            }    
 }

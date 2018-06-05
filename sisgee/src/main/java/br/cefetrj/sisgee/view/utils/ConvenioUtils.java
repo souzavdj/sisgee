@@ -80,7 +80,33 @@ public class ConvenioUtils {
             return null;
         }
     }
-    
+
+    public static String getNumeroConvenioFormatado (String numeroConvenio) {
+        if(numeroConvenio != null && numeroConvenio.trim().length() > 0){
+            StringBuilder numeroConvenioFormatado = new StringBuilder();
+            try{
+                numeroConvenioFormatado.append(numeroConvenio.charAt(0));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(1));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(2));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(3));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(4));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(5));
+                numeroConvenioFormatado.append("/");
+                numeroConvenioFormatado.append(numeroConvenio.charAt(6));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(7));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(8));
+                numeroConvenioFormatado.append(numeroConvenio.charAt(9));
+            }catch(IndexOutOfBoundsException e){
+                Logger lg = Logger.getLogger(Convenio.class);
+                lg.error("Numero com menos de 10 caracteres. NúmeroConvenio = " + numeroConvenio, e);
+                return numeroConvenio;
+            }
+            return numeroConvenioFormatado.toString();
+        }else{
+            return null;
+        }
+    }
+
     public static String gerarNumeroConvenio (Date dataAssinatura) {
         String numeroConvenio;
         SimpleDateFormat ano = new SimpleDateFormat("yyyy");
@@ -88,6 +114,7 @@ public class ConvenioUtils {
         numeroConvenio = String.format("%06d", idConvenio) +ano.format(dataAssinatura);
         return numeroConvenio;
     }
+
     
     public static String getNumeroCovenioFormatado(String num) {
         if(num != null && num.trim().length() > 0){
@@ -134,4 +161,28 @@ public class ConvenioUtils {
         Date d = out.parse(result);
         return d;
     }
+
+    public String getVigencia(Date d){
+        String presente="";
+        SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat out = new SimpleDateFormat("MM/yy");
+        String ano,mes;
+        String futuro;
+        
+        try{
+            presente = out.format(in.parse(d.toString()));
+            ano = presente.substring(3);
+            mes=presente.substring(0,2);
+            futuro=mes+"/"+ String.valueOf(Integer.parseInt(ano)+5);
+            return presente + " a " + futuro;
+
+        }catch(Exception e){
+            Logger lg = Logger.getLogger(Convenio.class);
+            lg.error("Numero Convenio com menos de 10 caracteres. NumeroConvenio = " + presente, e);
+            return presente;
+        }
+        
+    }
+    
+
 }

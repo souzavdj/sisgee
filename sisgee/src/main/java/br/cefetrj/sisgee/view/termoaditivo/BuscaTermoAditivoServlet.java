@@ -15,8 +15,10 @@ import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.utils.ItemTermo;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import java.util.Collections;
 
 /**
  * Busca as informações de cada termo aditivo
@@ -37,7 +39,9 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
         String msg = null;
         String idAluno = request.getParameter("idAluno");
         Integer id = null;
-
+        ItemTermo itemTermo = new ItemTermo();
+        
+        System.out.println("Cheguei aqui!!!");
         msg = ValidaUtils.validaObrigatorio("Aluno", idAluno);
         if (msg.trim().isEmpty()) {
             msg = ValidaUtils.validaInteger("Aluno", idAluno);
@@ -52,13 +56,18 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 
         Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));
         List<TermoEstagio> termoEstagios = aluno.getTermoEstagios();
-
+        
+        Collections.sort(termoEstagios);
+        request.setAttribute("termoEstagio", termoEstagios);
+        System.out.println("Qtd: "+ termoEstagios.get(0).getDataInicioTermoEstagio());
+        System.out.println("Qtd: "+ termoEstagios.get(1).getDataInicioTermoEstagio());
         //TODO consertar a lógica de mensagem vazia
         if (msg != "") {
             aluno = AlunoServices.buscarAluno(new Aluno(id));
             termoEstagios = aluno.getTermoEstagios();
         }
-        if (termoEstagios != null) {
+        System.out.println("Funciona: "+ termoEstagios.get(0).getNomeSupervisor());
+        /*if (termoEstagios != null) {
             for (TermoEstagio termoEstagio : termoEstagios) {
                 if (termoEstagio.getDataRescisaoTermoEstagio() == null || 
                         termoEstagio.getDataRescisaoTermoEstagio().equals("")) {
@@ -67,10 +76,15 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
                     break;
                 }
             }
-        }
-
+            //itemTermo.setItemTermoByTermo(termoEstagios.get(0));
+            request.setAttribute("termoEstagio", termoEstagios);
+        }*/
+        
+        
+        //request.getSession().setAttribute("aluno", aluno);
+        
         request.setAttribute("msg", msg);
-        request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);
+        request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 
     }
 }

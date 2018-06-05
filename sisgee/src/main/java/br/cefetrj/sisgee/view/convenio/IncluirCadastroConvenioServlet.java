@@ -61,7 +61,7 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
             if (Boolean.parseBoolean(tipo)) {
                convenio = new Convenio(dataAssinatura, cnpj, razaoSocial, true, Boolean.parseBoolean(agente), pessoaContato, email, telefone);
                String numeroConvenio = ConvenioUtils.gerarNumeroConvenio(dataAssinatura);
-               numeroConvenio = numeroConvenio.replace("/", "");               
+               numeroConvenio = numeroConvenio.replace("/", "");
                convenio.setNumeroConvenio(numeroConvenio);
                ConvenioServices.incluirConvenio(convenio);
             } else {
@@ -74,7 +74,7 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
             
             msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_cadastrado");
             String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
-            msgConvenio = msgConvenio + ConvenioUtils.getNumeroCovenioFormatado(convenio.getNumeroConvenio());
+            msgConvenio = msgConvenio + ConvenioUtils.getNumeroConvenioFormatado(convenio.getNumeroConvenio());
             req.setAttribute("msg", msg);
             req.setAttribute("msgConvenio", msgConvenio);
             lg.info(msg);

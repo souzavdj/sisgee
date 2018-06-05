@@ -15,11 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.Date;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -80,7 +77,9 @@ public class Convenio implements Serializable {
 
     public Convenio() {
     }
-
+    public Convenio(int id){
+        this.idConvenio=id;
+    }
     public Convenio(String numeroConvenio) {
         this.numeroConvenio = numeroConvenio;
     }
@@ -248,4 +247,5 @@ public class Convenio implements Serializable {
     }
 
     
+   
 }
