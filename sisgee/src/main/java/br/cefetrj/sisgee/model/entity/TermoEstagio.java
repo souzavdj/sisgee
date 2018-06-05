@@ -56,8 +56,8 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @Column(length = 255, nullable = false)
     private String enderecoTermoEstagio;
     //Acho que vai ter que tirar o numero
-    //@Column(length = 10, nullable = false)
-    //private String numeroEnderecoTermoEstagio;
+    @Column(length = 10, nullable = false)
+    private String numeroEnderecoTermoEstagio;
 
     @Column(length = 100, nullable = true)
     private String complementoEnderecoTermoEstagio;

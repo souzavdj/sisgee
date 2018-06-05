@@ -14,7 +14,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * 
  * @author vinicius
  */
 public class ConvenioUtils {
@@ -174,7 +174,7 @@ public class ConvenioUtils {
             ano = presente.substring(3);
             mes=presente.substring(0,2);
             futuro=mes+"/"+ String.valueOf(Integer.parseInt(ano)+5);
-            return presente + " a " + futuro;
+            return presente + " - " + futuro;
 
         }catch(Exception e){
             Logger lg = Logger.getLogger(Convenio.class);

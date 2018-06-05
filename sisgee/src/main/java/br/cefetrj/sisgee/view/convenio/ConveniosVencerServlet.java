@@ -49,7 +49,7 @@ public class ConveniosVencerServlet extends HttpServlet {
         Calendar cal = new GregorianCalendar();
         int anoAtual=cal.get(Calendar.YEAR);
         int mesAtual=cal.get(Calendar.MONTH)+1;
-        int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
+        
         
         /**
          * Fazendo intervalo a partir do dia 1 do mes seguinte que termina no ultimo dia do proximo mes 
@@ -72,8 +72,7 @@ public class ConveniosVencerServlet extends HttpServlet {
             
         }
         
-        req.setAttribute("ListaConveniosAVencer", listaVencidos); 
-        req.setAttribute("convenioUtils",cUtil);
+        
         if(listaVencidos==null || listaVencidos.isEmpty()){
             msg = messages.getString("br.cefetrj.sisgee.form_convenios_a_vencer.msg_relatorio_vazio");
             req.setAttribute("msg", msg);
