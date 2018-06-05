@@ -41,7 +41,6 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
         Integer id = null;
         ItemTermo itemTermo = new ItemTermo();
         
-        System.out.println("Cheguei aqui!!!");
         msg = ValidaUtils.validaObrigatorio("Aluno", idAluno);
         if (msg.trim().isEmpty()) {
             msg = ValidaUtils.validaInteger("Aluno", idAluno);
@@ -56,17 +55,15 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 
         Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));
         List<TermoEstagio> termoEstagios = aluno.getTermoEstagios();
-        
-        Collections.sort(termoEstagios);
+        if (termoEstagios.size() > 1) {
+            Collections.sort(termoEstagios);
+        }
         request.setAttribute("termoEstagio", termoEstagios);
-        System.out.println("Qtd: "+ termoEstagios.get(0).getDataInicioTermoEstagio());
-        System.out.println("Qtd: "+ termoEstagios.get(1).getDataInicioTermoEstagio());
         //TODO consertar a lógica de mensagem vazia
         if (msg != "") {
             aluno = AlunoServices.buscarAluno(new Aluno(id));
             termoEstagios = aluno.getTermoEstagios();
         }
-        System.out.println("Funciona: "+ termoEstagios.get(0).getNomeSupervisor());
         /*if (termoEstagios != null) {
             for (TermoEstagio termoEstagio : termoEstagios) {
                 if (termoEstagio.getDataRescisaoTermoEstagio() == null || 
@@ -80,7 +77,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
             request.setAttribute("termoEstagio", termoEstagios);
         }*/
         
-        
+        request.setAttribute("idAluno", idAluno);
         //request.getSession().setAttribute("aluno", aluno);
         
         request.setAttribute("msg", msg);

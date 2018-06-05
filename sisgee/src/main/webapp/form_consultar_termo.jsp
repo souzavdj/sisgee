@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <%@page import="br.cefetrj.sisgee.view.utils.ConvenioUtils"%>
+<%@page import="br.cefetrj.sisgee.view.utils.TermoEstagioUtils"%>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -62,22 +63,22 @@
                             <tr>
                                 <c:choose>
                                     <c:when test="${empty termo.getTermoEstagioAditivo()}">
-                                        <td>Termo Estagio</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.termoEstagio"/></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td>Termo Aditivo</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.termoAditivo"/></td>
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
                                     <c:when test="${termo.getEAtivo()}">
-                                        <td>Ativo</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.ativo"/></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td>Inativo</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.inativo"/></td>
                                     </c:otherwise>
                                 </c:choose>
                                         <td><fmt:formatDate value="${termo.getDataInicioTermoEstagio()}" type="date" dateStyle="short"/></td>
-                                <td>${convenioUtils.getVigencia(termo.getDataInicioTermoEstagio())}</td>
+                                <td>${TermoEstagioUtils.getVigencia(termo.getDataInicioTermoEstagio(),termo.getDataFimTermoEstagio())}</td>
                                 <c:choose>
                                     <c:when test="${termo.getConvenio().getIsPessoaJuridica()}">
                                         <td>${convenioUtils.getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj())}</td>
@@ -166,7 +167,7 @@
                                         <td></td>
                                     </tr>
                                 </table>
-                                <input type="hidden" id="idAlunoAdt" name="idAlunoAdt" value="" />
+                                <input type="hidden" name="idAluno" value="${idAluno}" />
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -199,9 +200,10 @@
                                         </div>					
                                     </div>
                                 </fieldset>
-
+                                
+                                <input type="hidden" name="idAluno" value="${idAluno}" />
                                 <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_salvar"/></button>                
-                                <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_cancelar"/></button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_cancelar"/></button>
                             </form>
                         </div>
                     </div>
