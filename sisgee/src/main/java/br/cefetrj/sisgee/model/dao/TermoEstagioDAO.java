@@ -19,7 +19,15 @@ import javax.persistence.TypedQuery;
  */
 
 public class TermoEstagioDAO {
-
+    
+    
+    /**
+         * Metodo que retorna os Termos Estagio de Obrigatoriedade especifica em um periodo de tempo.
+         * @param obrigatorio Obrigatoriedade dos Termos Estagio.
+         * @param inicio Data de inicio do periodo de Tempo.
+         * @param termino Data de termino do periodo de Tempo.
+         * @return Lista com todos os Termos Estagio de determinada obrigatoriedade ativos em um periodo de tempo.
+         */
     public List<Object[]> buscarFiltrado(Boolean obrigatorio, Date inicio, Date termino) {
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory("sisgeePU");
@@ -49,7 +57,13 @@ public class TermoEstagioDAO {
         factory.close();
         return authors;
     }
-
+    
+    /**
+         * Método que retorna os Termos Estagio ativos em um determinado periodo de tempo.
+         * @param inicio Data de inicio do periodo.
+         * @param termino Data de termino do periodo.
+         * @return  Termos Estagio ativos em um determinado periodo.
+         */
     public List<Object[]> buscarFiltrado(Date inicio, Date termino) {
         EntityManagerFactory factory
                 = Persistence.createEntityManagerFactory("sisgeePU");

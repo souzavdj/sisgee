@@ -11,8 +11,9 @@ import javax.persistence.Entity;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * Entidade que representa uma Pessoa Fisica.
  * @author vinicius
+ * @since 2.0
  */
 //@Entity
 public class PessoaFisica extends Pessoa implements Serializable{

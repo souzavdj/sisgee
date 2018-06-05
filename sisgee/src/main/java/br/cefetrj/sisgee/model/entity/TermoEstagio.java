@@ -24,7 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * Entidade que representa um Termo Estagio.
  * @author padu
  * @since 1.0
  */
@@ -164,179 +164,328 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
     }
-
+    /**
+     * Método para retornar o parametro idTermoEstagio.
+     * @return idTermoEstagio.
+     */
     public Integer getIdTermoEstagio() {
         return idTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro idTermoEstagio.
+     * @param idTermoEstagio Novo valor do parametro.
+     */
     public void setIdTermoEstagio(Integer idTermoEstagio) {
         this.idTermoEstagio = idTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro dataInicioTermoEstagio.
+     * @return dataInicioTermoEstagio.
+     */
     public Date getDataInicioTermoEstagio() {
         return dataInicioTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro dataInicioTermoEstagio.
+     * @param dataInicioTermoEstagio Novo valor do parametro.
+     */
     public void setDataInicioTermoEstagio(Date dataInicioTermoEstagio) {
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro dataFimTermoEstagio.
+     * @return dataFimTermoEstagio.
+     */
     public Date getDataFimTermoEstagio() {
         return dataFimTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro dataFimTermoEstagio.
+     * @param dataFimTermoEstagio Novo valor do parametro.
+     */
     public void setDataFimTermoEstagio(Date dataFimTermoEstagio) {
         this.dataFimTermoEstagio = dataFimTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro dataRescisaoTermoEstagio.
+     * @return dataRescisaoTermoEstagio.
+     */
     public Date getDataRescisaoTermoEstagio() {
         return dataRescisaoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro dataRescisaoTermoEstagio.
+     * @param dataRescisaoTermoEstagio Novo valor do parametro.
+     */
     public void setDataRescisaoTermoEstagio(Date dataRescisaoTermoEstagio) {
         this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro cargaHorariaTermoEstagio.
+     * @return cargaHorariaTermoEstagio.
+     */
     public Integer getCargaHorariaTermoEstagio() {
         return cargaHorariaTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro cargaHorariaTermoEstagio.
+     * @param cargaHorariaTermoEstagio Novo valor do parametro.
+     */
     public void setCargaHorariaTermoEstagio(Integer cargaHorariaTermoEstagio) {
         this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro valorBolsa.
+     * @return valorBolsa.
+     */
     public Float getValorBolsa() {
         return valorBolsa;
     }
-
+    /**
+     * Método para alterar o parametro valorBolsa.
+     * @param valorBolsa Novo valor do parametro.
+     */
     public void setValorBolsa(Float valorBolsa) {
         this.valorBolsa = valorBolsa;
     }
-
+    /**
+     * Método para retornar o parametro enderecoTermoEstagio.
+     * @return enderecoTermoEstagio.
+     */
     public String getEnderecoTermoEstagio() {
         return enderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro enderecoTermoEstagio.
+     * @param enderecoTermoEstagio Novo valor do parametro.
+     */
     public void setEnderecoTermoEstagio(String enderecoTermoEstagio) {
         this.enderecoTermoEstagio = enderecoTermoEstagio;
     }
 
-    /*public String getNumeroEnderecoTermoEstagio() {
+    /**
+     * Método para retornar o parametro numeroEnderecoTermoEstagio.
+     * @return numeroEnderecoTermoEstagio.
+     */
+    public String getNumeroEnderecoTermoEstagio() {
         return numeroEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro numeroEnderecoTermoEstagio.
+     * @param numeroEnderecoTermoEstagio Novo valor do parametro.
+     */
     public void setNumeroEnderecoTermoEstagio(String numeroEnderecoTermoEstagio) {
         this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
     }
-    */
+
+    /**
+     * Método para retornar o parametro complementoEnderecoTermoEstagio.
+     * @return complementoEnderecoTermoEstagio.
+     */
     public String getComplementoEnderecoTermoEstagio() {
         return complementoEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro complementoEnderecoTermoEstagio.
+     * @param complementoEnderecoTermoEstagio Novo valor do parametro.
+     */
     public void setComplementoEnderecoTermoEstagio(String complementoEnderecoTermoEstagio) {
         this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro bairroEnderecoTermoEstagio.
+     * @return bairroEnderecoTermoEstagio.
+     */
     public String getBairroEnderecoTermoEstagio() {
         return bairroEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro bairroEnderecoTermoEstagio.
+     * @param bairroEnderecoTermoEstagio Novo valor do parametro.
+     */
     public void setBairroEnderecoTermoEstagio(String bairroEnderecoTermoEstagio) {
         this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro cepEnderecoTermoEstagio.
+     * @return cepEnderecoTermoEstagio.
+     */
     public String getCepEnderecoTermoEstagio() {
         return cepEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro cepEnderecoTermoEstagio.
+     * @param cepEnderecoTermoEstagio Novo valor do parametro.
+     */
     public void setCepEnderecoTermoEstagio(String cepEnderecoTermoEstagio) {
         this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro cidadeEnderecoTermoEstagio.
+     * @return cidadeEnderecoTermoEstagio.
+     */
     public String getCidadeEnderecoTermoEstagio() {
         return cidadeEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro cidadeEnderecoTermoEstagio.
+     * @param cidadeEnderecoTermoEstagio Novo valor do parametro.
+     */
     public void setCidadeEnderecoTermoEstagio(String cidadeEnderecoTermoEstagio) {
         this.cidadeEnderecoTermoEstagio = cidadeEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro estadoEnderecoTermoEstagio.
+     * @return estadoEnderecoTermoEstagio.
+     */
     public String getEstadoEnderecoTermoEstagio() {
         return estadoEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para alterar o parametro estadoEnderecoTermoEstagio.
+     * @param estadoEnderecoTermoEstagio Novo valor do parametro.
+     */
     public void setEstadoEnderecoTermoEstagio(String estadoEnderecoTermoEstagio) {
         this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
     }
-
+    /**
+     * Método para retornar o parametro eEstagioObrigatorio.
+     * @return eEstagioObrigatorio.
+     */
     public Boolean getEEstagioObrigatorio() {
         return eEstagioObrigatorio;
     }
-
+    /**
+     * Método para alterar o parametro eEstagioObrigatorio.
+     * @param eEstagioObrigatorio Novo valor do parametro.
+     */
     public void setEEstagioObrigatorio(Boolean eEstagioObrigatorio) {
         this.eEstagioObrigatorio = eEstagioObrigatorio;
     }
-
+    /**
+     * Método para retornar o parametro aluno.
+     * @return aluno.
+     */
     public Aluno getAluno() {
         return aluno;
     }
-
+    /**
+     * Método para alterar o parametro aluno.
+     * @param aluno Novo valor do parametro.
+     */
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
-
+    /**
+     * Método para retornar o parametro convenio.
+     * @return convenio.
+     */
     public Convenio getConvenio() {
         return convenio;
     }
-
+    /**
+     * Método para alterar o parametro convenio.
+     * @param convenio Novo valor do parametro.
+     */
     public void setConvenio(Convenio convenio) {
         this.convenio = convenio;
     }
-
+    /**
+     * Método para retornar o parametro professorOrientador.
+     * @return professorOrientador.
+     */
     public ProfessorOrientador getProfessorOrientador() {
         return professorOrientador;
     }
-
+    /**
+     * Método para alterar o parametro professorOrientador.
+     * @param professorOrientador Novo valor do parametro.
+     */
     public void setProfessorOrientador(ProfessorOrientador professorOrientador) {
         this.professorOrientador = professorOrientador;
     }
 
+    /**
+     * Método para retornar o parametro eEstagioObrigatorio.
+     * @return eEstagioObrigatorio.
+     */
+    public Boolean geteEstagioObrigatorio() {
+        return eEstagioObrigatorio;
+    }
+    /**
+     * Método para alterar o parametro eEstagioObrigatorio.
+     * @param eEstagioObrigatorio Novo valor do parametro.
+     */
+    public void seteEstagioObrigatorio(Boolean eEstagioObrigatorio) {
+        this.eEstagioObrigatorio = eEstagioObrigatorio;
+    }
+    /**
+     * Método para retornar o parametro nomeSupervisor.
+     * @return nomeSupervisor.
+     */
     public String getNomeSupervisor() {
         return nomeSupervisor;
     }
-
+    /**
+     * Método para alterar o parametro nomeSupervisor.
+     * @param nomeSupervisor Novo valor do parametro.
+     */
     public void setNomeSupervisor(String nomeSupervisor) {
         this.nomeSupervisor = nomeSupervisor;
     }
-
+    /**
+     * Método para retornar o parametro cargoSupervisor.
+     * @return cargoSupervisor.
+     */
     public String getCargoSupervisor() {
         return cargoSupervisor;
     }
-
+    /**
+     * Método para alterar o parametro cargoSupervisor.
+     * @param cargoSupervisor Novo valor do parametro.
+     */
     public void setCargoSupervisor(String cargoSupervisor) {
         this.cargoSupervisor = cargoSupervisor;
     }
-
+    /**
+     * Método para retornar o parametro termoEstagioAditivo.
+     * @return termoEstagioAditivo.
+     */
     public TermoEstagio getTermoEstagioAditivo() {
         return termoEstagioAditivo;
     }
-
+    /**
+     * Método para alterar o parametro termoEstagioAditivo.
+     * @param termoEstagioAditivo Novo valor do parametro.
+     */
     public void setTermoEstagioAditivo(TermoEstagio termoEstagioAditivo) {
         this.termoEstagioAditivo = termoEstagioAditivo;
     }
-
+    /**
+     * Método para retornar o parametro termosAditivos.
+     * @return termosAditivos.
+     */
     public List<TermoEstagio> getTermosAditivos() {
         return termosAditivos;
     }
-
+    /**
+     * Método para alterar o parametro termosAditivos.
+     * @param termosAditivos Novo valor do parametro.
+     */
     public void setTermosAditivos(List<TermoEstagio> termosAditivos) {
         this.termosAditivos = termosAditivos;
     }
-
+    /**
+     * Método para retornar o parametro motivoAditivo.
+     * @return motivoAditivo.
+     */
     public String getMotivoAditivo() {
         return motivoAditivo;
     }
-
+    /**
+     * Método para alterar o parametro motivoAditivo.
+     * @param motivoAditivo Novo valor do parametro.
+     */
     public void setMotivoAditivo(String motivoAditivo) {
         this.motivoAditivo = motivoAditivo;
     }
@@ -359,6 +508,10 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.termosAditivos = termosAditivos;
     }
 */
+    /**
+     * Método para retornar um hash para a Entidade TermoEstagio.
+     * @return Um hash para TermoEstagio.
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -366,7 +519,11 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         result = prime * result + ((idTermoEstagio == null) ? 0 : idTermoEstagio.hashCode());
         return result;
     }
-
+    /**
+     * Método para comparação entre dois objetos.
+     * @param obj Objeto a ser comparado.
+     * @return True caso sejam o mesmo objeto, false caso não.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -388,7 +545,10 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         }
         return true;
     }
-
+    /**
+     * Método para retorna essa Entidade como um formato Json.
+     * @return A Entidade em formato Json.
+     */
     public String toJson() {
         Jsonb jsonb = JsonbBuilder.create();
         String result = jsonb.toJson(this);

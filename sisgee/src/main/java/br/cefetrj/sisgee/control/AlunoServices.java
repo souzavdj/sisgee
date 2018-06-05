@@ -18,8 +18,7 @@ public class AlunoServices {
 	
 	/**
 	 * Recupera todos os alunos e retorna em uma lista.
-	 * 
-	 * @return lista com todos os alunos
+	 * @return Lista com todos os alunos.
 	 */
 	public static List<Aluno> listarAlunos(){
 		GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);
@@ -27,7 +26,7 @@ public class AlunoServices {
 	}
 	/**
          * Serviço que busca um aluno do banco de dados pelo seu id.
-         * @param aluno
+         * @param aluno Aluno a ser pesquisado.
          * @return O aluno passado como parametro caso seja encontrado no banco.Se nçao for encontrado retorna null.
          */
 	public static Aluno buscarAluno(Aluno aluno) {
@@ -36,7 +35,7 @@ public class AlunoServices {
 	}
 	/**
          * Serviço que trata a inclusão de um Aluno no banco de dados.
-         * @param aluno que deseja incluir no banco 
+         * @param aluno Aluno que deseja incluir no banco. 
          */
 	public static void incluirAluno(Aluno aluno){
 		GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);		
@@ -50,8 +49,8 @@ public class AlunoServices {
 	}
 	/**
          * Serviço que busca um Aluno do banco de dados com um número de matrícula específico.
-         * @param matricula de um aluno
-         * @return o objeto aluno que tem essa matricula ou null caso não tenha esse aluno no banco.
+         * @param matricula Matricula de um aluno.
+         * @return O objeto aluno que tem essa matricula ou null caso não tenha esse aluno no banco.
          */
 	public static Aluno buscarAlunoByMatricula(String matricula) {
 		AlunoDAO alunoDao = new AlunoDAO();

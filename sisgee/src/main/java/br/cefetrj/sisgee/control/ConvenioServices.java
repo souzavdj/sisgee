@@ -19,27 +19,6 @@ import java.util.Date;
 public class ConvenioServices {
 
     /**
-     * Recupera todos os convênios e retorna em uma lista.
-     *
-     * @return lista com todos os alunos
-     */
-    public static List<Convenio> listarConvenios() {
-        GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
-        return convenioDao.buscarTodos();
-    }
-
-    /**
-     * Serviço que busca um convenio atraves do seu id no banco de dados
-     *
-     * @param convenio
-     * @return o objeto convenio encontrado ou null caso não encontre.
-     */
-    public static Convenio buscarConvenio(Convenio convenio) {
-        GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
-        return convenioDao.buscar(convenio.getIdConvenio());
-    }
-
-    /**
      * Serviço que inclui no banco de dados um convenio
      *
      * @param convenio convenio que será incluido
@@ -74,7 +53,26 @@ public class ConvenioServices {
             return 0;
         }
     }    
+	
+	/**
+	 * Recupera todos os convênios e retorna em uma lista.
+	 * @return Lista com todos os alunos.
+	 */
+	public static List<Convenio> listarConvenios(){
+		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
+		return convenioDao.buscarTodos();
+	}
+	/**
+         * Serviço que busca um convenio atraves do seu id no banco de dados
+         * @param convenio O Convenio a ser buscado.
+         * @return O objeto convenio encontrado ou null caso não encontre.
+         */
+	public static Convenio buscarConvenio(Convenio convenio) {
+		GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
+		return convenioDao.buscar(convenio.getIdConvenio());
+	}
         
+	
         /**
          * Serviço que busca um Convenio com um CNPJ ou CPF do conveniado especifico no banco de dados
          * @param cnpj_cpf Representa o CNPJ ou CPF do conveniado. 
@@ -208,7 +206,6 @@ public class ConvenioServices {
 		}catch(Exception e){
 			return null;
 		}
-		
 	}
 
     public static List<Convenio> buscarListaDeVencidos(Date dataInicio,Date dataFim){

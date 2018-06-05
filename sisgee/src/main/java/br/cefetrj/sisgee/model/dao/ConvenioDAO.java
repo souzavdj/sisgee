@@ -17,7 +17,8 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 	public ConvenioDAO() {
 		super(Convenio.class, PersistenceManager.getEntityManager());
 	}
-	
+        
+        //Método que precisa ser excluido.	
 	public Convenio buscarByNumeroEmpresa(String numero, Empresa emp){
 		return (Convenio) manager.createQuery(
 		    "SELECT c FROM Convenio c WHERE c.numeroConvenio LIKE :numero AND c.empresa = :empresa")
@@ -47,7 +48,7 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
         
         /**
          * Metodo que faz uma query que busca na tabela do convenio um convenio com um nome de conveniado especifico.
-         * @param nome  nome do conveniado ligado ao objeto convenio
+         * @param nome  Nome do conveniado ligado ao objeto convenio.
          * @return Um unico Convenio com o nome do conveniado utilizado como parametro.Caso não exista retorna um null.
          */
         public Convenio buscarByNomeConveniado(String nome){
@@ -55,7 +56,7 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
         }
         /**
          * Metodo que faz uma query de busca de um convenio com número específico do banco de dados.
-         * @param numero numero do convenio
+         * @param numero Numero do convenio.
          * @return Um convenio de um numero especifico ou null caso não seja encontrado.
          */
         public Convenio buscarByNumero(String numero){

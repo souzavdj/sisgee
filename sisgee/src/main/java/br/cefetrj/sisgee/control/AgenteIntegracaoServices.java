@@ -19,14 +19,17 @@ public class AgenteIntegracaoServices {
 	
 	/**
 	* Recupera todas as empresas e retorna em uma lista.
-	* 
-	* @return lista com todas as empresas
+	* @return Lista com todas as empresas.
 	*/
 	public static List<AgenteIntegracao> listarAgenteIntegracao(){
 		GenericDAO<AgenteIntegracao> agenteIntegracaoDAO = PersistenceManager.createGenericDAO(AgenteIntegracao.class);
 		return agenteIntegracaoDAO.buscarTodos();
 	}	
-	
+	/**
+	* Recupera o Agente Integração atraves do CNPJ.
+        * @param cnpj CNPJ do Agente Integração.
+	* @return Agente Integração correspondente ou null.
+	*/
 	public static AgenteIntegracao buscarAgenteIntegracaoByCnpj(String cnpj) {
 		AgenteIntegracaoDAO agenteIntegracaoDAO = new AgenteIntegracaoDAO();
 		try{
@@ -37,7 +40,11 @@ public class AgenteIntegracaoServices {
 		}
 		
 	}
-	
+	/**
+	* Recupera o Agente Integração atraves do Nome.
+        * @param nome Nome do Agente Integração.
+	* @return Agente Integração correspondente ou null.
+	*/
 	public static AgenteIntegracao buscarAgenteIntegracaoByNome(String nome) {
 		AgenteIntegracaoDAO agenteIntegracaoDAO = new AgenteIntegracaoDAO();
 		try{
@@ -48,7 +55,11 @@ public class AgenteIntegracaoServices {
 		}
 		
 	}
-	
+	/**
+	* Recupera o Agente Integração atraves do ID.
+        * @param idAgenteIntegracao ID do Agente Integração.
+	* @return Agente Integração correspondente ou null.
+	*/
 	public static AgenteIntegracao buscarAgenteIntegracao(Integer idAgenteIntegracao) {
 		AgenteIntegracaoDAO agenteIntegracaoDao = new AgenteIntegracaoDAO();
 		try{
@@ -59,7 +70,10 @@ public class AgenteIntegracaoServices {
 		}
 		
 	}
-	
+	/**
+         * Serviço que insere um Agente Integração no Banco de Dados.
+         * @param agenteIntegracao O Agente Integração a ser inserido.
+         */
 	public static void incluirAgenteIntegracao(AgenteIntegracao agenteIntegracao){
 		GenericDAO<AgenteIntegracao> agenteIntegracaoDao = PersistenceManager.createGenericDAO(AgenteIntegracao.class);	
 		PersistenceManager.getTransaction().begin();

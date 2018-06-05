@@ -20,6 +20,12 @@ public class GenericDAO<T> {
 		this.t = t;
 		this.manager = manager;
 	}
+        
+         /**
+          * Método que busca todas as entidades de um tipo T.
+          * @return Todas as Entidades do tipo T.
+          */
+         
 	
 	public List<T> buscarTodos(){
 		@SuppressWarnings("unchecked")
@@ -28,18 +34,39 @@ public class GenericDAO<T> {
 		return lista;
 	}
 	
+        /**
+         * Método que busca uma Entidade pelo ID.
+         * @param id ID a ser pesquisado.
+         * @return Entidade com ID respectivo ou null.
+         */
+        
 	public T buscar(Integer id){
 		return manager.find(t, id);
 	}
 	
+        /**
+         * Método que insere uma Entidade no Banco de Dados.
+         * @param entidade Entidade a ser inserida.
+         */
+        
 	public void incluir(T entidade){
 		manager.persist(entidade);
 	}
 	
+        /**
+         * Método que remove uma Entidade do Banco de Dados.
+         * @param entidade Entidade a ser removida.
+         */
+        
 	public void excluir(T entidade){
 		manager.remove(entidade);
 	}
 	
+        /**
+         * Método que altera uma Entidade no Banco de Dados.
+         * @param entidade Entidade a ser alterada.
+         */
+        
 	public void alterar(T entidade){
 		manager.merge(entidade);
 	}

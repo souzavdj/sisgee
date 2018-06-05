@@ -102,21 +102,33 @@ public class TermoEstagioServices {
             return new Long(0);
         }
     }
+	
+	
+	/**
+	 * Insere um Termo de Estágio no Banco de Dados.
+         * 
+         * @param termoEstagio O Termo Estagio a ser inserido.
+         * @param empresa A Empresa ao qual o Termo Estagio estará ligado.
+         * @param agenteIntegracao O Agente Integração ao qual o Termo Estagio estará ligado.
+	 * 
+	 */
+	public static void incluirTermoEstagio(TermoEstagio termoEstagio, Empresa empresa, AgenteIntegracao agenteIntegracao){
+		
+		/**
+		 * Lógica de negócio
+		 * 
+		 * É Agente de Integração?
+		 * 		Empresa já está ligada ao Agente de Integração?
+		 * 			NÃO - Atualizar Empresa.idAgenteIntegracao
+		 * 
+		 * Convênio já existe para a Empresa selecionada?
+		 * 		SIM - Encapsular em termo estagio
+		 * 		NÃO - Criar novo convênio e encapsular
+		 * 
+		 * Registrar termo
+		 * 
+		 */
 
-    public static void incluirTermoEstagio(TermoEstagio termoEstagio, Empresa empresa, AgenteIntegracao agenteIntegracao) {
-
-        /**
-         * Lógica de negócio
-         *
-         * É Agente de Integração? Empresa já está ligada ao Agente de
-         * Integração? NÃO - Atualizar Empresa.idAgenteIntegracao
-         *
-         * Convênio já existe para a Empresa selecionada? SIM - Encapsular em
-         * termo estagio NÃO - Criar novo convênio e encapsular
-         *
-         * Registrar termo
-         *
-         */
 
         /*PersistenceManager.getTransaction().begin();
 		try{
@@ -182,17 +194,21 @@ public class TermoEstagioServices {
          */
     }
 
-    public static void alterarTermoEstagio(TermoEstagio termoEstagio) {
-
-        GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
-
-        try {
-            PersistenceManager.getTransaction().begin();
-            termoEstagioDao.alterar(termoEstagio);
-            PersistenceManager.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            PersistenceManager.getTransaction().rollback();
-        }
-    }
+	/**
+	 * Altera as informações de um Termo Estagio.
+         * @param termoEstagio O Termo Estagio a ser alterado.
+	 */
+	public static void alterarTermoEstagio(TermoEstagio termoEstagio) {
+		
+		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);		
+		
+		try {
+			PersistenceManager.getTransaction().begin();
+			termoEstagioDao.alterar(termoEstagio);
+			PersistenceManager.getTransaction().commit();
+		} catch (Exception e) {			
+			e.printStackTrace();
+			PersistenceManager.getTransaction().rollback();
+		}
+	}
 }

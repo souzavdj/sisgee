@@ -9,6 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ * Entidade que representa um Professor Orientador.
+ * @author joao
+ * @since 2.0
+ */
+
 @Entity
 public class ProfessorOrientador implements Serializable {
 

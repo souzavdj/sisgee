@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * Entidade que representa um Aluno.
  * @author Paulo Cantuaria
  * @since 1.0
  *

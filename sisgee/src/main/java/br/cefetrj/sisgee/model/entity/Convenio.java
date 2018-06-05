@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * Entidade que representa um Convenio.
  * @author Paulo Cantuária
  * @since 1.0
  *

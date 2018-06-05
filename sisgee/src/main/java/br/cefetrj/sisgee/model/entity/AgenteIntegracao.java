@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- *
+ * Entidade que representa um Agente Integração.
  * @author Paulo Cantuária
  * @since 1.0
  *
