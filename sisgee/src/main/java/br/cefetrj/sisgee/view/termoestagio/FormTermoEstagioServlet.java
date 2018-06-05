@@ -77,13 +77,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String cargaHorariaTermoEstagio = request.getParameter("cargaHorariaTermoEstagio");
 		String valorBolsa = request.getParameter("valorBolsa");
 		String enderecoTermoEstagio = request.getParameter("enderecoTermoEstagio");
-		String numeroEnderecoTermoEstagio = request.getParameter("numeroEnderecoTermoEstagio");
 		String complementoEnderecoTermoEstagio = request.getParameter("complementoEnderecoTermoEstagio");
 		String bairroEnderecoTermoEstagio = request.getParameter("bairroEnderecoTermoEstagio");
 		String cepEnderecoTermoEstagio = request.getParameter("cepEnderecoTermoEstagio");
 		String cidadeEnderecoTermoEstagio = request.getParameter("cidadeEnderecoTermoEstagio");
 		String estadoEnderecoTermoEstagio = request.getParameter("estadoEnderecoTermoEstagio");
 		String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
+		String nomesupervisor = request.getParameter("nomeSupervisor");
+		String cargoSupervisor = request.getParameter("cargoSupervisor");
 		String idProfessorOrientador = request.getParameter("idProfessorOrientador");		
 		String idAluno = request.getParameter("idAluno");
 		String numeroConvenio = request.getParameter("numeroConvenio");
@@ -234,15 +235,13 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			valorBolsaMsg = ValidaUtils.validaFloat(campo, valorBolsa);
 			if (valorBolsaMsg.trim().isEmpty()) {
 				Float valor = Float.parseFloat(valorBolsa);
+				valor = valor / 100;
 				request.setAttribute("valor", valor);
-				/*NumberFormat nf = NumberFormat.getInstance(new Locale("pt", "BR"));
-				Number n;
-				float valor = 0;
-				try {
-					n = nf.parse(valorBolsa);
-					valor = n.floatValue();
-				} catch (ParseException e) {
-				}*/				
+
+				if(valor > 2000) 
+				{ 
+                                    request.setAttribute("valorBolsaMsg", "Esse valor é alto para uma bolsa de estágio. Tem certeza?");
+				}	
 			} else {
 				valorBolsaMsg = messages.getString(valorBolsaMsg);
 				request.setAttribute("valorBolsaMsg", valorBolsaMsg);
@@ -284,36 +283,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			isValid = false;
 			//TODO Fazer log
 			System.out.println(enderecoMsg);
-		}
-		
-		
-		/**
-		 * Validação do número do endereço do TermoEstagio usando os métodos da Classe ValidaUtils.
-		 * Campo obrigatório e tamanho máximo de 10 caracteres.
-		 */
-		String numeroEnderecoMsg = "";
-		campo = "Número";
-		tamanho = 10;
-		numeroEnderecoMsg = ValidaUtils.validaObrigatorio(campo , numeroEnderecoTermoEstagio);
-		if(numeroEnderecoMsg.trim().isEmpty()) {
-			numeroEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, numeroEnderecoTermoEstagio);
-			if(numeroEnderecoMsg.trim().isEmpty()) {
-				request.setAttribute("numeroEnderecoTermoEstagio", numeroEnderecoTermoEstagio);
-			}else {				
-				numeroEnderecoMsg = messages.getString(numeroEnderecoMsg);
-				numeroEnderecoMsg = ServletUtils.mensagemFormatada(numeroEnderecoMsg, locale, tamanho);
-				request.setAttribute("numeroEnderecoMsg", numeroEnderecoMsg);
-				isValid = false;
-				//TODO Fazer log
-				System.out.println(numeroEnderecoMsg);
-			}
-		}else {
-			numeroEnderecoMsg = messages.getString(numeroEnderecoMsg);
-			request.setAttribute("numeroEnderecoMsg", numeroEnderecoMsg);
-			isValid = false;
-			//TODO Fazer log
-			System.out.println(numeroEnderecoMsg);
 		}		
+		
 		
 		/**
 		 * Validação do complemento do endereço do TermoEstagio usando os métodos da Classe ValidaUtils.
@@ -487,7 +458,48 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				System.out.println(eEstagioObrigatorioMsg);
 			}			
 		
-				
+			/**
+		 * Validação do Professor Supervisor, usando métodos da Classe ValidaUtils.
+		 * Não é obrigatório
+		 */		
+		String nomeSupervisorMsg = "";
+		campo = "Nome Supervisor";
+		tamanho = 100;
+		if(!nomesupervisor.isEmpty())
+		{
+			nomeSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, nomesupervisor);
+			if(nomeSupervisorMsg.trim().isEmpty()) {
+				request.setAttribute("nomesupervisor", nomesupervisor);
+			}else {
+				nomeSupervisorMsg = messages.getString(nomeSupervisorMsg);
+				request.setAttribute("nomeSupervisorMsg", nomeSupervisorMsg);
+				isValid = false;
+				//TODO Fazer log
+				System.out.println(nomeSupervisorMsg);
+			}
+		}
+		
+		
+		/**
+		 * Validação do Cargo do professor Supervisor, usando métodos da Classe ValidaUtils.
+		 * Não é obrigatório
+		 */
+		
+		String cargoSupervisorMsg = "";
+		campo = "Cargo Supervisor";
+		if(!cargoSupervisor.isEmpty())
+		{
+			cargoSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, cargoSupervisor);
+			if(cargoSupervisorMsg.trim().isEmpty()) {
+				request.setAttribute("nomesupervisor", nomesupervisor);
+			}else {
+				cargoSupervisorMsg = messages.getString(cargoSupervisorMsg);
+				request.setAttribute("cargoSupervisorMsg", cargoSupervisorMsg);
+				isValid = false;
+				//TODO Fazer log
+				System.out.println(cargoSupervisorMsg);
+			}
+		}	
 		
 		/**
 		 * Validação do Id do Professor Orientador, usando métodos da Classe ValidaUtils.

@@ -229,14 +229,7 @@
                             </c:if>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="numeroEnderecoTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numero"/></label>
-                            <input type="text" maxlength="10" class="form-control ${ not empty numeroEnderecoMsg ? 'is-invalid': not empty numeroEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="numeroEnderecoTermoEstagio" name="numeroEnderecoTermoEstagio" value="${ param.numeroEnderecoTermoEstagio }">
-                            <c:if test="${ not empty numeroEnderecoMsg }">
-                                <div class="invalid-feedback">${ numeroEnderecoMsg }</div>
-                            </c:if>
-                        </div>
+                    <div class="form-row">                       
                         <div class="form-group col-md-4">
                             <label for="complementoEnderecoTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.complemento"/></label>
                             <input maxlength="150" type="text" class="form-control ${ not empty complementoEnderecoMsg ? 'is-invalid': not empty complementoEnderecoMsg ? 'is-invalid' : 'is-valid' }" id="complementoEnderecoTermoEstagio" name="complementoEnderecoTermoEstagio" value="${ param.complementoEnderecoTermoEstagio }">
