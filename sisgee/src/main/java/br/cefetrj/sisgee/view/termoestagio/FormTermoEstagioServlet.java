@@ -24,9 +24,11 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.convenio.ConveniosVencerServlet;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet para tratar os dados da tela de cadastro de Termo
@@ -116,23 +118,25 @@ public class FormTermoEstagioServlet extends HttpServlet {
 					dataInicio = format.parse(dataInicioTermoEstagio);
 					request.setAttribute("dataInicio", dataInicio);
 				} catch (Exception e) {
-					//TODO trocar saída de console por Log
-					System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+					Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                        lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils :",e);
 					isValid = false;
 				}
 			}else {
 				dataInicioMsg = messages.getString(dataInicioMsg);
 				request.setAttribute("dataInicioMsg", dataInicioMsg);
-				isValid = false;
-				//TODO Fazer log
-				System.out.println(dataInicioMsg);
+				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                lg.info(dataInicioMsg);
+                                isValid = false;
+					
 			}
 		} else {
 			dataInicioMsg = messages.getString(dataInicioMsg);
 			request.setAttribute("dataInicioMsg", dataInicioMsg);
 			isValid = false;
-			//TODO Fazer log
-			System.out.println(dataInicioMsg);
+			Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                        lg.info(dataInicioMsg);
+			
 		}
 		
 		/**
@@ -151,16 +155,18 @@ public class FormTermoEstagioServlet extends HttpServlet {
 					request.setAttribute("dataFim", dataFim);
 					hasDataFim = true;
 				} catch (Exception e) {
-					//TODO trocar saída de console por Log
-					System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
-					isValid = false;
-				}
+					
+                                        Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                        lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils : ",e);
+                                        isValid = false;
+                                }
 			} else {
 				dataFimMsg = messages.getString(dataFimMsg);
 				request.setAttribute("dataFimMsg", dataFimMsg);
 				isValid = false;
-				//TODO Fazer log
-				System.out.println(dataFimMsg);
+				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                lg.info(dataFimMsg);
+				
 			} 
 		}
 		request.setAttribute("hasDataFim", hasDataFim);

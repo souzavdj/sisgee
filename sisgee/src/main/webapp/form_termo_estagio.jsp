@@ -312,9 +312,10 @@
 	    $('#btnBuscarConvenio').click(function(){
 	    	
 	    	if($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConveniado').val()) == "") ){
-                    $(".dadosConvenio input:not([id=matricula])").val("");
-                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.campo_vazio"/>");
-                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_vazia"/>");      	
+                    $(".dadosConvenio input:not([id=numeroConvenio])").val("");
+                    $(".dadosConvenio input:not([id=nomeConvenio])").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_msg"/>");      	
                     $('#myModal').modal('show');
                     return;
 	    	}
@@ -336,9 +337,10 @@
                             $("#razaoSocial").val(result.razaoSocial);
                         }
                         else{
-                            $(".dadosConvenio input:not([id=matricula])").val("");
-                            $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.aluno_nao_encontrado"/>");
-                            $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_nao_encontrou_aluno"/>");	        	
+                            $(".dadosConvenio input:not([id=numeroConvenio])").val("");
+                            $(".dadosConvenio input:not([id=nomeConvenio])").val("");
+                            $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.convenio_nao_encontrado"/>");
+                            $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.informacoes_nao_encontraram_convenio"/>");	        	
                             $('#myModal').modal('show');	        	
                         }
                         
