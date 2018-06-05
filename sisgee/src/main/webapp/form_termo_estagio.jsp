@@ -210,20 +210,22 @@
                 </div>
 
                 <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
-                    <div class="form-group">
-                        <label for="nomeSupervisor" ><fmt:message key = "br.cefetrj.sisgee.resources.form.nomeSupervisor"/></label>
-                        <input type="text" maxlength="50" class="form-control ${ not empty nomeSupervisorMsg ? 'is-invalid': not empty nomeSupervisorMsg ? 'is-invalid' : 'is-valid' }" id="nomeSupervisor" name="nomeSupervisor" value="${ param.nomeSupervisor }">                            
-                        <c:if test="${ not empty nomeSupervisorMsg }">
-                            <div class="invalid-feedback">${ nomeSupervisorMsg }</div>
-                        </c:if>				
-                    </div>
-                    <div class="form-group">
-                        <label for="cargoSupervisor" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cargoSupervisor"/></label>
-                        <input type="text" maxlength="50" class="form-control ${ not empty cargoSupervisorMsg ? 'is-invalid': not empty cargoSupervisorMsg ? 'is-invalid' : 'is-valid' }" id="cargoSupervisor" name="cargoSupervisor" value="${ param.cargoSupervisor }">                            
-                        <c:if test="${ not empty cargoSupervisorMsg }">
-                            <div class="invalid-feedback">${ cargoSupervisorMsg }</div>
-                        </c:if>				
-                    </div>        
+                     <div class="form-row"> 
+                        <div class="form-group col-md-6">
+                            <label for="nomeSupervisor" ><fmt:message key = "br.cefetrj.sisgee.resources.form.nomeSupervisor"/></label>
+                            <input type="text" maxlength="100" class="form-control ${ not empty nomeSupervisorMsg ? 'is-invalid': not empty nomeSupervisorMsg ? 'is-invalid' : 'is-valid' }" id="nomeSupervisor" name="nomeSupervisor" value="${ param.nomeSupervisor }">                            
+                            <c:if test="${ not empty nomeSupervisorMsg }">
+                                <div class="invalid-feedback">${ nomeSupervisorMsg }</div>
+                            </c:if>				
+                        </div>
+                       <div class="form-group col-md-6">
+                            <label for="cargoSupervisor" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cargoSupervisor"/></label>
+                            <input type="text" maxlength="100" class="form-control ${ not empty cargoSupervisorMsg ? 'is-invalid': not empty cargoSupervisorMsg ? 'is-invalid' : 'is-valid' }" id="cargoSupervisor" name="cargoSupervisor" value="${ param.cargoSupervisor }">                            
+                            <c:if test="${ not empty cargoSupervisorMsg }">
+                                <div class="invalid-feedback">${ cargoSupervisorMsg }</div>
+                            </c:if>				
+                        </div>     
+                    </div>   
                 </fieldset>
                         
                 <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
