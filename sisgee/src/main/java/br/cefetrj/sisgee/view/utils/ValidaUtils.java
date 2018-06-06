@@ -222,7 +222,7 @@ public class ValidaUtils {
 	public static String validaTelefone(String nomeCampo,String param) {
 		String msg = "";
                 if(!(param.trim().isEmpty())){
-                    if(param.length()<10){
+                    if(param.length() != 10 && param.length() != 11){
                         msg = "br.cefetrj.sisgee.valida_utils.msg_valida_telefone";
                     }   
                 }

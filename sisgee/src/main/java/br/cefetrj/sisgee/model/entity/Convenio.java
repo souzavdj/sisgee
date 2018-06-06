@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import br.cefetrj.sisgee.control.ConvenioServices;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Date;
+import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,8 +33,8 @@ public class Convenio implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
+    @Id 
+    //@GeneratedValue
     private Integer idConvenio;
 
     @Column(length = 10, nullable = false)
@@ -92,6 +94,7 @@ public class Convenio implements Serializable {
         this.email = email;
         this.telefone = telefone;
         this.eAtivo = true;
+        this.idConvenio = ConvenioServices.getMaxIdConvenio()+1;
     }
 
     public Convenio(Date dataAssinatura, String cpf_cnpj, String nomeConveniado, boolean isPessoaJuridica, boolean isAgenteIntegracao, String pessoaContato, String email, String telefone) {
@@ -104,6 +107,7 @@ public class Convenio implements Serializable {
         this.email = email;
         this.telefone = telefone;
         this.eAtivo = true;
+        this.idConvenio = ConvenioServices.getMaxIdConvenio()+1;
     }
 
     public Integer getIdConvenio() {
