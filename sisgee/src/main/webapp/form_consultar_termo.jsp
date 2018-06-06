@@ -27,7 +27,11 @@
                     ${ msg }
                 </div>
             </c:if>
-
+            <c:if test="${ not empty msgSucesso }">
+                <div class="alert alert-success" role="alert">
+                    ${ msgSucesso }
+                </div>
+            </c:if>
             <p class="tituloForm">
             <h5>
                 <fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.titulo"/>
@@ -167,6 +171,7 @@
                                         <td></td>
                                     </tr>
                                 </table>
+                                <input type="hidden" name="idTermoEstagioAtivo" value="${idTermoEstagioAtivo}" />
                                 <input type="hidden" name="idAluno" value="${idAluno}" />
                             </form>
                         </div>
@@ -200,8 +205,9 @@
                                         </div>					
                                     </div>
                                 </fieldset>
-                                
+                                            
                                 <input type="hidden" name="idAluno" value="${idAluno}" />
+                                <input type="hidden" name="idTermoEstagioAtivo" value="${idTermoEstagioAtivo}" />
                                 <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_salvar"/></button>                
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_cancelar"/></button>
                             </form>
@@ -260,7 +266,11 @@
                             document.forms['dadosAluno'].submit();
                         } else {
                             desablitarButoes();
-                            esconderTabela();
+                            if (json.idTermoEstagioInativo != null && json.idTermoEstagioInativo != "") {
+                                document.forms['dadosAluno'].submit();
+                            }else {
+                                esconderTabela();
+                            }
                             titulo = '<fmt:message key = "br.cefetrj.sisgee.resources.form.termo_nao_encontrado_titulo"/>';
                             msg = '<fmt:message key = "br.cefetrj.sisgee.resources.form.termo_nao_encontrado_msg"/>';
                             //não tem termo de estágio
@@ -289,11 +299,11 @@
                 $(".form-check-input").change(function () {
                     $('#idAlunoAdt').val($("#idAluno").val());
                 });
-                
-                <c:if test="${not empty termoEstagio.get(0).idTermoEstagio}">
-                    hablitarButoes();
+                <c:if test="${not empty termoEstagio}">
+                    <c:if test="${not empty TermoEstagioUtils.temTermoEstagioAtivo(termoEstagio)}">
+                        hablitarButoes();
+                    </c:if>   
                 </c:if>
-                
                 
             });
 

@@ -18,6 +18,7 @@ import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
+import br.cefetrj.sisgee.view.utils.TermoEstagioUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
 /**
@@ -53,8 +54,6 @@ public class FormTermoRescisaoServlet extends HttpServlet {
         Date dataRescisao = null;
         String msg = "";
 
-        System.out.println("IdAluno: "+idAluno);
-        System.out.println("Data Antes: " + dataTermoRescisao);
         /**
          * Validação do Id do Aluno, usando métodos da Classe ValidaUtils.
          * Instanciando o objeto e pegando o TermoEstagio válido (sem data de
@@ -69,15 +68,13 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                 aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
                 if (aluno != null) {
                     List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();
-                    System.out.println("qtdTermos: " + termosEstagio.size());
-                    for (TermoEstagio termoEstagio2 : termosEstagio) {
-                        if (termoEstagio2.getDataRescisaoTermoEstagio() == null) {
-                            termoEstagio = termoEstagio2;
-                            System.out.println("Data Inicio termo: "+termoEstagio.getDataInicioTermoEstagio());
-                            break;
+                    if (TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio) != null) {
+                        for (TermoEstagio termo : termosEstagio) {
+                            if (termo.getIdTermoEstagio() == Integer.parseInt(TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio))) {
+                                termoEstagio = termo;
+                            }
                         }
-                    }                    
-                    
+                    }
                 } else {
                     idAlunoMsg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_alunoEscolhido");
                     request.setAttribute("idAlunoMsg", idAlunoMsg);
@@ -110,17 +107,30 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                          * estágio) usando o método validaDatas da Classe
                          * ValidaUtils
                          */
-                        String periodoMsg = "";                        
+                        Date inicio = termoEstagio.getDataInicioTermoEstagio();
+                        TermoEstagio termoAditivo = null;
+                        String periodoMsg = "";
+                        if (termoEstagio.getTermosAditivos() != null) {
+                            for (int i = 0; i < termoEstagio.getTermosAditivos().size(); i++) {
+                                if(termoEstagio.getTermosAditivos().get(i).getDataInicioTermoEstagio().compareTo(inicio) > 0) {
+                                    inicio = termoEstagio.getTermosAditivos().get(i).getDataInicioTermoEstagio();
+                                    termoAditivo = termoEstagio.getTermosAditivos().get(i);
+                                }
+                            }
+                        }
                         
-                        periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataRescisao);
+                        periodoMsg = ValidaUtils.validaDatas(inicio, dataRescisao);
                         if (!periodoMsg.trim().isEmpty()) {
                             periodoMsg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.periodoInvalidoDataIncio");
                             msg = periodoMsg;
                             request.setAttribute("periodoMsg", periodoMsg);
                             isValid = false;                            
                         }                        
-                        
-                        periodoMsg = ValidaUtils.validaDatas(dataRescisao, termoEstagio.getDataFimTermoEstagio());
+                        if (termoAditivo!=null) {
+                            periodoMsg = ValidaUtils.validaDatas(dataRescisao, termoAditivo.getDataFimTermoEstagio());
+                        }else {
+                            periodoMsg = ValidaUtils.validaDatas(dataRescisao, termoEstagio.getDataFimTermoEstagio());
+                        }
                         if (!periodoMsg.trim().isEmpty()) {
                             periodoMsg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.periodoInvalidoDataFim");
                             msg = periodoMsg;
@@ -154,10 +164,14 @@ public class FormTermoRescisaoServlet extends HttpServlet {
         if (isValid) {
             termoEstagio.setDataRescisaoTermoEstagio(dataRescisao);
             termoEstagio.setEAtivo(false);
+            for (TermoEstagio termo : termoEstagio.getTermosAditivos()) {
+                termo.setDataRescisaoTermoEstagio(dataRescisao);
+                termo.setEAtivo(false);
+            }
             TermoEstagioServices.alterarTermoEstagio(termoEstagio);
             msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.registroSucesso");
-            request.setAttribute("msg", msg);
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.setAttribute("msgSucesso", msg);
+            request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
             
         } else {            
             String rescisao = "sim";
