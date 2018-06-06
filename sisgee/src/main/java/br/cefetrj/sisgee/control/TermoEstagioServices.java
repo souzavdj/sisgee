@@ -6,6 +6,8 @@ import java.util.List;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.dao.TermoEstagioDAO;
+import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 
 /**
@@ -116,5 +118,42 @@ public class TermoEstagioServices {
             e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
+
+    }
+
+    /**
+     * Insere um Termo de Estágio no Banco de Dados.
+     *
+     * @param termoEstagio O Termo Estagio a ser inserido.
+     * @param c O convenio ao qual o Termo Estagio estará ligado.
+     * @param a O Agente aluno ao qual o Termo Estagio estará ligado.
+     *
+     */
+    public static void incluirTermoEstagio(TermoEstagio termoEstagio, Convenio c, Aluno a) {
+
+        PersistenceManager.getTransaction().begin();
+        try {
+
+            GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
+            c = convenioDao.buscar(c.getIdConvenio());
+            termoEstagio.setConvenio(c);
+            termoEstagio.setNumeroEnderecoTermoEstagio("10");
+
+            GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);
+            a = alunoDao.buscar(a.getIdAluno());
+            termoEstagio.setAluno(a);
+
+            System.out.println("Entrou no services do termo estagio");
+
+            GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+            termoEstagioDao.incluir(termoEstagio);
+
+            PersistenceManager.getTransaction().commit();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            PersistenceManager.getTransaction().rollback();
+        }
+
     }
 }

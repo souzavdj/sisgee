@@ -164,6 +164,27 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
     }
+    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
+        this.dataInicioTermoEstagio = dataInicioTermoEstagio;
+        this.dataFimTermoEstagio = dataFimTermoEstagio;
+        this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
+        this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
+        this.valorBolsa = valorBolsa;
+        this.enderecoTermoEstagio = enderecoTermoEstagio;
+        this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
+        this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
+        this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
+        this.cidadeEnderecoTermoEstagio = cidadeEnderecoTermoEstagio;
+        this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
+        this.eEstagioObrigatorio = eEstagioObrigatorio;
+        this.nomeSupervisor = nomeSupervisor;
+        this.cargoSupervisor = cargoSupervisor;
+        this.motivoAditivo = motivoAditivo;
+        this.eAtivo = eAtivo;
+        this.aluno = aluno;
+        this.convenio = convenio;
+        this.professorOrientador = professorOrientador;
+    }
     /**
      * Método para retornar o parametro idTermoEstagio.
      * @return idTermoEstagio.

@@ -84,12 +84,11 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String estadoEnderecoTermoEstagio = request.getParameter("estadoEnderecoTermoEstagio");
 		String eEstagioObrigatorio = request.getParameter("eEstagioObrigatorio");
 		String nomesupervisor = request.getParameter("nomeSupervisor");
-		String cargoSupervisor = request.getParameter("cargoSupervisor");
+		String cargosupervisor = request.getParameter("cargoSupervisor");
 		String idProfessorOrientador = request.getParameter("idProfessorOrientador");		
 		String idAluno = request.getParameter("idAluno");
 		String idConvenio = request.getParameter("idConvenio");
-		String isAgenteIntegracao = request.getParameter("isAgenteIntegracao");
-		String idAgenteIntegracao = request.getParameter("idAgenteIntegracao");
+		
 			
 		boolean isValid = true;
 		String msg = "";
@@ -479,7 +478,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
                 nomeSupervisorMsg = ValidaUtils.validaObrigatorio(campo, nomesupervisor);
 		if(nomeSupervisorMsg.trim().isEmpty()) {
 		
-                        //TODO tratar a obrigatoriedade
+                        
 			nomeSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, nomesupervisor);
 			if(nomeSupervisorMsg.trim().isEmpty()) {
 				request.setAttribute("nomesupervisor", nomesupervisor);
@@ -506,11 +505,11 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		
 		String cargoSupervisorMsg = "";
 		campo = "Cargo Supervisor";
-		if(!cargoSupervisor.isEmpty())
+		if(!cargosupervisor.isEmpty())
 		{
-			cargoSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, cargoSupervisor);
+			cargoSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, cargosupervisor);
 			if(cargoSupervisorMsg.trim().isEmpty()) {
-				request.setAttribute("nomesupervisor", nomesupervisor);
+				request.setAttribute("cargosupervisor", cargosupervisor);
 			}else {
 				cargoSupervisorMsg = messages.getString(cargoSupervisorMsg);
 				request.setAttribute("cargoSupervisorMsg", cargoSupervisorMsg);
