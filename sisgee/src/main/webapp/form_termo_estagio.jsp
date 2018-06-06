@@ -75,9 +75,94 @@
                 </fieldset>
 
                 <fieldset class="form-group dadosConvenio" ${ not empty termoEstagio ? 'disabled' : '' }>
-                    
-                        <%@include file="import_busca_convenio_numero.jspf"%>      
-                                                                      
+                        <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosDoConvenio"/></legend>
+                        <div class="form-row"> 
+                            <div class="form-group col-md-5">
+                                <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
+                                <div class="input-group">
+                                    <input type="hidden" id="idConvenio" name="idConvenio" value="${ param.idConvenio }">
+                                    <input type="text" maxlength="10" class="form-control ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${param.numeroConvenio}">
+                                       <span class="input-group-btn"> 
+                                        <button class="btn btn-primary" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                                    </span>
+
+                                    <c:if test="${ not empty idConvenioMsg }">
+                                        <div class="invalid-feedback">${ idConvenioMsg }</div>
+                                    </c:if>            
+                                </div>           
+
+                            </div>
+                            <div class="form-group col-md">
+                            <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
+                                <div class="input-group">
+                                    <input type="hidden" id="idConvenio" name="idConvenio" value="${ param.idConvenio }">
+                                    <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${ param.nomeConvenio }">
+                                    <span class="input-group-btn"> 
+                                        <button class="btn btn-primary convenioBotao" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                                    </span>
+
+                                    <c:if test="${ not empty idConvenioMsg }">
+                                        <div class="invalid-feedback">${ idConvenioMsg }</div>
+                                    </c:if>            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                           <div class="form-group col-md-1">        
+                                <label for="tipo">
+                                        <fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.tipo"/>
+                                </label>
+                           </div>
+                           <div class="custom-controls-stacked d-block my-4">							
+                              <label class="custom-control custom-radio">
+                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo"  value="true" ${param.tipo == 'true' ? 'checked' : ''} readonly> 
+                                 <span class="custom-control-indicator"></span> 
+                                 <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
+                              </label>						
+                             <label class="custom-control custom-radio">
+                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo" value="false" ${param.tipo == 'false' ? 'checked' : ''} readonly> 
+                                 <span class="custom-control-indicator"></span> 
+                                 <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
+                              </label>
+
+                           </div>
+
+
+                           <div class="form-group col-md-2">
+                              <label for="agente">
+                                      <fmt:message key = "br.cefetrj.sisgee.resources.form.agenteIntegracao"/>
+                              </label>
+                           </div>
+                           <div class="custom-controls-stacked d-block my-3">							
+                               <label class="custom-control custom-radio">
+                                       <input id="agente" class="custom-control-input" type="radio" name="agente" value="true" ${param.agente == 'true' ? 'checked' : ''}> 
+                                         <span class="custom-control-indicator"></span> 
+                                       <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
+                               </label>						
+                                       <label class="custom-control custom-radio">
+                                           <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${param.agente == 'false' ? 'checked' : ''}> 
+                                   <span class="custom-control-indicator"></span> 
+                                   <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
+                               </label>
+
+                            </div>
+                        </div>
+
+                        <div class="form-row"> 
+                           <div class="form-group col-md-4">
+                                <label for="agenciada"><fmt:message key = "br.cefetrj.sisgee.resources.form.agenciada"/></label>
+                                <input type="text" class="form-control" id="agenciada"  name="agenciada" value="${ param.agencia }" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                               <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
+                                <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ param.CpfCnpj }" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></label>
+                                <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ param.razaoSocial }" readonly>
+                            </div>
+                        </div>    
                 </fieldset> 
 
                 <c:if test="${ not empty periodoMsg }">
@@ -286,15 +371,13 @@
         </div>
         <%@include file="import_footer.jspf"%>
         <%@include file="import_finalbodyscripts.jspf"%>
-        <%@include file="import_scripts.jspf"%>
+        
         <script>
             $(document).ready(function () {
                 $('#cargaHorariaTermoEstagio').mask('9');
                 $('#valorBolsa').mask('000.000,00', {reverse: true});
                 $('#dataInicioTermoEstagio').mask('99/99/9999');
                 $('#dataFimTermoEstagio').mask('99/99/9999');
-                $('#cnpjEmpresa1').mask('99.999.999/9999-99');
-                $('#cnpjEmpresa2').mask('99.999.999/9999-99');
                 $('#cepEnderecoTermoEstagio').mask('99.999-999');
             });
             
@@ -305,15 +388,17 @@
 	        }
 	    });	    
 	    
-            $('#nomeConveniado').on('keypress', function(e){
+            /*('#nomeConveniado').on('keypress', function(e){
 	        if (e.keyCode == 13) {
 	            e.preventDefault();
 	            $("#btnBuscarConvenio").click();
 	        }
-	    });	  
+	    });*/	  
 	    $('#btnBuscarConvenio').click(function(){
 	    	
-	    	if($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConveniado').val()) == "") ){
+                
+	    	if($.trim($('#numeroConvenio').val()) == ""){
+                    console.log("Entrou 1");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
@@ -321,7 +406,15 @@
                     $('#myModal').modal('show');
                     return;
 	    	}
-	    	
+	    	/*if($.trim($('#nomeConvenio').val()) == ""){
+                    console.log("Entrou 2");
+                    $(".dadosConvenio input:not([id=numeroConvenio])").val("");
+                    $(".dadosConvenio input:not([id=nomeConvenio])").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_msg"/>");      	
+                    $('#myModal').modal('show');
+                    return;
+	    	}*/
 	    	var result = null;
                 
 	        $.ajax({
@@ -334,20 +427,11 @@
 	                result = json;
                         if(result.idConvenio != ""){
                             $("#idConvenio").val(result.idConvenio);
-                            $("#agenciada").val(result.razao);
-                            $("#razaoSocial").val(result.razao);
+                            $("#agente").val(result.agente);
+                            $("#tipo").val(result.tipo);
                             $("#cpf_cnpj").val(result.cpf_cnpj);
-                            
-                            if(result.tipo == true){
-                                $("#pessoaJuridica").val(result.tipo);
-                            }else{
-                                $("#pessoaFisica").val(result.tipo);
-                            }
-                            if(result.agente == true){
-                                $("#agenteSim").val(result.agente);
-                            }else{
-                                $("#agenteSim").val(result.agente);
-                            } 
+                            $("#razaoSocial").val(result.razaoSocial);
+                            $("#agenciada").val(result.agenciada);
                             
                             
                         }
@@ -358,14 +442,11 @@
                             $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.informacoes_nao_encontraram_convenio"/>");	        	
                             $('#myModal').modal('show');	        	
                         }
-                        
-                        
-	            }
+                    }
 	        });
-	        
-	        
 	        
 	    });
         </script>
+        <%@include file="import_scripts.jspf"%>
     </body>
 </html>
