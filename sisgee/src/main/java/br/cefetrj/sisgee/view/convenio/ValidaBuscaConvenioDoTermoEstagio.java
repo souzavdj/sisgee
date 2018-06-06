@@ -98,6 +98,7 @@ public class ValidaBuscaConvenioDoTermoEstagio extends HttpServlet {
             }
             
         }
+        System.out.println("Entrou");
         if (isValid) {
             req.getRequestDispatcher("/BuscaConvenioDoTermoEstagioServlet").forward(req, resp);
         } else {

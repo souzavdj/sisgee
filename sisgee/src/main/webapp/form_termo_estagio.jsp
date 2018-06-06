@@ -328,15 +328,28 @@
 	            type: 'GET',
 	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
 	            async: true, // habilita a função ajax() repassar os dados para a função pai
-	            data: $('#matricula').serialize(),
+	            data: $('#numeroConvenio').serialize(),
 	            dataType: "json",
 	            success: function(json){
 	                result = json;
                         if(result.idConvenio != ""){
                             $("#idConvenio").val(result.idConvenio);
-                            $("#nome").val(result.nome);
-                            $("#cpf_cnpj").val(result.nomeCurso);
-                            $("#razaoSocial").val(result.razaoSocial);
+                            $("#agenciada").val(result.razao);
+                            $("#razaoSocial").val(result.razao);
+                            $("#cpf_cnpj").val(result.cpf_cnpj);
+                            
+                            if(result.tipo == true){
+                                $("#pessoaJuridica").val(result.tipo);
+                            }else{
+                                $("#pessoaFisica").val(result.tipo);
+                            }
+                            if(result.agente == true){
+                                $("#agenteSim").val(result.agente);
+                            }else{
+                                $("#agenteSim").val(result.agente);
+                            } 
+                            
+                            
                         }
                         else{
                             $(".dadosConvenio input:not([id=numeroConvenio])").val("");
