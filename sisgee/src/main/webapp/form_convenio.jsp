@@ -48,12 +48,12 @@
                         <div class="custom-controls-stacked" >
                             <div class="form-inline">
                                 <label class="custom-control custom-radio"> 
-                                    <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk ${ not empty tipoMsg ? 'is-invalid' : '' }" value = "true" ${ not empty tipoMsg ? '' : param.tipo == 'true' ? 'checked' : '' } checked> 
+                                    <input id="empresaSim" name="tipo" type="radio" class="custom-control-input isEmpresaChk ${ not empty tipoMsg ? 'is-invalid' : '' }" value = "true" ${empty param.tipo ? 'checked' : param.tipo == 'true' ? 'checked' : ''} > 
                                     <span class="custom-control-indicator"></span> 
                                     <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                                 </label> 
                                 <label class="custom-control custom-radio"> 
-                                    <input id="empresaNao" name="tipo" type="radio" class="custom-control-input isEmpresaChk ${ not empty tipoMsg ? 'is-invalid' : '' }" value = "false" ${ not empty tipoMsg ? '' : param.tipo == 'false' ? 'checked' : '' } > 
+                                    <input id="empresaNao" name="tipo" type="radio" class="custom-control-input isEmpresaChk ${ not empty tipoMsg ? 'is-invalid' : '' }" value = "false" ${empty param.tipo ? '' : param.tipo == 'false' ? 'checked' : '' } > 
                                     <span class="custom-control-indicator"></span> 
                                     <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                                 </label>
@@ -72,12 +72,12 @@
                             <div class="custom-controls-stacked" >
                                 <div class="form-inline">
                                     <label class="custom-control custom-radio"> 
-                                        <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty agenteMsg ? 'is-invalid' : '' }" value = "true" > 
+                                        <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty agenteMsg ? 'is-invalid' : '' }" value = "true" ${empty param.agente? '' : param.agente =='true'?'checked':''}> 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_sim"/></span>
                                     </label> 
                                     <label class="custom-control custom-radio"> 
-                                        <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty agenteMsg ? 'is-invalid' : '' }" value = "false" checked> 
+                                        <input id="isAgente" name="agente" type="radio" class="custom-control-input ${ not empty agenteMsg ? 'is-invalid' : '' }" value = "false" ${empty param.agente? 'checked' : param.agente =='false'?'checked':''}> 
                                         <span class="custom-control-indicator"></span> 
                                         <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_nao"/></span>
                                     </label>

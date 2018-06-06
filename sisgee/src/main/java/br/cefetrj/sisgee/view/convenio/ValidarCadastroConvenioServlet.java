@@ -76,8 +76,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
         if (tipoMsg.trim().isEmpty()) {
             tipoMsg = ValidaUtils.validaBoolean("Tipo de Pessoa", tipo);
             if (tipoMsg.trim().isEmpty()) {
-                Boolean tipoB = Boolean.parseBoolean(tipo);
-                req.setAttribute("tipo", tipoB);
+                req.setAttribute("tipo", Boolean.parseBoolean(tipo));
             } else {
                 tipoMsg = messages.getString(tipoMsg);
                 lg = Logger.getLogger(ValidarCadastroConvenioServlet.class);
