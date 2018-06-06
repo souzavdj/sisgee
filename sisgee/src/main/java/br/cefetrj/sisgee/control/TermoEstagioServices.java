@@ -108,90 +108,38 @@ public class TermoEstagioServices {
 	 * Insere um Termo de Estágio no Banco de Dados.
          * 
          * @param termoEstagio O Termo Estagio a ser inserido.
-         * @param empresa A Empresa ao qual o Termo Estagio estará ligado.
-         * @param agenteIntegracao O Agente Integração ao qual o Termo Estagio estará ligado.
+         * @param c O convenio ao qual o Termo Estagio estará ligado.
+         * @param a O Agente aluno ao qual o Termo Estagio estará ligado.
 	 * 
 	 */
-	public static void incluirTermoEstagio(TermoEstagio termoEstagio, Empresa empresa, AgenteIntegracao agenteIntegracao){
+	public static void incluirTermoEstagio(TermoEstagio termoEstagio,Convenio  c,Aluno a){
 		
-		/**
-		 * Lógica de negócio
-		 * 
-		 * É Agente de Integração?
-		 * 		Empresa já está ligada ao Agente de Integração?
-		 * 			NÃO - Atualizar Empresa.idAgenteIntegracao
-		 * 
-		 * Convênio já existe para a Empresa selecionada?
-		 * 		SIM - Encapsular em termo estagio
-		 * 		NÃO - Criar novo convênio e encapsular
-		 * 
-		 * Registrar termo
-		 * 
-		 */
+		
 
-
-        /*PersistenceManager.getTransaction().begin();
+                PersistenceManager.getTransaction().begin();
 		try{
 			
-			GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);
-			Empresa emp = empresaDao.buscar(empresa.getIdEmpresa());
+			GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
+			c = convenioDao.buscar(c.getIdConvenio());
+			termoEstagio.setConvenio(c);
+			termoEstagio.setNumeroEnderecoTermoEstagio("10");
 			
-			// É Agente de Integração?
-			if(agenteIntegracao != null) {
-				
-				// Empresa já está ligada ao Agente de Integração?
-				Boolean atualizarAI = true;
-				
-				if(emp.getAgenteIntegracao() != null) {
-					if(emp.getAgenteIntegracao().getIdAgenteIntegracao() == agenteIntegracao.getIdAgenteIntegracao()) {
-						atualizarAI = false;
-					}
-				}
-				
-				// NÃO - Atualizar Empresa.idAgenteIntegracao
-				if(atualizarAI) {
-					GenericDAO<AgenteIntegracao> agenteIntegracaoDao = PersistenceManager.createGenericDAO(AgenteIntegracao.class);
-					AgenteIntegracao ai = agenteIntegracaoDao.buscar(agenteIntegracao.getIdAgenteIntegracao());
-					emp.setAgenteIntegracao(ai);
-					empresaDao.alterar(emp);
-				}
-			}
-			
-			// Convênio já existe para a Empresa selecionada?
-			Convenio conv = ConvenioServices.buscarConvenioByNumeroEmpresa(termoEstagio.getConvenio().getNumeroConvenio(), emp);
-			if(conv != null) {
-				// SIM - Encapsular em termo estagio
-				termoEstagio.setConvenio(conv);
-			}
-			else {
-				// NÃO - Criar novo convênio e encapsular
-				GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
-				conv = termoEstagio.getConvenio();
-				conv.setEmpresa(emp);
-				convenioDao.incluir(conv);
-				conv = ConvenioServices.buscarConvenioByNumeroEmpresa(termoEstagio.getConvenio().getNumeroConvenio(), emp);
-				System.out.println("Dados conv: " + conv.getIdConvenio() + ", " + conv.getNumeroConvenio() + ", " + conv.getEmpresa().getNomeEmpresa());
-				termoEstagio.setConvenio(conv);
-			}
-			
-			// encapsula aluno
 			GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);
-			Aluno al = alunoDao.buscar(termoEstagio.getAluno().getIdAluno());
-			termoEstagio.setAluno(al);
+			a = alunoDao.buscar(a.getIdAluno());
+			termoEstagio.setAluno(a);
 			
-			System.out.println("valor estagioObrigatorio: " + termoEstagio.getEEstagioObrigatorio());
+			System.out.println("Entrou no services do termo estagio");
 			
 			GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);		
 			termoEstagioDao.incluir(termoEstagio);
 			
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
-			//TODO remover saída do console
-			System.out.println(e);
+			
 			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
-         */
+         
     }
 
 	/**

@@ -45,57 +45,51 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		Integer cargaHorariaTermoEstagio = (Integer)request.getAttribute("cargaHoraria");
 		Float valorBolsa = (Float)request.getAttribute("valor");
 		String enderecoTermoEstagio = (String)request.getAttribute("enderecoTermoEstagio");
-		String numeroEnderecoTermoEstagio = (String)request.getAttribute("numeroEnderecoTermoEstagio");
 		String complementoEnderecoTermoEstagio = (String)request.getAttribute("complementoEnderecoTermoEstagio");
 		String bairroEnderecoTermoEstagio = (String)request.getAttribute("bairroEnderecoTermoEstagio");
 		String cepEnderecoTermoEstagio = (String)request.getAttribute("cepEnderecoTermoEstagio");
 		String cidadeEnderecoTermoEstagio = (String)request.getAttribute("cidadeEnderecoTermoEstagio");
 		String estadoEnderecoTermoEstagio = (String)request.getAttribute("estadoEnderecoTermoEstagio");
 		Boolean eEstagioObrigatorio = (Boolean)request.getAttribute("obrigatorio");
+                String nomesupervisor = (String)request.getAttribute("nomesupervisor");
                 boolean eAtivo = true;
-		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));		
-		//Convenio convenio = (Convenio)request.getAttribute("convenio");
-		Convenio convenio = new Convenio((String)request.getAttribute("numeroConvenio"));
-		Empresa empresa = new Empresa((Integer)request.getAttribute("idEmp"));		
+		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));	
+		Convenio convenio = new Convenio((Integer)request.getAttribute("idConvenio"));
+				
 		
 		//NÃO OBRIGATÓRIO
+                String cargosupervisor = (String)request.getAttribute("cargosupervisor");
 		Boolean hasDataFim = (Boolean)request.getAttribute("hasDataFim");		
 		Boolean hasProfessor = (Boolean)request.getAttribute("hasProfessor");
-		String isAgenteIntegracao = (String)request.getAttribute("isAgenteIntegracao");
 		
-		Date dataFimTermoEstagio = null;
+		
+		Date dataFimTermoEstagio = (Date)request.getAttribute("dataFim");
 		ProfessorOrientador professorOrientador = null;
-		AgenteIntegracao agenteIntegracao = null;
 		
-		if(hasDataFim) {
-			dataFimTermoEstagio = (Date)request.getAttribute("dataFim");
-		}
+		
+                System.out.println("Entrou aqui");
+		
 		
 		if(hasProfessor) {
 			professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
-		}		
-		
-		if(isAgenteIntegracao != null) {
-			if(isAgenteIntegracao.equals("sim")) {
-				agenteIntegracao = new AgenteIntegracao((Integer)request.getAttribute("idAI"));
-			}
-			
 		}
+                
+		
 		
 		
 		
 
-		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio, cargaHorariaTermoEstagio,
-				 valorBolsa,  enderecoTermoEstagio,  numeroEnderecoTermoEstagio,
+		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio,null, cargaHorariaTermoEstagio,
+				 valorBolsa,  enderecoTermoEstagio,
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
-				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, eAtivo, 
+				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, nomesupervisor, cargosupervisor, null, eAtivo, 
 				 aluno,  convenio,  professorOrientador);
 		
 		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			
-			TermoEstagioServices.incluirTermoEstagio(termoEstagio, empresa, agenteIntegracao);
+			TermoEstagioServices.incluirTermoEstagio(termoEstagio, convenio, aluno);
 			msg = messages.getString("br.cefetrj.sisgee.incluir_termo_estagio_servlet.msg_sucesso");
 			request.setAttribute("msg", msg);
 			
@@ -112,6 +106,8 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 			
 		}
 		
-		System.out.println(msg);		
+				
 	}
 }
+
+
