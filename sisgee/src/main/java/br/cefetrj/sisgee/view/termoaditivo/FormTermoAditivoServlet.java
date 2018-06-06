@@ -528,9 +528,11 @@ public class FormTermoAditivoServlet extends HttpServlet {
             Convenio convenio = termoEstagio.getConvenio();
             Date dataInicioJsp = null;
             Date rescisao = null;
+            Date dataFimJsp = null;
             try {
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicioJsp = format.parse(dataInicioTermoAditivo);
+                dataFimJsp = format.parse(dataFimTermoAditivo);
             }catch (Exception e) {
                 
             }

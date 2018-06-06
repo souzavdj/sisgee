@@ -37,13 +37,11 @@ import javax.servlet.http.HttpServletResponse;
 public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
      private static final long serialVersionUID = 1L;
     
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String numConvenio = request.getParameter("numeroConvenio");
-        String nomeConveniado = request.getParameter("nomeConvenio");
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        String numConvenio = req.getParameter("numeroConvenio");
+        String nomeConveniado = req.getParameter("nomeConvenio");
         String idConvenio = "";
         String tipo="";
         String agente="";
@@ -52,7 +50,8 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         ConvenioUtils x = new ConvenioUtils();
         Convenio buscado = null;
         if(!numConvenio.trim().isEmpty()){
-           buscado = ConvenioServices.buscarConvenioByNumero(numConvenio);
+           buscado = ConvenioServices.buscarConvenioByNumero(numConvenio.trim());
+           System.out.println("Entrou");
         }else{
            buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado);
         }
@@ -65,8 +64,10 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
             razao = buscado.getNomeConveniado();
             if(buscado.getIsAgenteIntegracao()){
                 numero = ConvenioUtils.getCnpjEmpresaFormatado(buscado.getCpf_cnpj());
+                System.out.println("Cnpj formatado");
             }else{
                 numero = x.getCpfFormatado(buscado.getCpf_cnpj());
+                System.out.println("cpf formatado");
             }
             
         }
@@ -77,7 +78,8 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
                 .add("agente", agente)
                 .add("tipo", tipo)
                 .add("cpf_cnpj", numero)
-                .add("razao",razao)
+                .add("razaoSocial",razao)
+                .add("agenciada",razao)
                 .build();
 
         StringWriter stWriter = new StringWriter();
@@ -86,8 +88,8 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         jsonWriter.close();
         String jsonData = stWriter.toString();
 
-        response.setContentType("application/json");
-        response.getWriter().print(jsonData);
+        resp.setContentType("application/json");
+        resp.getWriter().print(jsonData);
     }
    
 }
