@@ -75,7 +75,9 @@
                 </fieldset>
 
                 <fieldset class="form-group dadosConvenio" ${ not empty termoEstagio ? 'disabled' : '' }>
-                    <%@include file="import_busca_convenio_numero.jspf"%>                                                        
+                    
+                        <%@include file="import_busca_convenio_numero.jspf"%>      
+                                                                      
                 </fieldset> 
 
                 <c:if test="${ not empty periodoMsg }">

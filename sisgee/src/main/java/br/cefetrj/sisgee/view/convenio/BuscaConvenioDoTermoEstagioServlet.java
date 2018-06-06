@@ -5,16 +5,17 @@
  */
 package br.cefetrj.sisgee.view.convenio;
 
-import br.cefetrj.sisgee.control.AlunoServices;
-import br.cefetrj.sisgee.model.entity.Aluno;
+
+import br.cefetrj.sisgee.control.ConvenioServices;
+import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonWriter;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,68 +25,41 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet focado na busca de convenio do termo_estagio.jsp
  * @author Andre
+ * @since 1.0
  */
 @WebServlet("/BuscaConvenioDoTermoEstagioServlet")
 public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
      private static final long serialVersionUID = 1L;
-
-    /**
-     * 
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException 
-     */ 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String matricula = req.getParameter("matricula");
-        String idAluno = "";
-        String nome = "";
-        String nomeCurso = "";
-        String nomeCampus = "";
-        String idTermoEstagioAtivo = "";
+    
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
-        if (aluno != null) {
-            nome = aluno.getNome();
-            nomeCurso = aluno.getNomeCurso();
-            nomeCampus = aluno.getNomeCampus();
-            idAluno = Integer.toString(aluno.getIdAluno());
-
-            List<TermoEstagio> termos = aluno.getTermoEstagios();
-            if (termos != null) {
-                for (TermoEstagio termo : termos) {
-                    if (termo.getDataRescisaoTermoEstagio() == null || termo.getEAtivo()) {
-                        idTermoEstagioAtivo = (termo.getIdTermoEstagio() != null
-                                ? termo.getIdTermoEstagio().toString()
-                                : "");
-                        termo.getDataInicioTermoEstagio();
-                        termo.getConvenio().getCpf_cnpj();
-                        termo.getConvenio().getNomeConveniado();
-
-                    }
-                }
-            }
+        Locale locale = ServletUtils.getLocale(req);
+        ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        
+        Convenio convenioBuscado = null;
+        
+        String numConvenio = req.getParameter("numConvenio");
+        String nomeConvenio = req.getParameter("nomeConveniado");
+        nomeConvenio = nomeConvenio.toUpperCase();
+        
+        
+        if(!numConvenio.trim().isEmpty()){
+            convenioBuscado = ConvenioServices.buscarConvenioByNumero(numConvenio);
+            
+        }else{
+            convenioBuscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConvenio);
             
         }
-
-        //JSON
-        JsonObject model = Json.createObjectBuilder()
-                .add("idAluno", idAluno)
-                .add("nome", nome)
-                .add("nomeCurso", nomeCurso)
-                .add("nomeCampus", nomeCampus)
-                .add("idTermoEstagioAtivo", idTermoEstagioAtivo)
-                .build();
-
-        StringWriter stWriter = new StringWriter();
-        JsonWriter jsonWriter = Json.createWriter(stWriter);
-        jsonWriter.writeObject(model);
-        jsonWriter.close();
-        String jsonData = stWriter.toString();
-
-        resp.setContentType("application/json");
-        resp.getWriter().print(jsonData);
+        
+        if(convenioBuscado == null){
+            String msgBusca = messages.getString("br.cefetrj.sisgee.busca_convenio_servlet.msg_erroBusca");
+            req.setAttribute("msgBusca",msgBusca);
+        }else{
+            
+        }
+            
+        req.getRequestDispatcher("/form_termo_estagio.jsp").forward(req, resp);
+        
     }
      
      

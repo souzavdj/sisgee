@@ -6,7 +6,7 @@
             <input type="hidden" id="idConvenio" name="idConvenio" value="${ param.idConvenio }">
             <input type="text" maxlength="10" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${ param.numeroConvenio }">
             <span class="input-group-btn"> 
-                <button class="btn btn-primary convenioBotao" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                <button class="btn btn-primary convenioBotao" type="button" onclick="(ValidaBuscaConvenioDoTermoEstagio)"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
             </span>
 
             <c:if test="${ not empty idConvenioMsg }">
@@ -21,7 +21,7 @@
             <input type="hidden" id="nomeConveniado" name="nomeConveniado" value="${ param.nomeConveniado }">
             <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${ param.nomeConvenio }">
             <span class="input-group-btn"> 
-                <button class="btn btn-primary convenioBotao" type="button" id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                <button class="btn btn-primary convenioBotao" type="button" onclick="(ValidaBuscaConvenioDoTermoEstagio)" id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
             </span>
 
             <c:if test="${ not empty idConvenioMsg }">
@@ -33,18 +33,18 @@
 
 <div class="form-row">
    <div class="form-group col-md-1">        
-        <label for="isPessoaJuridica">
+        <label for="tipo">
                 <fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.tipo"/>
         </label>
    </div>
    <div class="custom-controls-stacked d-block my-4">							
       <label class="custom-control custom-radio">
-         <input id="pessoaJuridica" class="custom-control-input" type="radio" name="isPessoaJuridica" value="pessoaFisica" ${ not empty isPessoaJuridicaoMsg ? '' : param.isAgenteIntegracao == 'sim' ? 'checked' : '' }> 
+         <input id="pessoaJuridica" class="custom-control-input" type="radio" name="tipo"  value="true" ${param.tipo == 'true' ? 'checked' : ''} readonly> 
          <span class="custom-control-indicator"></span> 
          <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
       </label>						
      <label class="custom-control custom-radio">
-         <input id="pessoaFisica" class="custom-control-input ${ not empty isPessoaJuridicaoMsg ? 'is-invalid' : '' }" type="radio" name="isPessoaJuridica" value="pessoaJuridica" ${ not empty isPessoaJuridica ? '' : param.isPessoaJuridica == 'pessoaJuridica' ? 'checked' : '' }> 
+         <input id="pessoaFisica" class="custom-control-input" type="radio" name="tipo" value="false" ${param.tipo == 'false' ? 'checked' : ''} readonly> 
          <span class="custom-control-indicator"></span> 
          <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
       </label>
@@ -59,18 +59,16 @@
    </div>
    <div class="custom-controls-stacked d-block my-3">							
        <label class="custom-control custom-radio">
-               <input id="agenteSim" class="custom-control-input isAgenteChk ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }" type="radio" name="isAgenteIntegracao" value="sim" ${ not empty isAgenteIntegracaoMsg ? '' : param.isAgenteIntegracao == 'sim' ? 'checked' : '' }> 
-           <span class="custom-control-indicator"></span> 
+               <input id="agenteSim" class="custom-control-input" type="radio" name="isAgenteIntegracao" value="true" ${param.isAgenteIntegracao == 'true' ? 'checked' : ''} readonly> 
+                 <span class="custom-control-indicator"></span> 
                <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
        </label>						
                <label class="custom-control custom-radio">
-           <input id="agenteNao" class="custom-control-input isAgenteChk ${ not empty isAgenteIntegracaoMsg ? 'is-invalid' : '' }" type="radio" name="isAgenteIntegracao" value="nao" ${ not empty isAgenteIntegracaoMsg ? '' : param.isAgenteIntegracao == 'nao' ? 'checked' : '' }> 
+                   <input id="agenteNao" class="custom-control-input" type="radio" name="isAgenteIntegracao" value="false" ${param.isAgenteIntegracao == 'false' ? 'checked' : ''}  readonly> 
            <span class="custom-control-indicator"></span> 
            <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
        </label>
-       <c:if test="${ not empty isAgenteIntegracaoMsg }">
-               <div class="invalid-feedback">${ isAgenteIntegracaoMsg }</div>
-       </c:if>
+       
     </div>
 </div>
 
@@ -78,7 +76,7 @@
         <!--  c:if, caso sej apor agente de integração -->
    <div class="form-group col-md-4">
         <label for="agenciada"><fmt:message key = "br.cefetrj.sisgee.resources.form.agenciada"/></label>
-        <input type="text" class="form-control" id="agenciada"  name="agenciada" value="${ param.agencia }">
+        <input type="text" class="form-control" id="agenciada"  name="agenciada" value="${ param.agencia }" readonly>
     </div>
     <div class="form-group col-md-4">
        <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
