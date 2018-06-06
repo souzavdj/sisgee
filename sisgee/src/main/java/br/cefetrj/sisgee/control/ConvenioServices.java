@@ -6,7 +6,6 @@ import br.cefetrj.sisgee.model.dao.ConvenioDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Convenio;
-import br.cefetrj.sisgee.model.entity.Empresa;
 import java.util.Date;
 
 /**
@@ -31,16 +30,6 @@ public class ConvenioServices {
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
             PersistenceManager.getTransaction().rollback();
-        }
-    }
-
-    public static Convenio buscarConvenioByNumeroEmpresa(String numero, Empresa emp) {
-        ConvenioDAO convenioDao = new ConvenioDAO();
-        try {
-            Convenio c = convenioDao.buscarByNumeroEmpresa(numero, emp);
-            return c;
-        } catch (Exception e) {
-            return null;
         }
     }
     

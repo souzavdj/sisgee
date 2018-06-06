@@ -62,7 +62,11 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
         }
         
         request.setAttribute("idAluno", idAluno);
-        
+        request.setAttribute("matricula", aluno.getMatricula());
+        request.setAttribute("nome", aluno.getNome());
+        request.setAttribute("nomeCurso", aluno.getNomeCurso());
+        request.setAttribute("nomeCampus", aluno.getNomeCampus());
+            
         request.setAttribute("msg", msg);
         request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 

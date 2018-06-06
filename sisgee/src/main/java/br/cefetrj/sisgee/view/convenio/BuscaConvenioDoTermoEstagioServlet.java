@@ -37,10 +37,13 @@ import javax.servlet.http.HttpServletResponse;
 public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
      private static final long serialVersionUID = 1L;
     
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        String numConvenio = req.getParameter("numeroConvenio");
-        String nomeConveniado = req.getParameter("nomeConvenio");
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String numConvenio = request.getParameter("numeroConvenio");
+        String nomeConveniado = request.getParameter("nomeConvenio");
         String idConvenio = "";
         String tipo="";
         String agente="";
@@ -83,11 +86,8 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         jsonWriter.close();
         String jsonData = stWriter.toString();
 
-        resp.setContentType("application/json");
-        resp.getWriter().print(jsonData);
-        
+        response.setContentType("application/json");
+        response.getWriter().print(jsonData);
     }
-     
-     
    
 }

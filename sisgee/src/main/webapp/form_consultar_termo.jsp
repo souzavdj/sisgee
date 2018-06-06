@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <%@page import="br.cefetrj.sisgee.view.utils.ConvenioUtils"%>
 <%@page import="br.cefetrj.sisgee.view.utils.TermoEstagioUtils"%>
-<html lang="en">
+<html lang="pt">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
@@ -168,7 +168,13 @@
                                                 </label>
                                             </div>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" id="supervisorEstagio" name="supervisor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.supervisor"/>
+                                                </label>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
                                 <input type="hidden" name="idTermoEstagioAtivo" value="${idTermoEstagioAtivo}" />

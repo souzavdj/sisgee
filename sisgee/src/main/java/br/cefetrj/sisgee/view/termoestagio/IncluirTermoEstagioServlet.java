@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import br.cefetrj.sisgee.control.TermoEstagioServices;
-import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
-import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
@@ -56,7 +54,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));		
 		//Convenio convenio = (Convenio)request.getAttribute("convenio");
 		Convenio convenio = new Convenio((String)request.getAttribute("numeroConvenio"));
-		Empresa empresa = new Empresa((Integer)request.getAttribute("idEmp"));		
+		//Empresa empresa = new Empresa((Integer)request.getAttribute("idEmp"));		
 		
 		//NÃO OBRIGATÓRIO
 		Boolean hasDataFim = (Boolean)request.getAttribute("hasDataFim");		
@@ -65,7 +63,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		
 		Date dataFimTermoEstagio = null;
 		ProfessorOrientador professorOrientador = null;
-		AgenteIntegracao agenteIntegracao = null;
+		//AgenteIntegracao agenteIntegracao = null;
 		
 		if(hasDataFim) {
 			dataFimTermoEstagio = (Date)request.getAttribute("dataFim");
@@ -77,7 +75,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		
 		if(isAgenteIntegracao != null) {
 			if(isAgenteIntegracao.equals("sim")) {
-				agenteIntegracao = new AgenteIntegracao((Integer)request.getAttribute("idAI"));
+				//agenteIntegracao = new AgenteIntegracao((Integer)request.getAttribute("idAI"));
 			}
 			
 		}
@@ -95,7 +93,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			
-			TermoEstagioServices.incluirTermoEstagio(termoEstagio, empresa, agenteIntegracao);
+			//TermoEstagioServices.incluirTermoEstagio(termoEstagio, empresa, agenteIntegracao);
 			msg = messages.getString("br.cefetrj.sisgee.incluir_termo_estagio_servlet.msg_sucesso");
 			request.setAttribute("msg", msg);
 			

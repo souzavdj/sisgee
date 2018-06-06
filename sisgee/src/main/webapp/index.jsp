@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
 <%@include file="import_head.jspf"%>
 <title><fmt:message key = "br.cefetrj.sisgee.resources.form.sisgee"/></title>

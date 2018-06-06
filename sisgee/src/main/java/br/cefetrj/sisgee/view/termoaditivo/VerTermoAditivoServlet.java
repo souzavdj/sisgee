@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.TermoAditivoServices;
-import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
@@ -33,7 +32,6 @@ public class VerTermoAditivoServlet extends HttpServlet {
 		
 		String idTermoAditivo = request.getParameter("idTermoAditivo");
 		Integer id = null;
-		TermoAditivo termoAditivo = null;
 		TermoEstagio termoEstagio = null;
 		
 		String msg = "";
@@ -45,15 +43,15 @@ public class VerTermoAditivoServlet extends HttpServlet {
 			msg = ValidaUtils.validaInteger(campo, idTermoAditivo);
 			if(msg.trim().isEmpty()) {
 				id = Integer.parseInt(idTermoAditivo);
-				termoAditivo = TermoAditivoServices.buscarTermoAditivo(id);
-				if(termoAditivo != null) {
-					termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);					
+				//termoAditivo = TermoAditivoServices.buscarTermoAditivo(id);
+				//if(termoAditivo != null) {
+				//	termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);					
 					request.setAttribute("termoAditivo", termoEstagio);				
 					
-				}else {
+				//}else {
 					isValid = false;
 					msg = messages.getString("br.cefetrj.sisgee.ver_termo_aditivo_servlet.id_termo_invalido");
-				}
+				//}
 			}else {
 				isValid = false;
 				msg = messages.getString(msg);				
