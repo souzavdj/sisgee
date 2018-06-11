@@ -14,12 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.Campus;
-import br.cefetrj.sisgee.model.entity.Curso;
-import br.cefetrj.sisgee.model.entity.Pessoa;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
-import br.cefetrj.sisgee.view.utils.ItemTermo;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,6 +41,7 @@ public class BuscaAlunoServlet extends HttpServlet {
         String nomeCurso = "";
         String nomeCampus = "";
         String idTermoEstagioAtivo = "";
+        String idTermoEstagioInativo = "";
         
         Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
         if (aluno != null) {
@@ -53,24 +49,43 @@ public class BuscaAlunoServlet extends HttpServlet {
             nomeCurso = aluno.getNomeCurso();
             nomeCampus = aluno.getNomeCampus();
             idAluno = Integer.toString(aluno.getIdAluno());
-
+            int qtdtermos = 0;
+            
             List<TermoEstagio> termos = aluno.getTermoEstagios();
+            int pos [] = new int[termos.size()];
+            int contPos = 0;
             if (termos != null) {
-                for (TermoEstagio termo : termos) {
-                    if (termo.getDataRescisaoTermoEstagio() == null || termo.getEAtivo()) {
-                        idTermoEstagioAtivo = (termo.getIdTermoEstagio() != null
-                                ? termo.getIdTermoEstagio().toString()
-                                : "");
-                        termo.getDataInicioTermoEstagio();
-                        termo.getConvenio().getCpf_cnpj();
-                        termo.getConvenio().getNomeConveniado();
-
+                for (int i = 0; i < termos.size(); i++) {
+                    if (termos.get(i).getTermoEstagioAditivo() == null) {
+                        qtdtermos++;
+                        pos[contPos] = i;
+                        contPos++;
                     }
                 }
             }
-            
+            if(qtdtermos == 1) {
+                idTermoEstagioAtivo = (termos.get(0).getIdTermoEstagio() != null
+                            ? termos.get(0).getIdTermoEstagio().toString()
+                            : "");
+                termos.get(0).getDataInicioTermoEstagio();
+                termos.get(0).getConvenio().getCpf_cnpj();
+                termos.get(0).getConvenio().getNomeConveniado();
+            }else if (qtdtermos > 1) {
+                boolean temTermoAtivo = false; 
+                for (int i = 0; i < qtdtermos; i++) {
+                    if (termos.get(pos[i]).getEAtivo()) {
+                        idTermoEstagioAtivo = termos.get(pos[i]).getIdTermoEstagio().toString();
+                        termos.get(pos[i]).getDataInicioTermoEstagio();
+                        termos.get(pos[i]).getConvenio().getCpf_cnpj();
+                        termos.get(pos[i]).getConvenio().getNomeConveniado();
+                        temTermoAtivo = true;
+                    }
+                }
+                if (temTermoAtivo==false) {
+                    idTermoEstagioInativo = termos.get(qtdtermos-1).getIdTermoEstagio().toString();
+                }
+            }
         }
-
         //JSON
         JsonObject model = Json.createObjectBuilder()
                 .add("idAluno", idAluno)
@@ -78,6 +93,7 @@ public class BuscaAlunoServlet extends HttpServlet {
                 .add("nomeCurso", nomeCurso)
                 .add("nomeCampus", nomeCampus)
                 .add("idTermoEstagioAtivo", idTermoEstagioAtivo)
+                .add("idTermoEstagioInativo", idTermoEstagioInativo)
                 .build();
 
         StringWriter stWriter = new StringWriter();

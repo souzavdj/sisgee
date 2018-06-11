@@ -98,8 +98,8 @@ public class TermoEstagioDAO {
         Query query = manager.createNativeQuery("select al.nomecurso "
                 + "from termoestagio as te "
                 + "inner join aluno al on te.aluno_idaluno = al.idaluno "
-                + "where datainiciotermoestagio = :inicio "
-                + "and datafimtermoestagio = :termino ");
+                + "where te.datainiciotermoestagio >= :inicio "
+                + "and :termino >= te.datainiciotermoestagio ");
 
         query.setParameter("inicio", inicio);
         query.setParameter("termino", termino);
@@ -118,8 +118,8 @@ public class TermoEstagioDAO {
         Query query = manager.createNativeQuery("select al.nomecurso "
                 + "from termoestagio as te "
                 + "inner join aluno al on te.aluno_idaluno = al.idaluno "
-                + "where datainiciotermoestagio = :inicio "
-                + "and datafimtermoestagio = :termino "
+                + "where datainiciotermoestagio >= :inicio "
+                + "and :termino >= te.datainiciotermoestagio "
                 + "and eestagioobrigatorio = :obrigatorio");
 
         query.setParameter("obrigatorio", obrigatorio);

@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
-import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 
 /**
@@ -42,14 +41,14 @@ public class IncluirTermoAditivoServlet extends HttpServlet {
 		String enderecoTermoAditivo = (String)request.getAttribute("enderecoTermoAditivo");
 		ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
 		
-		TermoAditivo termoAditivo = new TermoAditivo(dataFimTermoAditivo, cargaHorariaTermoAditivo,
-				valorBolsaTermoAditivo, enderecoTermoAditivo, professorOrientador);
+		//TermoAditivo termoAditivo = new TermoAditivo(dataFimTermoAditivo, cargaHorariaTermoAditivo,
+		//		valorBolsaTermoAditivo, enderecoTermoAditivo, professorOrientador);
 		
 		String registroAditivoConcluido = "";
 		String msgOcorreuErro = "";
 		Logger lg = Logger.getLogger(IncluirTermoAditivoServlet.class);
 		try{
-			TermoAditivoServices.incluirTermoAditivo(termoAditivo);
+			//TermoAditivoServices.incluirTermoAditivo(termoAditivo);
 			registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
 			request.setAttribute("msg", registroAditivoConcluido);
 			lg.info(registroAditivoConcluido);

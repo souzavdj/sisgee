@@ -6,7 +6,8 @@
 
 <!DOCTYPE html>
 <%@page import="br.cefetrj.sisgee.view.utils.ConvenioUtils"%>
-<html lang="en">
+<%@page import="br.cefetrj.sisgee.view.utils.TermoEstagioUtils"%>
+<html lang="pt">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
@@ -26,7 +27,11 @@
                     ${ msg }
                 </div>
             </c:if>
-
+            <c:if test="${ not empty msgSucesso }">
+                <div class="alert alert-success" role="alert">
+                    ${ msgSucesso }
+                </div>
+            </c:if>
             <p class="tituloForm">
             <h5>
                 <fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.titulo"/>
@@ -62,22 +67,22 @@
                             <tr>
                                 <c:choose>
                                     <c:when test="${empty termo.getTermoEstagioAditivo()}">
-                                        <td>Termo Estagio</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.termoEstagio"/></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td>Termo Aditivo</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.termoAditivo"/></td>
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
                                     <c:when test="${termo.getEAtivo()}">
-                                        <td>Ativo</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.ativo"/></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td>Inativo</td>
+                                        <td><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.inativo"/></td>
                                     </c:otherwise>
                                 </c:choose>
                                         <td><fmt:formatDate value="${termo.getDataInicioTermoEstagio()}" type="date" dateStyle="short"/></td>
-                                <td>${convenioUtils.getVigencia(termo.getDataInicioTermoEstagio())}</td>
+                                <td>${TermoEstagioUtils.getVigencia(termo.getDataInicioTermoEstagio(),termo.getDataFimTermoEstagio())}</td>
                                 <c:choose>
                                     <c:when test="${termo.getConvenio().getIsPessoaJuridica()}">
                                         <td>${convenioUtils.getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj())}</td>
@@ -163,10 +168,17 @@
                                                 </label>
                                             </div>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" id="supervisorEstagio" name="supervisor" value="sim"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.supervisor"/>
+                                                </label>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
-                                <input type="hidden" id="idAlunoAdt" name="idAlunoAdt" value="" />
+                                <input type="hidden" name="idTermoEstagioAtivo" value="${idTermoEstagioAtivo}" />
+                                <input type="hidden" name="idAluno" value="${idAluno}" />
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -199,9 +211,11 @@
                                         </div>					
                                     </div>
                                 </fieldset>
-
+                                            
+                                <input type="hidden" name="idAluno" value="${idAluno}" />
+                                <input type="hidden" name="idTermoEstagioAtivo" value="${idTermoEstagioAtivo}" />
                                 <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_salvar"/></button>                
-                                <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_cancelar"/></button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.msg_cancelar"/></button>
                             </form>
                         </div>
                     </div>
@@ -258,7 +272,11 @@
                             document.forms['dadosAluno'].submit();
                         } else {
                             desablitarButoes();
-                            esconderTabela();
+                            if (json.idTermoEstagioInativo != null && json.idTermoEstagioInativo != "") {
+                                document.forms['dadosAluno'].submit();
+                            }else {
+                                esconderTabela();
+                            }
                             titulo = '<fmt:message key = "br.cefetrj.sisgee.resources.form.termo_nao_encontrado_titulo"/>';
                             msg = '<fmt:message key = "br.cefetrj.sisgee.resources.form.termo_nao_encontrado_msg"/>';
                             //não tem termo de estágio
@@ -287,11 +305,11 @@
                 $(".form-check-input").change(function () {
                     $('#idAlunoAdt').val($("#idAluno").val());
                 });
-                
-                <c:if test="${not empty termoEstagio.get(0).idTermoEstagio}">
-                    hablitarButoes();
+                <c:if test="${not empty termoEstagio}">
+                    <c:if test="${not empty TermoEstagioUtils.temTermoEstagioAtivo(termoEstagio)}">
+                        hablitarButoes();
+                    </c:if>   
                 </c:if>
-                
                 
             });
 

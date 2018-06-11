@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
      private static final long serialVersionUID = 1L;
     
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         String numConvenio = req.getParameter("numeroConvenio");
@@ -89,9 +90,6 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
 
         resp.setContentType("application/json");
         resp.getWriter().print(jsonData);
-        
     }
-     
-     
    
 }

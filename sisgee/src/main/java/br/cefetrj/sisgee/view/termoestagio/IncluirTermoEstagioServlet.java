@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import br.cefetrj.sisgee.control.TermoEstagioServices;
-import br.cefetrj.sisgee.model.entity.AgenteIntegracao;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
-import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
@@ -53,6 +51,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		Boolean eEstagioObrigatorio = (Boolean)request.getAttribute("obrigatorio");
                 String nomesupervisor = (String)request.getAttribute("nomesupervisor");
                 boolean eAtivo = true;
+
 		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));	
 		Convenio convenio = new Convenio((Integer)request.getAttribute("idConvenio"));
 				
@@ -89,6 +88,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			
+
 			TermoEstagioServices.incluirTermoEstagio(termoEstagio, convenio, aluno);
 			msg = messages.getString("br.cefetrj.sisgee.incluir_termo_estagio_servlet.msg_sucesso");
 			request.setAttribute("msg", msg);

@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.TermoAditivo;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
-import br.cefetrj.sisgee.view.utils.ItemTermo;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.util.Collections;
@@ -39,9 +37,6 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
         String msg = null;
         String idAluno = request.getParameter("idAluno");
         Integer id = null;
-        ItemTermo itemTermo = new ItemTermo();
-        
-        System.out.println("Cheguei aqui!!!");
         msg = ValidaUtils.validaObrigatorio("Aluno", idAluno);
         if (msg.trim().isEmpty()) {
             msg = ValidaUtils.validaInteger("Aluno", idAluno);
@@ -56,33 +51,22 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 
         Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));
         List<TermoEstagio> termoEstagios = aluno.getTermoEstagios();
-        
-        Collections.sort(termoEstagios);
+        if (termoEstagios.size() > 1) {
+            Collections.sort(termoEstagios);
+        }
         request.setAttribute("termoEstagio", termoEstagios);
-        System.out.println("Qtd: "+ termoEstagios.get(0).getDataInicioTermoEstagio());
-        System.out.println("Qtd: "+ termoEstagios.get(1).getDataInicioTermoEstagio());
         //TODO consertar a lógica de mensagem vazia
         if (msg != "") {
             aluno = AlunoServices.buscarAluno(new Aluno(id));
             termoEstagios = aluno.getTermoEstagios();
         }
-        System.out.println("Funciona: "+ termoEstagios.get(0).getNomeSupervisor());
-        /*if (termoEstagios != null) {
-            for (TermoEstagio termoEstagio : termoEstagios) {
-                if (termoEstagio.getDataRescisaoTermoEstagio() == null || 
-                        termoEstagio.getDataRescisaoTermoEstagio().equals("")) {
-                    request.setAttribute("termoAtivo", termoEstagio);
-                    //request.setAttribute("termosAditivos", termoEstagio.getTermosAditivos());
-                    break;
-                }
-            }
-            //itemTermo.setItemTermoByTermo(termoEstagios.get(0));
-            request.setAttribute("termoEstagio", termoEstagios);
-        }*/
         
-        
-        //request.getSession().setAttribute("aluno", aluno);
-        
+        request.setAttribute("idAluno", idAluno);
+        request.setAttribute("matricula", aluno.getMatricula());
+        request.setAttribute("nome", aluno.getNome());
+        request.setAttribute("nomeCurso", aluno.getNomeCurso());
+        request.setAttribute("nomeCampus", aluno.getNomeCampus());
+            
         request.setAttribute("msg", msg);
         request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
 

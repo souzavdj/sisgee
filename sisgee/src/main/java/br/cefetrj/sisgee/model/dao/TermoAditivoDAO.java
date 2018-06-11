@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.dao;
 
+import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -96,5 +97,18 @@ public class TermoAditivoDAO {
         factory.close();
         
         return qtdTermosEstagioAditivo;
+    }
+    
+    public void inserirTermoAditivo (TermoEstagio termo) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("sisgeePU");
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        
+        manager.persist(termo);
+        
+        manager.getTransaction().commit();
+        
+        manager.close();
+        factory.close();
     }
 }
