@@ -77,7 +77,8 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @Column(length = 100, nullable = false)
     private String nomeSupervisor;
     
-    @Column(length = 50)
+    
+    @Column(length = 100)
     private String cargoSupervisor;
     
     @Column(length = 50)
@@ -103,9 +104,6 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @ManyToOne(fetch = FetchType.EAGER)
     private ProfessorOrientador professorOrientador;
 
-    /*@JsonbTransient
-    @OneToMany(mappedBy = "termoEstagio")
-    private List<TermoAditivo> termosAditivos;*/
     
     @JsonbTransient
     @ManyToOne(fetch = FetchType.EAGER)

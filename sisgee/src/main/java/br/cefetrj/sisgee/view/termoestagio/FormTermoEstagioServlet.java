@@ -88,7 +88,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String idProfessorOrientador = request.getParameter("idProfessorOrientador");		
 		String idAluno = request.getParameter("idAluno");
 		String idConvenio = request.getParameter("idConvenio");
-		
+		String agenciada = request.getParameter("agenciada");
 			
 		boolean isValid = true;
 		String msg = "";
@@ -660,6 +660,32 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						
 		}
                 
+                String agenciadaMsg = "";
+		campo = "Agenciada";
+                tamanho=50;
+		if(!agenciada.isEmpty())
+		{
+                        agenciadaMsg=ValidaUtils.validaNaoInteger(campo, agenciada);
+                        if(agenciadaMsg.trim().isEmpty()) {
+				agenciadaMsg = ValidaUtils.validaTamanho(campo, tamanho, agenciada);
+                                if(agenciadaMsg.trim().isEmpty()) {
+                                        request.setAttribute("agenciada", agenciada);
+                                }else {
+                                        agenciadaMsg = messages.getString(agenciadaMsg);
+                                        request.setAttribute("agenciadaMsg", agenciadaMsg);
+                                        isValid = false;
+                                        Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                        lg.info(agenciadaMsg);
+                                }
+			}else {
+				agenciadaMsg = messages.getString(agenciadaMsg);
+				request.setAttribute("agenciadaMsg", agenciadaMsg);
+				isValid = false;
+				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                lg.info(agenciadaMsg);
+			}
+                        
+		}
                 
 		/**
 		 * *************************************************************************
@@ -694,12 +720,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 * ou devolver para o formulário com as mensagens.
 		 */
 		if (isValid) {
-			request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
+			//request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
+                        System.out.println("Entrou no valido");
+                        request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		} else {
 			msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request = carregarListas(request);
-
+                        System.out.println("Entrou no invalido");
 			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		}
 	}	

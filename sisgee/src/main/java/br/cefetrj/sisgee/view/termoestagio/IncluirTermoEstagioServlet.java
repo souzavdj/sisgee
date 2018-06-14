@@ -1,5 +1,7 @@
 package br.cefetrj.sisgee.view.termoestagio;
 
+import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.ConvenioServices;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
@@ -54,11 +56,12 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 
 		Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));	
 		Convenio convenio = new Convenio((Integer)request.getAttribute("idConvenio"));
+                String agenciada = (String)request.getAttribute("agenciada");
 				
 		
 		//NÃO OBRIGATÓRIO
                 String cargosupervisor = (String)request.getAttribute("cargosupervisor");
-		Boolean hasDataFim = (Boolean)request.getAttribute("hasDataFim");		
+				
 		Boolean hasProfessor = (Boolean)request.getAttribute("hasProfessor");
 		
 		
@@ -75,14 +78,15 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
                 
 		
 		
-		
+		convenio = ConvenioServices.buscarConvenio(convenio);
+                aluno = AlunoServices.buscarAluno(aluno);
 		
 
 		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio,null, cargaHorariaTermoEstagio,
 				 valorBolsa,  enderecoTermoEstagio,
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
 				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, nomesupervisor, cargosupervisor, null, eAtivo, 
-				 aluno,  convenio,  professorOrientador);
+				 aluno,  convenio,  professorOrientador,agenciada);
 		
 		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
