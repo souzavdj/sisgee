@@ -57,7 +57,7 @@
                     </form>
                     
                     <form action=InfoConvenioServlet method="post" name="info">
-                    <c:if test="${not empty listaBusca}">
+                    <c:if test="${not empty listaBusca or con ne null}">
                         <%--<button id="btnRenovarConvenio" type="button" <%--onclick="javascript:location.href = 'form_renovar_convenio_infos.jsp'" class="btn btn-secondary" ${ not empty param.convenioSelecionado ? 'disabled=true' : '' }><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>--%>       
                         <button id="btnRenovarConvenio" type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>
                         <table class="table table-striped">
@@ -70,6 +70,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:if test="${not empty listaBusca}">
                                 <c:forEach items="${listaBusca}" var="i">
                                     <tr>
                                         <th <label class="radio-inline selecionadoChk"><input type="radio" name="convenioSelecionado" id="convenioSelecionado" value="${i.cpf_cnpj}"></label></th>
@@ -78,6 +79,15 @@
                                         <td>${ConvenioUtils.getCnpjEmpresaFormatado(i.cpf_cnpj)}</td>
                                     </tr>
                                 </c:forEach>
+                            </c:if>
+                                <c:if test="${con ne null}">
+                                    <tr>
+                                        <th <label class="radio-inline selecionadoChk"><input type="radio" name="convenioSelecionado" id="convenioSelecionado" value="${con.cpf_cnpj}"></label></th>
+                                        <td>${ConvenioUtils.getNumeroCovenioFormatado(con.numeroConvenio)}</td>
+                                        <td>${con.nomeConveniado}</td>
+                                        <td>${ConvenioUtils.getCnpjEmpresaFormatado(con.cpf_cnpj)}</td>
+                                    </tr>
+                                </c:if>
                         </table>
                     </c:if>
 

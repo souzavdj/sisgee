@@ -206,6 +206,23 @@ public class ConvenioServices {
             return null;
         }
     }
+    
+    /**
+     * Serviço que busca no banco de dados um convenio atraves dos seus 6 primeiros números.
+     *
+     * @param numero convenio
+     * @return Um convenio de um numero especifico ou null caso não seja
+     * encontrado.
+     */
+    public static Convenio buscarBy6Numero(String numero) {
+        ConvenioDAO convenioDao = new ConvenioDAO();
+        try {
+            Convenio c = convenioDao.buscarBy6Numero(numero);
+            return c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
 
