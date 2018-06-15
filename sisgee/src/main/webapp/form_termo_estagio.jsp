@@ -80,8 +80,8 @@
                             <div class="form-group col-md-5">
                                 <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
                                 <div class="input-group">
-                                    <input type="hidden" id="idConvenio" name="idConvenio" value="${ param.idConvenio }">
-                                    <input type="text" maxlength="10" class="form-control ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${param.numeroConvenio}">
+                                    <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
+                                    <input type="text" maxlength="10" class="form-control ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
                                        <span class="input-group-btn"> 
                                         <button class="btn btn-primary" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
@@ -95,8 +95,8 @@
                             <div class="form-group col-md">
                             <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
                                 <div class="input-group">
-                                    <input type="hidden" id="idConvenio" name="idConvenio" value="${ param.idConvenio }">
-                                    <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${ param.nomeConvenio }">
+                                    <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
+                                    <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
                                     <span class="input-group-btn"> 
                                         <button class="btn btn-primary convenioBotao" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
@@ -116,12 +116,12 @@
                            </div>
                            <div class="custom-controls-stacked d-block my-4">							
                               <label class="custom-control custom-radio">
-                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo"  value="true" ${param.tipo == 'true' ? 'checked' : ''} readonly> 
+                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo"  value="true" ${tipo == 'true' ? 'checked' : ''} readonly> 
                                  <span class="custom-control-indicator"></span> 
                                  <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                               </label>						
                              <label class="custom-control custom-radio">
-                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo" value="false" ${param.tipo == 'false' ? 'checked' : ''} readonly> 
+                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo" value="false" ${tipo == 'false' ? 'checked' : ''} readonly> 
                                  <span class="custom-control-indicator"></span> 
                                  <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                               </label>
@@ -136,12 +136,12 @@
                            </div>
                            <div class="custom-controls-stacked d-block my-3">							
                                <label class="custom-control custom-radio">
-                                       <input id="agente" class="custom-control-input" type="radio" name="agente" value="true" ${param.agente == 'true' ? 'checked' : ''}> 
+                                       <input id="agente" class="custom-control-input" type="radio" name="agente" value="true" ${agente == 'true' ? 'checked' : ''}> 
                                          <span class="custom-control-indicator"></span> 
                                        <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
                                </label>						
                                        <label class="custom-control custom-radio">
-                                           <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${param.agente == 'false' ? 'checked' : ''}> 
+                                           <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : ''}> 
                                    <span class="custom-control-indicator"></span> 
                                    <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
                                </label>
@@ -150,18 +150,27 @@
                         </div>
 
                         <div class="form-row"> 
-                           <div class="form-group col-md-4">
+                           <div class="form-group col-md-6">
                                 <label for="agenciada"><fmt:message key = "br.cefetrj.sisgee.resources.form.agenciada"/></label>
-                                <input type="text" class="form-control" id="agenciada"  name="agenciada" value="${ param.agencia }" readonly>
+                                <input type="text" class="form-control ${ not empty agenciadaMsg ? 'is-invalid': not empty agenciadaMsg ? 'is-invalid' : 'is-valid' }" id="agenciada"  name="agenciada" value="${ agenciada }">
+                                   
+                                <c:if test="${ not empty agenciadaMsg }">
+                                    <div class="invalid-feedback">${ agenciadaMsg }</div>
+                                </c:if>
                             </div>
-                            <div class="form-group col-md-4">
+                            
+                            
+                        </div>
+                        <div class="form-row">
+                           <div class="form-group col-md-6">
                                <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
-                                <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ param.CpfCnpj }" readonly>
+                                <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ CpfCnpj }" readonly>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></label>
-                                <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ param.razaoSocial }" readonly>
+                                <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ razaoSocial }" readonly>
                             </div>
+
                         </div>    
                 </fieldset> 
 
@@ -323,7 +332,7 @@
                 </fieldset>
                         
                 <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
-                    <div class="form-group row">
+                    <div class="form-row">
                         <label for="idProfessorOrientador" class="col-form-label col-sm-2" ><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
                         <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control col-sm-10 ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" ${ empty termoEstagio ? '' : empty updProfessor ? 'disabled' : '' }>
                             <c:choose>
@@ -374,7 +383,7 @@
                     <input type="hidden" name="dataFimTermoEstagio" value="${ dataFimTermoEstagio }" />
                     
                 </c:if>
-
+                    <br>
                 <button type="submit" class="btn btn-primary" ${ isVisualizacao eq true ? 'disabled' :'' }><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
                 <c:choose>
                     <c:when test="${ not empty termoEstagio }">
@@ -466,7 +475,6 @@
                             $("#tipo").val(result.tipo);
                             $("#cpf_cnpj").val(result.cpf_cnpj);
                             $("#razaoSocial").val(result.razaoSocial);
-                            $("#agenciada").val(result.agenciada);
                             
                             
                         }

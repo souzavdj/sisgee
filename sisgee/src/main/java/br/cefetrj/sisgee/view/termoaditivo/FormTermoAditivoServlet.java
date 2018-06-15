@@ -537,13 +537,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 
             }
             System.out.println("cidade: "+dataInicioTermoAditivo);
-            TermoEstagio termoAditivo = new TermoEstagio(termoEstagio.getDataInicioTermoEstagio(), dataFim, rescisao,
+            /*TermoEstagio termoAditivo = new TermoEstagio(termoEstagio.getDataInicioTermoEstagio(), dataFim, rescisao,
                     Integer.parseInt(cargaHorariaTermoAditivo), Float.parseFloat(valorBolsaTermoAditivo), enderecoTermoAditivo, "206", 
                     complementoEnderecoTermoAditivo, bairroEnderecoTermoAditivo, cepEnderecoTermoAditivo, cidadeEnderecoTermoAditivo, 
                     estadoEnderecoTermoAditivo, true, nomeSurpervisor, cargoSurpervisor, motivo, true , aluno, convenio, termoEstagio.getProfessorOrientador());
             termoAditivo.setTermoEstagioAditivo(termoEstagio);
             termoAditivo.setNumeroEnderecoTermoEstagio("206");
-            TermoAditivoServices.inserirTermoAditivo(termoAditivo);
+            TermoAditivoServices.inserirTermoAditivo(termoAditivo);*/
             
         }else {
             Aluno aluno = null;

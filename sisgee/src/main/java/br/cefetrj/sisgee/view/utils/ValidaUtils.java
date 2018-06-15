@@ -258,6 +258,22 @@ public class ValidaUtils {
 		}		
 		return msg;
 	}
-	
+        
+        /**
+         * Método para verificar se um numero esta dentro do intervalo de zero ate valor maximo(parametro) 
+         * 
+         * @param num numero que será validado
+         * @param max valor maximo do intervalo
+         * @return String com mensagem de erro ou vazia.
+         */
+        
+	public static String validaIntervaloPositivo(int num,int max){
+            String msg="";
+            if((num <=0) || (num>=max)){
+                msg="br.cefetrj.sisgee.valida_utils.msg_valida_valor_positivo";
+            }
+            return msg;
+            
+        }
 }
 

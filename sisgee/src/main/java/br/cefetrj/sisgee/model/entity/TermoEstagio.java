@@ -55,10 +55,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
 
     @Column(length = 255, nullable = false)
     private String enderecoTermoEstagio;
-    //Acho que vai ter que tirar o numero
-    @Column(length = 10, nullable = false)
-    private String numeroEnderecoTermoEstagio;
-
+    
     @Column(length = 100, nullable = true)
     private String complementoEnderecoTermoEstagio;
 
@@ -80,7 +77,8 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @Column(length = 100, nullable = false)
     private String nomeSupervisor;
     
-    @Column(length = 50)
+    
+    @Column(length = 100)
     private String cargoSupervisor;
     
     @Column(length = 50)
@@ -88,6 +86,9 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     
     @Column(nullable = false)
     private boolean eAtivo;
+    
+    @Column(length= 255)
+    private String agenciada;
     
     @JsonbTransient
     @ManyToOne(fetch = FetchType.EAGER)
@@ -103,9 +104,6 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @ManyToOne(fetch = FetchType.EAGER)
     private ProfessorOrientador professorOrientador;
 
-    /*@JsonbTransient
-    @OneToMany(mappedBy = "termoEstagio")
-    private List<TermoAditivo> termosAditivos;*/
     
     @JsonbTransient
     @ManyToOne(fetch = FetchType.EAGER)
@@ -119,7 +117,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     }
 
     public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Integer cargaHorariaTermoEstagio,
-            Float valorBolsa, String enderecoTermoEstagio, String numeroEnderecoTermoEstagio,
+            Float valorBolsa, String enderecoTermoEstagio,
             String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio,
             String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, boolean eAtivo,
             Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
@@ -129,7 +127,6 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
         this.valorBolsa = valorBolsa;
         this.enderecoTermoEstagio = enderecoTermoEstagio;
-        //this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
         this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
         this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
         this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
@@ -142,14 +139,13 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.professorOrientador = professorOrientador;
     }
 
-    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String numeroEnderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
+    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio,String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
         this.dataFimTermoEstagio = dataFimTermoEstagio;
         this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
         this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
         this.valorBolsa = valorBolsa;
         this.enderecoTermoEstagio = enderecoTermoEstagio;
-        //this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
         this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
         this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
         this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
@@ -158,13 +154,12 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.eEstagioObrigatorio = eEstagioObrigatorio;
         this.nomeSupervisor = nomeSupervisor;
         this.cargoSupervisor = cargoSupervisor;
-        this.motivoAditivo = motivoAditivo;
         this.eAtivo = eAtivo;
         this.aluno = aluno;
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
     }
-    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
+    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador,String agenciada) {
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
         this.dataFimTermoEstagio = dataFimTermoEstagio;
         this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
@@ -184,6 +179,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.aluno = aluno;
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
+        this.agenciada=agenciada;
     }
     /**
      * Método para retornar o parametro idTermoEstagio.
@@ -284,21 +280,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.enderecoTermoEstagio = enderecoTermoEstagio;
     }
 
-    /**
-     * Método para retornar o parametro numeroEnderecoTermoEstagio.
-     * @return numeroEnderecoTermoEstagio.
-     */
-    public String getNumeroEnderecoTermoEstagio() {
-        return numeroEnderecoTermoEstagio;
-    }
-    /**
-     * Método para alterar o parametro numeroEnderecoTermoEstagio.
-     * @param numeroEnderecoTermoEstagio Novo valor do parametro.
-     */
-    public void setNumeroEnderecoTermoEstagio(String numeroEnderecoTermoEstagio) {
-        this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
-    }
-
+   
     /**
      * Método para retornar o parametro complementoEnderecoTermoEstagio.
      * @return complementoEnderecoTermoEstagio.
@@ -517,6 +499,14 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
 
     public void setEAtivo(boolean eAtivo) {
         this.eAtivo = eAtivo;
+    }
+    
+    public String getAgenciada() {
+        return this.agenciada;
+    }
+
+    public void setAgenciada(String agenciada) {
+        this.agenciada = agenciada;
     }
     
     
