@@ -363,19 +363,20 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 */
 		String cepEnderecoMsg = "";	
 		campo = "CEP";
-		tamanho = 8;
-		if(!cepEnderecoTermoEstagio.trim().isEmpty()) {
-			cepEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cepEnderecoTermoEstagio);
-			if(bairroEnderecoMsg.trim().isEmpty()) {
+		tamanho = 10;
+                if(!cepEnderecoTermoEstagio.trim().isEmpty()) {
+			cepEnderecoMsg = ValidaUtils.validaTamanhoExato(campo, tamanho, cepEnderecoTermoEstagio);
+			if(cepEnderecoMsg.trim().isEmpty()) {
 				request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoEstagio);
-			}else {				
-				cepEnderecoMsg = messages.getString(cepEnderecoMsg);	
-				cepEnderecoMsg = ServletUtils.mensagemFormatada(bairroEnderecoMsg, locale, tamanho);
+			}else {	
+                                cepEnderecoMsg = messages.getString(cepEnderecoMsg);	
+				cepEnderecoMsg = ServletUtils.mensagemFormatada(cepEnderecoMsg, locale, tamanho);
 				request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
 				isValid = false;
 				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
                                 lg.info(cepEnderecoMsg);
 			}
+                         
 		}			
 		
 		
