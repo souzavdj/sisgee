@@ -140,7 +140,8 @@ public class TermoEstagioDAO {
         
         String consulta = "SELECT COUNT(te) FROM TermoEstagio te "
                 + "inner join Aluno al on te.aluno.idAluno = al.idAluno "
-                + "where al.nomeCurso = "+"'"+curso+"'";
+                + "where al.nomeCurso = "+"'"+curso+"'"
+                + "and te.termoEstagioAditivo is null";
         
         TypedQuery<Long> query = manager.createQuery(consulta, Long.class);
         Long qtdTermosEstagio = query.getSingleResult();

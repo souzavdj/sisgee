@@ -66,7 +66,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         Boolean estagioObrig;
         Boolean estagioNaoObrig;
 
-        Boolean validDate = false;
+        Boolean validDate = true;
 
         msgDataInicio = ValidaUtils.validaDate("", dataDeInicio);
         msgDataTermino = ValidaUtils.validaDate("", dataDeTermino);
@@ -74,38 +74,64 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         boolean isValid = true;
         int tamanho;
         
-        if (!(msgDataInicio.isEmpty())) {
+        if (!msgDataInicio.isEmpty()) {
             msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
             request.setAttribute("msgDataInicio", msgDataInicio);
             validDate = false;
-        } else {
-            validDate = true;
         }
 
-        if (!(msgDataTermino.isEmpty())) {
+        if (!msgDataTermino.isEmpty()) {
             msgDataTermino = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_termino");
             request.setAttribute("msgDataTermino", msgDataTermino);
             validDate = false;
-        } else {
-
-            validDate = true;
         }
 
         if (validDate == false) {
-            msgDataObrig = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_data_obrigatoria");
-            request.setAttribute("msgDataObrig", msgDataObrig);
-            msg += msgDataObrig;
+            if((!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) && (!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty())) {
+                msgDataInicio = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
+                request.setAttribute("msgDataInicio", msgDataInicio);
+                msgDataTermino = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
+                request.setAttribute("msgDataTermino", msgDataTermino);
+                msg += msgDataInicio + msgDataTermino;
+            }else if (!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) {
+                msgDataInicio = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
+                request.setAttribute("msgDataInicio", msgDataInicio);
+                msg += msgDataInicio;
+            }else if(!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty()) {
+                msgDataTermino = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
+                request.setAttribute("msgDataTermino", msgDataTermino);
+                msg += msgDataTermino;
+            }else {
+                msgDataObrig = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_data_obrigatoria");
+                request.setAttribute("msgDataObrig", msgDataObrig);
+                msg += msgDataObrig;
+            }
         }
         if((dataDeInicio != null)&&(dataDeTermino !=null)){
-            if (!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty())) {
+            if (!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty()) && validDate) {
                 try {
-                    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+                    SimpleDateFormat format = null;
+                    if (messages.getLocale().toString().equals("pt_BR")) {
+                        format = new SimpleDateFormat("dd/MM/yyyy");
+                    }else if (messages.getLocale().toString().equals("en_US")){
+                        format = new SimpleDateFormat("MM/dd/yyyy");
+                    }else {
+                        //fazer log de erro com a internacionalização
+                        System.out.println("Idioma desconhecido");
+                    }
+                    
+                    if (format != null) {
+                        dataInicio = format.parse(dataDeInicio);
 
-                    dataInicio = format.parse(dataDeInicio);
-
-                    dataTermino = format.parse(dataDeTermino);
+                        dataTermino = format.parse(dataDeTermino);
+                    }else {
+                        //fazer o log de erro com a internacionalização
+                        System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+                    }
+                    
 
                 } catch (Exception e) {
+                    //fazer log de erro com a internacionalização
                     System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
                 }
 

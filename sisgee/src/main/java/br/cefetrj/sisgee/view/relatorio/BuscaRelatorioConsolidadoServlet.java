@@ -59,6 +59,12 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
 
         if (estagioObrig == true && estagioNaoObrig == true) {
             cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(dataInicio, dataTermino);
+            for (int i = 0; i < cursos.size(); i++) {
+                if (i != 0 && cursos.get(i).equals(cursos.get(i-1))) {
+                    cursos.remove(i);
+                    i--;
+                }
+            }
             qtdTermosEstagio = new ArrayList<Long>();
             qtdTermosAdivos = new ArrayList<Long>();
             qtdTermosRescindido = new ArrayList<Long>();
@@ -71,7 +77,12 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
 
             if (estagioObrig == true && estagioNaoObrig == false) {
                 cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(estagioObrig, dataInicio, dataTermino);
-
+                for (int i = 0; i < cursos.size(); i++) {
+                    if (i != 0 && cursos.get(i).equals(cursos.get(i-1))) {
+                        cursos.remove(i);
+                        i--;
+                    }
+                }
                 qtdTermosEstagio = new ArrayList<Long>();
                 qtdTermosAdivos = new ArrayList<Long>();
                 qtdTermosRescindido = new ArrayList<Long>();
@@ -85,7 +96,12 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
 
             if (estagioObrig == false && estagioNaoObrig == true) {
                 cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(estagioObrig, dataInicio, dataTermino);
-
+                for (int i = 0; i < cursos.size(); i++) {
+                    if (i != 0 && cursos.get(i).equals(cursos.get(i-1))) {
+                        cursos.remove(i);
+                        i--;
+                    }
+                }
                 qtdTermosEstagio = new ArrayList<Long>();
                 qtdTermosAdivos = new ArrayList<Long>();
                 qtdTermosRescindido = new ArrayList<Long>();
@@ -107,6 +123,7 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
             }
 
         } else {
+            //usar log info eu acho
             System.out.println("Nenhum registro encontrado nesse período de tempo");
             String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
             request.setAttribute("msgRelatorio", msgRelatorio);
