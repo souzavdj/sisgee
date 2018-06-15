@@ -5,12 +5,13 @@ import java.util.Date;
 
 /**
  * Classe criada para métodos de validação, para melhor reuso de código.
+ *
  * @author Paulo Cantuária
  * @since 1.0
  */
 public class ValidaUtils {
-	
-	/**
+
+/**
 	 * Método para validar campo por tamanho, para valores de texto(String)
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
@@ -275,7 +276,22 @@ public class ValidaUtils {
                 }
 				
 		return msg;
-                }
-	
-}
+        }
 
+    /**
+     * Método para verificar se um numero esta dentro do intervalo de zero ate
+     * valor maximo(parametro)
+     *
+     * @param num numero que será validado
+     * @param max valor maximo do intervalo
+     * @return String com mensagem de erro ou vazia.
+     */
+    public static String validaIntervaloPositivo(int num, int max) {
+        String msg = "";
+        if ((num <= 0) || (num >= max)) {
+            msg = "br.cefetrj.sisgee.valida_utils.msg_valida_valor_positivo";
+        }
+        return msg;
+
+    }
+}

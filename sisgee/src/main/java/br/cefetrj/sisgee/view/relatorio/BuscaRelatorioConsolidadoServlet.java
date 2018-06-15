@@ -3,7 +3,6 @@ package br.cefetrj.sisgee.view.relatorio;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.view.utils.ItemRelatorio;
-import java.text.SimpleDateFormat;
 
 /**
  * Servlet para buscar e processar os dados obtidos do banco.
@@ -26,7 +24,6 @@ import java.text.SimpleDateFormat;
  * @since 1.0
  *
  */
-
 @WebServlet("/BuscaRelatorioConsolidadoServlet")
 public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
 
@@ -60,9 +57,11 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
         if (estagioObrig == true && estagioNaoObrig == true) {
             cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(dataInicio, dataTermino);
             for (int i = 0; i < cursos.size(); i++) {
-                if (i != 0 && cursos.get(i).equals(cursos.get(i-1))) {
-                    cursos.remove(i);
-                    i--;
+                for (int j = i + 1; j < cursos.size(); j++) {
+                    if (cursos.get(i).equals(cursos.get(j))) {
+                        cursos.remove(j);
+                        j--;
+                    }
                 }
             }
             qtdTermosEstagio = new ArrayList<Long>();
@@ -78,9 +77,11 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
             if (estagioObrig == true && estagioNaoObrig == false) {
                 cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(estagioObrig, dataInicio, dataTermino);
                 for (int i = 0; i < cursos.size(); i++) {
-                    if (i != 0 && cursos.get(i).equals(cursos.get(i-1))) {
-                        cursos.remove(i);
-                        i--;
+                    for (int j = i + 1; j < cursos.size(); j++) {
+                        if (cursos.get(i).equals(cursos.get(j))) {
+                            cursos.remove(j);
+                            j--;
+                        }
                     }
                 }
                 qtdTermosEstagio = new ArrayList<Long>();
@@ -97,9 +98,11 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
             if (estagioObrig == false && estagioNaoObrig == true) {
                 cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(estagioObrig, dataInicio, dataTermino);
                 for (int i = 0; i < cursos.size(); i++) {
-                    if (i != 0 && cursos.get(i).equals(cursos.get(i-1))) {
-                        cursos.remove(i);
-                        i--;
+                    for (int j = i + 1; j < cursos.size(); j++) {
+                        if (cursos.get(i).equals(cursos.get(j))) {
+                            cursos.remove(j);
+                            j--;
+                        }
                     }
                 }
                 qtdTermosEstagio = new ArrayList<Long>();
@@ -130,7 +133,6 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
         }
 
         request.setAttribute("relatorio", listaItemRelatorio);
-        //request.getSession().setAttribute("relatorio", listaItemRelatorio);
 
         request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
 

@@ -129,28 +129,17 @@ public class TermoEstagioServices {
      * @param a O Agente aluno ao qual o Termo Estagio estará ligado.
      *
      */
-    public static void incluirTermoEstagio(TermoEstagio termoEstagio, Convenio c, Aluno a) {
-
+    public static void incluirTermoEstagio(TermoEstagio termoEstagio) {
+        System.out.println("Antes");
+        GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
         PersistenceManager.getTransaction().begin();
         try {
-
-            GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
-            c = convenioDao.buscar(c.getIdConvenio());
-            termoEstagio.setConvenio(c);
-            termoEstagio.setNumeroEnderecoTermoEstagio("10");
-
-            GenericDAO<Aluno> alunoDao = PersistenceManager.createGenericDAO(Aluno.class);
-            a = alunoDao.buscar(a.getIdAluno());
-            termoEstagio.setAluno(a);
-
-            System.out.println("Entrou no services do termo estagio");
-
-            GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
             termoEstagioDao.incluir(termoEstagio);
-
             PersistenceManager.getTransaction().commit();
+            System.out.println("Depois");
+            
         } catch (Exception e) {
-
+            System.out.println("Errou");
             e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }

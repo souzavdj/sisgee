@@ -88,7 +88,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		String idProfessorOrientador = request.getParameter("idProfessorOrientador");		
 		String idAluno = request.getParameter("idAluno");
 		String idConvenio = request.getParameter("idConvenio");
-		
+		String agenciada = request.getParameter("agenciada");
 			
 		boolean isValid = true;
 		String msg = "";
@@ -106,11 +106,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		dataInicioMsg = ValidaUtils.validaObrigatorio(campo, dataInicioTermoEstagio);
 		if (dataInicioMsg.trim().isEmpty()) {
 			dataInicioMsg = ValidaUtils.validaDate(campo, dataInicioTermoEstagio);
-			if (dataInicioMsg.trim().isEmpty()) {				
+			if (dataInicioMsg.trim().isEmpty()) {	
+                            //TODO Fazer o data inicio e fim aparecer no cadastro quando o usuario errar um campo distinto
 				try {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 					dataInicio = format.parse(dataInicioTermoEstagio);
-					request.setAttribute("dataInicio", dataInicio);
+					request.setAttribute("dataInicioTermoEstagio", dataInicio);
 				} catch (Exception e) {
 					Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
                                         lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils :",e);
@@ -138,16 +139,18 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 */
 		Date dataFim = null;
 		campo = "Data de Término";
-		Boolean hasDataFim = false;
-		if (!dataFimTermoEstagio.trim().isEmpty()) {
-			String dataFimMsg = "";
+                String dataFimMsg="";
+                
+                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataInicioTermoEstagio);
+		if (dataFimMsg.trim().isEmpty()) {	
 			dataFimMsg = ValidaUtils.validaDate(campo , dataFimTermoEstagio);
 			if (dataFimMsg.trim().isEmpty()) {
-				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 				try {
-					dataFim = format.parse(dataFimTermoEstagio);
-					request.setAttribute("dataFim", dataFim);
-					hasDataFim = true;
+                                        //TODO Fazer o data inicio e fim aparecer no cadastro quando o usuario errar um campo distinto
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                                        dataFim = format.parse(dataFimTermoEstagio);
+					request.setAttribute("dataFimTermoEstagio", dataFim);
+					
 				} catch (Exception e) {
 					
                                         Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
@@ -162,12 +165,19 @@ public class FormTermoEstagioServlet extends HttpServlet {
                                 lg.info(dataFimMsg);
 				
 			} 
-		}
-		request.setAttribute("hasDataFim", hasDataFim);
+		}else{
+                        dataFimMsg = messages.getString(dataFimMsg);
+			request.setAttribute("dataFimMsg", dataFimMsg);
+			isValid = false;
+			Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                        lg.info(dataFimMsg);
+                }    
+		
 		
 		
 		/**
 		 * Validação do período (entre o início e fim do estágio) usando o método validaDatas da Classe ValidaUtils
+                 * TODO Resolver o periodo caso as datas estejam no formato em ingles
 		 */
 		String periodoMsg = "";
 		if(!(dataFimTermoEstagio == null || dataFimTermoEstagio.isEmpty())) {
@@ -198,7 +208,17 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				if (cargaHorariaMsg.trim().isEmpty()) {
 					cargaHorariaMsg = ValidaUtils.validaTamanho(campo, tamanho, cargaHoraria);
 					if (cargaHorariaMsg.trim().isEmpty()) {
-					request.setAttribute("cargaHoraria", cargaHoraria);
+                                                cargaHorariaMsg = ValidaUtils.validaIntervaloPositivo(cargaHoraria,7);
+                                                if(cargaHorariaMsg.trim().isEmpty()){
+                                                    request.setAttribute("cargaHorariaTermoEstagio", cargaHoraria);
+                                                }else{
+                                                    cargaHorariaMsg = messages.getString(cargaHorariaMsg);
+                                                    request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
+                                                    isValid = false;
+                                                    Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                                    lg.info(cargaHorariaMsg);
+                                                }
+                                                
 					}else {
 						cargaHorariaMsg = messages.getString(cargaHorariaMsg);
 						cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
@@ -241,8 +261,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			if (valorBolsaMsg.trim().isEmpty()) {
 				Float valor = Float.parseFloat(valorBolsa);
 				valor = valor / 100;
-				request.setAttribute("valor", valor);
-
+				request.setAttribute("valorBolsa", valor);
+                                //ToDo botar internacionalização nisso
 				if(valor > 2000) 
 				{ 
                                     request.setAttribute("valorBolsaMsg", "Esse valor é alto para uma bolsa de estágio. Tem certeza?");
@@ -294,13 +314,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		
 		/**
 		 * Validação do complemento do endereço do TermoEstagio usando os métodos da Classe ValidaUtils.
-		 * Campo obrigatório e tamanho máximo de 150 caracteres.
+		 * Campo opcional e tamanho máximo de 150 caracteres.
 		 */		
 		String complementoEnderecoMsg = "";
 		campo = "Complemento";
-		tamanho = 150;
-		complementoEnderecoMsg = ValidaUtils.validaObrigatorio(campo, complementoEnderecoTermoEstagio);
-		if(complementoEnderecoMsg.trim().isEmpty()) {
+		tamanho = 100;
+		if(!complementoEnderecoTermoEstagio.trim().isEmpty()) {
 			complementoEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, complementoEnderecoTermoEstagio);
 			if(complementoEnderecoMsg.trim().isEmpty()) {
 				request.setAttribute("complementoEnderecoTermoEstagio", complementoEnderecoTermoEstagio);
@@ -312,26 +331,18 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				isValid = false;
 				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
                                 lg.info(complementoEnderecoMsg);
-				//System.out.println("Tamanho complemento inválido");
-			}
-		}else {
-			complementoEnderecoMsg = messages.getString(complementoEnderecoMsg);
-			request.setAttribute("complementoEnderecoMsg", complementoEnderecoMsg);
-			isValid = false;
-			Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                        lg.info(complementoEnderecoMsg);
 				
+			}
 		}		
 		
 		/**
 		 * Validação do bairro do endereço do TermoEstagio usando métodos da Classe ValidaUtils.
-		 * Campo obrigatório e tamanho máximo de 150 caracteres.
+		 * Campo opcional e tamanho máximo de 150 caracteres.
 		 */
 		String bairroEnderecoMsg = "";
 		campo = "Bairro";
-		tamanho = 150;
-		bairroEnderecoMsg = ValidaUtils.validaObrigatorio(campo, bairroEnderecoTermoEstagio);
-		if(bairroEnderecoMsg.trim().isEmpty()) {
+		tamanho = 100;
+		if(!bairroEnderecoTermoEstagio.trim().isEmpty()) {
 			bairroEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, bairroEnderecoTermoEstagio);
 			if(bairroEnderecoMsg.trim().isEmpty()) {
 				request.setAttribute("bairroEnderecoTermoEstagio", bairroEnderecoTermoEstagio);
@@ -344,24 +355,16 @@ public class FormTermoEstagioServlet extends HttpServlet {
                                 lg.info(bairroEnderecoMsg);
 				
 			}
-		}else {
-			bairroEnderecoMsg = messages.getString(bairroEnderecoMsg);
-			request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
-			isValid = false;
-			Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                        lg.info(bairroEnderecoMsg);
-				
-		}			
+		}		
 				
 		/**
 		 * Validação do cep do endereço do TermoEstagio usando métodos da Classe ValidaUtils.
-		 * Campo obrigatório e tamanho máximo de 15 caracteres.
+		 * Campo opcional e tamanho máximo de 15 caracteres.
 		 */
 		String cepEnderecoMsg = "";	
 		campo = "CEP";
-		tamanho = 15;
-		cepEnderecoMsg = ValidaUtils.validaObrigatorio(campo, cepEnderecoTermoEstagio);
-		if(cepEnderecoMsg.trim().isEmpty()) {
+		tamanho = 8;
+		if(!cepEnderecoTermoEstagio.trim().isEmpty()) {
 			cepEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cepEnderecoTermoEstagio);
 			if(bairroEnderecoMsg.trim().isEmpty()) {
 				request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoEstagio);
@@ -373,12 +376,6 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
                                 lg.info(cepEnderecoMsg);
 			}
-		}else {
-			cepEnderecoMsg = messages.getString(cepEnderecoMsg);
-			request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
-			isValid = false;
-			Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                        lg.info(cepEnderecoMsg);
 		}			
 		
 		
@@ -388,7 +385,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 */
 		String cidadeEnderecoMsg = "";
 		campo = "Cidade";
-		tamanho = 150;
+		tamanho = 100;
 		cidadeEnderecoMsg = ValidaUtils.validaObrigatorio(campo, cidadeEnderecoTermoEstagio);
 		if(cidadeEnderecoMsg.trim().isEmpty()) {
 			cidadeEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cidadeEnderecoTermoEstagio);
@@ -446,10 +443,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		eEstagioObrigatorioMsg = ValidaUtils.validaObrigatorio(campo, eEstagioObrigatorio);
 		if(eEstagioObrigatorioMsg.trim().isEmpty()) {
 			Boolean obrigatorio;
-			if(eEstagioObrigatorio.equals("sim")) {				
+			if(eEstagioObrigatorio.equals("sim")) {	
+                                request.setAttribute("eEstagioObrigatorio", "sim");
 				obrigatorio = true;
 				request.setAttribute("obrigatorio", obrigatorio);
 			} else if(eEstagioObrigatorio.equals("nao")) {
+                            request.setAttribute("eEstagioObrigatorio", "nao");
 				obrigatorio = false;
 				request.setAttribute("obrigatorio", obrigatorio);
 			}else {
@@ -481,7 +480,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
                         
 			nomeSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, nomesupervisor);
 			if(nomeSupervisorMsg.trim().isEmpty()) {
-				request.setAttribute("nomesupervisor", nomesupervisor);
+				request.setAttribute("nomeSupervisor", nomesupervisor);
 			}else {
 				nomeSupervisorMsg = messages.getString(nomeSupervisorMsg);
 				request.setAttribute("nomeSupervisorMsg", nomeSupervisorMsg);
@@ -509,7 +508,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		{
 			cargoSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, cargosupervisor);
 			if(cargoSupervisorMsg.trim().isEmpty()) {
-				request.setAttribute("cargosupervisor", cargosupervisor);
+				request.setAttribute("cargoSupervisor", cargosupervisor);
 			}else {
 				cargoSupervisorMsg = messages.getString(cargoSupervisorMsg);
 				request.setAttribute("cargoSupervisorMsg", cargoSupervisorMsg);
@@ -521,12 +520,13 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		
 		/**
 		 * Validação do Id do Professor Orientador, usando métodos da Classe ValidaUtils.
-		 * Consultando a lista de Professores para validar 
+		 * Consultando a lista de Professores para validar.É um campo obrigatorio
 		 */
 		String idProfessorMsg = "";
 		campo = "Professor Orientador";
-		Boolean hasProfessor = false;
-		if (!(idProfessorOrientador.trim().isEmpty() || idProfessorOrientador == null)) {
+		//Boolean hasProfessor = false;
+                idProfessorMsg = ValidaUtils.validaObrigatorio(campo, idProfessorOrientador);
+		if(idProfessorMsg.trim().isEmpty()) {
 			idProfessorMsg = ValidaUtils.validaInteger(campo, idProfessorOrientador);
 			if (idProfessorMsg.trim().isEmpty()) {
 				Integer idProfessor = Integer.parseInt(idProfessorOrientador);
@@ -534,12 +534,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				if (listaProfessores != null) {
 					if (listaProfessores.contains(new ProfessorOrientador(idProfessor))) {
 						request.setAttribute("idProfessor", idProfessor);
-						hasProfessor = true;
+						//hasProfessor = true;
 					} else {
 						idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
 						isValid = false;
 						Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                                                 lg.info(idProfessorMsg);
+                                                lg.info(idProfessorMsg);
 					}
 				} else {
 					idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_professores_vazia");
@@ -555,8 +555,14 @@ public class FormTermoEstagioServlet extends HttpServlet {
                                 lg.info(idProfessorMsg);
 			
                         }
-		}
-		request.setAttribute("hasProfessor", hasProfessor);
+		}else{
+                    idProfessorMsg = messages.getString(idProfessorMsg);
+                    request.setAttribute("idProfessorMsg", idProfessorMsg);
+                    isValid = false;
+                    Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                    lg.info(idProfessorMsg);
+                }
+		
 		
 		/**
 		 * Validação do Id do Aluno, usando métodos da Classe ValidaUtils.
@@ -626,7 +632,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						request.setAttribute("idConvenio", idConvenioInt);
 						
 					} else {
-                                            //TODO consertar referencia da Internacionalização
+                                                 //TODO(Antigo) consertar referencia da Internacionalização
 						idConvenioMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.convenio_invalido");
 						request.setAttribute("idConvenioMsg", idConvenioMsg);
                                                 isValid = false;
@@ -660,6 +666,33 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						
 		}
                 
+                String agenciadaMsg = "";
+		campo = "Agenciada";
+                tamanho=255;
+		if(!agenciada.isEmpty())
+		{
+                        agenciadaMsg=ValidaUtils.validaNaoInteger(campo, agenciada);
+                        if(agenciadaMsg.trim().isEmpty()) {
+				agenciadaMsg = ValidaUtils.validaTamanho(campo, tamanho, agenciada);
+                                if(agenciadaMsg.trim().isEmpty()) {
+                                        request.setAttribute("agenciada", agenciada);
+                                }else {
+                                        agenciadaMsg = messages.getString(agenciadaMsg);
+                                        agenciadaMsg  = ServletUtils.mensagemFormatada(agenciadaMsg , locale, tamanho);
+                                        request.setAttribute("agenciadaMsg", agenciadaMsg);
+                                        isValid = false;
+                                        Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                        lg.info(agenciadaMsg);
+                                }
+			}else {
+				agenciadaMsg = messages.getString(agenciadaMsg);
+				request.setAttribute("agenciadaMsg", agenciadaMsg);
+				isValid = false;
+				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                lg.info(agenciadaMsg);
+			}
+                        
+		}
                 
 		/**
 		 * *************************************************************************
@@ -674,7 +707,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			
 			List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();	
 			for (TermoEstagio t : termosEstagio) {				
-				if(t.getDataRescisaoTermoEstagio() == null) {
+				if((t.getDataRescisaoTermoEstagio() == null) || (t.getEAtivo()==true)) {
 					hasTermoAberto = true;
 					break;
 				}
@@ -694,13 +727,15 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 * ou devolver para o formulário com as mensagens.
 		 */
 		if (isValid) {
-			request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
+			System.out.println("Entrou no valido");
+                        request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
+                        //request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		} else {
+			System.out.println("Entrou no invalido");
 			msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request = carregarListas(request);
-
-			request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
+                        request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		}
 	}	
 	
