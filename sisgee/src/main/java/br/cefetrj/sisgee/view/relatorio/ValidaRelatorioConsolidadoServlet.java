@@ -1,7 +1,6 @@
 package br.cefetrj.sisgee.view.relatorio;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.text.SimpleDateFormat;
-import javafx.scene.input.DataFormat;
 
 /**
  *
@@ -37,16 +35,18 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String dataDeInicio = request.getParameter("dataDeInicio");
         String dataDeTermino = request.getParameter("dataDeTermino");
         String estagioObrigatorio = request.getParameter("estagioObrigatorio");
         String estagioNaoObrigatorio = request.getParameter("estagioNaoObrigatorio");
-        
+
         Locale locale = getLocale(request);
 
         request.setAttribute("Locale", locale);
@@ -70,10 +70,10 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 
         msgDataInicio = ValidaUtils.validaDate("", dataDeInicio);
         msgDataTermino = ValidaUtils.validaDate("", dataDeTermino);
-        
+
         boolean isValid = true;
         int tamanho;
-        
+
         if (!msgDataInicio.isEmpty()) {
             msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
             request.setAttribute("msgDataInicio", msgDataInicio);
@@ -87,48 +87,47 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         }
 
         if (validDate == false) {
-            if((!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) && (!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty())) {
+            if ((!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) && (!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty())) {
                 msgDataInicio = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
                 request.setAttribute("msgDataInicio", msgDataInicio);
                 msgDataTermino = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
                 request.setAttribute("msgDataTermino", msgDataTermino);
                 msg += msgDataInicio + msgDataTermino;
-            }else if (!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) {
+            } else if (!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) {
                 msgDataInicio = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
                 request.setAttribute("msgDataInicio", msgDataInicio);
                 msg += msgDataInicio;
-            }else if(!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty()) {
+            } else if (!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty()) {
                 msgDataTermino = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
                 request.setAttribute("msgDataTermino", msgDataTermino);
                 msg += msgDataTermino;
-            }else {
+            } else {
                 msgDataObrig = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_data_obrigatoria");
                 request.setAttribute("msgDataObrig", msgDataObrig);
                 msg += msgDataObrig;
             }
         }
-        if((dataDeInicio != null)&&(dataDeTermino !=null)){
+        if ((dataDeInicio != null) && (dataDeTermino != null)) {
             if (!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty()) && validDate) {
                 try {
                     SimpleDateFormat format = null;
                     if (messages.getLocale().toString().equals("pt_BR")) {
                         format = new SimpleDateFormat("dd/MM/yyyy");
-                    }else if (messages.getLocale().toString().equals("en_US")){
+                    } else if (messages.getLocale().toString().equals("en_US")) {
                         format = new SimpleDateFormat("MM/dd/yyyy");
-                    }else {
+                    } else {
                         //fazer log de erro com a internacionalização
                         System.out.println("Idioma desconhecido");
                     }
-                    
+
                     if (format != null) {
                         dataInicio = format.parse(dataDeInicio);
 
                         dataTermino = format.parse(dataDeTermino);
-                    }else {
+                    } else {
                         //fazer o log de erro com a internacionalização
                         System.out.println("Sem padrão de formatação para data, Objeto format nulo");
                     }
-                    
 
                 } catch (Exception e) {
                     //fazer log de erro com a internacionalização
@@ -173,9 +172,9 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
                 request.setAttribute("estagioObrig", estagioObrig);
                 request.setAttribute("estagioNaoObrig", estagioNaoObrig);
             }
-        }else{
+        } else {
             request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
-        }    
+        }
         if (msg != null) {
             request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
         } else {
