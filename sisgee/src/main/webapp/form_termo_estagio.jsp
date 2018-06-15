@@ -332,7 +332,7 @@
                 </fieldset>
                         
                 <fieldset ${ isVisualizacao eq true ? 'disabled' :'' }>
-                    <div class="form-group row">
+                    <div class="form-row">
                         <label for="idProfessorOrientador" class="col-form-label col-sm-2" ><fmt:message key = "br.cefetrj.sisgee.resources.form.professorOrientador"/></label>
                         <select name="idProfessorOrientador" id="idProfessorOrientador" class="form-control col-sm-10 ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" ${ empty termoEstagio ? '' : empty updProfessor ? 'disabled' : '' }>
                             <c:choose>
@@ -383,7 +383,7 @@
                     <input type="hidden" name="dataFimTermoEstagio" value="${ dataFimTermoEstagio }" />
                     
                 </c:if>
-
+                    <br>
                 <button type="submit" class="btn btn-primary" ${ isVisualizacao eq true ? 'disabled' :'' }><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
                 <c:choose>
                     <c:when test="${ not empty termoEstagio }">

@@ -87,7 +87,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @Column(nullable = false)
     private boolean eAtivo;
     
-    @Column(length= 50)
+    @Column(length= 255)
     private String agenciada;
     
     @JsonbTransient
