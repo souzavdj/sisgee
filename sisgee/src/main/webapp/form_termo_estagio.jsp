@@ -83,7 +83,7 @@
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
                                     <input type="text" maxlength="10" class="form-control ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
                                        <span class="input-group-btn"> 
-                                        <button class="btn btn-primary" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                                        <button class="btn btn-primary btnBuscarConvenio" type="button"  id="btnBuscarConvenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
 
                                     <c:if test="${ not empty idConvenioMsg }">
@@ -98,9 +98,8 @@
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
                                     <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
                                     <span class="input-group-btn"> 
-                                        <button class="btn btn-primary convenioBotao" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                                        <button class="btn btn-primary btnBuscarConvenio convenioBotao" type="button"  id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
-
                                     <c:if test="${ not empty idConvenioMsg }">
                                         <div class="invalid-feedback">${ idConvenioMsg }</div>
                                     </c:if>            
@@ -137,11 +136,11 @@
                            <div class="custom-controls-stacked d-block my-3">							
                                <label class="custom-control custom-radio">
                                        <input id="agente" class="custom-control-input" type="radio" name="agente" value="true" ${agente == 'true' ? 'checked' : ''}> 
-                                         <span class="custom-control-indicator"></span> 
+                                        <span class="custom-control-indicator"></span> 
                                        <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
                                </label>						
-                                       <label class="custom-control custom-radio">
-                                           <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : ''}> 
+                                        <label class="custom-control custom-radio">
+                                        <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : ''}> 
                                    <span class="custom-control-indicator"></span> 
                                    <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
                                </label>
@@ -440,7 +439,8 @@
 	        }
 
 	    });*/	  
-	    $('#btnBuscarConvenio').click(function(){
+	    $('.btnBuscarConvenio').click(function(){
+                 console.log("Entrou na funcao");
 	    	if($.trim($('#numeroConvenio').val()) == ""){
                     console.log("Entrou 1");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
@@ -460,7 +460,7 @@
                     return;
 	    	}*/
 	    	var result = null;
-                
+                console.log("Entrou na segnuda parte");
 	        $.ajax({
 	            type: 'GET',
 	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
@@ -475,7 +475,7 @@
                             $("#tipo").val(result.tipo);
                             $("#cpf_cnpj").val(result.cpf_cnpj);
                             $("#razaoSocial").val(result.razaoSocial);
-                            
+                            $("#agenciada").val(result.agenciada);
                             
                         }
                         else{
