@@ -34,6 +34,7 @@ public class BuscaConvenioServlet extends HttpServlet {
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         
         List<Convenio> listaBusca = null;
+        Convenio x = null;
         
         String numConvenio = req.getParameter("numConvenio");
         String nomeConvenio = req.getParameter("nomeConveniado");
@@ -41,14 +42,16 @@ public class BuscaConvenioServlet extends HttpServlet {
         
         
         if(!numConvenio.trim().isEmpty()){
-            listaBusca = ConvenioServices.buscarByNumeroParcial(numConvenio);
-            req.setAttribute("listaBusca", listaBusca);
+            String num = String.format("%06d", Integer.parseInt(numConvenio));
+            x = (Convenio) ConvenioServices.buscarBy6Numero(num);
+            System.out.println(x.getNomeConveniado());
+            req.setAttribute("con", x);
         }else{
             listaBusca = ConvenioServices.buscarByNomeParcial(nomeConvenio);
             req.setAttribute("listaBusca", listaBusca);
         }
         
-        if(listaBusca.isEmpty()){
+        if(listaBusca == null && x == null){
             String msgBusca = messages.getString("br.cefetrj.sisgee.busca_convenio_servlet.msg_erroBusca");
             req.setAttribute("msgBusca",msgBusca);
         }

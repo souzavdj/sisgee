@@ -364,7 +364,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             tamanho = 50;
             emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
             if (emailMsg.trim().isEmpty()) {
-                emailMsg = ValidaUtils.validaNaoInteger("Email", email);
+                emailMsg = ValidaUtils.validaEmail("Email", email);
                 if (emailMsg.trim().isEmpty()) {
                     req.setAttribute("email", email);
                 } else {
