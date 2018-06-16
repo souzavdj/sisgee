@@ -77,11 +77,11 @@
                 <fieldset class="form-group dadosConvenio" ${ not empty termoEstagio ? 'disabled' : '' }>
                         <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosDoConvenio"/></legend>
                         <div class="form-row"> 
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-6">
                                 <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
-                                    <input type="text" maxlength="10" class="form-control ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
+                                    <input type="text" maxlength="10" class="form-control infoConvenio ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
                                        <span class="input-group-btn"> 
                                         <button class="btn btn-primary btnBuscarConvenio" type="button"  id="btnBuscarConvenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
@@ -92,11 +92,11 @@
                                 </div>           
 
                             </div>
-                            <div class="form-group col-md">
+                            <div class="form-group col-md-6">
                             <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
-                                    <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
+                                    <input type="text" maxlength="100" class="form-control infoConvenio ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
                                     <span class="input-group-btn"> 
                                         <button class="btn btn-primary btnBuscarConvenio convenioBotao" type="button"  id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
@@ -465,7 +465,7 @@
 	            type: 'GET',
 	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
 	            async: true, // habilita a função ajax() repassar os dados para a função pai
-	            data: $('#numeroConvenio').serialize(),
+	            data: $('.infoConvenio').serialize(),
 	            dataType: "json",
 	            success: function(json){
 	                result = json;
@@ -485,7 +485,11 @@
                             $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.informacoes_nao_encontraram_convenio"/>");	        	
                             $('#myModal').modal('show');	        	
                         }
-
+                        $("#agente").attr("checked",true);
+                        $("#tipo").attr("checked",true);
+                        $("#agenciada").attr("readonly",true);
+                       
+                        
                     }
 	        });
 	    });
