@@ -43,12 +43,13 @@
                     <div class="form-group col-md-5">
                         <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/></label>
                         <input type="text" class="form-control ${ not empty nomeConveniadoMsg or not empty campoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }" placeholder="${ param.nomeConveniado }">                           
+                        <c:if test="${ not empty nomeConveniadoMsg }">
+                            <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
+                        </c:if>
                         <c:if test="${ not empty campoMsg }">
                             <div class="invalid-feedback">${ campoMsg }</div>
                         </c:if>
-                        <c:if test="${ not empty nomeConveniadoMsg }">
-                            <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
-                        </c:if>    
+                            
                     </div>    
                     <div align='center'>
                         <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>
