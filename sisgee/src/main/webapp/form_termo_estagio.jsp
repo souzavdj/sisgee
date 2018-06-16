@@ -428,21 +428,21 @@
             $('#numeroConvenio').on('keypress', function(e){
 	        if (e.keyCode == 13) {
 	            e.preventDefault();
-	            $("#btnBuscarConvenio").click();
+	            $(".btnBuscarConvenio").click();
 	        }
 	    });	    
 	    
-            /*('#nomeConveniado').on('keypress', function(e){
+            $('#nomeConveniado').on('keypress', function(e){
 	        if (e.keyCode == 13) {
 	            e.preventDefault();
-	            $("#btnBuscarConvenio").click();
+	            $(".btnBuscarConvenio").click();
 	        }
 
-	    });*/	  
+	    })	  
 	    $('.btnBuscarConvenio').click(function(){
-                 console.log("Entrou na funcao");
-	    	if($.trim($('#numeroConvenio').val()) == ""){
-                    console.log("Entrou 1");
+                console.log("Entrou na funcao");
+	    	if(($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConvenio').val()) == "")){
+                    console.log("Os dois estão vazios");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
@@ -450,17 +450,17 @@
                     $('#myModal').modal('show');
                     return;
 	    	}
-	    	/*if($.trim($('#nomeConvenio').val()) == ""){
-                    console.log("Entrou 2");
+	    	if(($.trim($('#numeroConvenio').val()) != "") && ($.trim($('#nomeConvenio').val()) != "")){
+                    console.log("Os dois estão escritos");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
-                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
-                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_msg"/>");      	
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_dois_preenchidos_titulo"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_dois_preenchidos_msg"/>");      	
                     $('#myModal').modal('show');
                     return;
-	    	}*/
+	    	}
 	    	var result = null;
-                console.log("Entrou na segnuda parte");
+                console.log("Entrou na segunda parte");
 	        $.ajax({
 	            type: 'GET',
 	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
@@ -475,7 +475,7 @@
                             $("#tipo").val(result.tipo);
                             $("#cpf_cnpj").val(result.cpf_cnpj);
                             $("#razaoSocial").val(result.razaoSocial);
-                            $("#agenciada").val(result.agenciada);
+                            
                             
                         }
                         else{
