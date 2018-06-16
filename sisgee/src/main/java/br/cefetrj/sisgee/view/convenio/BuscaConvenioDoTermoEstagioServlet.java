@@ -47,7 +47,6 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         String agente="";
         String razao="";
         String numero="";
-        ConvenioUtils x = new ConvenioUtils();
         Convenio buscado = null;
         if(!numConvenio.trim().isEmpty()){
            buscado = ConvenioServices.buscarConvenioByNumero(numConvenio.trim());
@@ -66,7 +65,7 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
                 numero = ConvenioUtils.getCnpjEmpresaFormatado(buscado.getCpf_cnpj());
                 
             }else{
-                numero = x.getCpfFormatado(buscado.getCpf_cnpj());
+                numero = ConvenioUtils.getCpfFormatado(buscado.getCpf_cnpj());
                
             }
             

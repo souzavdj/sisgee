@@ -107,6 +107,8 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
                 msg += msgDataObrig;
             }
         }
+        
+        
         if ((dataDeInicio != null) && (dataDeTermino != null)) {
             if (!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty()) && validDate) {
                 try {

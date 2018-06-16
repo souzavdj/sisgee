@@ -581,7 +581,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
             if (termoEstagio.getConvenio().getIsPessoaJuridica()) {
                 request.setAttribute("CpfCnpj", ConvenioUtils.getCnpjEmpresaFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
             }else {
-                request.setAttribute("CpfCnpj", new ConvenioUtils().getCpfFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
+                request.setAttribute("CpfCnpj", ConvenioUtils.getCpfFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
             }
             
             

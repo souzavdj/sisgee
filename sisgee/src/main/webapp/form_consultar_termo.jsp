@@ -12,7 +12,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <%@include file="import_head.jspf"%>
-        <jsp:useBean id="convenioUtils" class="br.cefetrj.sisgee.view.utils.ConvenioUtils" scope="page"/>
         <title>
             <fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.titulo"/>
         </title>
@@ -85,10 +84,10 @@
                                 <td>${TermoEstagioUtils.getVigencia(termo.getDataInicioTermoEstagio(),termo.getDataFimTermoEstagio())}</td>
                                 <c:choose>
                                     <c:when test="${termo.getConvenio().getIsPessoaJuridica()}">
-                                        <td>${convenioUtils.getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj())}</td>
+                                        <td>${ConvenioUtils.getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj())}</td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td>${convenioUtils.getCpfFormatado(termo.getConvenio().getCpf_cnpj())}</td>
+                                        <td>${ConvenioUtils.getCpfFormatado(termo.getConvenio().getCpf_cnpj())}</td>
                                     </c:otherwise>
                                 </c:choose>
                                 <td>${termo.getConvenio().getNomeConveniado()}</td>					

@@ -25,7 +25,10 @@ import java.util.Collections;
 public class BuscaTermoAditivoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
+    }
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)

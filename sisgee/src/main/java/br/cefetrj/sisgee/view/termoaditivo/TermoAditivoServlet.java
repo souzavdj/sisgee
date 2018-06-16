@@ -22,6 +22,7 @@ import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.TermoEstagioUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import java.text.SimpleDateFormat;
 
 @WebServlet("/TermoAditivoServlet")
 public class TermoAditivoServlet extends HttpServlet {
@@ -109,8 +110,13 @@ public class TermoAditivoServlet extends HttpServlet {
             //}
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             UF[] uf = UF.asList();
-            
-            request.setAttribute("termoEstagio", termoEstagio);
+            if (!termoEstagio.getTermosAditivos().isEmpty()) {
+                System.out.println("IdTermo: " + termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1).getIdTermoEstagio());
+                request.setAttribute("termoEstagio", termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1));
+                termoEstagio = termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1);
+            }else {
+                request.setAttribute("termoEstagio", termoEstagio);
+            }
             
             //Aluno
             request.setAttribute("idAluno", aluno.getIdAluno());
@@ -125,23 +131,45 @@ public class TermoAditivoServlet extends HttpServlet {
             request.setAttribute("nomeConveniado", termoEstagio.getConvenio().getNomeConveniado());
             request.setAttribute("nomeConvenio", termoEstagio.getConvenio().getNomeConveniado());
             request.setAttribute("tipo", termoEstagio.getConvenio().getIsPessoaJuridica());
-            request.setAttribute("isAgenteIntegracao", termoEstagio.getConvenio().getIsAgenteIntegracao());
+            request.setAttribute("agente", termoEstagio.getConvenio().getIsAgenteIntegracao());
             request.setAttribute("agencia", termoEstagio.getConvenio().getNomeConveniado());
             if (termoEstagio.getConvenio().getIsPessoaJuridica()) {
                 request.setAttribute("CpfCnpj", ConvenioUtils.getCnpjEmpresaFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
             }else {
-                request.setAttribute("CpfCnpj", new ConvenioUtils().getCpfFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
+                request.setAttribute("CpfCnpj", ConvenioUtils.getCpfFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
             }
             
             
             request.setAttribute("razaoSocial", termoEstagio.getConvenio().getNomeConveniado());
-            //Datas
-            request.setAttribute("dataInicioTermoEstagio", termoEstagio.getDataInicioTermoEstagio());
-            request.setAttribute("dataFimTermoEstagio", termoEstagio.getDataFimTermoEstagio());
+            request.setAttribute("agenciada", termoEstagio.getAgenciada());
+            
+            try {    
+                SimpleDateFormat format = null;
+                if (messages.getLocale().toString().equals("pt_BR")) {
+                    format = new SimpleDateFormat("dd/MM/yyyy");
+                } else if (messages.getLocale().toString().equals("en_US")) {
+                    format = new SimpleDateFormat("MM/dd/yyyy");
+                } else {
+                    //fazer log de erro com a internacionalização
+                    System.out.println("Idioma desconhecido");
+                }
+
+                if (format != null) {
+                    //Datas
+                    SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
+                    System.out.println("Data de inicio: " + termoEstagio.getDataInicioTermoEstagio().toString());
+                    request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
+                    System.out.println("Data de inicio formatada: "+ format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
+                    request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
+                }
+            }catch (Exception e) {
+                //Fazer log de erro data vindas do bd do termo invalidas
+                System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
+            }
             
             //Termo
             request.setAttribute("cargaHorariaTermoEstagio", termoEstagio.getCargaHorariaTermoEstagio());
-            request.setAttribute("valorBolsa", termoEstagio.getValorBolsa());
+            request.setAttribute("valorBolsa", termoEstagio.getValorBolsa()*10);
             
             //Endereço
             request.setAttribute("enderecoTermoEstagio", termoEstagio.getEnderecoTermoEstagio());

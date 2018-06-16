@@ -39,22 +39,26 @@
                             <div class="invalid-feedback">${ numConvenioMsg }</div>
                         </c:if>
                     </div>
-
-                    <div class="form-group col-md-5">
-                        <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/></label>
-                        <input type="text" class="form-control ${ not empty nomeConveniadoMsg or not empty campoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }" placeholder="${ param.nomeConveniado }">                           
-                        <c:if test="${ not empty nomeConveniadoMsg }">
-                            <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
-                        </c:if>
-                        <c:if test="${ not empty campoMsg }">
-                            <div class="invalid-feedback">${ campoMsg }</div>
-                        </c:if>
-                            
-                    </div>    
-                    <div align='center'>
-                        <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>
+                    <div class="form-group">
+                        <label class="form-group col-md-9" for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/>
+                    
+                        <div class="form-row"> 
+                            <div class="form-group col-md-5">
+                                <input type="text" class="form-control ${ not empty nomeConveniadoMsg or not empty campoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }" placeholder="${ param.nomeConveniado }">                           
+                                <c:if test="${ not empty campoMsg }">
+                                    <div class="invalid-feedback">${ campoMsg }</div>
+                                </c:if>
+                                <c:if test="${ not empty nomeConveniadoMsg }">
+                                    <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
+                                </c:if>
+                                
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>
+                            </div>
+                        </div>
                     </div>
-                    </div>
+                </div>
                     </form>
                     
                     <form action=InfoConvenioServlet method="post" name="info">

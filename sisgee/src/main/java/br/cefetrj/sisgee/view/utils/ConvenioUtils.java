@@ -51,7 +51,7 @@ public class ConvenioUtils {
         }
     }
 
-    public String getCpfFormatado(String cpf) {
+    public static String getCpfFormatado(String cpf) {
         if (cpf != null && cpf.trim().length() > 0) {
             StringBuilder cpfFormatado = new StringBuilder();
             try {
@@ -149,7 +149,7 @@ public class ConvenioUtils {
         return d;
     }
 
-    public String getVigencia(Date d) {
+    public static String getVigencia(Date d) {
         String presente = "";
         SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat out = new SimpleDateFormat("MM/yy");
