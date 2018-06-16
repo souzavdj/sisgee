@@ -95,7 +95,7 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
             } else {
                 nomeConveniadoMsg = messages.getString(nomeConveniadoMsg);
                 nomeConveniadoMsg = ServletUtils.mensagemFormatada(nomeConveniadoMsg, locale, 100);
-                req.setAttribute("nomeConveniadoMsg", nomeConveniado);
+                req.setAttribute("nomeConveniadoMsg", nomeConveniadoMsg);
                 isValid = false;
             }
         }
