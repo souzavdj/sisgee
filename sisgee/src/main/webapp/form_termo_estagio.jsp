@@ -118,12 +118,12 @@
                               <label class="custom-control custom-radio">
                                  <input id="tipo" class="custom-control-input" type="radio" name="tipo"  value="true" ${tipo == 'true' ? 'checked' : ''} readonly> 
                                  <span class="custom-control-indicator"></span> 
-                                 <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
+                                 <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                               </label>						
                              <label class="custom-control custom-radio">
                                  <input id="tipo" class="custom-control-input" type="radio" name="tipo" value="false" ${tipo == 'false' ? 'checked' : ''} readonly> 
                                  <span class="custom-control-indicator"></span> 
-                                 <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
+                                 <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                               </label>
 
                            </div>
@@ -190,7 +190,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="dataFimTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataTermino"/></label>
-                            <input type="text" class="form-control col-sm-4 ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="<fmt:formatDate type="Date" value="${ dataFimTermoEstagio }"/>" ${ empty termoEstagio ? '' : empty updVigencia ? 'disabled' : '' } >
+                            <input type="text" class="form-control col-sm-4 ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${ dataFimTermoEstagio }" ${ empty termoEstagio ? '' : empty updVigencia ? 'disabled' : '' } >
                             <c:if test="${ not empty dataFimMsg }">
                                 <div class="invalid-feedback">${ dataFimMsg }</div>
                             </c:if>

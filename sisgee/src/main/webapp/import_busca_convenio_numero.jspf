@@ -39,13 +39,13 @@
 
          <input id="tipo" class="custom-control-input" type="radio" name="tipo"  value="true" ${param.tipo == 'true' ? 'checked' : ''} readonly> 
          <span class="custom-control-indicator"></span> 
-         <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
+         <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
       </label>						
      <label class="custom-control custom-radio">
 
          <input id="tipo" class="custom-control-input" type="radio" name="tipo" value="false" ${param.tipo == 'false' ? 'checked' : ''} readonly> 
          <span class="custom-control-indicator"></span> 
-         <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
+         <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
       </label>
    </div>
 

@@ -55,13 +55,13 @@ public class ItemTermo {
         this.dataDeCadastro = termo.getDataInicioTermoEstagio();
         
         //Vigencia
-        this.vigencia = new ConvenioUtils().getVigencia(dataDeCadastro);
+        this.vigencia = ConvenioUtils.getVigencia(dataDeCadastro);
         
         //Cnpj_CPF
         if(termo.getConvenio().getIsPessoaJuridica()) {
-            this.cnpj_cpf = new ConvenioUtils().getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj());
+            this.cnpj_cpf = ConvenioUtils.getCnpjEmpresaFormatado(termo.getConvenio().getCpf_cnpj());
         }else {
-            this.cnpj_cpf = new ConvenioUtils().getCpfFormatado(termo.getConvenio().getCpf_cnpj());
+            this.cnpj_cpf = ConvenioUtils.getCpfFormatado(termo.getConvenio().getCpf_cnpj());
         }
         
         //nomeConveniado
