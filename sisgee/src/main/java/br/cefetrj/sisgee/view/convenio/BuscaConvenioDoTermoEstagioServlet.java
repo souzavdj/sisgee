@@ -48,14 +48,20 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         String razao="";
         String numero="";
         Convenio buscado = null;
+        
+        System.out.println("NomeConveniado:" + nomeConveniado);
+        System.out.println("NumeroConveniado:" + numConvenio);
         if(!numConvenio.trim().isEmpty()){
-           buscado = ConvenioServices.buscarConvenioByNumero(numConvenio.trim());
-           System.out.println("Entrou no busca convenio pelo numero");
+            System.out.println("Entrou no busca convenio pelo numero");
+            buscado = ConvenioServices.buscarConvenioByNumero(numConvenio.trim());
+          
         }else{
-           buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado);
+            System.out.println("Entrou no busca convenio pelo nome");
+            buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado);
+          
         }
        
-        
+        System.out.println("Passou :" +buscado);
         if (buscado != null) {
             idConvenio = Integer.toString(buscado.getIdConvenio());
             tipo=Boolean.toString(buscado.getIsPessoaJuridica());

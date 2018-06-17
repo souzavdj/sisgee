@@ -77,13 +77,13 @@
                 <fieldset class="form-group dadosConvenio" ${ not empty termoEstagio ? 'disabled' : '' }>
                         <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.dadosDoConvenio"/></legend>
                         <div class="form-row"> 
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-6">
                                 <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
-                                    <input type="text" maxlength="10" class="form-control ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
+                                    <input type="text" maxlength="10" class="form-control infoConvenio ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
                                        <span class="input-group-btn"> 
-                                        <button class="btn btn-primary" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                                        <button class="btn btn-primary btnBuscarConvenio" type="button"  id="btnBuscarConvenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
 
                                     <c:if test="${ not empty idConvenioMsg }">
@@ -92,15 +92,14 @@
                                 </div>           
 
                             </div>
-                            <div class="form-group col-md">
+                            <div class="form-group col-md-6">
                             <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
-                                    <input type="text" maxlength="100" class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
+                                    <input type="text" maxlength="100" class="form-control infoConvenio ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
                                     <span class="input-group-btn"> 
-                                        <button class="btn btn-primary convenioBotao" type="button"  id="btnBuscarConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
+                                        <button class="btn btn-primary btnBuscarConvenio convenioBotao" type="button"  id="btnBuscarConvenioNome"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
-
                                     <c:if test="${ not empty idConvenioMsg }">
                                         <div class="invalid-feedback">${ idConvenioMsg }</div>
                                     </c:if>            
@@ -137,11 +136,11 @@
                            <div class="custom-controls-stacked d-block my-3">							
                                <label class="custom-control custom-radio">
                                        <input id="agente" class="custom-control-input" type="radio" name="agente" value="true" ${agente == 'true' ? 'checked' : ''}> 
-                                         <span class="custom-control-indicator"></span> 
+                                        <span class="custom-control-indicator"></span> 
                                        <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
                                </label>						
-                                       <label class="custom-control custom-radio">
-                                           <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : ''}> 
+                                        <label class="custom-control custom-radio">
+                                        <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : ''}> 
                                    <span class="custom-control-indicator"></span> 
                                    <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
                                </label>
@@ -429,20 +428,21 @@
             $('#numeroConvenio').on('keypress', function(e){
 	        if (e.keyCode == 13) {
 	            e.preventDefault();
-	            $("#btnBuscarConvenio").click();
+	            $(".btnBuscarConvenio").click();
 	        }
 	    });	    
 	    
-            /*('#nomeConveniado').on('keypress', function(e){
+            $('#nomeConveniado').on('keypress', function(e){
 	        if (e.keyCode == 13) {
 	            e.preventDefault();
-	            $("#btnBuscarConvenio").click();
+	            $(".btnBuscarConvenio").click();
 	        }
 
-	    });*/	  
-	    $('#btnBuscarConvenio').click(function(){
-	    	if($.trim($('#numeroConvenio').val()) == ""){
-                    console.log("Entrou 1");
+	    })	  
+	    $('.btnBuscarConvenio').click(function(){
+                console.log("Entrou na funcao");
+	    	if(($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConvenio').val()) == "")){
+                    console.log("Os dois estão vazios");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
@@ -450,22 +450,22 @@
                     $('#myModal').modal('show');
                     return;
 	    	}
-	    	/*if($.trim($('#nomeConvenio').val()) == ""){
-                    console.log("Entrou 2");
+	    	if(($.trim($('#numeroConvenio').val()) != "") && ($.trim($('#nomeConvenio').val()) != "")){
+                    console.log("Os dois estão escritos");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
-                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
-                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_msg"/>");      	
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_dois_preenchidos_titulo"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_dois_preenchidos_msg"/>");      	
                     $('#myModal').modal('show');
                     return;
-	    	}*/
+	    	}
 	    	var result = null;
-                
+                console.log("Entrou na segunda parte");
 	        $.ajax({
 	            type: 'GET',
 	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
 	            async: true, // habilita a função ajax() repassar os dados para a função pai
-	            data: $('#numeroConvenio').serialize(),
+	            data: $('.infoConvenio').serialize(),
 	            dataType: "json",
 	            success: function(json){
 	                result = json;
@@ -485,7 +485,11 @@
                             $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.resources.form.informacoes_nao_encontraram_convenio"/>");	        	
                             $('#myModal').modal('show');	        	
                         }
-
+                        $("#agente").attr("checked",true);
+                        $("#tipo").attr("checked",true);
+                        $("#agenciada").attr("readonly",true);
+                       
+                        
                     }
 	        });
 	    });
