@@ -52,6 +52,9 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
         pessoaContato = pessoaContato.toUpperCase(locale);
         Date dataAssinatura = (Date) req.getAttribute("dataAssinatura");
         String telefone = req.getParameter("telefone");
+        //remove caracteres especiais antes de salvar o telefone
+        telefone = telefone.replaceAll("[(|)|-]", "");
+        telefone = telefone.replaceAll(" ", "");
         String email = req.getParameter("email");
         Convenio convenio;
 

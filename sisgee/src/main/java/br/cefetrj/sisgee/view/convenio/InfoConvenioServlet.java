@@ -35,7 +35,7 @@ public class InfoConvenioServlet extends HttpServlet {
         
         Convenio c = ConvenioServices.buscarConvenioByCpf_Cnpj(id);
         
-        String convenio = ConvenioUtils.getNumeroCovenioFormatado(c.getNumeroConvenio());
+        String convenio = ConvenioUtils.getNumeroConvenioFormatado(c.getNumeroConvenio());
         req.setAttribute("convenio", convenio);
         req.setAttribute("tipo", c.getIsPessoaJuridica());
         req.setAttribute("agente", c.getIsAgenteIntegracao());
