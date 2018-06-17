@@ -83,10 +83,25 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
             dataAssinaturaMsg = ValidaUtils.validaDate("Data de Assinatura", dataAssinaturaConvenio);
             if (dataAssinaturaMsg.trim().isEmpty()) {
                 try {
-                    SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-                    dataAssinatura = formata.parse(dataAssinaturaConvenio);
-                    Date dataAtual = formata.parse(formata.format(c.getDataAssinatura()));
-                    dataAssinaturaMsg = ValidaUtils.validaDataRenovacao(dataAtual, dataAssinatura);
+                    SimpleDateFormat format = null;
+                    if (messages.getLocale().toString().equals("pt_BR")) {
+                        format = new SimpleDateFormat("dd/MM/yyyy");
+                    } else if (messages.getLocale().toString().equals("en_US")) {
+                        format = new SimpleDateFormat("MM/dd/yyyy");
+                    } else {
+                        //fazer log de erro com a internacionalização
+                        //Idioma desconhecido
+                    }
+
+                    if (format != null) {
+                        dataAssinatura = format.parse(dataAssinaturaConvenio);
+                        Date dataAtual = format.parse(format.format(c.getDataAssinatura()));
+                        dataAssinaturaMsg = ValidaUtils.validaDataRenovacao(dataAtual, dataAssinatura);
+                    } else {
+                        //fazer o log de erro com a internacionalização
+                        //Sem padrão de formatação para data, Objeto format nulo
+                    }
+                    
                     if (dataAssinaturaMsg.trim().isEmpty()) {
                         req.setAttribute("dataAssinatura", dataAssinatura);
                     } else {

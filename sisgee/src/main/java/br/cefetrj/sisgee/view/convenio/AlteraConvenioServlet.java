@@ -37,6 +37,9 @@ public class AlteraConvenioServlet extends HttpServlet {
         
         Date dataAssinatura = (Date) req.getAttribute("dataAssinatura");
         String telefone = req.getParameter("telefone");
+        //remove caracteres especiais antes de salvar o telefone
+        telefone = telefone.replaceAll("[(|)|-]", "");
+        telefone = telefone.replaceAll(" ", "");
         String email = req.getParameter("email");
         String pessoaContato = req.getParameter("pessoaContato");
         String tipo = req.getParameter("tipo");
@@ -46,7 +49,7 @@ public class AlteraConvenioServlet extends HttpServlet {
         }else{
             cpf_cnpj = req.getParameter("cpf");
         }
-        
+        //remove caracteres especiais antes de salvar
         cpf_cnpj = cpf_cnpj.replaceAll("[.|/|-]", "");
         
         
@@ -64,7 +67,7 @@ public class AlteraConvenioServlet extends HttpServlet {
             ConvenioServices.alterarConvenio(c);
             msg = messages.getString("br.cefetrj.sisgee.altera_covenio_servlet.msg_convenio_renovado");
             String msgConvenio = messages.getString("br.cefetrj.sisgee.incluir_cadastro_convenio_servlet.msg_convenio_num");
-            msgConvenio = msgConvenio + ConvenioUtils.getNumeroCovenioFormatado(c.getNumeroConvenio());
+            msgConvenio = msgConvenio + ConvenioUtils.getNumeroConvenioFormatado(c.getNumeroConvenio());
             req.setAttribute("msg", msg);
             req.setAttribute("msgConvenio", msgConvenio);
             lg.info(msg);

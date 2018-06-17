@@ -80,7 +80,7 @@ public class ConvenioUtils {
         }
     }
 
-    public static String getNumeroConvenioFormatado(String numeroConvenio) {
+    public static String getNumeroConvenioFormatado2(String numeroConvenio) {
         if (numeroConvenio != null && numeroConvenio.trim().length() > 0) {
             StringBuilder numeroConvenioFormatado = new StringBuilder();
             try {
@@ -114,7 +114,7 @@ public class ConvenioUtils {
         return numeroConvenio;
     }
 
-    public static String getNumeroCovenioFormatado(String num) {
+    public static String getNumeroConvenioFormatado(String num) {
         if (num != null && num.trim().length() > 0) {
             String numConvenio = num;
             long x = Long.parseLong(numConvenio);
@@ -220,6 +220,15 @@ public class ConvenioUtils {
             return presente;
         }
 
+    }
+    
+    public static String getIdConveniadoFormatado(String id) {
+        if(id.length() == 11){
+            return getCpfFormatado(id);
+        }else if(id.length() == 14){
+            return getCnpjEmpresaFormatado(id);
+        }else
+            return null;
     }
 
 }
