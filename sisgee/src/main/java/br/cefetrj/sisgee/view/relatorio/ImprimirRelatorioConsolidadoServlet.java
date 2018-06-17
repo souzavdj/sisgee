@@ -1,59 +1,76 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.cefetrj.sisgee.view.relatorio;
 
+import br.cefetrj.sisgee.control.TermoAditivoServices;
+import br.cefetrj.sisgee.control.TermoEstagioServices;
+import br.cefetrj.sisgee.view.utils.ItemRelatorio;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.cefetrj.sisgee.control.TermoEstagioServices;
-import br.cefetrj.sisgee.control.TermoAditivoServices;
-import br.cefetrj.sisgee.view.utils.ItemRelatorio;
-
 /**
- * Servlet para buscar e processar os dados obtidos do banco.
  *
- * @author Marcos E Carvalho
- * @since 1.0
- *
+ * @author vinicius
  */
-@WebServlet("/BuscaRelatorioConsolidadoServlet")
-public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
+@WebServlet("/ImprimirRelatorioConsolidadoServlet")
+public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {
+    
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dataDeInicio = req.getParameter("dataInicio");
+        String dataDeTermino = req.getParameter("dataTermino");
+        String eObrigatorio = req.getParameter("estagioObrig");
+        String naoObrigatorio = req.getParameter("estagioNaoObrig");
+        String idioma = req.getParameter("Locale");
+        Date dataInicio = null;
+        Date dataTermino = null;
+        try {
+            SimpleDateFormat format = null;
+            if (idioma.equals("pt_BR")) {
+                format = new SimpleDateFormat("dd/MM/yyyy");
+            } else if (idioma.equals("en_US")) {
+                format = new SimpleDateFormat("MM/dd/yyyy");
+            } else {
+                //fazer log de erro com a internacionalização
+                System.out.println("Idioma desconhecido");
+            }
 
-    private static final long serialVersionUID = 1L;
+            if (format != null) {
+                dataInicio = format.parse(dataDeInicio);
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BuscaRelatorioConsolidadoServlet() {
-        super();
-    }
+                dataTermino = format.parse(dataDeTermino);
+            } else {
+                //fazer o log de erro com a internacionalização
+                System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+            }
 
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        Date dataInicio = (Date) request.getAttribute("dataInicio");
-        Date dataTermino = (Date) request.getAttribute("dataTermino");
-        Boolean estagioObrig = (Boolean) request.getAttribute("estagioObrig");
-        Boolean estagioNaoObrig = (Boolean) request.getAttribute("estagioNaoObrig");
-
-        Locale locale = (Locale) request.getAttribute("Locale");
-
-        ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
-
+        } catch (Exception e) {
+            //fazer log de erro com a internacionalização
+            System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+        }
+        
+        Boolean estagioObrig = Boolean.parseBoolean(eObrigatorio);
+        Boolean estagioNaoObrig = Boolean.parseBoolean(naoObrigatorio);
+        
         List<Object[]> termosEstagioLista = null;
         List<Object[]> termosAditivoLista = null;
         List<String> cursos = null;
         List<Long> qtdTermosEstagio = null;
         List<Long> qtdTermosAdivos = null;
         List<Long> qtdTermosRescindido = null;
-
+        
         if (estagioObrig == true && estagioNaoObrig == true) {
             cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(dataInicio, dataTermino);
             for (int i = 0; i < cursos.size(); i++) {
@@ -84,6 +101,7 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
                         }
                     }
                 }
+                
                 qtdTermosEstagio = new ArrayList<Long>();
                 qtdTermosAdivos = new ArrayList<Long>();
                 qtdTermosRescindido = new ArrayList<Long>();
@@ -128,17 +146,12 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
         } else {
             //usar log info eu acho
             System.out.println("Nenhum registro encontrado nesse período de tempo");
-            String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
-            request.setAttribute("msgRelatorio", msgRelatorio);
+            //String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
+            req.setAttribute("msgRelatorio", "Não há termos");
         }
 
-        request.setAttribute("relatorio", listaItemRelatorio);
-        //if (request.getMethod().equals("POST")) {
-            request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
-        //}else {
-        //    request.getRequestDispatcher("/form_imprimir_relatorio_consolidado.jsp").forward(request, response); 
-        //}
-        
+        req.setAttribute("relatorio", listaItemRelatorio);
+        req.getRequestDispatcher("/form_imprimir_relatorio_consolidado.jsp").forward(req, resp); 
     }
 
 }

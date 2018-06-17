@@ -132,6 +132,57 @@ public class ConvenioUtils {
             return null;
         }
     }
+    
+    public static String getNumeroTelefoneFormatado(String telefone) {
+        if (telefone != null && telefone.trim().length() > 0) {
+            StringBuilder telefoneFormatado = new StringBuilder();
+            try {
+                //telefoneFormatado.append(telefone.charAt(0));
+                //telefoneFormatado.append(telefone.charAt(1));
+                if(telefone.length() == 13) {
+                    telefoneFormatado.append("(");
+                    telefoneFormatado.append(telefone.charAt(2));
+                    telefoneFormatado.append(telefone.charAt(3));
+                    telefoneFormatado.append(")");
+                    telefoneFormatado.append(telefone.charAt(4));
+                    telefoneFormatado.append(telefone.charAt(5));
+                    telefoneFormatado.append(telefone.charAt(6));
+                    telefoneFormatado.append(telefone.charAt(7));
+                    telefoneFormatado.append(telefone.charAt(8));
+                    telefoneFormatado.append("-");
+                    telefoneFormatado.append(telefone.charAt(9));
+                    telefoneFormatado.append(telefone.charAt(10));
+                    telefoneFormatado.append(telefone.charAt(11));
+                    telefoneFormatado.append(telefone.charAt(12));
+                }else if (telefone.length() == 12) {
+                    telefoneFormatado.append("(");
+                    telefoneFormatado.append(telefone.charAt(2));
+                    telefoneFormatado.append(telefone.charAt(3));
+                    telefoneFormatado.append(")");
+                    telefoneFormatado.append(telefone.charAt(4));
+                    telefoneFormatado.append(telefone.charAt(5));
+                    telefoneFormatado.append(telefone.charAt(6));
+                    telefoneFormatado.append(telefone.charAt(7));
+                    telefoneFormatado.append("-");
+                    telefoneFormatado.append(telefone.charAt(8));
+                    telefoneFormatado.append(telefone.charAt(9));
+                    telefoneFormatado.append(telefone.charAt(10));
+                    telefoneFormatado.append(telefone.charAt(11));                    
+                }else {
+                    //Fazer log info
+                    System.out.println("Telefone num formato desconhecido");
+                }
+                
+            } catch (IndexOutOfBoundsException e) {
+                Logger lg = Logger.getLogger(Convenio.class);
+                lg.error("telefone com mais de 15 caracteres. telefone = " + telefone, e);
+                return telefone;
+            }
+            return telefoneFormatado.toString();
+        } else {
+            return null;
+        }
+    }
 
     public static String gerarNumeroConvenioAtt(Date dataAssinatura, Convenio c) {
         String numeroConvenio;

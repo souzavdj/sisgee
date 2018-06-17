@@ -38,7 +38,6 @@ public class ConveniosVencerServlet extends HttpServlet {
 	ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String msg ="";
         
-        ConvenioUtils cUtil = new ConvenioUtils();
         List<Convenio> listaVencidos=null ;
         Date dataInicio,dataFim;
         SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
@@ -50,13 +49,14 @@ public class ConveniosVencerServlet extends HttpServlet {
         int anoAtual=cal.get(Calendar.YEAR);
         int mesAtual=cal.get(Calendar.MONTH)+1;
         
+        String imprimir = req.getParameter("imprimir");
         
         /**
          * Fazendo intervalo a partir do dia 1 do mes seguinte que termina no ultimo dia do proximo mes 
          */
         
         
-        String inicioMes1 =(anoAtual-5)+"-"+(mesAtual+1)+"-01";
+        String inicioMes1 =(anoAtual-5)+"-"+(mesAtual)+"-01";
         String fimMes2 = (anoAtual-5)+"-"+(mesAtual+2)+"-31";
         
         /**
@@ -79,9 +79,13 @@ public class ConveniosVencerServlet extends HttpServlet {
             
         }else{
             req.setAttribute("ListaConveniosAVencer", listaVencidos); 
-            req.setAttribute("convenioUtils",cUtil);
+           // req.setAttribute("convenioUtils",cUtil);
         }
-        req.getRequestDispatcher("/form_convenios_a_vencer.jsp").forward(req, resp);
+        if (imprimir != null) {
+            req.getRequestDispatcher("/form_imprimir_convenios_a_vencer.jsp").forward(req, resp);
+        }else {
+            req.getRequestDispatcher("/form_convenios_a_vencer.jsp").forward(req, resp);
+        }
     }
     
     
