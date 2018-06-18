@@ -121,12 +121,12 @@
                            </div>
                            <div class="custom-controls-stacked d-block my-4">							
                               <label class="custom-control custom-radio">
-                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo"  value="true" ${tipo == 'true' ? 'checked' : ''} readonly> 
+                                 <input id="tipoPJ" class="custom-control-input" type="radio" name="tipo"  value="true" ${tipo == 'true' ? 'checked' : 'disabled'}> 
                                  <span class="custom-control-indicator"></span> 
                                  <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                               </label>						
                              <label class="custom-control custom-radio">
-                                 <input id="tipo" class="custom-control-input" type="radio" name="tipo" value="false" ${tipo == 'false' ? 'checked' : ''} readonly> 
+                                 <input id="tipoPF" class="custom-control-input" type="radio" name="tipo" value="false" ${tipo == 'false' ? 'checked' : 'disabled'}> 
                                  <span class="custom-control-indicator"></span> 
                                  <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                               </label>
@@ -141,12 +141,12 @@
                            </div>
                            <div class="custom-controls-stacked d-block my-3">							
                                <label class="custom-control custom-radio">
-                                       <input id="agente" class="custom-control-input" type="radio" name="agente" value="true" ${agente == 'true' ? 'checked' : ''}> 
+                                       <input id="agenteSim" class="custom-control-input" type="radio" name="agente" value="true" ${agente == 'true' ? 'checked' : 'disabled'}> 
                                         <span class="custom-control-indicator"></span> 
                                        <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.resources.form.sim"/></span>
                                </label>						
                                         <label class="custom-control custom-radio">
-                                        <input id="agente" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : ''}> 
+                                        <input id="agenteNao" class="custom-control-input" type="radio" name="agente" value="false" ${agente == 'false' ? 'checked' : 'disabled'}> 
                                    <span class="custom-control-indicator"></span> 
                                    <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.resources.form.nao"/></span>
                                </label>
@@ -157,7 +157,7 @@
                         <div class="form-row"> 
                            <div class="form-group col-md-6">
                                 <label for="agenciada"><fmt:message key = "br.cefetrj.sisgee.resources.form.agenciada"/></label>
-                                <input type="text" class="form-control ${ not empty agenciadaMsg ? 'is-invalid': not empty agenciadaMsg ? 'is-invalid' : 'is-valid' }" id="agenciada"  name="agenciada" value="${ agenciada }">
+                                <input type="text" class="form-control ${ not empty agenciadaMsg ? 'is-invalid': not empty agenciadaMsg ? 'is-invalid' : 'is-valid' }" id="agenciada"  name="agenciada" value="${ agenciada }" readonly>
                                    
                                 <c:if test="${ not empty agenciadaMsg }">
                                     <div class="invalid-feedback">${ agenciadaMsg }</div>
@@ -477,19 +477,28 @@
                             result = json;
                             if((result.idConvenio != "")&&((result.valido == true))){
                                 $("#idConvenio").val(result.idConvenio);
-                                $("#agente").val(result.agente);
-                                $("#tipo").val(result.tipo);
                                 $("#cpf_cnpj").val(result.cpf_cnpj);
                                 $("#razaoSocial").val(result.razaoSocial);
+                                $("#tipo").val(result.tipo);
+                                $("#agente").val(result.agente);
 
-                                console.log("AQUI ESTA COM PROBLEMAS");
-                                if((result.agente == true) && (result.tipo == true)){
-                                    $("#agente").attr("checked",true);
-                                    $("#tipo").attr("checked",true);
+                                
+                                if((result.agente == "true") && (result.tipo == "true")){
+                                    console.log("Caminho 1");
+                                    $("#agenteSim").attr("checked",true);
+                                    $("#tipoPJ").attr("checked",true);
                                     $("#agenciada").attr("readonly",false);
-                                }else{
+                                }else if((result.agente == "false") && (result.tipo == "true")){
+                                    console.log("Caminho 2");
+                                    $("#agenteNao").attr("checked",true);
+                                    $("#tipoPJ").attr("checked",true);
                                     $("#agenciada").attr("readonly",true);
-                                }
+                                }else{
+                                    console.log("Caminho 3");
+                                    $("#agenteNao").attr("checked",true);
+                                    $("#tipoPF").attr("checked",true);
+                                    $("#agenciada").attr("readonly",true);
+                                }    
                             }
                             if((result.idConvenio == "")&&(result.valido == false)){
                                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");

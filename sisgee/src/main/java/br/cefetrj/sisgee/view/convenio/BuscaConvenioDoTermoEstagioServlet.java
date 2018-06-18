@@ -98,7 +98,7 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
             idConvenio = Integer.toString(buscado.getIdConvenio());
             System.out.println("Tipo pessoa :" +buscado.getIsPessoaJuridica());
             tipo=Boolean.toString(buscado.getIsPessoaJuridica());
-            System.out.println("Tipo pessoa :" +buscado.getIsAgenteIntegracao());
+            System.out.println("Tipo agente :" +buscado.getIsAgenteIntegracao());
             agente = Boolean.toString(buscado.getIsAgenteIntegracao());
             razao = buscado.getNomeConveniado();
             if(buscado.getIsAgenteIntegracao()){

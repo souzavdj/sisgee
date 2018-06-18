@@ -367,6 +367,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
                 if(!cepEnderecoTermoEstagio.trim().isEmpty()) {
 			cepEnderecoMsg = ValidaUtils.validaTamanhoExato(campo, tamanho, cepEnderecoTermoEstagio);
 			if(cepEnderecoMsg.trim().isEmpty()) {
+                                cepEnderecoTermoEstagio = cepEnderecoTermoEstagio.replace(".","");
+                                cepEnderecoTermoEstagio = cepEnderecoTermoEstagio.replace("-","");
 				request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoEstagio);
 			}else {	
                                 cepEnderecoMsg = messages.getString(cepEnderecoMsg);	
