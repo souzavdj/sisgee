@@ -69,6 +69,7 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
             numeroConvenioMsg=ValidaUtils.validaTamanho("numeroConvenio",6,numConvenio);
             if(numeroConvenioMsg.trim().isEmpty()){
                 buscado = ConvenioServices.buscarBy6Numero(num);
+
             }else{
                 System.out.println("Aqui erro numero");
                 isValid=false;
