@@ -53,12 +53,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 
-        //String msg = null;
-        //String msgDataObrig = null;
         String msgCheckEstagio = null;
-        //String msgComparaDatas = null;
-        //String msgDataInicio = null;
-        //String msgDataTermino = null;
 
         Date dataInicio = null;
         Date dataTermino = null;
@@ -66,220 +61,108 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         Boolean estagioObrig;
         Boolean estagioNaoObrig;
 
-        //Boolean validDate = true;
-
-        //msgDataInicio = ValidaUtils.validaDate("", dataDeInicio);
-        //msgDataTermino = ValidaUtils.validaDate("", dataDeTermino);
-
         boolean isValid = true;
-        //int tamanho;
-        
+
         String msgDataInicio = "";
-      
+
         msgDataInicio = ValidaUtils.validaObrigatorio("dataDeInicio", dataDeInicio);
         if (msgDataInicio.trim().isEmpty()) {
             msgDataInicio = ValidaUtils.validaDate("dataDeInicio", dataDeInicio);
             if (msgDataInicio.trim().isEmpty()) {
                 request.setAttribute("msgDataInicio", msgDataInicio);
             } else {
-            msgDataInicio = messages.getString(msgDataInicio);
-            request.setAttribute("msgDataInicio", msgDataInicio);
-            isValid = false;
+                msgDataInicio = messages.getString(msgDataInicio);
+                request.setAttribute("msgDataInicio", msgDataInicio);
+                isValid = false;
             }
         } else {
             msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
             request.setAttribute("msgDataInicio", msgDataInicio);
             isValid = false;
         }
-        
+
         String msgDataTermino = "";
-      
+
         msgDataTermino = ValidaUtils.validaObrigatorio("dataDeTermino", dataDeTermino);
         if (msgDataTermino.trim().isEmpty()) {
             msgDataTermino = ValidaUtils.validaDate("dataDeTermino", dataDeTermino);
             if (msgDataTermino.trim().isEmpty()) {
                 request.setAttribute("msgDataTermino", msgDataTermino);
             } else {
-            msgDataTermino = messages.getString(msgDataTermino);
-            request.setAttribute("msgDataTermino", msgDataTermino);
-            isValid = false;
+                msgDataTermino = messages.getString(msgDataTermino);
+                request.setAttribute("msgDataTermino", msgDataTermino);
+                isValid = false;
             }
         } else {
             msgDataTermino = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_termino");
             request.setAttribute("msgDataTermino", msgDataTermino);
             isValid = false;
         }
-        
-        /*
-        if (!msgDataInicio.isEmpty()) {
-            msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
-            request.setAttribute("msgDataInicio", msgDataInicio);
-            validDate = false;
-        }
 
-        if (!msgDataTermino.isEmpty()) {
-            msgDataTermino = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_termino");
-            request.setAttribute("msgDataTermino", msgDataTermino);
-            validDate = false;
-        }
-
-        if (validDate == false) {
-            if ((!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) && (!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty())) {
-                msgDataInicio = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
-                request.setAttribute("msgDataInicio", msgDataInicio);
-                msgDataTermino = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
-                request.setAttribute("msgDataTermino", msgDataTermino);
-                msg += msgDataInicio + msgDataTermino;
-            } else if (!dataDeInicio.isEmpty() && !msgDataInicio.isEmpty()) {
-                msgDataInicio = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
-                request.setAttribute("msgDataInicio", msgDataInicio);
-                msg += msgDataInicio;
-            } else if (!dataDeTermino.isEmpty() && !msgDataTermino.isEmpty()) {
-                msgDataTermino = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_date");
-                request.setAttribute("msgDataTermino", msgDataTermino);
-                msg += msgDataTermino;
-            } else {
-                msgDataObrig = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_data_obrigatoria");
-                request.setAttribute("msgDataObrig", msgDataObrig);
-                msg += msgDataObrig;
-            }
-        }*/
-        
-        if (msgDataInicio.trim().isEmpty() && msgDataTermino.trim().isEmpty()){
+        if (msgDataInicio.trim().isEmpty() && msgDataTermino.trim().isEmpty()) {
             try {
-                    SimpleDateFormat format = null;
-                    if (messages.getLocale().toString().equals("pt_BR")) {
-                        format = new SimpleDateFormat("dd/MM/yyyy");
-                    } else if (messages.getLocale().toString().equals("en_US")) {
-                        format = new SimpleDateFormat("MM/dd/yyyy");
-                    } else {
-                        //fazer log de erro com a internacionalização
-                        System.out.println("Idioma desconhecido");
-                    }
-
-                    if (format != null) {
-                        dataInicio = format.parse(dataDeInicio);
-                        dataTermino = format.parse(dataDeTermino);
-                    } else {
-                        //fazer o log de erro com a internacionalização
-                        System.out.println("Sem padrão de formatação para data, Objeto format nulo");
-                    }
-
-                } catch (Exception e) {
+                SimpleDateFormat format = null;
+                if (messages.getLocale().toString().equals("pt_BR")) {
+                    format = new SimpleDateFormat("dd/MM/yyyy");
+                } else if (messages.getLocale().toString().equals("en_US")) {
+                    format = new SimpleDateFormat("MM/dd/yyyy");
+                } else {
                     //fazer log de erro com a internacionalização
-                    System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                    System.out.println("Idioma desconhecido");
                 }
-                String msgComparaDatas = "";
-            
-                msgComparaDatas = ValidaUtils.validaDatas(dataInicio, dataTermino);
-                if (msgComparaDatas.trim().isEmpty()) {
-                    request.setAttribute("dataInicio", dataInicio);
-                    request.setAttribute("dataTermino", dataTermino);
-                } else {                    
-                    msgComparaDatas = messages.getString(msgComparaDatas);
-                    request.setAttribute("msgComparaDatas", msgComparaDatas);
-                    isValid = false;
 
+                if (format != null) {
+                    dataInicio = format.parse(dataDeInicio);
+                    dataTermino = format.parse(dataDeTermino);
+                } else {
+                    //fazer o log de erro com a internacionalização
+                    System.out.println("Sem padrão de formatação para data, Objeto format nulo");
                 }
-        }
-        
-        if (estagioObrigatorio == null && estagioNaoObrigatorio == null) {
-                msgCheckEstagio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_check_estagio_not_null");
-                request.setAttribute("msgCheckEstagio", msgCheckEstagio);
+
+            } catch (Exception e) {
+                //fazer log de erro com a internacionalização
+                System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+            }
+            String msgComparaDatas = "";
+
+            msgComparaDatas = ValidaUtils.validaDatas(dataInicio, dataTermino);
+            if (msgComparaDatas.trim().isEmpty()) {
+                request.setAttribute("dataInicio", dataInicio);
+                request.setAttribute("dataTermino", dataTermino);
+            } else {
+                msgComparaDatas = messages.getString(msgComparaDatas);
+                request.setAttribute("msgComparaDatas", msgComparaDatas);
                 isValid = false;
 
-            } else {
-                if (estagioObrigatorio != null) {
-                    estagioObrig = true;
-                } else {
-                    estagioObrig = false;
-                }
-                if (estagioNaoObrigatorio != null) {
-                    estagioNaoObrig = true;
-                } else {
-                    estagioNaoObrig = false;
-                }
-                
-                request.setAttribute("estagioObrig", estagioObrig);
-                request.setAttribute("estagioNaoObrig", estagioNaoObrig);
             }
-        
-        /*
-        if ((dataDeInicio != null) && (dataDeTermino != null)) {
-            if (!(dataDeInicio.isEmpty() || dataDeTermino.isEmpty()) && validDate) {
-                try {
-                    SimpleDateFormat format = null;
-                    if (messages.getLocale().toString().equals("pt_BR")) {
-                        format = new SimpleDateFormat("dd/MM/yyyy");
-                    } else if (messages.getLocale().toString().equals("en_US")) {
-                        format = new SimpleDateFormat("MM/dd/yyyy");
-                    } else {
-                        //fazer log de erro com a internacionalização
-                        System.out.println("Idioma desconhecido");
-                    }
+        }
 
-                    if (format != null) {
-                        dataInicio = format.parse(dataDeInicio);
+        if (estagioObrigatorio == null && estagioNaoObrigatorio == null) {
+            msgCheckEstagio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_check_estagio_not_null");
+            request.setAttribute("msgCheckEstagio", msgCheckEstagio);
+            isValid = false;
 
-                        dataTermino = format.parse(dataDeTermino);
-                    } else {
-                        //fazer o log de erro com a internacionalização
-                        System.out.println("Sem padrão de formatação para data, Objeto format nulo");
-                    }
-
-                } catch (Exception e) {
-                    //fazer log de erro com a internacionalização
-                    System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
-                }
-
-                msgComparaDatas = ValidaUtils.validaDatas(dataInicio, dataTermino);
-                if (msgComparaDatas != "") {
-                    msgComparaDatas = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_valida_datas");
-                    request.setAttribute("msgComparaDatas", msgComparaDatas);
-                    msg += msgComparaDatas;
-                } else {
-                    request.setAttribute("dataInicio", dataInicio);
-                    request.setAttribute("dataTermino", dataTermino);
-
-                }
-            } else {
-                msgDataObrig = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_data_obrigatoria");
-                request.setAttribute("msgDataObrig", msgDataObrig);
-                msg += msgDataObrig;
-
-            }
-
-            if (estagioObrigatorio == null && estagioNaoObrigatorio == null) {
-                msgCheckEstagio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_check_estagio_not_null");
-
-                request.setAttribute("msgCheckEstagio", msgCheckEstagio);
-                msg += msgCheckEstagio;
-
-            } else {
-                if (estagioObrigatorio != null) {
-                    estagioObrig = true;
-                } else {
-                    estagioObrig = false;
-                }
-                if (estagioNaoObrigatorio != null) {
-                    estagioNaoObrig = true;
-                } else {
-                    estagioNaoObrig = false;
-                }
-
-                request.setAttribute("estagioObrig", estagioObrig);
-                request.setAttribute("estagioNaoObrig", estagioNaoObrig);
-            }
         } else {
-            request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
-        }*/
-        
-        
+            if (estagioObrigatorio != null) {
+                estagioObrig = true;
+            } else {
+                estagioObrig = false;
+            }
+            if (estagioNaoObrigatorio != null) {
+                estagioNaoObrig = true;
+            } else {
+                estagioNaoObrig = false;
+            }
+
+            request.setAttribute("estagioObrig", estagioObrig);
+            request.setAttribute("estagioNaoObrig", estagioNaoObrig);
+        }
+
         if (isValid) {
             request.getRequestDispatcher("/BuscaRelatorioConsolidadoServlet").forward(request, response);
         } else {
             request.getRequestDispatcher("/relatorio_consolidado.jsp").forward(request, response);
-            
+
         }
 
     }

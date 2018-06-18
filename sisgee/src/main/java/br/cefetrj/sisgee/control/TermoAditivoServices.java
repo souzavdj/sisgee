@@ -29,36 +29,37 @@ public class TermoAditivoServices {
     }
     
     /**
+     * Serviço que inclui no banco de dados um termoAditivo
      *
-     * Metodo para receber uma matriz de com conteudo do banco
-     *
-     * @author Marcos Eduardo
-     * @param obrigatorio boolean do form para filtrar resultado
-     * @param inicio date do form para filtrar resultado
-     * @param termino date do form para filtrar resultado
-     * @return author matriz com conteúdo obtido do banco ou null
+     * @param termoAditivo termoAditivo que será incluido
      */
-    public static List<Object[]> listarTermoAditivoFiltrado(Boolean obrigatorio, Date inicio, Date termino) {
-        TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
-
+    public static void incluirTermoAditivo(TermoEstagio termoAditivo) {
+        GenericDAO<TermoEstagio> termoAditivoDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+        PersistenceManager.getTransaction().begin();
         try {
-            List<Object[]> author = null;
-
-            if (obrigatorio == null) {
-                author = termoAditivoDAO.buscarFiltrado(inicio, termino);
-            } else {
-                author = termoAditivoDAO.buscarFiltrado(obrigatorio, inicio, termino);
-            }
-            return author;
+            termoAditivoDao.incluir(termoAditivo);
+            PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
-            return null;
+            PersistenceManager.getTransaction().rollback();
         }
     }
     
-    public static void inserirTermoAditivo (TermoEstagio termo) {
+    public static void inserirTermoAditivo(TermoEstagio termoAditivo) {
         TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
-        
-        termoAditivoDAO.inserirTermoAditivo(termo);
-        
+        try {
+            termoAditivoDAO.inserirTermoAditivo(termoAditivo);
+        }catch (Exception e) {
+            //Log de erro
+        }
+    }
+    
+    public static Integer getIdMaxTermoEstagio () {
+        TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
+        try {
+            return termoAditivoDAO.getMaxIdTermoEstagio();
+        }catch (Exception e) {
+            //Log de erro
+            return 0;
+        } 
     }
 }
