@@ -409,20 +409,6 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     }
 
     /**
-     * Método para retornar o parametro eEstagioObrigatorio.
-     * @return eEstagioObrigatorio.
-     */
-    public Boolean geteEstagioObrigatorio() {
-        return eEstagioObrigatorio;
-    }
-    /**
-     * Método para alterar o parametro eEstagioObrigatorio.
-     * @param eEstagioObrigatorio Novo valor do parametro.
-     */
-    public void seteEstagioObrigatorio(Boolean eEstagioObrigatorio) {
-        this.eEstagioObrigatorio = eEstagioObrigatorio;
-    }
-    /**
      * Método para retornar o parametro nomeSupervisor.
      * @return nomeSupervisor.
      */
@@ -509,16 +495,6 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.agenciada = agenciada;
     }
     
-    
-/*
-    public List<TermoAditivo> getTermosAditivos() {
-        return termosAditivos;
-    }
-
-    public void setTermosAditivos(List<TermoAditivo> termosAditivos) {
-        this.termosAditivos = termosAditivos;
-    }
-*/
     /**
      * Método para retornar um hash para a Entidade TermoEstagio.
      * @return Um hash para TermoEstagio.

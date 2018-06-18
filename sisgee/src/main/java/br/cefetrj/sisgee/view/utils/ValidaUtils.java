@@ -5,12 +5,13 @@ import java.util.Date;
 
 /**
  * Classe criada para métodos de validação, para melhor reuso de código.
+ *
  * @author Paulo Cantuária
  * @since 1.0
  */
 public class ValidaUtils {
-	
-	/**
+
+/**
 	 * Método para validar campo por tamanho, para valores de texto(String)
 	 * @param nomeCampo texto com o nome do campo.
 	 * @param tamanho tamanho do campo.
@@ -224,7 +225,10 @@ public class ValidaUtils {
                 if(!(param.trim().isEmpty())){
                     if(param.length() != 10 && param.length() != 11){
                         msg = "br.cefetrj.sisgee.valida_utils.msg_valida_telefone";
-                    }   
+                    }
+                    if(!param.matches("\\d*")) {
+			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_telefone";
+                    }
                 }
 		return msg;
 	}
@@ -259,21 +263,35 @@ public class ValidaUtils {
 		return msg;
 	}
         
-        /**
-         * Método para verificar se um numero esta dentro do intervalo de zero ate valor maximo(parametro) 
-         * 
-         * @param num numero que será validado
-         * @param max valor maximo do intervalo
-         * @return String com mensagem de erro ou vazia.
-         */
-        
-	public static String validaIntervaloPositivo(int num,int max){
-            String msg="";
-            if((num <=0) || (num>=max)){
-                msg="br.cefetrj.sisgee.valida_utils.msg_valida_valor_positivo";
-            }
-            return msg;
-            
+    /**
+	 * Método para validar campos do tipo e-mail
+	 * @param nomeCampo texto com o nome do campo.
+	 * @param param o texto que contém o e-mail.
+	 * @return String com mensagem de erro ou vazia
+	 */
+	public static String validaEmail(String nomeCampo, String param) {
+		String msg = "";
+                if(!(param.contains("@") && param.contains("."))){
+                    msg = "br.cefetrj.sisgee.valida_utils.msg_valida_email";
+                }
+				
+		return msg;
         }
-}
 
+    /**
+     * Método para verificar se um numero esta dentro do intervalo de zero ate
+     * valor maximo(parametro)
+     *
+     * @param num numero que será validado
+     * @param max valor maximo do intervalo
+     * @return String com mensagem de erro ou vazia.
+     */
+    public static String validaIntervaloPositivo(int num, int max) {
+        String msg = "";
+        if ((num <= 0) || (num >= max)) {
+            msg = "br.cefetrj.sisgee.valida_utils.msg_valida_valor_positivo";
+        }
+        return msg;
+
+    }
+}

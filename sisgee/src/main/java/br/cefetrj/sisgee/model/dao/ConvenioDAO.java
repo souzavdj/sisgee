@@ -101,5 +101,15 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
                         .setParameter("inicio", dataInicio)
                         .setParameter("fim", dataFim)
                         .getResultList();
-            }    
+            }
+        
+    /**
+         * Metodo que faz uma query de busca de um convenio usando os 6 primeiros números.
+         * @param numero Numero do convenio.
+         * @return Um convenio de um numero especifico ou null caso não seja encontrado.
+         */
+        public Convenio buscarBy6Numero(String numero){
+            String consulta = "SELECT c FROM Convenio c WHERE c.numeroConvenio LIKE '" +numero +"____'";
+            return (Convenio) manager.createQuery(consulta).getSingleResult();
+        }
 }

@@ -39,26 +39,30 @@
                             <div class="invalid-feedback">${ numConvenioMsg }</div>
                         </c:if>
                     </div>
-
-                    <div class="form-group col-md-5">
-                        <label for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/></label>
-                        <input type="text" class="form-control ${ not empty nomeConveniadoMsg or not empty campoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }" placeholder="${ param.nomeConveniado }">                           
-                        <c:if test="${ not empty campoMsg }">
-                            <div class="invalid-feedback">${ campoMsg }</div>
-                        </c:if>
-                        <c:if test="${ not empty nomeConveniadoMsg }">
-                            <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
-                        </c:if>    
-                    </div>    
-                    <div align='center'>
-                        <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>
+                    <div class="form-group">
+                        <label class="form-group col-md-9" for="nomeConveniado"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_nome_conveniado"/>
+                    
+                        <div class="form-row"> 
+                            <div class="form-group col-md-5">
+                                <input type="text" class="form-control ${ not empty nomeConveniadoMsg or not empty campoMsg ? 'is-invalid': 'is-valid' }" id="nomeConveniado" name="nomeConveniado" maxlength="100" value="${ param.nomeConveniado }" placeholder="${ param.nomeConveniado }">                           
+                                <c:if test="${ not empty campoMsg }">
+                                    <div class="invalid-feedback">${ campoMsg }</div>
+                                </c:if>
+                                <c:if test="${ not empty nomeConveniadoMsg }">
+                                    <div class="invalid-feedback">${ nomeConveniadoMsg }</div>
+                                </c:if>
+                                
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.msg_buscar"/></button>
+                            </div>
+                        </div>
                     </div>
-                    </div>
+                </div>
                     </form>
                     
                     <form action=InfoConvenioServlet method="post" name="info">
-                    <c:if test="${not empty listaBusca}">
-                        <%--<button id="btnRenovarConvenio" type="button" <%--onclick="javascript:location.href = 'form_renovar_convenio_infos.jsp'" class="btn btn-secondary" ${ not empty param.convenioSelecionado ? 'disabled=true' : '' }><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>--%>       
+                    <c:if test="${not empty listaBusca or con ne null}">
                         <button id="btnRenovarConvenio" type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.form_renovar_convenio.renovar"/></button>
                         <table class="table table-striped">
                             <thead>
@@ -70,14 +74,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:if test="${not empty listaBusca}">
                                 <c:forEach items="${listaBusca}" var="i">
                                     <tr>
                                         <th <label class="radio-inline selecionadoChk"><input type="radio" name="convenioSelecionado" id="convenioSelecionado" value="${i.cpf_cnpj}"></label></th>
-                                        <td>${ConvenioUtils.getNumeroCovenioFormatado(i.numeroConvenio)}</td>
+                                        <td>${ConvenioUtils.getNumeroConvenioFormatado(i.numeroConvenio)}</td>
                                         <td>${i.nomeConveniado}</td>
-                                        <td>${ConvenioUtils.getCnpjEmpresaFormatado(i.cpf_cnpj)}</td>
+                                        <td>${ConvenioUtils.getIdConveniadoFormatado(i.cpf_cnpj)}</td>
                                     </tr>
                                 </c:forEach>
+                            </c:if>
+                                <c:if test="${con ne null}">
+                                    <tr>
+                                        <th <label class="radio-inline selecionadoChk"><input type="radio" name="convenioSelecionado" id="convenioSelecionado" value="${con.cpf_cnpj}"></label></th>
+                                        <td>${ConvenioUtils.getNumeroConvenioFormatado(con.numeroConvenio)}</td>
+                                        <td>${con.nomeConveniado}</td>
+                                        <td>${ConvenioUtils.getIdConveniadoFormatado(con.cpf_cnpj)}</td>
+                                    </tr>
+                                </c:if>
                         </table>
                     </c:if>
 

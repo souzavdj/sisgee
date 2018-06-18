@@ -18,7 +18,7 @@
             <h2>${ msg }</h2>
             <h2>${msgConvenio}</h2>
         </div>
-
+        
     </p>
 </div>
 <%@include file="import_footer.jspf"%>

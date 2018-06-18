@@ -68,7 +68,7 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
         if (numConvenioMsg.trim().isEmpty()) {
             numConvenioMsg = ValidaUtils.validaInteger("Número do Convênio", numConvenio);
             if (numConvenioMsg.trim().isEmpty()) {
-                req.setAttribute("Número do Convêniop", numConvenio);
+                req.setAttribute("Número do Convênio", numConvenio);
             }else{
                 numConvenioMsg = messages.getString(numConvenioMsg);
                 numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 6);
@@ -95,7 +95,7 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
             } else {
                 nomeConveniadoMsg = messages.getString(nomeConveniadoMsg);
                 nomeConveniadoMsg = ServletUtils.mensagemFormatada(nomeConveniadoMsg, locale, 100);
-                req.setAttribute("nomeConveniadoMsg", nomeConveniado);
+                req.setAttribute("nomeConveniadoMsg", nomeConveniadoMsg);
                 isValid = false;
             }
         }

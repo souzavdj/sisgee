@@ -333,9 +333,23 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             dataAssinaturaMsg = ValidaUtils.validaDate("Data de Assintura", dataAssinaturaConvenio);
             if (dataAssinaturaMsg.trim().isEmpty()) {
                 try {
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    dataAssinatura = format.parse(dataAssinaturaConvenio);
-                    req.setAttribute("dataAssinatura", dataAssinatura);
+                    SimpleDateFormat format = null;
+                    if (messages.getLocale().toString().equals("pt_BR")) {
+                        format = new SimpleDateFormat("dd/MM/yyyy");
+                    } else if (messages.getLocale().toString().equals("en_US")) {
+                        format = new SimpleDateFormat("MM/dd/yyyy");
+                    } else {
+                        //fazer log de erro com a internacionalização
+                        //Idioma desconhecido
+                    }
+
+                    if (format != null) {
+                        dataAssinatura = format.parse(dataAssinaturaConvenio);
+                        req.setAttribute("dataAssinatura", dataAssinatura);
+                    } else {
+                        //fazer o log de erro com a internacionalização
+                        //Sem padrão de formatação para data, Objeto format nulo
+                    }                    
                 } catch (Exception e) {
                     lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils", e);
                     isValid = false;
@@ -364,7 +378,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
             tamanho = 50;
             emailMsg = ValidaUtils.validaTamanho("Email", tamanho, email);
             if (emailMsg.trim().isEmpty()) {
-                emailMsg = ValidaUtils.validaNaoInteger("Email", email);
+                emailMsg = ValidaUtils.validaEmail("Email", email);
                 if (emailMsg.trim().isEmpty()) {
                     req.setAttribute("email", email);
                 } else {
