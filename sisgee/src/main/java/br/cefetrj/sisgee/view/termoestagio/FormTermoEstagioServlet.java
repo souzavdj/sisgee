@@ -633,7 +633,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						request.setAttribute("idConvenio", idConvenioInt);
 						
 					} else {
-                                                 //TODO(Antigo) consertar referencia da Internacionalização
+                                                
 						idConvenioMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.convenio_invalido");
 						request.setAttribute("idConvenioMsg", idConvenioMsg);
                                                 isValid = false;
