@@ -82,7 +82,7 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
             System.out.println("Entrou no busca convenio pelo nome");
             nomeConvenioMsg=ValidaUtils.validaTamanho("nomeConveniado",100,nomeConveniado);
             if(nomeConvenioMsg.trim().isEmpty()){
-                buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado);
+                buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado.toUpperCase());
             }else{
                 System.out.println("Aqui erro nome");
                 isValid=false;
