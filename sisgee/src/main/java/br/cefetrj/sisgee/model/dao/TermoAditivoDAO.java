@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.dao;
 
+import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import java.util.Date;
 import java.util.List;
@@ -16,74 +17,49 @@ import javax.persistence.TypedQuery;
  * @since 1.0
  *
  */
-public class TermoAditivoDAO {
-
-    public List<Object[]> buscarFiltrado(Boolean obrigatorio, Date inicio, Date termino) {
-
-        EntityManagerFactory factory
-                = Persistence.createEntityManagerFactory("sisgeePU");
-        EntityManager manager = factory.createEntityManager();
-
-        Query query = manager
-                .createNativeQuery("select cur.nomecurso, te.idtermoestagio from termoaditivo ta \r\n"
-                        + "inner join termoestagio te \r\n"
-                        + "on ta.termoestagio_idtermoestagio = te.idtermoestagio  \r\n"
-                        + "inner join aluno a \r\n"
-                        + "on te.aluno_idaluno = a.idaluno  \r\n"
-                        + "inner join curso cur \r\n"
-                        + "on a.curso_idcurso = cur.idcurso  \r\n"
-                        + "inner join campus c \r\n"
-                        + "on cur.campus_idcampus = c.idcampus  \r\n"
-                        + "where te.datainiciotermoestagio >= :inicio \r\n"
-                        + "and  :termino >= te.datainiciotermoestagio \r\n"
-                        + "and te.eestagioobrigatorio = :obrigatorio ");
-
-        query.setParameter("obrigatorio", obrigatorio);
-        query.setParameter("inicio", inicio);
-        query.setParameter("termino", termino);
-
-        @SuppressWarnings("unchecked")
-        List<Object[]> authors = query.getResultList();
-
-        manager.close();
-        factory.close();
-        return authors;
+public class TermoAditivoDAO  extends GenericDAO<TermoEstagio> {
+    
+    public TermoAditivoDAO() {
+            super(TermoEstagio.class, PersistenceManager.getEntityManager());
     }
+    
+    public void inserirTermoAditivo (TermoEstagio termoAditivo) {
+        Query query = manager.createNativeQuery("insert into TermoEstagio (idTermoEstagio, dataInicioTermoEstagio, "
+                + "dataFimTermoEstagio, cargaHorariaTermoEstagio, valorBolsa, enderecoTermoEstagio, "
+                + "complementoEnderecoTermoEstagio, bairroEnderecoTermoEstagio, cepEnderecoTermoEstagio, "
+                + "cidadeEnderecoTermoEstagio, estadoEnderecoTermoEstagio, nomesupervisor, cargosupervisor, "
+                + "motivoaditivo, eativo, eEstagioObrigatorio, agenciada, termoestagioaditivo_idtermoestagio, "
+                + "professororientador_idProfessorOrientador, aluno_idAluno, convenio_idConvenio) values "
+                + "(:idTermoAditivo, :dataInicio, :dataFim, :carga, :valor, :endereco, :complemento, "
+                + ":bairro, :cep, :cidade, :estado, :nomeSupervisor, :cargoSupervisor, "
+                + ":motivo, :eAtivo, :eObrigatorio, :agenciada, :idTermo, :idProfessor, :idAluno, :idConvenio);");
 
-    public List<Object[]> buscarFiltrado(Date inicio, Date termino) {
-
-        System.out.println("test 56");
-        EntityManagerFactory factory
-                = Persistence.createEntityManagerFactory("sisgeePU");
-        EntityManager manager = factory.createEntityManager();
-
-        Query query = manager
-                .createNativeQuery("select cur.nomecurso, te.idtermoestagio from termoaditivo ta \r\n"
-                        + "inner join termoestagio te \r\n"
-                        + "on ta.termoestagio_idtermoestagio = te.idtermoestagio  \r\n"
-                        + "inner join aluno a \r\n"
-                        + "on te.aluno_idaluno = a.idaluno  \r\n"
-                        + "inner join curso cur \r\n"
-                        + "on a.curso_idcurso = cur.idcurso  \r\n"
-                        + "inner join campus c \r\n"
-                        + "on cur.campus_idcampus = c.idcampus  \r\n"
-                        + "where te.datainiciotermoestagio >= :inicio \r\n"
-                        + "and  :termino >= te.datainiciotermoestagio");
-
-        query.setParameter("inicio", inicio);
-        query.setParameter("termino", termino);
-
-        @SuppressWarnings("unchecked")
-        List<Object[]> authors = query.getResultList();
-
-        manager.close();
-        factory.close();
-        return authors;
+        query.setParameter("idTermoAditivo", termoAditivo.getIdTermoEstagio());
+        query.setParameter("dataInicio", termoAditivo.getDataInicioTermoEstagio());
+        query.setParameter("dataFim", termoAditivo.getDataFimTermoEstagio());
+        query.setParameter("cargo", termoAditivo.getCargaHorariaTermoEstagio());
+        query.setParameter("valor", termoAditivo.getValorBolsa());
+        query.setParameter("endereco", termoAditivo.getEnderecoTermoEstagio());
+        query.setParameter("complemento", termoAditivo.getComplementoEnderecoTermoEstagio());
+        query.setParameter("bairro", termoAditivo.getBairroEnderecoTermoEstagio());
+        query.setParameter("cep", termoAditivo.getCepEnderecoTermoEstagio());
+        query.setParameter("cidade", termoAditivo.getCidadeEnderecoTermoEstagio());
+        query.setParameter("estado", termoAditivo.getEstadoEnderecoTermoEstagio());
+        query.setParameter("nomeSupervisor", termoAditivo.getNomeSupervisor());
+        query.setParameter("cargoSupervisor", termoAditivo.getCargoSupervisor());
+        query.setParameter("motivo", termoAditivo.getMotivoAditivo());
+        query.setParameter("eAtivo", termoAditivo.getEAtivo());
+        query.setParameter("eObrigatorio", termoAditivo.getEEstagioObrigatorio());
+        query.setParameter("agenciada", termoAditivo.getAgenciada());
+        query.setParameter("idTermo", termoAditivo.getTermoEstagioAditivo().getIdTermoEstagio());
+        query.setParameter("idProfessor", termoAditivo.getProfessorOrientador().getIdProfessorOrientador());
+        query.setParameter("idAluno", termoAditivo.getAluno().getIdAluno());
+        query.setParameter("idConvenio", termoAditivo.getConvenio().getIdConvenio());
+        
+        query.executeUpdate();
     }
 
     public Long buscarQuantidadeDeTermosAditivosParaNomeCurso(String curso) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("sisgeePU");
-        EntityManager manager = factory.createEntityManager();
         
         String consulta = "SELECT COUNT(te) FROM TermoEstagio te "
                 + "inner join Aluno al on te.aluno.idAluno = al.idAluno "
@@ -93,22 +69,17 @@ public class TermoAditivoDAO {
         TypedQuery<Long> query = manager.createQuery(consulta, Long.class);
         Long qtdTermosEstagioAditivo = query.getSingleResult();
 
-        manager.close();
-        factory.close();
-        
         return qtdTermosEstagioAditivo;
     }
     
-    public void inserirTermoAditivo (TermoEstagio termo) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("sisgeePU");
-        EntityManager manager = factory.createEntityManager();
-        manager.getTransaction().begin();
-        
-        manager.persist(termo);
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-        factory.close();
+    public Integer getMaxIdTermoEstagio () {
+        String consulta = "SELECT MAX(te.idTermoEstagio) FROM TermoEstagio te";
+
+        TypedQuery<Integer> query = manager.createQuery(consulta, Integer.class);
+        Integer idTermosEstagio = query.getSingleResult();
+        if(idTermosEstagio == null){
+            idTermosEstagio = 0;
+        }
+        return idTermosEstagio;
     }
 }

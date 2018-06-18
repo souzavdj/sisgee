@@ -34,33 +34,6 @@ public class TermoEstagioServices {
         return termoEstagioDao.buscar(idTermoEstagio);
     }
 
-    /**
-     *
-     * Metodo para receber uma matriz de com conteudo do banco
-     *
-     * @author Marcos Eduardo
-     * @param obrigatorio boolean do form para filtrar resultado
-     * @param inicio date do form para filtrar resultado
-     * @param termino date do form para filtrar resultado
-     * @return author matriz com conteúdo obtido do banco ou null
-     */
-    public static List<Object[]> listarTermoEstagioFiltrado(Boolean obrigatorio, Date inicio, Date termino) {
-        TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
-
-        try {
-            List<Object[]> author = null;
-
-            if (obrigatorio == null) {
-                author = termoEstagioDAO.buscarFiltrado(inicio, termino);
-            } else {
-                author = termoEstagioDAO.buscarFiltrado(obrigatorio, inicio, termino);
-            }
-            return author;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public static List<String> buscarTermosRelatorioConsolidadoCursos(boolean obrigatorio, Date inicio, Date termino) {
         TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
         try {

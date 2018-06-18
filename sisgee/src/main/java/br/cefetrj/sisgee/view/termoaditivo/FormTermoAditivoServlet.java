@@ -578,14 +578,20 @@ public class FormTermoAditivoServlet extends HttpServlet {
             }
             termoEstagio.setMotivoAditivo(motivo);
             
-            /*TermoEstagio termoAditivo = new TermoEstagio(termoEstagio.getDataInicioTermoEstagio(), dataFim, rescisao,
-                    Integer.parseInt(cargaHorariaTermoAditivo), Float.parseFloat(valorBolsaTermoAditivo), enderecoTermoAditivo, "206", 
-                    complementoEnderecoTermoAditivo, bairroEnderecoTermoAditivo, cepEnderecoTermoAditivo, cidadeEnderecoTermoAditivo, 
-                    estadoEnderecoTermoAditivo, true, nomeSurpervisor, cargoSurpervisor, motivo, true , aluno, convenio, termoEstagio.getProfessorOrientador());
-            termoAditivo.setTermoEstagioAditivo(termoEstagio);
+            TermoEstagio termoAditivo = new TermoEstagio(dataInicioJsp, dataFimJsp, termoEstagio.getDataRescisaoTermoEstagio(), 
+                    termoEstagio.getCargaHorariaTermoEstagio(), termoEstagio.getValorBolsa(), termoEstagio.getEnderecoTermoEstagio(), 
+                    termoEstagio.getComplementoEnderecoTermoEstagio(), termoEstagio.getBairroEnderecoTermoEstagio(), 
+                    termoEstagio.getCepEnderecoTermoEstagio(), termoEstagio.getCidadeEnderecoTermoEstagio(), 
+                    termoEstagio.getEstadoEnderecoTermoEstagio(), termoEstagio.getEEstagioObrigatorio(), 
+                    termoEstagio.getNomeSupervisor(), termoEstagio.getCargoSupervisor(), motivo, 
+                    termoEstagio.getEAtivo(), aluno, convenio, termoEstagio.getProfessorOrientador(), termoEstagio.getAgenciada());
+            
+            termoAditivo.setIdTermoEstagio(TermoAditivoServices.getIdMaxTermoEstagio()+1);
+            termoAditivo.setTermoEstagioAditivo(termoEstagio.getTermoEstagioAditivo());
+            System.out.println("IdTermo: "+termoAditivo.getIdTermoEstagio());
             Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
             try{
-                TermoAditivoServices.inserirTermoAditivo(termoEstagio);
+                TermoAditivoServices.inserirTermoAditivo(termoAditivo);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
                 request.setAttribute("msg", msg);
                 lg.info(msg);
@@ -595,7 +601,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 request.setAttribute("msg", msg);
                 lg.error("Exception ao tentar inserir o Termo de Estágio", e);
                 request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
-            }*/
+            }
         }else {
             Aluno aluno = null;
             request.setAttribute("termoEstagio", termoEstagio);

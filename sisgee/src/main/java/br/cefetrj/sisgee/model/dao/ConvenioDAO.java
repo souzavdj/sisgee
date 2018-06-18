@@ -28,12 +28,12 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
             String consulta = "SELECT MAX(c.idConvenio) FROM Convenio c";
 
             TypedQuery<Integer> query = manager.createQuery(consulta, Integer.class);
-            Integer qtdTermosEstagio = query.getSingleResult();
-            if(qtdTermosEstagio == null){
-                qtdTermosEstagio = 0;
+            Integer idConvenio = query.getSingleResult();
+            if(idConvenio == null){
+                idConvenio = 0;
             }
             
-            return qtdTermosEstagio;
+            return idConvenio;
         }
         
         /**
