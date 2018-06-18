@@ -81,7 +81,7 @@
                                 <label for="numeroConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.numeroConvenio"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
-                                    <input type="text" maxlength="10" class="form-control infoConvenio ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' } ${ not empty numeroConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
+                                    <input type="text" maxlength="6" class="form-control infoConvenio ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' } ${ not empty numeroConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_numero_convenio"/>" id="numeroConvenio" name="numeroConvenio" value="${numeroConvenio}">
                                        <span class="input-group-btn"> 
                                         <button class="btn btn-primary btnBuscarConvenio" type="button"  id="btnBuscarConvenioNumero"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>
@@ -475,7 +475,7 @@
 	            dataType: "json",
 	            success: function(json){
                             result = json;
-                            if((result.idConvenio != "")&&((result.valido == true))){
+                            if((result.idConvenio != "")&&(result.valido == true)){
                                 $("#idConvenio").val(result.idConvenio);
                                 $("#cpf_cnpj").val(result.cpf_cnpj);
                                 $("#razaoSocial").val(result.razaoSocial);
@@ -518,8 +518,15 @@
                                         
                                     }    
                              }
-                             if((result.valido == true)&&(result.valido == false)){
+                             if((result.idConvenio == "")&&(result.valido == true)){
                                     console.log("Erro quando n foi encontrado no banco");
+                                    
+                                    $("#agenteSim").attr("checked",false);
+                                    $("#tipoPF").attr("checked",false);
+                                    $("#agenteNao").attr("checked",false);
+                                    $("#tipoPJ").attr("checked",false);
+                                    $("#agenciada").attr("readonly",true);
+                                    
                                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.convenio_nao_encontrado"/>");
