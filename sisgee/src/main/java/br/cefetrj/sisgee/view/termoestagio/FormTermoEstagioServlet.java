@@ -367,6 +367,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
                 if(!cepEnderecoTermoEstagio.trim().isEmpty()) {
 			cepEnderecoMsg = ValidaUtils.validaTamanhoExato(campo, tamanho, cepEnderecoTermoEstagio);
 			if(cepEnderecoMsg.trim().isEmpty()) {
+                                cepEnderecoTermoEstagio = cepEnderecoTermoEstagio.replace(".","");
+                                cepEnderecoTermoEstagio = cepEnderecoTermoEstagio.replace("-","");
 				request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoEstagio);
 			}else {	
                                 cepEnderecoMsg = messages.getString(cepEnderecoMsg);	
@@ -633,7 +635,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 						request.setAttribute("idConvenio", idConvenioInt);
 						
 					} else {
-                                                 //TODO(Antigo) consertar referencia da Internacionalização
+                                                
 						idConvenioMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.convenio_invalido");
 						request.setAttribute("idConvenioMsg", idConvenioMsg);
                                                 isValid = false;

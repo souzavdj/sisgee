@@ -72,9 +72,8 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		
 		convenio = ConvenioServices.buscarConvenio(convenio);
                 aluno = AlunoServices.buscarAluno(aluno);
-		cepEnderecoTermoEstagio = cepEnderecoTermoEstagio.replace(".","");
-                cepEnderecoTermoEstagio = cepEnderecoTermoEstagio.replace("-","");
-
+		
+                
 		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio,null, cargaHorariaTermoEstagio,
 				 valorBolsa,  enderecoTermoEstagio,
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
