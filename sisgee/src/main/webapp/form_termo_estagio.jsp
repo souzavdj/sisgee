@@ -121,12 +121,12 @@
                            </div>
                            <div class="custom-controls-stacked d-block my-4">							
                               <label class="custom-control custom-radio">
-                                 <input id="tipoPJ" class="custom-control-input" type="radio" name="tipo"  value="true" ${tipo == 'true' ? 'checked' : 'disabled'}> 
+                                 <input id="tipoPJ" class="custom-control-input" type="radio" name="tipo"  value="true" ${tipo == 'true' ? 'checked' : 'disabled="disabled"'}> 
                                  <span class="custom-control-indicator"></span> 
                                  <span class="custom-control-description" ><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PJ"/></span>
                               </label>						
                              <label class="custom-control custom-radio">
-                                 <input id="tipoPF" class="custom-control-input" type="radio" name="tipo" value="false" ${tipo == 'false' ? 'checked' : 'disabled'}> 
+                                 <input id="tipoPF" class="custom-control-input" type="radio" name="tipo" value="false" ${tipo == 'false' ? 'checked' : 'disabled="disabled"'}> 
                                  <span class="custom-control-indicator"></span> 
                                  <span class="custom-control-description"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_PF"/></span>
                               </label>
