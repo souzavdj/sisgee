@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetrj.sisgee.view.convenio;
 
 
@@ -33,9 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Servlet focado na busca de convenio do termo_estagio.jsp
+ * Servlet focado na busca de convenio (vindo do termo_estagio.jsp)
  * @author Andre
- * @since 1.0
+ * @since 2.0
  */
 @WebServlet("/BuscaConvenioDoTermoEstagioServlet")
 public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {

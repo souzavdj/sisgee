@@ -13,16 +13,25 @@ import javax.persistence.TypedQuery;
 /**
  * Implementacao do padrao DAO para pesquisa especifica do Termo Aditivo
  *
- * @author Marcos Eduardo
+ * @author Vinicius Souza
  * @since 1.0
  *
  */
 public class TermoAditivoDAO  extends GenericDAO<TermoEstagio> {
     
+     /**
+     * Construtor da classe que chama o super da classe mae, passando os 2 parametro
+     */
     public TermoAditivoDAO() {
             super(TermoEstagio.class, PersistenceManager.getEntityManager());
     }
-
+    
+    /**Serviço que busca a quantidade de termos aditivos a partir de um determinado curso.
+     * 
+     * @author Vinicius Souza
+     * @param curso nome do curso 
+     * @return Long com a quantidade de termos aditivos do curso escohido
+     */
     public Long buscarQuantidadeDeTermosAditivosParaNomeCurso(String curso) {
         
         String consulta = "SELECT COUNT(te) FROM TermoEstagio te "
@@ -36,6 +45,12 @@ public class TermoAditivoDAO  extends GenericDAO<TermoEstagio> {
         return qtdTermosEstagioAditivo;
     }
     
+    /**
+    * Recupera o maior id dos termos de estágio e retorna um Integer referente a ele
+    * 
+    * @author Vinicius Souza
+    * @return Integer com o maior id.
+    */
     public Integer getMaxIdTermoEstagio () {
         String consulta = "SELECT MAX(te.idTermoEstagio) FROM TermoEstagio te";
 
