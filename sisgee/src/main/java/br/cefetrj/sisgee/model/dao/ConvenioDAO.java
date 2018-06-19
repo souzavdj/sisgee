@@ -96,6 +96,7 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
          * @return lista de convenios dentro do intervalo de datas
          */
         public List<Convenio> buscaVencidos(Date dataInicio,Date dataFim){
+            manager.clear();
             return (List<Convenio>) manager.createQuery(
                         "SELECT c FROM Convenio c WHERE c.dataAssinatura BETWEEN :inicio AND :fim")
                         .setParameter("inicio", dataInicio)

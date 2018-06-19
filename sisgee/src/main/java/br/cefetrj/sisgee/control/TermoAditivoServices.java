@@ -44,15 +44,6 @@ public class TermoAditivoServices {
         }
     }
     
-    public static void inserirTermoAditivo(TermoEstagio termoAditivo) {
-        TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
-        try {
-            termoAditivoDAO.inserirTermoAditivo(termoAditivo);
-        }catch (Exception e) {
-            //Log de erro
-        }
-    }
-    
     public static Integer getIdMaxTermoEstagio () {
         TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
         try {
