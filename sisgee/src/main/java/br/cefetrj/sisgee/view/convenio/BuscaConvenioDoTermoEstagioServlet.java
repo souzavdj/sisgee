@@ -65,9 +65,11 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         System.out.println("NumeroConveniado:" + numConvenio);
         if(!numConvenio.trim().isEmpty()){
             System.out.println("Entrou no busca convenio pelo numero");
+            String num =String.format("%06d",Integer.parseInt(numConvenio.trim()));
             numeroConvenioMsg=ValidaUtils.validaTamanho("numeroConvenio",6,numConvenio);
             if(numeroConvenioMsg.trim().isEmpty()){
-                buscado = ConvenioServices.buscarConvenioByNumero(numConvenio.trim());
+                buscado = ConvenioServices.buscarBy6Numero(num);
+
             }else{
                 System.out.println("Aqui erro numero");
                 isValid=false;
@@ -80,7 +82,7 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
             System.out.println("Entrou no busca convenio pelo nome");
             nomeConvenioMsg=ValidaUtils.validaTamanho("nomeConveniado",100,nomeConveniado);
             if(nomeConvenioMsg.trim().isEmpty()){
-                buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado);
+                buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado.toUpperCase());
             }else{
                 System.out.println("Aqui erro nome");
                 isValid=false;

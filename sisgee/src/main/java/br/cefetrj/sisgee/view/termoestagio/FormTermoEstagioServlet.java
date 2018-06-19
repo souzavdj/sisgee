@@ -741,7 +741,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
                         request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		}
 	}	
-	
+	/**
+         * Carrega as tabelas do banco de dados que serão mostradas no formulario do form_termo_estagio.jsp
+         * @param request é a requisição do usuario
+         * @return retorna o proprio request
+         */
+        
 	private static HttpServletRequest carregarListas(HttpServletRequest request) {
 		
 		List<Aluno> alunos = AlunoServices.listarAlunos();

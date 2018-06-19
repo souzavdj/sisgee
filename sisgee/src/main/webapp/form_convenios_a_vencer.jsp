@@ -37,14 +37,7 @@
                                         <td>${ConvenioUtils.getVigencia(conv.dataAssinatura)}</td>
                                         <td>${ConvenioUtils.getNumeroConvenioFormatado(conv.numeroConvenio)}</td>
                                         <td>${conv.nomeConveniado}</td>
-                                        <c:choose>
-                                            <c:when test="${conv.isPessoaJuridica eq true }">
-                                                <td>${ConvenioUtils.getCnpjEmpresaFormatado(conv.cpf_cnpj)}</td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td >${ConvenioUtils.getCpfFormatado(conv.cpf_cnpj)}</td>
-                                            </c:otherwise>    
-                                        </c:choose>    
+                                        <td>${ConvenioUtils.getIdConveniadoFormatado(conv.cpf_cnpj)}</td>    
                                         <td>${conv.email}</td>
                                         <td>${ConvenioUtils.getNumeroTelefoneFormatado(conv.telefone)}</td>
                                         <td>${conv.pessoaContato}</td>
