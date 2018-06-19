@@ -165,7 +165,8 @@ public class ValidaUtils {
 	 * @return String com mensagem de erro ou vazia.
 	 */
 	public static String validaDatas(Date dataInicio, Date dataFim) {
-		String msg = "";
+		//TODO resolver o NullPointer exception
+                String msg = "";
 		if(dataInicio.compareTo(dataFim) > 0) {
 			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_datas";
 		}		

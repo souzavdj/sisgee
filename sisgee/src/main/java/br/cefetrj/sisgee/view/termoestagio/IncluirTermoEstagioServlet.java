@@ -53,7 +53,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
                 boolean eAtivo = true;
                 Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));	
 		Convenio convenio = new Convenio((Integer)request.getAttribute("idConvenio"));
-                ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
+                ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessorOrientador"));
 		
                 //Esta presente quando o tipo for juridica e se agente de integração for sim
                 String agenciada = (String)request.getAttribute("agenciada");

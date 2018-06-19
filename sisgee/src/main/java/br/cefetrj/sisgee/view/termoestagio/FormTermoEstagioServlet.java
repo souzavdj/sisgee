@@ -180,19 +180,20 @@ public class FormTermoEstagioServlet extends HttpServlet {
                  * TODO Resolver o periodo caso as datas estejam no formato em ingles
 		 */
 		String periodoMsg = "";
-		if(!(dataFimTermoEstagio == null || dataFimTermoEstagio.isEmpty())) {
-			periodoMsg = ValidaUtils.validaDatas(dataInicio, dataFim);
-			if(!periodoMsg.trim().isEmpty()) {
-				periodoMsg = messages.getString(ValidaUtils.validaDatas(dataInicio, dataFim));
-				request.setAttribute("periodoMsg", periodoMsg);
-				isValid = false;
-				
-                                Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                                lg.info(periodoMsg);
-				
-			}	
-		}	
-		
+                if(!(dataInicioTermoEstagio == null || dataInicioTermoEstagio.isEmpty())){
+                    if(!(dataFimTermoEstagio == null || dataFimTermoEstagio.isEmpty())) {
+                            periodoMsg = ValidaUtils.validaDatas(dataInicio, dataFim);
+                            if(!periodoMsg.trim().isEmpty()) {
+                                    periodoMsg = messages.getString(periodoMsg);
+                                    request.setAttribute("periodoMsg", periodoMsg);
+                                    isValid = false;
+
+                                    Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                    lg.info(periodoMsg);
+
+                            }	
+                    }	
+                }    
 		/**
 		 * Validação da carga horária usando os métodos da Classe ValidaUtils
 		 * Campo obrigatório e valor menor que 255 (No banco), valor menor que 24, por ser horas diárias.
@@ -527,8 +528,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 */
 		String idProfessorMsg = "";
 		campo = "Professor Orientador";
-		//Boolean hasProfessor = false;
-                idProfessorMsg = ValidaUtils.validaObrigatorio(campo, idProfessorOrientador);
+		idProfessorMsg = ValidaUtils.validaObrigatorio(campo, idProfessorOrientador);
 		if(idProfessorMsg.trim().isEmpty()) {
 			idProfessorMsg = ValidaUtils.validaInteger(campo, idProfessorOrientador);
 			if (idProfessorMsg.trim().isEmpty()) {
@@ -536,8 +536,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				List<ProfessorOrientador> listaProfessores = ProfessorOrientadorServices.listarProfessorOrientador();
 				if (listaProfessores != null) {
 					if (listaProfessores.contains(new ProfessorOrientador(idProfessor))) {
-						request.setAttribute("idProfessor", idProfessor);
-						//hasProfessor = true;
+						request.setAttribute("idProfessorOrientador", idProfessor);
+						
 					} else {
 						idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
 						isValid = false;
