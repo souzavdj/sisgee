@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.control;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -117,5 +118,15 @@ public class TermoEstagioServices {
             PersistenceManager.getTransaction().rollback();
         }
 
+    }
+    
+    public static Integer getMaxIdTermoEstagio () {
+        TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
+        try {
+            Integer maxIdTermoEstagio = termoEstagioDAO.getMaxIdTermoEstagio();
+            return maxIdTermoEstagio;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }
