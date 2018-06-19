@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -22,8 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
+ * Servlet para cadastrar (incluir) Convenio no banco
  *
  * @author denis
+ * @since 2.0
  */
 @WebServlet("/IncluirCadastroConvenioServlet")
 public class IncluirCadastroConvenioServlet extends HttpServlet {

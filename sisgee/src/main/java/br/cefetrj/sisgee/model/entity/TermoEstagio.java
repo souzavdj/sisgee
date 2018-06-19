@@ -113,13 +113,39 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     @OneToMany(mappedBy = "termoEstagioAditivo")
     private List<TermoEstagio> termosAditivos;
     
+    /**
+     * Construtor da classe sem parametro
+     */
     public TermoEstagio() {
     }
 
-    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Integer cargaHorariaTermoEstagio,
+    
+     /**
+     * Construtor da classe com 15 parametros 
+     * 
+     * @param dataInicioTermoEstagio Date com data de início do estágio
+     * @param dataFimTermoEstagio Date com a data de término do estágio 
+     * @param cargaHorariaTermoEstagio Integer com a carga horária diária do estagiário
+     * @param valorBolsa float com o valor mensal da bolsa 
+     * @param enderecoTermoEstagio String com o endereço do estágio
+     * @param complementoEnderecoTermoEstagio String, não obrigatório, com o complemento do endereço do estágio
+     * @param bairroEnderecoTermoEstagio String com o bairro do estágio
+     * @param cepEnderecoTermoEstagio String com o cep do estágio
+     * @param cidadeEnderecoTermoEstagio String com a cidade do estágio
+     * @param estadoEnderecoTermoEstagio String com o estadio do estágio
+     * @param eEstagioObrigatorio boolean que informa se o estágio é obrigatório ou não
+     * @param eAtivo boolean que informa se é ativo ou não
+     * @param aluno Aluno que associa um Aluno ao TermoEstagio
+     * @param convenio Convenio que associa um Convenio ao TermoEstagio
+     * @param professorOrientador ProfessorOrientador que associa um professor orientador ao TermoEstagio
+     */
+    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, 
+            Integer cargaHorariaTermoEstagio,
             Float valorBolsa, String enderecoTermoEstagio,
-            String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio,
-            String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, boolean eAtivo,
+            String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, 
+            String cepEnderecoTermoEstagio,
+            String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, 
+            Boolean eEstagioObrigatorio, boolean eAtivo,
             Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
 
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
@@ -139,7 +165,37 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.professorOrientador = professorOrientador;
     }
 
-    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio,String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
+    /**
+     * Construtor da classe com 18 parametros 
+     * 
+     * @param dataInicioTermoEstagio Date com data de início do estágio
+     * @param dataFimTermoEstagio Date com a data de término do estágio 
+     * @param dataRescisaoTermoEstagio Date com a data de rescisao do termo de estágio 
+     * @param cargaHorariaTermoEstagio Integer com a carga horária diária do estagiário
+     * @param valorBolsa float com o valor mensal da bolsa 
+     * @param enderecoTermoEstagio String com o endereço do estágio
+     * @param complementoEnderecoTermoEstagio String, não obrigatório, com o complemento do endereço do estágio
+     * @param bairroEnderecoTermoEstagio String com o bairro do estágio
+     * @param cepEnderecoTermoEstagio String com o cep do estágio
+     * @param cidadeEnderecoTermoEstagio String com a cidade do estágio
+     * @param estadoEnderecoTermoEstagio String com o estadio do estágio
+     * @param eEstagioObrigatorio boolean que informa se o estágio é obrigatório ou não
+     * @param nomeSupervisor String com o nome do Supervisor associado ao termo de estagio
+     * @param cargoSupervisor String com o cargo do Supervisor associado ao termo de estagio
+     * @param eAtivo boolean que informa se é ativo ou não
+     * @param aluno Aluno que associa um Aluno ao TermoEstagio
+     * @param convenio Convenio que associa um Convenio ao TermoEstagio
+     * @param professorOrientador ProfessorOrientador que associa um professor orientador ao TermoEstagio
+     */
+    public TermoEstagio(Date dataInicioTermoEstagio, 
+            Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, 
+            Integer cargaHorariaTermoEstagio, Float valorBolsa, 
+            String enderecoTermoEstagio,String complementoEnderecoTermoEstagio, 
+            String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio,
+            String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, 
+            Boolean eEstagioObrigatorio, String nomeSupervisor,
+            String cargoSupervisor, boolean eAtivo, Aluno aluno, 
+            Convenio convenio, ProfessorOrientador professorOrientador) {
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
         this.dataFimTermoEstagio = dataFimTermoEstagio;
         this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
@@ -159,7 +215,52 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
     }
-    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador,String agenciada) {
+    
+    
+    /**
+     * Construtor da classe com 20 parametros 
+     * 
+     * @param dataInicioTermoEstagio Date com data de início do estágio
+     * @param dataFimTermoEstagio Date com a data de término do estágio 
+     * @param dataRescisaoTermoEstagio Date com a data de rescisao do termo de estágio 
+     * @param cargaHorariaTermoEstagio Integer com a carga horária diária do estagiário
+     * @param valorBolsa float com o valor mensal da bolsa 
+     * @param enderecoTermoEstagio String com o endereço do estágio
+     * @param complementoEnderecoTermoEstagio String, não obrigatório, com o complemento do endereço do estágio
+     * @param bairroEnderecoTermoEstagio String com o bairro do estágio
+     * @param cepEnderecoTermoEstagio String com o cep do estágio
+     * @param cidadeEnderecoTermoEstagio String com a cidade do estágio
+     * @param estadoEnderecoTermoEstagio String com o estadio do estágio
+     * @param eEstagioObrigatorio boolean que informa se o estágio é obrigatório ou não
+     * @param nomeSupervisor String com o nome do Supervisor associado ao termo de estagio
+     * @param cargoSupervisor String com o cargo do Supervisor associado ao termo de estagio
+     * @param motivoAditivo String com o motivo do aditivo
+     * @param eAtivo boolean que informa se é ativo ou não
+     * @param aluno Aluno que associa um Aluno ao TermoEstagio
+     * @param convenio Convenio que associa um Convenio ao TermoEstagio
+     * @param professorOrientador ProfessorOrientador que associa um professor orientador ao TermoEstagio
+       @param agenciada String com a agenciada do termo de estágio
+     */
+    public TermoEstagio(Date dataInicioTermoEstagio, 
+            Date dataFimTermoEstagio, 
+            Date dataRescisaoTermoEstagio, 
+            Integer cargaHorariaTermoEstagio, 
+            Float valorBolsa, 
+            String enderecoTermoEstagio,
+            String complementoEnderecoTermoEstagio,
+            String bairroEnderecoTermoEstagio, 
+            String cepEnderecoTermoEstagio, 
+            String cidadeEnderecoTermoEstagio,
+            String estadoEnderecoTermoEstagio, 
+            Boolean eEstagioObrigatorio,
+            String nomeSupervisor, 
+            String cargoSupervisor,
+            String motivoAditivo, 
+            boolean eAtivo,
+            Aluno aluno, 
+            Convenio convenio,
+            ProfessorOrientador professorOrientador,
+            String agenciada) {
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
         this.dataFimTermoEstagio = dataFimTermoEstagio;
         this.dataRescisaoTermoEstagio = dataRescisaoTermoEstagio;
@@ -479,18 +580,34 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.motivoAditivo = motivoAditivo;
     }
 
+    /**
+     * Método para retornar se é Ativo ou não.
+     * @return eAtivo 
+     */
     public boolean getEAtivo() {
         return eAtivo;
     }
 
+     /**
+     * Método para alterar o parametro eAtivo.
+     * @param eAtivo Novo valor do parametro.
+     */
     public void setEAtivo(boolean eAtivo) {
         this.eAtivo = eAtivo;
     }
     
+    /**
+     * Método para retornar a agenciada
+     * @return agenciada 
+     */
     public String getAgenciada() {
         return this.agenciada;
     }
 
+    /**
+     * Método para alterar o parametro agenciada.
+     * @param agenciada Novo valor do parametro.
+     */
     public void setAgenciada(String agenciada) {
         this.agenciada = agenciada;
     }

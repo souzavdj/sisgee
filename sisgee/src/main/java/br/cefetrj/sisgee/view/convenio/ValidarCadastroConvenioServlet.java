@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  * de convenio mensagens de erro especificias.
  *
  * @author Andre
- * @version 1
+ * @since 2.0
  *
  */
 @WebServlet("/ValidarCadastroConvenioServlet")
