@@ -574,6 +574,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		Boolean alunoExiste = false;
 		String idAlunoMsg = "";
 		campo = "Aluno";
+                System.out.println("Aluno");
 		idAlunoMsg = ValidaUtils.validaObrigatorio(campo, idAluno);
 		if (idAlunoMsg.trim().isEmpty()) {
 			idAlunoMsg = ValidaUtils.validaInteger(campo, idAluno);
@@ -581,9 +582,11 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				Integer idAlunoInt = Integer.parseInt(idAluno);
 				List<Aluno> listaAlunos = AlunoServices.listarAlunos();
 				if (listaAlunos != null) {
-					if (listaAlunos.contains(new Aluno(idAlunoInt))) {
+                                        Aluno alunoRecebido = new Aluno(idAlunoInt);
+                                        if (listaAlunos.contains(alunoRecebido)) {
+                                                
 						request.setAttribute("idAluno", idAlunoInt);
-						alunoExiste = true;
+                                                alunoExiste = true;
 					} else {
 						idAlunoMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.aluno_invalido");
 						isValid = false;
@@ -707,7 +710,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			Aluno a = new Aluno(idAlunoInt);
 			Aluno aluno = AlunoServices.buscarAluno(a);
 			Boolean hasTermoAberto = false;
-			
+                        
 			List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();	
 			for (TermoEstagio t : termosEstagio) {				
 				if((t.getDataRescisaoTermoEstagio() == null) || (t.getEAtivo()==true)) {
@@ -720,7 +723,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				String msg2 = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_aluno_has_termo_aberto");
 				request.setAttribute("msg2", msg2);
 				isValid = false;
-			}
+			}else{
+                            request.setAttribute("matricula", aluno.getMatricula());
+                            request.setAttribute("nome", aluno.getNome());
+                            request.setAttribute("nomeCurso", aluno.getNomeCurso());
+                            request.setAttribute("nomeCampus", aluno.getNomeCampus());
+                        }
 		}
 		
 		
