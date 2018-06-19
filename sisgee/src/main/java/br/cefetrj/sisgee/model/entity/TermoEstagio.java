@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.model.entity;
 
+import br.cefetrj.sisgee.control.TermoEstagioServices;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private Integer idTermoEstagio;
 
     @Column(nullable = false)
@@ -137,6 +138,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.aluno = aluno;
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
+        this.idTermoEstagio = TermoEstagioServices.getMaxIdTermoEstagio()+1;
     }
 
     public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio,String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador) {
@@ -158,6 +160,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.aluno = aluno;
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
+        this.idTermoEstagio = TermoEstagioServices.getMaxIdTermoEstagio()+1;
     }
     public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Date dataRescisaoTermoEstagio, Integer cargaHorariaTermoEstagio, Float valorBolsa, String enderecoTermoEstagio, String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio, String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio, String nomeSupervisor, String cargoSupervisor, String motivoAditivo, boolean eAtivo, Aluno aluno, Convenio convenio, ProfessorOrientador professorOrientador,String agenciada) {
         this.dataInicioTermoEstagio = dataInicioTermoEstagio;
@@ -180,6 +183,7 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
         this.convenio = convenio;
         this.professorOrientador = professorOrientador;
         this.agenciada=agenciada;
+        this.idTermoEstagio = TermoEstagioServices.getMaxIdTermoEstagio()+1;
     }
     /**
      * Método para retornar o parametro idTermoEstagio.

@@ -84,4 +84,16 @@ public class TermoEstagioDAO extends GenericDAO<TermoEstagio>{
         return qtdTermosEstagioRescindido;
     }
     
+    public Integer getMaxIdTermoEstagio () {
+            String consulta = "SELECT MAX(c.idTermoEstagio) FROM TermoEstagio c";
+
+            TypedQuery<Integer> query = manager.createQuery(consulta, Integer.class);
+            Integer idTermoEstagio = query.getSingleResult();
+            if(idTermoEstagio == null){
+                idTermoEstagio = 0;
+            }
+            
+            return idTermoEstagio;
+        }
+    
 }
