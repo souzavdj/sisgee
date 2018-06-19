@@ -20,7 +20,6 @@ import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
-import br.cefetrj.sisgee.view.convenio.ConveniosVencerServlet;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
@@ -574,8 +573,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		Boolean alunoExiste = false;
 		String idAlunoMsg = "";
 		campo = "Aluno";
-                System.out.println("Aluno");
-		idAlunoMsg = ValidaUtils.validaObrigatorio(campo, idAluno);
+                idAlunoMsg = ValidaUtils.validaObrigatorio(campo, idAluno);
 		if (idAlunoMsg.trim().isEmpty()) {
 			idAlunoMsg = ValidaUtils.validaInteger(campo, idAluno);
 			if (idAlunoMsg.trim().isEmpty()) {
@@ -634,9 +632,17 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				Integer idConvenioInt = Integer.parseInt(idConvenio);
 				List<Convenio> listaConvenio = ConvenioServices.listarConvenios();
 				if (listaConvenio != null) {
-					if (listaConvenio.contains(new Convenio(idConvenioInt))) {
+                                        Convenio encontrado = new Convenio(idConvenioInt);
+					if (listaConvenio.contains(encontrado)) {
 						request.setAttribute("idConvenio", idConvenioInt);
+						encontrado = ConvenioServices.buscarConvenio(encontrado);
+                                                request.setAttribute("numeroConvenio", encontrado.getNumeroConvenio());
+						request.setAttribute("tipo", encontrado.getIsPessoaJuridica());
+						request.setAttribute("agente", encontrado.getIsAgenteIntegracao());
+						request.setAttribute("CpfCnpj", encontrado.getCpf_cnpj());
+						request.setAttribute("razaoSocial", encontrado.getNomeConveniado());
 						
+                                               
 					} else {
                                                 
 						idConvenioMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.convenio_invalido");
@@ -738,11 +744,9 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 * ou devolver para o formulário com as mensagens.
 		 */
 		if (isValid) {
-			System.out.println("Entrou no valido");
-                        request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
+			request.getRequestDispatcher("/IncluirTermoEstagioServlet").forward(request, response);
                         //request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		} else {
-			System.out.println("Entrou no invalido");
 			msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request = carregarListas(request);

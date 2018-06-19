@@ -67,8 +67,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		//Boolean hasProfessor = (Boolean)request.getAttribute("hasProfessor");
 		
 		
-                System.out.println("Entrou no incluir termo estagio servlet");
-		
+                
 		
 		convenio = ConvenioServices.buscarConvenio(convenio);
                 aluno = AlunoServices.buscarAluno(aluno);
@@ -79,8 +78,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
 				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, nomesupervisor, cargosupervisor, null, eAtivo, 
 				 aluno,  convenio,  professorOrientador,agenciada);
-		System.out.println("Foi criado objeto termo Estagio");
-                String msg = "";
+		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			

@@ -96,7 +96,7 @@
 
                             </div>
                             <div class="form-group col-md-6">
-                            <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
+                            <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial_e_nome"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
                                     <input type="text" maxlength="100" class="form-control infoConvenio ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' } ${ not empty nomeConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
@@ -168,11 +168,11 @@
                         </div>
                         <div class="form-row">
                            <div class="form-group col-md-6">
-                               <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
+                               <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj_e_Cpf"/></label>
                                 <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ CpfCnpj }" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></label>
+                                <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial_e_nome"/></label>
                                 <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ razaoSocial }" readonly>
                             </div>
 

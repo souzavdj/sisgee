@@ -104,16 +104,13 @@ public class TermoEstagioServices {
      *
      */
     public static void incluirTermoEstagio(TermoEstagio termoEstagio) {
-        System.out.println("Antes");
         GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
         PersistenceManager.getTransaction().begin();
         try {
             termoEstagioDao.incluir(termoEstagio);
             PersistenceManager.getTransaction().commit();
-            System.out.println("Depois");
             
         } catch (Exception e) {
-            System.out.println("Errou");
             e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
