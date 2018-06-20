@@ -85,6 +85,15 @@
                 return !isNaN(parseFloat(n)) && isFinite(n);
             }
             
+            function checkLetra(valor) {
+                var regra = /^[A-Za-z]+$/;
+                if (valor.match(regra)) {
+                    return true;
+                }else{
+                    return false;
+                }
+}; 
+            
 	    $('#btnBuscarMatricula').click(function(){
 	    	
 	    	if($.trim($('#matricula').val()) == ""){
@@ -107,7 +116,7 @@
                     $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_formato"/>");	        	
                     $('#myModal').modal('show');
                     return;
-                }else if(isNumber($.trim($('#matricula').val()).substring(7,10))){
+                }else if(!checkLetra($.trim($('#matricula').val()).substring(7,10))){
                     $(".dadosAluno input:not([id=matricula])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_invalida"/>");
                     $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_formato"/>");	        	
