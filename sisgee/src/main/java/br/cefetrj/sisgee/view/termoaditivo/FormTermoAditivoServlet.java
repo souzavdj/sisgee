@@ -651,7 +651,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 //Fazer log de erro data vindas do bd do termo invalidas
                 Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                 lg.error("Exception devido a Data Inválida. ", e);
-                System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
+                //System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
             }
 
             //Termo

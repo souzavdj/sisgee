@@ -110,7 +110,9 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
                     //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
+                    Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
+                    lg.error("Idioma selecionado desconhecido. ");
+                    //System.out.println("Idioma desconhecido");
                 }
 
                 if (format != null) {
@@ -118,14 +120,16 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
                     dataTermino = format.parse(dataDeTermino);
                 } else {
                     //fazer o log de erro com a internacionalização
-                    System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+                    Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
+                    lg.error("Erro ao formatar data. ");
+                    //System.out.println("Sem padrão de formatação para data, Objeto format nulo");
                 }
 
             } catch (Exception e) {
                 //fazer log de erro com a internacionalização
                 Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
                 lg.error("Exception devido a formatação da data. ", e);
-                System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                //System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
             }
             String msgComparaDatas = "";
 

@@ -351,6 +351,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         format = new SimpleDateFormat("MM/dd/yyyy");
                     } else {
                         //fazer log de erro com a internacionalização
+                        lg.error("Idioma selecionado desconhecido. ");
                         //Idioma desconhecido
                     }
 
@@ -359,6 +360,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         req.setAttribute("dataAssinatura", dataAssinatura);
                     } else {
                         //fazer o log de erro com a internacionalização
+                        lg.error("Erro ao formatar Data. ");
                         //Sem padrão de formatação para data, Objeto format nulo
                     }                    
                 } catch (Exception e) {

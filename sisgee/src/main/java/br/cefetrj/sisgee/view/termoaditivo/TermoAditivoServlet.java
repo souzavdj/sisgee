@@ -149,6 +149,7 @@ public class TermoAditivoServlet extends HttpServlet {
                 } else if (messages.getLocale().toString().equals("en_US")) {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
+
                     Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                     lg.error("Idioma desconhecido");
                 }
