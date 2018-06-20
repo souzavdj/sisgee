@@ -42,7 +42,7 @@ public class BuscaAlunoServlet extends HttpServlet {
         String nomeCampus = "";
         String idTermoEstagioAtivo = "";
         String idTermoEstagioInativo = "";
-        
+        matricula = matricula.toUpperCase();
         Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula.trim());
         if (aluno != null) {
             nome = aluno.getNome();
