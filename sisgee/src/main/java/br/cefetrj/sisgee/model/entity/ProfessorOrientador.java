@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 /**
  * Entidade que representa um Professor Orientador.
- * @author joao
+ * @author Joao
  * @since 2.0
  */
 
@@ -30,33 +30,66 @@ public class ProfessorOrientador implements Serializable {
     @OneToMany(mappedBy = "professorOrientador")
     private List<TermoEstagio> termoEstagios;
 
+      
+    /**
+     * Construtor da classe sem parametro
+     */
     public ProfessorOrientador() {
     }
 
+     /**
+     * Construtor da classe com 1 parametro, o id do professor orientador
+     * 
+     * @param idProfessorOrientador Ineteger com o id do  professor orientador
+     */
     public ProfessorOrientador(Integer idProfessorOrientador) {
         this.idProfessorOrientador = idProfessorOrientador;
     }
 
+     /**
+     * Recupera o id do professor orientador 
+     * @return Integer com o id do professor orientador 
+     */
     public Integer getIdProfessorOrientador() {
         return idProfessorOrientador;
     }
 
+    /**
+     * Alterar o id do professor orientador 
+     * @param idProfessorOrientador Integer com o id do professor orientador 
+     */
     public void setIdProfessorOrientador(Integer idProfessorOrientador) {
         this.idProfessorOrientador = idProfessorOrientador;
     }
 
+     /**
+     * Recupera o nome do professor orientador 
+     * @return String com o nome do professor orientador 
+     */
     public String getNomeProfessorOrientador() {
         return nomeProfessorOrientador;
     }
 
+     /**
+     * Alterar o nome do professor orientador 
+     * @param nomeProfessorOrientador String com o nome do professor orientador 
+     */
     public void setNomeProfessorOrientador(String nomeProfessorOrientador) {
         this.nomeProfessorOrientador = nomeProfessorOrientador;
     }
 
+     /**
+     * Recupera os termos de estágio nos quais o professor orientador está associado
+     * @return lista com os termos de estágio 
+     */
     public List<TermoEstagio> getTermoEstagios() {
         return termoEstagios;
     }
 
+     /**
+     * Alterar os termos de estágio os quais o professor orientador está associado
+     * @param termoEstagios lista com os termos de estágio 
+     */
     public void setTermoEstagios(List<TermoEstagio> termoEstagios) {
         this.termoEstagios = termoEstagios;
     }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -27,10 +23,22 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet que carrega as listas dos convenios  a vencer do banco antes de ir na pagina form_convenios_a_vencer.E ao chegar lá aparecerá a tabela com as informações desses convneios.
  * @author Andre
+ * @since 2.0
  */
 @WebServlet("/ConveniosVencerServlet")
 public class ConveniosVencerServlet extends HttpServlet {
 
+    
+     /**
+     *
+     * Metodo que recebe informações voltados para convenios a vencer
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     

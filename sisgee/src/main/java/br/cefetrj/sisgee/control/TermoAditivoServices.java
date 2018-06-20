@@ -12,11 +12,17 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
  * Serviços de TermoAditivo. Trata a lógica de negócios associada com a entidade
  * TermoAditivo.
  *
- * @author Paulo Cantuária
+ * @author Paulo Cantuária, Vinicius Souza
  * @since 1.0
  */
 public class TermoAditivoServices {
 
+     /**Serviço que busca a quantidade de termos aditivos em um determinado curso escolhido.
+     * 
+     * @author Vinicius Souza
+     * @param curso nome do curso 
+     * @return long com a quantidade de termos aditivos do curso escohido
+     */
     public static Long buscarQuantidadeDeTermosAditivosParaNomeCurso(String curso) {
         TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
         try {
@@ -29,8 +35,9 @@ public class TermoAditivoServices {
     }
     
     /**
-     * Serviço que inclui no banco de dados um termoAditivo
+     * Serviço que inclui no banco de dados um termoAditivo a partir de um DAO genérico
      *
+     * @author Paulo Cantuária
      * @param termoAditivo termoAditivo que será incluido
      */
     public static void incluirTermoAditivo(TermoEstagio termoAditivo) {
@@ -44,6 +51,12 @@ public class TermoAditivoServices {
         }
     }
     
+    /**
+     * Serviço que inclui no banco de dados um termo aditivo a partir de um termoAditivo recebido
+     *
+     * @author Vinicius Souza
+     * @param termoAditivo termoAditivo que será incluido
+     */
     public static void inserirTermoAditivo(TermoEstagio termoAditivo) {
         TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
         try {
@@ -53,6 +66,12 @@ public class TermoAditivoServices {
         }
     }
     
+    /**
+    * Recupera o maior id dos termos de estágio e retorna um Integer referente a ele
+    * 
+    * @author Vinicius Souza
+    * @return Integer com o maior id.
+    */
     public static Integer getIdMaxTermoEstagio () {
         TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
         try {

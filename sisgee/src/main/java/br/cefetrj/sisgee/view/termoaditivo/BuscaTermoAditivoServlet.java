@@ -19,7 +19,10 @@ import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.util.Collections;
 
 /**
- * Busca as informações de cada termo aditivo
+ * Servlet para busca as informações de cada termo aditivo
+ * 
+ * @author Joao
+ * @since 2.0
  */
 @WebServlet("/BuscaTermoAditivoServlet")
 public class BuscaTermoAditivoServlet extends HttpServlet {

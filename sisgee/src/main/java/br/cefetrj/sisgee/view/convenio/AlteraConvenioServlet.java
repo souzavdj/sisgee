@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -21,14 +17,23 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- *
- * @author denis
+ * Servlet para alterar dados do convenio
+ * @author Denis
  */
 @WebServlet("/AlteraConvenioServlet")
 public class AlteraConvenioServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
 
+     /**
+     *
+     * Metodo que recebe informações do formulario de alteração de convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

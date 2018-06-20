@@ -13,17 +13,28 @@ import javax.persistence.TypedQuery;
 /**
  * Implementacao do padrao DAO para pesquisa especifica do Termo Estagio
  *
- * @author Marcos Eduardo
+ * @author Denis Crispe, Vinicius Souza
  * @since 1.0
  *
  */
 
 public class TermoEstagioDAO extends GenericDAO<TermoEstagio>{
     
+     /**
+     * Construtor da classe que chama o super da classe mae, passando os 2 parametro
+     */
     public TermoEstagioDAO() {
             super(TermoEstagio.class, PersistenceManager.getEntityManager());
     }
     
+    
+    /**Serviço que busca, a partir de 2 parametros, os nomes dos cursos de termos de relatórios consolidados a partir de um determinado intervalo de datas.
+     * 
+     * @author Vinicius Souza
+     * @param inicio Date com a data limite inicial do intervalo
+     * @param termino Date com a data limite final do intervalo
+     * @return lista com os nomes dos cursos 
+     */
     public List<String> buscarTermosRelatorioConsolidadoCursos(Date inicio, Date termino) {
         Query query = manager.createNativeQuery("select al.nomecurso "
                 + "from termoestagio as te "
@@ -40,6 +51,14 @@ public class TermoEstagioDAO extends GenericDAO<TermoEstagio>{
         return cursos;
     }
     
+     /**Serviço que busca, a partir de 3 parametros, os nomes dos cursos de termos de relatórios consolidados a partir de um determinado intervalo de datas.
+     * 
+     * @author Vinicius Souza
+     * @param obrigatorio boolean com a informação se é obrigatorio ou não.
+     * @param inicio Date com a data limite inicial do intervalo
+     * @param termino Date com a data limite final do intervalo
+     * @return lista com os nomes dos cursos 
+     */
     public List<String> buscarTermosRelatorioConsolidadoCursos(boolean obrigatorio, Date inicio, Date termino) {
         Query query = manager.createNativeQuery("select al.nomecurso "
                 + "from termoestagio as te "
@@ -58,6 +77,13 @@ public class TermoEstagioDAO extends GenericDAO<TermoEstagio>{
         return cursos;
     }
     
+    
+    /**
+     * Serviço que busca a quantidade de termos de estágio de determinado curso
+     * 
+     * @param curso String nome do curso para a busca 
+     * @return Long com a quantidade de termos de estágio no curso escolhido
+     */
     public Long buscarQuantidadeDeTermosEstagioParaNomeCurso (String curso) {
         
         String consulta = "SELECT COUNT(te) FROM TermoEstagio te "
@@ -71,6 +97,13 @@ public class TermoEstagioDAO extends GenericDAO<TermoEstagio>{
         return qtdTermosEstagio;
     }
     
+    /**
+     * Serviço que busca a quantidade de Termos Estágios rescindidos, a partir do nome do curso
+     * 
+     * @author Denis Crispe
+     * @param curso String nome do curso para a busca 
+     * @return Long com a quantidade de termos de estágio rescindidos
+     */
     public Long buscarQuantidadeDeTermosEstagioRescindidoParaNomeCurso (String curso) {
         
         String consulta = "SELECT COUNT(te) FROM TermoEstagio te "

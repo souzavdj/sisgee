@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.cefetrj.sisgee.view.convenio;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -16,18 +11,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Servlet para recuperar informações do Convenio 
+ * 
  * @author denis
+ * @since 2.0
  */
 @WebServlet("/InfoConvenioServlet")
 public class InfoConvenioServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     
+    
+     /**
+     * Metodo doGet para fazer o RequestDispatcher para o form de renovar convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/form_renovar_convenio_infos.jsp").forward(req, resp);
     }
     
+     /* Metodo doPost para receber a requisição do convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
