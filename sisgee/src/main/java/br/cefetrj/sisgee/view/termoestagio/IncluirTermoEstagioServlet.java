@@ -53,7 +53,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
                 boolean eAtivo = true;
                 Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));	
 		Convenio convenio = new Convenio((Integer)request.getAttribute("idConvenio"));
-                ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
+                ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessorOrientador"));
 		
                 //Esta presente quando o tipo for juridica e se agente de integração for sim
                 String agenciada = (String)request.getAttribute("agenciada");
@@ -67,8 +67,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		//Boolean hasProfessor = (Boolean)request.getAttribute("hasProfessor");
 		
 		
-                System.out.println("Entrou no incluir termo estagio servlet");
-		
+                
 		
 		convenio = ConvenioServices.buscarConvenio(convenio);
                 aluno = AlunoServices.buscarAluno(aluno);
@@ -79,8 +78,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
 				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, nomesupervisor, cargosupervisor, null, eAtivo, 
 				 aluno,  convenio,  professorOrientador,agenciada);
-		System.out.println("Foi criado objeto termo Estagio");
-                String msg = "";
+		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			
