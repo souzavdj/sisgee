@@ -5,6 +5,7 @@ import java.util.List;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
+import org.apache.log4j.Logger;
 
 /**
  * Serviços de Professores. Trata a lógica de negócios
@@ -43,7 +44,9 @@ public class ProfessorOrientadorServices {
 			professorOrientadorDao.incluir(professorOrientador);
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
-			PersistenceManager.getTransaction().rollback();
+                    Logger lg = Logger.getLogger(ProfessorOrientadorServices.class);
+                    lg.error("Exception ao tentar incluir Professor Orientador. ", e);
+                    PersistenceManager.getTransaction().rollback();
 		}
 	}
 	

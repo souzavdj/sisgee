@@ -18,9 +18,11 @@ import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.termoaditivo.TermoAditivoServlet;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.TermoEstagioUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet implementation class FormTermoRescisaoServlet
@@ -116,6 +118,8 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                         }
                     }catch (Exception e) {
                         //Fazer log de erro data vindas do bd do termo invalidas
+                        Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
+                        lg.error("Exception devido a Data Inválida. ", e);
                         System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
                     }
                     if (termoEstagio != null) {
@@ -162,6 +166,8 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                     
                 } catch (Exception e) {
                     //TODO trocar saída de console por Log
+                    Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
+                    lg.error("Exception devido a Data Inválida. ", e);
                     System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
                     isValid = false;
                 }
@@ -211,7 +217,8 @@ public class FormTermoRescisaoServlet extends HttpServlet {
             }catch (Exception e) {
                 msg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_ocorreuErro");
                 request.setAttribute("msg", msg);
-                //lg.error("Exception ao tentar inserir o Termo de Estágio", e);
+                Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
+                lg.error("Exception ao tentar inserir o Termo de Estágio", e);
                 request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
             }
         } else {            

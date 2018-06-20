@@ -7,6 +7,7 @@ import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.dao.TermoAditivoDAO;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import org.apache.log4j.Logger;
 
 /**
  * Serviços de TermoAditivo. Trata a lógica de negócios associada com a entidade
@@ -29,6 +30,8 @@ public class TermoAditivoServices {
             Long qtdTermosEstagioAditivo = termoAditivoDAO.buscarQuantidadeDeTermosAditivosParaNomeCurso(curso);
             return qtdTermosEstagioAditivo;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoAditivoServices.class);
+            lg.error("Exception ao tentar buscar quantidaade de Termos Aditivos pelo nome do Curso. ", e);
             return new Long (0);
             
         }
@@ -47,6 +50,8 @@ public class TermoAditivoServices {
             termoAditivoDao.incluir(termoAditivo);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoAditivoServices.class);
+            lg.error("Exception ao tentar incluir Termo Aditivo. ", e);
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -62,7 +67,8 @@ public class TermoAditivoServices {
         try {
             return termoAditivoDAO.getMaxIdTermoEstagio();
         }catch (Exception e) {
-            //Log de erro
+            Logger lg = Logger.getLogger(TermoAditivoServices.class);
+            lg.error("Exception ao tentar buscar ID maximo de Termo Aditivo. ", e);
             return 0;
         } 
     }
