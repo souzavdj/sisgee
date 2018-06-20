@@ -65,10 +65,10 @@ public class IncluirTermoAditivoServlet extends HttpServlet {
 			request.getRequestDispatcher("FormTermoAditivoServlet").forward(request, response);
 			
 			//TODO remover saída do console
-			System.out.println(msgOcorreuErro);
+			
 		}
 		
-		System.out.println(registroAditivoConcluido);
+		
 		
 	}
 

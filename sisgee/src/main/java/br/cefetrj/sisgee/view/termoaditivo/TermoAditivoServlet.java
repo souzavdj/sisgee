@@ -119,7 +119,6 @@ public class TermoAditivoServlet extends HttpServlet {
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             UF[] uf = UF.asList();
             if (!termoEstagio.getTermosAditivos().isEmpty()) {
-                System.out.println("IdTermo: " + termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1).getIdTermoEstagio());
                 request.setAttribute("termoEstagio", termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1));
                 termoEstagio = termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1);
             }else {
@@ -159,20 +158,18 @@ public class TermoAditivoServlet extends HttpServlet {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
                     //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
+                    
                 }
 
                 if (format != null) {
                     //Datas
                     SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
-                    System.out.println("Data de inicio: " + termoEstagio.getDataInicioTermoEstagio().toString());
                     request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
-                    System.out.println("Data de inicio formatada: "+ format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
                     request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
                 }
             }catch (Exception e) {
                 //Fazer log de erro data vindas do bd do termo invalidas
-                System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
+                
             }
             
             //Termo
