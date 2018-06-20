@@ -40,10 +40,10 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
      *
      * Metodo que recebe informações para busca de relatorio conveniado
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request é a requisição que o servidor recebe do navegador
+     * @param response é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
      */
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

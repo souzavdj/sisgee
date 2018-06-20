@@ -106,6 +106,7 @@ public class ItemRelatorio {
     
     /** Serviço que recupera o formato da data do Relatorio
     * 
+    * @param date é a data que será formatada
     * @return Date com o formato da data d
     */
     public static String formateDate (Date date) {

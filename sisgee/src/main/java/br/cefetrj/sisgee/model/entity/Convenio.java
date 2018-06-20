@@ -14,11 +14,9 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Date;
-import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -39,11 +37,6 @@ public class Convenio implements Serializable {
 
     @Column(length = 10, nullable = false)
     private String numeroConvenio;
-
-    /*@JsonbTransient
-    @ManyToOne()
-    @JoinColumn(nullable = false)
-    private Empresa empresa;*/
     
     @JsonbTransient
     @OneToMany(mappedBy = "convenio", fetch = FetchType.LAZY)
@@ -318,7 +311,7 @@ public class Convenio implements Serializable {
 
      /**
      * Alterar o telefone do conveniado
-     * @paramtelefone String com o telefone
+     * @param telefone String com o telefone
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
@@ -389,6 +382,4 @@ public class Convenio implements Serializable {
         return jobj;
     }
 
-    
-   
 }

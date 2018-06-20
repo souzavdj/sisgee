@@ -111,7 +111,6 @@ public class TermoAditivoServlet extends HttpServlet {
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             UF[] uf = UF.asList();
             if (!termoEstagio.getTermosAditivos().isEmpty()) {
-                System.out.println("IdTermo: " + termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1).getIdTermoEstagio());
                 request.setAttribute("termoEstagio", termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1));
                 termoEstagio = termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1);
             }else {
@@ -164,7 +163,6 @@ public class TermoAditivoServlet extends HttpServlet {
                     lg.error("Sem padrão de formatação para data, Objeto format nulo");
                 } 
             }catch (Exception e) {
-                //Fazer log de erro data vindas do bd do termo invalidas
                 Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                 lg.error("Exception devido a Data Inválida. ", e);
             }

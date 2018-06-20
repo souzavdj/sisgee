@@ -40,10 +40,10 @@ public class FormTermoEstagioServlet extends HttpServlet {
 	
 	/**
          * Método doGet: carrega as listas necessárias para seleção dos atributos de relacionamento e redireciona para a tela de Registro de Termo de Estágio
-         * @param request
-         * @param response
-         * @throws ServletException
-         * @throws IOException 
+         * @param request é a requisição que o servidor recebe do navegador
+         * @param response é a resposta que o servidor envia ao navegador
+         * @throws ServletException exceção do Servlet
+         * @throws IOException exceção de IO
          */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -59,10 +59,10 @@ public class FormTermoEstagioServlet extends HttpServlet {
          * Método doPost: Valida os campos da tela de Registro de Termo de Estágio. 
 	 * Retorna para a tela caso não passe em alguma validação 
 	 * ou encaminha para o servlet de inclusão de Termo.
-         * @param request
-         * @param response
-         * @throws ServletException
-         * @throws IOException 
+         * @param request é a requisição que o servidor recebe do navegador
+         * @param response é a resposta que o servidor envia ao navegador
+         * @throws ServletException exceção do Servlet
+         * @throws IOException exceção de IO
          */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -106,13 +106,20 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		if (dataInicioMsg.trim().isEmpty()) {
 			dataInicioMsg = ValidaUtils.validaDate(campo, dataInicioTermoEstagio);
 			if (dataInicioMsg.trim().isEmpty()) {	
-                            //TODO Fazer o data inicio e fim aparecer no cadastro quando o usuario errar um campo distinto
-				try {
-					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-					dataInicio = format.parse(dataInicioTermoEstagio);
-					request.setAttribute("dataInicioTermoEstagio", dataInicio);
-				} catch (Exception e) {
-					Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                           	try{
+                                    SimpleDateFormat format=null;
+                                    if (messages.getLocale().toString().equals("pt_BR")) {
+                                        format = new SimpleDateFormat("dd/MM/yyyy");
+                                    }    
+                                    if (messages.getLocale().toString().equals("en_US")) {
+                                        format = new SimpleDateFormat("MM/dd/yyyy");
+                                    }
+                                    if (format != null) {
+                                        dataInicio = format.parse(dataInicioTermoEstagio);
+                                        request.setAttribute("dataInicioTermoEstagio", dataInicioTermoEstagio);
+                                    }
+                                }catch (Exception e) {    
+                                        Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
                                         lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils :",e);
 					isValid = false;
 				}
@@ -140,22 +147,27 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		campo = "Data de Término";
                 String dataFimMsg="";
                 
-                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataInicioTermoEstagio);
+                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataFimTermoEstagio);
 		if (dataFimMsg.trim().isEmpty()) {	
 			dataFimMsg = ValidaUtils.validaDate(campo , dataFimTermoEstagio);
 			if (dataFimMsg.trim().isEmpty()) {
-				try {
-                                        //TODO Fazer o data inicio e fim aparecer no cadastro quando o usuario errar um campo distinto
-					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				try{
+                                    SimpleDateFormat format=null;
+                                    if (messages.getLocale().toString().equals("pt_BR")) {
+                                        format = new SimpleDateFormat("dd/MM/yyyy");
+                                    }    
+                                    if (messages.getLocale().toString().equals("en_US")) {
+                                        format = new SimpleDateFormat("MM/dd/yyyy");
+                                    }
+                                    if (format != null) {
                                         dataFim = format.parse(dataFimTermoEstagio);
-					request.setAttribute("dataFimTermoEstagio", dataFim);
-					
-				} catch (Exception e) {
-					
+                                        request.setAttribute("dataFimTermoEstagio", dataFimTermoEstagio);
+                                    }
+                                }catch (Exception e) {    
                                         Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                                        lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils : ",e);
-                                        isValid = false;
-                                }
+                                        lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils :",e);
+					isValid = false;
+				}
 			} else {
 				dataFimMsg = messages.getString(dataFimMsg);
 				request.setAttribute("dataFimMsg", dataFimMsg);
@@ -179,8 +191,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
                  * TODO Resolver o periodo caso as datas estejam no formato em ingles
 		 */
 		String periodoMsg = "";
-                if(!(dataInicioTermoEstagio == null || dataInicioTermoEstagio.isEmpty())){
-                    if(!(dataFimTermoEstagio == null || dataFimTermoEstagio.isEmpty())) {
+                if((dataInicio != null) && (dataFim!=null)){
                             periodoMsg = ValidaUtils.validaDatas(dataInicio, dataFim);
                             if(!periodoMsg.trim().isEmpty()) {
                                     periodoMsg = messages.getString(periodoMsg);
@@ -191,8 +202,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
                                     lg.info(periodoMsg);
 
                             }	
-                    }	
-                }    
+                    	
+                }   
 		/**
 		 * Validação da carga horária usando os métodos da Classe ValidaUtils
 		 * Campo obrigatório e valor menor que 255 (No banco), valor menor que 24, por ser horas diárias.

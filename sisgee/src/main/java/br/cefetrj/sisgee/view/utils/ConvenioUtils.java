@@ -278,9 +278,9 @@ public class ConvenioUtils {
     /**
      * Recupera a data no formato correto
      *
-     * @param date Date com a data a ser formatada
-     * @throws ParseException
-     * @return Date com a data a formatada
+     *  @param date Date com a data a ser formatada 
+     *  @throws ParseException exceção de conversão invalida
+     *  @return Date com a data a formatada 
      */
     public static Date formataDate(Date date) throws ParseException {
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");

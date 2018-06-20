@@ -104,6 +104,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
         String idTermoEstagio = request.getParameter("idTermoEstagio");
         String idAluno = request.getParameter("idAluno");
         String idConvenio = request.getParameter("idConvenio");
+
         TermoEstagio termoEstagio = null;
         Integer idTermo = null;
 
@@ -217,14 +218,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("valorBolsaMsg", valorBolsaMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(valorBolsaMsg);
+                        
                     }
                 } else {
                     valorBolsaMsg = messages.getString(valorBolsaMsg);
                     request.setAttribute("valorBolsaMsg", valorBolsaMsg);
                     isValid = false;
                     //TODO Fazer log
-                    System.out.println(valorBolsaMsg);
+                    
                 }
             }
 
@@ -309,14 +310,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                             idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_professores_vazia");
                             isValid = false;
                             //TODO Fazer log
-                            System.out.println(idProfessorMsg);
+                            
                         }
                     } else {
                         idProfessorMsg = messages.getString(idProfessorMsg);
                         request.setAttribute("idProfessorMsg", idProfessorMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(idProfessorMsg);
+                        
                     }
                 }
                 request.setAttribute("hasProfessor", hasProfessor);
@@ -346,16 +347,16 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("enderecoMsg", enderecoMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(enderecoMsg);
+                        
                     }
                 } else {
                     enderecoMsg = messages.getString(enderecoMsg);
                     request.setAttribute("enderecoMsg", enderecoMsg);
                     isValid = false;
                     //TODO Fazer log
-                    System.out.println(enderecoMsg);
+                    
                 }
-
+                
                 /**
                  * Validação do complemento do endereço do TermoEstagio usando
                  * os métodos da Classe ValidaUtils. Campo opcional e tamanho
@@ -398,14 +399,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(bairroEnderecoMsg);
+                        
                     }
                 } else {
                     bairroEnderecoMsg = messages.getString(bairroEnderecoMsg);
                     request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
                     isValid = false;
                     //TODO Fazer log
-                    System.out.println(bairroEnderecoMsg);
+                    
                 }
 
                 /**
@@ -427,14 +428,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(cepEnderecoMsg);
+                        
                     }
                 } else {
                     cepEnderecoMsg = messages.getString(cepEnderecoMsg);
                     request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
                     isValid = false;
                     //TODO Fazer log
-                    System.out.println(cepEnderecoMsg);
+                    
                 }
 
                 /**
@@ -456,14 +457,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("cidadeEnderecoMsg", cidadeEnderecoMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(cidadeEnderecoMsg);
+                        
                     }
                 } else {
                     cidadeEnderecoMsg = messages.getString(cidadeEnderecoMsg);
                     request.setAttribute("cidadeEnderecoMsg", cidadeEnderecoMsg);
                     isValid = false;
                     //TODO Fazer log
-                    System.out.println(cidadeEnderecoMsg);
+                    
                 }
 
                 /**
@@ -483,14 +484,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("estadoEnderecoMsg", estadoEnderecoMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(estadoEnderecoMsg);
+                        
                     }
                 } else {
                     estadoEnderecoMsg = messages.getString(estadoEnderecoMsg);
                     request.setAttribute("estadoEnderecoMsg", estadoEnderecoMsg);
                     isValid = false;
                     //TODO Fazer log
-                    System.out.println(estadoEnderecoMsg);
+                   
                 }
             }
             if (updSupervisor != null && !updSupervisor.trim().isEmpty()) {
@@ -646,15 +647,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
                     //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
+                    
                 }
 
                 if (format != null) {
                     //Datas
                     SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
-                    System.out.println("Data de inicio: " + termoEstagio.getDataInicioTermoEstagio().toString());
                     request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
-                    System.out.println("Data de inicio formatada: " + format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
                     request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
                 }
             } catch (Exception e) {
