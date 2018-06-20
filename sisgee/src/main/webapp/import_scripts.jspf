@@ -90,6 +90,14 @@
                     $('#myModal').modal('show');
                     return;
 	    	}
+                
+                if($.trim($('#matricula').val()).length !=10){
+                    $(".dadosAluno input:not([id=matricula])").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_invalida"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_formato"/>");	        	
+                    $('#myModal').modal('show');
+                    return;
+                }                
 	    	
 	    	var result = null;
                 
