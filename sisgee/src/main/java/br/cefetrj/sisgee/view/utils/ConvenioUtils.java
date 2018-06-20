@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.cefetrj.sisgee.view.utils;
 
 import br.cefetrj.sisgee.control.ConvenioServices;
@@ -12,12 +7,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.log4j.Logger;
 
-/**
- *
- * @author vinicius
+/* Class Utils associada ao Convenio, com métodos focados ao tratamaneto dos atributos do convenio
+
+ * @author Vinicius Souza
+ * @since 2.0
  */
 public class ConvenioUtils {
 
+    /**
+     * Recupera o cnpj formatado da empresa
+     *
+     * @param cnpjEmpresa String com o cnpj a ser formatado
+     *
+     * @return String com o cnpj passado formatado
+     */
     public static String getCnpjEmpresaFormatado(String cnpjEmpresa) {
         if (cnpjEmpresa != null && cnpjEmpresa.trim().length() > 0) {
             StringBuilder cnpjFormatado = new StringBuilder();
@@ -51,6 +54,13 @@ public class ConvenioUtils {
         }
     }
 
+    /**
+     * Recupera o cpf formatado da empresa
+     *
+     * @param cpf String com o cpf a ser formatado
+     *
+     * @return String com o cpf passado formatado
+     */
     public static String getCpfFormatado(String cpf) {
         if (cpf != null && cpf.trim().length() > 0) {
             StringBuilder cpfFormatado = new StringBuilder();
@@ -80,6 +90,12 @@ public class ConvenioUtils {
         }
     }
 
+    /**
+     * Recupera o numero de convenio formatado de forma diferente da empresa
+     *
+     * @param numeroConvenio String com o numero de convenio a ser formatado
+     * @return String com o numero de convenio passado formatado
+     */
     public static String getNumeroConvenioFormatado2(String numeroConvenio) {
         if (numeroConvenio != null && numeroConvenio.trim().length() > 0) {
             StringBuilder numeroConvenioFormatado = new StringBuilder();
@@ -106,6 +122,13 @@ public class ConvenioUtils {
         }
     }
 
+    /**
+     * Serviço que gera um numero de convenio a partir da data de assinatura
+     *
+     * @param dataAssinatura Date com a data de assinatura do convenio
+     *
+     * @return String com o numero de convenio
+     */
     public static String gerarNumeroConvenio(Date dataAssinatura) {
         String numeroConvenio;
         SimpleDateFormat ano = new SimpleDateFormat("yyyy");
@@ -114,6 +137,12 @@ public class ConvenioUtils {
         return numeroConvenio;
     }
 
+    /**
+     * Recupera o numero de convenio formatado da empresa
+     *
+     * @param num String com o numero de convenio a ser formatado
+     * @return String com o numero de convenio passado formatado
+     */
     public static String getNumeroConvenioFormatado(String num) {
         if (num != null && num.trim().length() > 0) {
             String numConvenio = num;
@@ -133,6 +162,12 @@ public class ConvenioUtils {
         }
     }
 
+    /**
+     * Recupera o numero de telefone formatado da empresa
+     *
+     * @param telefone String com o numero de telefone a ser formatado
+     * @return String com o numero de telefone passado formatado
+     */
     public static String getNumeroTelefoneFormatado(String telefone) {
         if (telefone != null && telefone.trim().length() > 0) {
             StringBuilder telefoneFormatado = new StringBuilder();
@@ -172,7 +207,7 @@ public class ConvenioUtils {
                         telefoneFormatado.append(telefone.charAt(10));
                         telefoneFormatado.append(telefone.charAt(11));
                         break;
-                        
+
                     case 10:
                         telefoneFormatado.append("(");
                         telefoneFormatado.append(telefone.charAt(0));
@@ -189,7 +224,7 @@ public class ConvenioUtils {
                         telefoneFormatado.append(telefone.charAt(8));
                         telefoneFormatado.append(telefone.charAt(9));
                         break;
-                        
+
                     case 11:
                         telefoneFormatado.append("(");
                         telefoneFormatado.append(telefone.charAt(0));
@@ -207,11 +242,11 @@ public class ConvenioUtils {
                         telefoneFormatado.append(telefone.charAt(9));
                         telefoneFormatado.append(telefone.charAt(10));
                         break;
-                        
+
                     default:
                         System.out.println("Telefone num formato desconhecido");
                 }
-                
+
             } catch (IndexOutOfBoundsException e) {
                 Logger lg = Logger.getLogger(Convenio.class);
                 lg.error("telefone com mais de 15 caracteres. telefone = " + telefone, e);
@@ -223,6 +258,14 @@ public class ConvenioUtils {
         }
     }
 
+    /**
+     * Serviço que gera um numero de convenio a partir da data de assinatura e
+     * de um Convenio
+     *
+     * @param dataAssinatura Date com a data de assinatura do convenio
+     * @param c Convenio a ser associado
+     * @return String com o numero de convenio
+     */
     public static String gerarNumeroConvenioAtt(Date dataAssinatura, Convenio c) {
         String numeroConvenio;
         String num = c.getNumeroConvenio();
@@ -232,6 +275,13 @@ public class ConvenioUtils {
         return numeroConvenio;
     }
 
+    /**
+     * Recupera a data no formato correto
+     *
+     *  @param date Date com a data a ser formatada 
+     *  @throws ParseException exceção de conversão invalida
+     *  @return Date com a data a formatada 
+     */
     public static Date formataDate(Date date) throws ParseException {
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
         String result = out.format(date);
@@ -239,6 +289,12 @@ public class ConvenioUtils {
         return d;
     }
 
+    /**
+     * Recupera a a vigencia do convenio
+     *
+     * @param d Date com a data a ser formatada
+     * @return String com a data a formatada
+     */
     public static String getVigencia(Date d) {
         String presente = "";
         SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
@@ -261,6 +317,12 @@ public class ConvenioUtils {
 
     }
 
+    /**
+     * Recupera o id formatado do conveniado
+     *
+     * @param id String com o id a ser formatado
+     * @return String com a data a formatada
+     */
     public static String getIdConveniadoFormatado(String id) {
         if (id.length() == 11) {
             return getCpfFormatado(id);

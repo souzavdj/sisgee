@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Servlet implementation class FormTermoRescisaoServlet
+ * 
  */
 @WebServlet("/FormTermoRescisaoServlet")
 public class FormTermoRescisaoServlet extends HttpServlet {
@@ -39,8 +40,9 @@ public class FormTermoRescisaoServlet extends HttpServlet {
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
+     * Metodo que registra a rescisão de um termo estagio/aditivo e guarda essa informação no banco
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -208,6 +210,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
             }else {
                 termoAditivo.setTermoEstagioAditivo(termoAtual.getTermoEstagioAditivo());
             }
+            termoAditivo.setIdTermoEstagio(TermoAditivoServices.getIdMaxTermoEstagio()+1);
             try {
                 TermoAditivoServices.incluirTermoAditivo(termoAditivo);
                 msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.registroSucesso");

@@ -36,6 +36,15 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
         super();
     }
 
+     /**
+     *
+     * Metodo que recebe informações para busca de relatorio conveniado
+     *
+     * @param request é a requisição que o servidor recebe do navegador
+     * @param response é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
+     */
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Date dataInicio = (Date) request.getAttribute("dataInicio");

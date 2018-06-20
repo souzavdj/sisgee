@@ -28,6 +28,17 @@ public class IncluirCadastroConvenioServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    
+     /**
+     *
+     * Metodo que recebe informações para incluir convenio
+     *
+     * @param req é a requisição que o servidor recebe do navegador
+     * @param resp é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
+     */
+    
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

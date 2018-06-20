@@ -674,7 +674,11 @@ public class TermoEstagio implements Serializable, Comparable<TermoEstagio> {
 
     @Override
     public int compareTo(TermoEstagio o) {
-        return this.dataInicioTermoEstagio.compareTo(o.dataInicioTermoEstagio);
+        if (!this.dataInicioTermoEstagio.equals(o.dataInicioTermoEstagio)) {
+            return this.dataInicioTermoEstagio.compareTo(o.dataInicioTermoEstagio);
+        }else {
+            return this.idTermoEstagio.compareTo(o.idTermoEstagio);
+        }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetrj.sisgee.view.utils;
 
 import br.cefetrj.sisgee.model.entity.Convenio;
@@ -12,11 +8,19 @@ import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 
-/**
+/** Class Utils associada ao TermoEstagio, com métodos focados ao tratamaneto dos atributos do termo de estagio
  *
  * @author vinicius
  */
 public class TermoEstagioUtils {
+    
+     /** Recupera a vigencia de convenio a partir de um intervalos de datas
+     * 
+     *  @param inicio Date com a data limite inferior do intervalo 
+     *  @param dfinal Date com a data limite final do intervalo 
+     * 
+     *  @return String com vigencia do termo
+     */
     public static String getVigencia(Date inicio, Date dfinal){
         String ini="";
         String fim="";
@@ -43,6 +47,12 @@ public class TermoEstagioUtils {
         
     }
     
+     /** Recupera a informação de termo estágio ativo
+     * 
+     *  @param termos List de TermoEstagio  
+     * 
+     *  @return String com o id do termo ativo
+     */
     public static String temTermoEstagioAtivo(List<TermoEstagio> termos) {
         String idTermoEstagioAtivo = "";
         int pos [] = new int[termos.size()];
@@ -81,5 +91,34 @@ public class TermoEstagioUtils {
             return null;
         }
         return null;
+    }
+    
+    /** Recupera o cep formatado do Termo
+    *   @param cep String com o cep a ser formatado 
+    * 
+    *   @return String com o cep passado formatado
+    */
+    public static String getCepFormatado(String cep) {
+        if (cep != null && cep.trim().length() > 0) {
+            StringBuilder cepFormatado = new StringBuilder();
+            try {
+                cepFormatado.append(cep.charAt(0));
+                cepFormatado.append(cep.charAt(1));
+                cepFormatado.append(cep.charAt(2));
+                cepFormatado.append(cep.charAt(3));
+                cepFormatado.append(cep.charAt(4));
+                cepFormatado.append("-");
+                cepFormatado.append(cep.charAt(5));
+                cepFormatado.append(cep.charAt(6));
+                cepFormatado.append(cep.charAt(7));
+            } catch (IndexOutOfBoundsException e) {
+                Logger lg = Logger.getLogger(TermoEstagio.class);
+                lg.error("CEP com menos de 8 caracteres. CEP = " + cep, e);
+                return cep;
+            }
+            return cepFormatado.toString();
+        } else {
+            return null;
+        }
     }
 }

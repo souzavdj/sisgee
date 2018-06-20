@@ -16,11 +16,21 @@ public class ItemRelatorio {
     private int qntTermoAditivo;
     private int qntRescReg;
 
+    
+    /** Construtor da classe com 1 parametro
+    * @param nomeCurso String com o nome do curso
+    */
     public ItemRelatorio(String nomeCurso) {
         super();
         this.nomeCurso = nomeCurso;
     }
 
+     
+    /** Construtor da classe com 3 parametrs
+    * @param  nomeCurso String com o nome do curso
+    * @param qntTermoEstagio int com a quantidade de termo estagio
+    * @param qntRescReg int com a quantidade de MUDAR
+    */
     public ItemRelatorio(String nomeCurso, int qntTermoEstagio, int qntRescReg) {
         super();
         this.nomeCurso = nomeCurso;
@@ -28,38 +38,77 @@ public class ItemRelatorio {
         this.qntRescReg = qntRescReg;
     }
 
+    /** Serviço que recupera o nome do curso
+    * 
+    * @return String com o nome
+    */
     public String getNomeCurso() {
         return nomeCurso;
     }
 
+    /** Serviço que atribui o nome do curso
+    * 
+    * @param nomeCurso String com o nome
+    */
     public void setNomeCurso(String nomeCurso) {
         this.nomeCurso = nomeCurso;
     }
 
+    
+    /** Serviço que recupera a quantidade de termos estagio
+    * 
+    * @return int com a quantidade
+    */
     public int getQntTermoEstagio() {
         return qntTermoEstagio;
     }
 
+    /** Serviço que atribui a quantidade de termos estagio
+    * 
+    * @param qntTermoEstagio int com quantidade
+    */
     public void setQntTermoEstagio(int qntTermoEstagio) {
         this.qntTermoEstagio = qntTermoEstagio;
     }
 
+    /** Serviço que recupera a quantidade de termos aditivios
+    * 
+    * @return int com a quantidade
+    */
     public int getQntTermoAditivo() {
         return qntTermoAditivo;
     }
 
+    /** Serviço que atribui a quantidade de termos aditivios
+    * 
+    * @param qntTermoAditivo int com quantidade
+    */
     public void setQntTermoAditivo(int qntTermoAditivo) {
         this.qntTermoAditivo = qntTermoAditivo;
     }
 
+    /** Serviço que recupera a quantidade de MUDAR
+    * 
+    * @return int com quantidade
+    */
     public int getQntRescReg() {
         return qntRescReg;
     }
 
+    
+    /** Serviço que atribui a quantidade de MUDAR
+    * 
+    * @param qntRescReg int com quantidade
+    */
     public void setQntRescReg(int qntRescReg) {
         this.qntRescReg = qntRescReg;
     }
     
+    /** Serviço que recupera o formato da data do Relatorio
+    * 
+    * @param date é a data que será formatada
+    * @return Date com o formato da data d
+    */
     public static String formateDate (Date date) {
         SimpleDateFormat ano = new SimpleDateFormat("yyyy");
         SimpleDateFormat mes = new SimpleDateFormat("MM");

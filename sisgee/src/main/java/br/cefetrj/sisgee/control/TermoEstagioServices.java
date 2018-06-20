@@ -7,8 +7,6 @@ import java.util.List;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.dao.TermoEstagioDAO;
-import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import org.apache.log4j.Logger;
 
@@ -155,19 +153,15 @@ public class TermoEstagioServices {
      * @param termoEstagio O Termo Estagio a ser inserido, do tipo TermoEstagio.
      */
     public static void incluirTermoEstagio(TermoEstagio termoEstagio) {
-        System.out.println("Antes");
         GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
         PersistenceManager.getTransaction().begin();
         try {
             termoEstagioDao.incluir(termoEstagio);
             PersistenceManager.getTransaction().commit();
-            System.out.println("Depois");
             
         } catch (Exception e) {
-            System.out.println("Errou");
             Logger lg = Logger.getLogger(TermoEstagioServices.class);
             lg.error("Exception ao tentar icluir Termos Estagio. ", e);
-            e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
 

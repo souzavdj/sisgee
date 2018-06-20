@@ -96,7 +96,7 @@
 
                             </div>
                             <div class="form-group col-md-6">
-                            <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nome"/></label>
+                            <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial_e_nome"/></label>
                                 <div class="input-group">
                                     <input type="hidden" id="idConvenio" name="idConvenio" value="${ idConvenio }">
                                     <input type="text" maxlength="100" class="form-control infoConvenio ${ not empty idConvenioMsg ? 'is-invalid': 'is-valid' } ${ not empty nomeConvenioMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_convenio.placeholder_nome_convenio"/>" id="nomeConvenio" name="nomeConvenio" value="${nomeConvenio }">
@@ -168,11 +168,11 @@
                         </div>
                         <div class="form-row">
                            <div class="form-group col-md-6">
-                               <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj"/></label>
+                               <label for="cpf_cnpj"><fmt:message key = "br.cefetrj.sisgee.resources.form.cnpj_e_Cpf"/></label>
                                 <input type="text" class="form-control" id="cpf_cnpj"  name="cpf_cnpj" value="${ CpfCnpj }" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial"/></label>
+                                <label for="razaoSocial"><fmt:message key = "br.cefetrj.sisgee.resources.form.razaoSocial_e_nome"/></label>
                                 <input type="text" class="form-control" id="razaoSocial"  name="razaoSocial" value="${ razaoSocial }" readonly>
                             </div>
 
@@ -278,7 +278,7 @@
                                     <c:otherwise>
                                         <option value="" selected>---</option>
                                         <c:forEach items="${ uf }" var="uf">
-                                            <option value="${ uf }">${ uf }</option>
+                                            <option value="${ uf }" ${uf eq estadoEnderecoTermoEstagio ? "selected": ""}>${ uf }</option>
                                         </c:forEach>
                                     </c:otherwise>
                                 </c:choose>							
@@ -350,7 +350,7 @@
                                 <c:otherwise>
                                     <option value="" selected>---</option>
                                     <c:forEach items="${ professores }" var="professor">
-                                        <option value="${ professor.idProfessorOrientador }">${ professor.nomeProfessorOrientador }</option>
+                                        <option value="${ professor.idProfessorOrientador }" ${professor.idProfessorOrientador eq idProfessorOrientador ? "selected": ""}>${ professor.nomeProfessorOrientador }</option>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>				
@@ -392,7 +392,7 @@
                 <button type="submit" class="btn btn-primary" ${ isVisualizacao eq true ? 'disabled' :'' }><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
                 <c:choose>
                     <c:when test="${ not empty termoEstagio }">
-                        <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'form_termo_aditivo.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+                        <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'form_consultar_termo.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
                     </c:when>
                     <c:otherwise>
                         <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'"><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
@@ -446,9 +446,7 @@
 
 	    });	  
 	    $('.btnBuscarConvenio').click(function(){
-                console.log("Entrou na funcao");
-	    	if(($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConvenio').val()) == "")){
-                    console.log("Os dois estão vazios");
+                if(($.trim($('#numeroConvenio').val()) == "") && ($.trim($('#nomeConvenio').val()) == "")){
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_vazios_titulo"/>");
@@ -457,7 +455,6 @@
                     return;
 	    	}
 	    	if(($.trim($('#numeroConvenio').val()) != "") && ($.trim($('#nomeConvenio').val()) != "")){
-                    console.log("Os dois estão escritos");
                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.resources.form.numeroConvenio_nomeConvenio_dois_preenchidos_titulo"/>");
@@ -466,7 +463,7 @@
                     return;
 	    	}
 	    	var result = null;
-                console.log("Entrou na segunda parte");
+                
 	        $.ajax({
 	            type: 'GET',
 	            url: 'BuscaConvenioDoTermoEstagioServlet', //Servlet
@@ -484,17 +481,14 @@
 
                                 
                                 if((result.agente == "true") && (result.tipo == "true")){
-                                    console.log("Caminho 1");
                                     $("#agenteSim").attr("checked",true);
                                     $("#tipoPJ").attr("checked",true);
                                     $("#agenciada").attr("readonly",false);
                                 }else if((result.agente == "false") && (result.tipo == "true")){
-                                    console.log("Caminho 2");
                                     $("#agenteNao").attr("checked",true);
                                     $("#tipoPJ").attr("checked",true);
                                     $("#agenciada").attr("readonly",true);
                                 }else{
-                                    console.log("Caminho 3");
                                     $("#agenteNao").attr("checked",true);
                                     $("#tipoPF").attr("checked",true);
                                     $("#agenciada").attr("readonly",true);
@@ -504,14 +498,12 @@
                                     $(".dadosConvenio input:not([id=numeroConvenio])").val("");
                                     $(".dadosConvenio input:not([id=nomeConvenio])").val("");
                                     if(result.erroConvenioNumero == true){
-                                         console.log("Erro no numero encontrado");
                                         $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.valida_busca_convenio_termo_estagio_servlet.msg_titulo_numero_convenio"/>");
                                         $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.valida_busca_convenio_termo_estagio_servlet.msg_tamanho_numero_convenio"/>");	        	
                                         $('#myModal').modal('show');
                                         
                                     }
                                     if(result.erroConvenioNome == true){
-                                        console.log("Erro no nome encontrado");
                                         $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.valida_busca_convenio_termo_estagio_servlet.msg_titulo_nome_convenio"/>");
                                         $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.valida_busca_convenio_termo_estagio_servlet.msg_tamanho_nome_convenio"/>");	        	
                                         $('#myModal').modal('show');
@@ -519,7 +511,7 @@
                                     }    
                              }
                              if((result.idConvenio == "")&&(result.valido == true)){
-                                    console.log("Erro quando n foi encontrado no banco");
+                                    
                                     
                                     $("#agenteSim").attr("checked",false);
                                     $("#tipoPF").attr("checked",false);

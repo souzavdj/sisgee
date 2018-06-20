@@ -28,10 +28,29 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     
+    
+    /**
+     * Metodo doGet para fazer o RequestDispatcher para o form com info do renovar convenio
+     *
+     * @param req é a requisição que o servidor recebe do navegador
+     * @param resp é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
+     */
+    
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/form_renovar_convenio_infos.jsp").forward(req, resp);
     }
     
+    
+    
+     /* Metodo doPost para receber a requisição a partir do convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -21,9 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
-/**
+/**Servlet para imprimir o relatório consolidado
  *
  * @author vinicius
+ * @since 2.0
  */
 @WebServlet("/ImprimirRelatorioConsolidadoServlet")
 public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {

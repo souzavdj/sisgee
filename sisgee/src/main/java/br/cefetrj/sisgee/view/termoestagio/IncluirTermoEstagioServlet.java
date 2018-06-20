@@ -21,6 +21,7 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
+import java.text.SimpleDateFormat;
 
 /**
  * 
@@ -41,8 +42,8 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 		
 		//OBRIGATÓRIO
-		Date dataInicioTermoEstagio = (Date)request.getAttribute("dataInicioTermoEstagio");
-		Date dataFimTermoEstagio = (Date)request.getAttribute("dataFimTermoEstagio");
+		String dataInicioTermoEstagio =(String)request.getAttribute("dataInicioTermoEstagio");
+		String dataFimTermoEstagio =(String)request.getAttribute("dataFimTermoEstagio");
                 Integer cargaHorariaTermoEstagio = (Integer)request.getAttribute("cargaHorariaTermoEstagio");
 		Float valorBolsa = (Float)request.getAttribute("valorBolsa");
 		String enderecoTermoEstagio = (String)request.getAttribute("enderecoTermoEstagio");
@@ -53,7 +54,7 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
                 boolean eAtivo = true;
                 Aluno aluno = new Aluno((Integer)request.getAttribute("idAluno"));	
 		Convenio convenio = new Convenio((Integer)request.getAttribute("idConvenio"));
-                ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessor"));
+                ProfessorOrientador professorOrientador = new ProfessorOrientador((Integer)request.getAttribute("idProfessorOrientador"));
 		
                 //Esta presente quando o tipo for juridica e se agente de integração for sim
                 String agenciada = (String)request.getAttribute("agenciada");
@@ -64,23 +65,38 @@ public class IncluirTermoEstagioServlet extends HttpServlet {
 		String cepEnderecoTermoEstagio = (String)request.getAttribute("cepEnderecoTermoEstagio");
 		String cargosupervisor = (String)request.getAttribute("cargoSupervisor");
 				
-		//Boolean hasProfessor = (Boolean)request.getAttribute("hasProfessor");
+		Date dataInicio=null;
+                Date dataFim=null;
 		
-		
-                System.out.println("Entrou no incluir termo estagio servlet");
-		
+		try{
+                    SimpleDateFormat format=null;
+                if (messages.getLocale().toString().equals("pt_BR")) {
+                    format = new SimpleDateFormat("dd/MM/yyyy");
+                }    
+                if (messages.getLocale().toString().equals("en_US")) {
+                    format = new SimpleDateFormat("MM/dd/yyyy");
+                }
+                if (format != null) {
+                    dataInicio = format.parse(dataInicioTermoEstagio);
+                    dataFim = format.parse(dataFimTermoEstagio);
+                }
+                }catch (Exception e) {    
+                        Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                        lg.error("Data em formato incorreto, mesmo após validação na classe ValidaUtils :",e);
+                        
+                }
+                
 		
 		convenio = ConvenioServices.buscarConvenio(convenio);
                 aluno = AlunoServices.buscarAluno(aluno);
 		
                 
-		TermoEstagio termoEstagio = new TermoEstagio(dataInicioTermoEstagio, dataFimTermoEstagio,null, cargaHorariaTermoEstagio,
+		TermoEstagio termoEstagio = new TermoEstagio(dataInicio, dataFim,null, cargaHorariaTermoEstagio,
 				 valorBolsa,  enderecoTermoEstagio,
 				 complementoEnderecoTermoEstagio,  bairroEnderecoTermoEstagio,  cepEnderecoTermoEstagio,
 				 cidadeEnderecoTermoEstagio,  estadoEnderecoTermoEstagio,  eEstagioObrigatorio, nomesupervisor, cargosupervisor, null, eAtivo, 
 				 aluno,  convenio,  professorOrientador,agenciada);
-		System.out.println("Foi criado objeto termo Estagio");
-                String msg = "";
+		String msg = "";
 		Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
 		try{
 			
