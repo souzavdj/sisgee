@@ -59,6 +59,7 @@
                             <th><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.vigencia"/></th>
                             <th><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.cnpj_cpf"/></th>
                             <th><fmt:message key = "br.cefetrj.sisgee.resources.form.consultar.termo.nomeConveniado"/></th>
+                            <th><fmt:message key = "br.cefetrj.sisgee.resources.form.visualizar"/></th>
                         </tr>
                     </thead>			
                     <tbody>
@@ -90,7 +91,8 @@
                                         <td>${ConvenioUtils.getCpfFormatado(termo.getConvenio().getCpf_cnpj())}</td>
                                     </c:otherwise>
                                 </c:choose>
-                                <td>${termo.getConvenio().getNomeConveniado()}</td>					
+                                <td>${termo.getConvenio().getNomeConveniado()}</td>
+                                <td><button type="button" class="btn btn-primary" onclick="javascript:window.open('VerTermoAditivoServlet?idTermoEstagio=${termo.idTermoEstagio}')"><fmt:message key = "br.cefetrj.sisgee.resources.form.visualizar"/></button></td>
                             </tr>
                             
                         </c:forEach>
