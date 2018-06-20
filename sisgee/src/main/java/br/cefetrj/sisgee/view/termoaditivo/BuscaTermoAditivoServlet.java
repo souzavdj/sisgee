@@ -17,6 +17,7 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.util.Collections;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet para busca as informações de cada termo aditivo
@@ -39,6 +40,7 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(BuscaTermoAditivoServlet.class);
 
         String msg = null;
         String idAluno = request.getParameter("idAluno");
@@ -50,9 +52,11 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
                 id = Integer.parseInt(idAluno);
             } else {
                 msg = messages.getString(msg);
+                lg.info(msg);
             }
         } else {
             msg = messages.getString(msg);
+            lg.info(msg);
         }
 
         Aluno aluno = AlunoServices.buscarAluno(new Aluno(id));

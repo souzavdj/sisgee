@@ -730,6 +730,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			if(hasTermoAberto) {
 				String msg2 = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_aluno_has_termo_aberto");
 				request.setAttribute("msg2", msg2);
+                                Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                                lg.info(msg2);
 				isValid = false;
 			}else{
                             request.setAttribute("matricula", aluno.getMatricula());
@@ -752,6 +754,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 			msg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.msg_atencao");
 			request.setAttribute("msg", msg);
 			request = carregarListas(request);
+                        Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
+                        lg.info(msg);
                         request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
 		}
 	}	

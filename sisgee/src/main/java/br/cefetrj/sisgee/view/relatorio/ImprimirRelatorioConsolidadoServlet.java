@@ -155,7 +155,7 @@ public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {
             //usar log info eu acho
             Logger lg = Logger.getLogger(ImprimirRelatorioConsolidadoServlet.class);
             lg.info("Nenhum registro encontrado nesse periodo de tempo.");
-            System.out.println("Nenhum registro encontrado nesse período de tempo");
+            //System.out.println("Nenhum registro encontrado nesse período de tempo");
             //String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
             req.setAttribute("msgRelatorio", "Não há termos");
         }

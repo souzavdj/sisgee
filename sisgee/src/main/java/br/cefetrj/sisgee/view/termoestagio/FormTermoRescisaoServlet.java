@@ -49,6 +49,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
         
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
         
         String dataTermoRescisao = request.getParameter("dataTermoRescisao");
         String idAluno = request.getParameter("idAluno");
@@ -83,15 +84,18 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                 } else {
                     idAlunoMsg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_alunoEscolhido");
                     request.setAttribute("idAlunoMsg", idAlunoMsg);
+                    lg.info(idAlunoMsg);
                 }
                 
             } else {
                 request.setAttribute("idAlunoMsg", idAlunoMsg);
                 isValid = false;
+                lg.info(idAlunoMsg);
             }
         } else {
             request.setAttribute("idAlunoMsg", idAlunoMsg);
             isValid = false;
+            lg.info(idAlunoMsg);
         }        
         
         String dataTermoRescisaoMsg = "";
@@ -110,7 +114,6 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                             format = new SimpleDateFormat("MM/dd/yyyy");
                         } else {
                             //fazer log de erro com a internacionalização
-                            Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
                             lg.error("Idioma selecionado desconhecido. ");
                             //System.out.println("Idioma desconhecido");
                         }
@@ -120,7 +123,6 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                         }
                     }catch (Exception e) {
                         //Fazer log de erro data vindas do bd do termo invalidas
-                        Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
                         lg.error("Exception devido a Data Inválida. ", e);
                         System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
                     }
@@ -147,6 +149,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                             periodoMsg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.periodoInvalidoDataIncio");
                             msg = periodoMsg;
                             request.setAttribute("periodoMsg", periodoMsg);
+                            lg.info(periodoMsg);
                             isValid = false;                            
                         }                        
                         if (termoAditivo!=null) {
@@ -158,31 +161,34 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                             periodoMsg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.periodoInvalidoDataFim");
                             msg = periodoMsg;
                             //request.setAttribute("periodoMsg", periodoMsg);
+                            lg.info(periodoMsg);
                             isValid = false;                            
                         }
                     } else {
                         msg = messages.getString("br.cefetrj.sisgee.form_termo_rescisao_servlet.msg_termo_estagio_invalido");
                         isValid = false;
+                        lg.info(msg);
                         request.setAttribute("termoEstagioMsg", msg);
                     }
                     
                 } catch (Exception e) {
                     //TODO trocar saída de console por Log
-                    Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
                     lg.error("Exception devido a Data Inválida. ", e);
-                    System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                    //System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
                     isValid = false;
                 }
             } else {
                 dataTermoRescisaoMsg = messages.getString(dataTermoRescisaoMsg);
                 msg = dataTermoRescisaoMsg;
                 request.setAttribute("dataTermoRescisaoMsg", dataTermoRescisaoMsg);
+                lg.info(dataTermoRescisaoMsg);
                 isValid = false;
             }
         } else {
             dataTermoRescisaoMsg = messages.getString(dataTermoRescisaoMsg);
             msg = dataTermoRescisaoMsg;
             request.setAttribute("dataTermoRescisaoMsg", dataTermoRescisaoMsg);
+            lg.info(dataTermoRescisaoMsg);
             isValid = false;
         }
         
@@ -219,7 +225,6 @@ public class FormTermoRescisaoServlet extends HttpServlet {
             }catch (Exception e) {
                 msg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_ocorreuErro");
                 request.setAttribute("msg", msg);
-                Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
                 lg.error("Exception ao tentar inserir o Termo de Estágio", e);
                 request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
             }
@@ -227,7 +232,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
             String rescisao = "sim";
             request.setAttribute("msg", msg);
             request.setAttribute("Rescisao", rescisao);
-            
+            lg.info(msg);
             request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
         }
     }

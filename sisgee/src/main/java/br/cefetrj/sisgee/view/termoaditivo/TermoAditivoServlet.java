@@ -45,6 +45,7 @@ public class TermoAditivoServlet extends HttpServlet {
 
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(TermoAditivoServlet.class);
         String vigencia = request.getParameter("vigencia");
         String endereco = request.getParameter("endereco");
         String carga = request.getParameter("cargaHoraria");
@@ -86,18 +87,21 @@ public class TermoAditivoServlet extends HttpServlet {
                 } else {
                     idAlunoMsg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_AlunoEscolhido");
                     msg = idAlunoMsg;
+                    lg.info(idAlunoMsg);
                     request.setAttribute("idAlunoMsg", idAlunoMsg);
                 }
 
             } else {
                 idAlunoMsg = messages.getString(idAlunoMsg);
                 msg = idAlunoMsg;
+                lg.info(idAlunoMsg);
                 request.setAttribute("idAlunoMsg", idAlunoMsg);
                 isValid = false;
             }
         } else {
             idAlunoMsg = messages.getString(idAlunoMsg);
             msg = idAlunoMsg;
+            lg.info(idAlunoMsg);
             request.setAttribute("idAlunoMsg", idAlunoMsg);
             isValid = false;
         }
@@ -150,7 +154,6 @@ public class TermoAditivoServlet extends HttpServlet {
                         format = new SimpleDateFormat("MM/dd/yyyy");
                     } else {
 
-                        Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                         lg.error("Idioma desconhecido");
                     }
 
@@ -160,11 +163,9 @@ public class TermoAditivoServlet extends HttpServlet {
                         request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
                         request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
                     } else {
-                        Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                         lg.error("Sem padrão de formatação para data, Objeto format nulo");
                     } 
                 }catch (Exception e) {
-                    Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                     lg.error("Exception devido a Data Inválida. ", e);
                 }
 
@@ -212,6 +213,7 @@ public class TermoAditivoServlet extends HttpServlet {
             } else {
                 msg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_termo_estagio_invalido");
                 request.setAttribute("msg", msg);
+                lg.info(msg);
                 isValid = false;
             }
         }
@@ -219,6 +221,7 @@ public class TermoAditivoServlet extends HttpServlet {
             request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", msg);
+            lg.info(msg);
             request.getRequestDispatcher("/form_consultar_termo.jsp").forward(request, response);
         }
 

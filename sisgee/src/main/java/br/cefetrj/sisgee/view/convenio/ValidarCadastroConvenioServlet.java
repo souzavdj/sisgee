@@ -240,6 +240,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         pessoaContatoMsg = messages.getString(pessoaContatoMsg);
                         pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
                         req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                        lg.info(pessoaContatoMsg);
                         isValid = false;
                     }
                 } else {
@@ -314,6 +315,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         nomeMsg = messages.getString(nomeMsg);
                         nomeMsg = ServletUtils.mensagemFormatada(nomeMsg, locale, tamanho);
                         req.setAttribute("nomeMsg", nomeMsg);
+                        lg.info(nomeMsg);
                         isValid = false;
                     }
                 } else {

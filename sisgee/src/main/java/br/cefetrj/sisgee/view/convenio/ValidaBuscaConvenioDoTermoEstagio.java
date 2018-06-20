@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet com o objetivo de validar os campos da pesquisa do convenio no termo_estagio.jps
@@ -33,6 +34,7 @@ public class ValidaBuscaConvenioDoTermoEstagio extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Locale locale = ServletUtils.getLocale(req);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(ValidaBuscaConvenioDoTermoEstagio.class);
         
         String numConvenio = req.getParameter("numeroConvenio");
         String nomeConveniado = req.getParameter("nomeConvenio");
@@ -43,10 +45,12 @@ public class ValidaBuscaConvenioDoTermoEstagio extends HttpServlet {
         if(numConvenio.trim().isEmpty() && nomeConveniado.trim().isEmpty()){
             campoMsg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_campos");
             req.setAttribute("campoMsg", campoMsg);
+            lg.info(campoMsg);
             isValid = false;
         }else if(!(numConvenio.trim().isEmpty()) && !(nomeConveniado.trim().isEmpty())){
             campoMsg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_umCampo");
             req.setAttribute("campoMsg", campoMsg);
+            lg.info(campoMsg);
             isValid = false;
         }
         else{
@@ -66,12 +70,14 @@ public class ValidaBuscaConvenioDoTermoEstagio extends HttpServlet {
                         numConvenioMsg = messages.getString(numConvenioMsg);
                         numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 10);
                         req.setAttribute("numConvenioMsg", numConvenioMsg);
+                        lg.info(numConvenioMsg);
                         isValid = false;
                     }
                 }else{
                     numConvenioMsg = messages.getString(numConvenioMsg);
                     numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 6);
                     req.setAttribute("numConvenioMsg", numConvenioMsg);
+                    lg.info(numConvenioMsg);
                     isValid = false;
                 }
             }else if(numConvenio.trim().isEmpty() && !(nomeConveniado.trim().isEmpty())){
@@ -89,6 +95,7 @@ public class ValidaBuscaConvenioDoTermoEstagio extends HttpServlet {
                     nomeConveniadoMsg = messages.getString(nomeConveniadoMsg);
                     nomeConveniadoMsg = ServletUtils.mensagemFormatada(nomeConveniadoMsg, locale, 100);
                     req.setAttribute("nomeConveniadoMsg", nomeConveniado);
+                    lg.info(nomeConveniadoMsg);
                     isValid = false;
                 }
             }
@@ -100,6 +107,7 @@ public class ValidaBuscaConvenioDoTermoEstagio extends HttpServlet {
         } else {
             String msg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_atencao");
             req.setAttribute("msg", msg);
+            lg.info(msg);
             req.getRequestDispatcher("/form_renovar_convenio.jsp").forward(req, resp);
         }
         

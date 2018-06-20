@@ -67,6 +67,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
         String motivo = "";
 
         String dataInicioTermoAditivo = request.getParameter("dataInicioTermoEstagio");
@@ -131,11 +132,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
 
             } else {
                 msg = messages.getString(msg);
+                lg.info(msg);
                 isValid = false;
             }
 
         } else {
             msg = messages.getString(msg);
+            lg.info(msg);
             isValid = false;
         }
 
@@ -164,7 +167,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
                             request.setAttribute("dataFim", dataFim);
                             hasDataFim = true;
                         } catch (Exception e) {
-                            Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
                             lg.error("Exception devido a Data Inválida. ", e);
                             isValid = false;
                             //TODO log de erro
@@ -172,12 +174,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     } else {
                         dataFimMsg = messages.getString(dataFimMsg);
                         request.setAttribute("dataFimMsg", dataFimMsg);
+                        lg.info(dataFimMsg);
                         isValid = false;
                         //TODO log info
                     }
                 } else {
                     dataFimMsg = messages.getString(dataFimMsg);
                     request.setAttribute("dataFimMsg", dataFimMsg);
+                    lg.info(dataFimMsg);
                     isValid = false;
                     //TODO log info
                 }
@@ -192,6 +196,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     if (!periodoMsg.trim().isEmpty()) {
                         periodoMsg = messages.getString(periodoMsg);
                         request.setAttribute("periodoMsg", periodoMsg);
+                        lg.info(periodoMsg);
                         isValid = false;
                         //TODO log info
                     }
@@ -215,6 +220,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("valor", valor);
                     } else {
                         valorBolsaMsg = messages.getString(valorBolsaMsg);
+                        lg.info(valorBolsaMsg);
                         request.setAttribute("valorBolsaMsg", valorBolsaMsg);
                         isValid = false;
                         //TODO Fazer log
@@ -222,6 +228,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     }
                 } else {
                     valorBolsaMsg = messages.getString(valorBolsaMsg);
+                    lg.info(valorBolsaMsg);
                     request.setAttribute("valorBolsaMsg", valorBolsaMsg);
                     isValid = false;
                     //TODO Fazer log
@@ -250,12 +257,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                                     request.setAttribute("cargaHoraria", cargaHoraria);
                                 } else {
                                     cargaHorariaMsg = messages.getString(cargaHorariaMsg);
+                                    lg.info(cargaHorariaMsg);
                                     request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
                                     isValid = false;
                                 }
                             } else {
                                 cargaHorariaMsg = messages.getString(cargaHorariaMsg);
                                 cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
+                                lg.info(cargaHorariaMsg);
                                 request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
                                 isValid = false;
                             }
@@ -263,6 +272,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                             cargaHorariaMsg = messages.getString(cargaHorariaMsg);
                             cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                             request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
+                            lg.info(cargaHorariaMsg);
                             isValid = false;
 
                         }
@@ -270,6 +280,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         cargaHorariaMsg = messages.getString(cargaHorariaMsg);
                         cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                         request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
+                        lg.info(cargaHorariaMsg);
                         isValid = false;
 
                     }
@@ -277,6 +288,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     cargaHorariaMsg = messages.getString(cargaHorariaMsg);
                     cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                     request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
+                    lg.info(cargaHorariaMsg);
                     isValid = false;
 
                 }
@@ -304,11 +316,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
                             } else {
                                 idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
                                 isValid = false;
+                                lg.info(idProfessorMsg);
 
                             }
                         } else {
                             idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_professores_vazia");
                             isValid = false;
+                            lg.info(idProfessorMsg);
                             //TODO Fazer log
                             
                         }
@@ -316,6 +330,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         idProfessorMsg = messages.getString(idProfessorMsg);
                         request.setAttribute("idProfessorMsg", idProfessorMsg);
                         isValid = false;
+                        lg.info(idProfessorMsg);
                         //TODO Fazer log
                         
                     }
@@ -346,6 +361,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         enderecoMsg = ServletUtils.mensagemFormatada(enderecoMsg, locale, tamanho);
                         request.setAttribute("enderecoMsg", enderecoMsg);
                         isValid = false;
+                        lg.info(enderecoMsg);
                         //TODO Fazer log
                         
                     }
@@ -353,6 +369,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     enderecoMsg = messages.getString(enderecoMsg);
                     request.setAttribute("enderecoMsg", enderecoMsg);
                     isValid = false;
+                    lg.info(enderecoMsg);
                     //TODO Fazer log
                     
                 }
@@ -375,7 +392,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         request.setAttribute("complementoEnderecoMsg", complementoEnderecoMsg);
                         isValid = false;
                         //TODO Fazer log
-                        System.out.println(enderecoMsg);
+                        lg.info(complementoEnderecoMsg);
+                        //System.out.println(enderecoMsg);
                     }
 
                 }
@@ -398,6 +416,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         bairroEnderecoMsg = ServletUtils.mensagemFormatada(bairroEnderecoMsg, locale, tamanho);
                         request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
                         isValid = false;
+                        lg.info(bairroEnderecoMsg);
                         //TODO Fazer log
                         
                     }
@@ -405,6 +424,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     bairroEnderecoMsg = messages.getString(bairroEnderecoMsg);
                     request.setAttribute("bairroEnderecoMsg", bairroEnderecoMsg);
                     isValid = false;
+                    lg.info(bairroEnderecoMsg);
                     //TODO Fazer log
                     
                 }
@@ -428,6 +448,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         cepEnderecoMsg = ServletUtils.mensagemFormatada(bairroEnderecoMsg, locale, tamanho);
                         request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
                         isValid = false;
+                        lg.info(cepEnderecoMsg);
                         //TODO Fazer log
                         
                     }
@@ -435,6 +456,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     cepEnderecoMsg = messages.getString(cepEnderecoMsg);
                     request.setAttribute("cepEnderecoMsg", cepEnderecoMsg);
                     isValid = false;
+                    lg.info(cepEnderecoMsg);
                     //TODO Fazer log
                     
                 }
@@ -457,6 +479,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         cidadeEnderecoMsg = ServletUtils.mensagemFormatada(cidadeEnderecoMsg, locale, tamanho);
                         request.setAttribute("cidadeEnderecoMsg", cidadeEnderecoMsg);
                         isValid = false;
+                        lg.info(cidadeEnderecoMsg);
                         //TODO Fazer log
                         
                     }
@@ -464,6 +487,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     cidadeEnderecoMsg = messages.getString(cidadeEnderecoMsg);
                     request.setAttribute("cidadeEnderecoMsg", cidadeEnderecoMsg);
                     isValid = false;
+                    lg.info(cidadeEnderecoMsg);
                     //TODO Fazer log
                     
                 }
@@ -484,6 +508,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         estadoEnderecoMsg = messages.getString(estadoEnderecoMsg);
                         request.setAttribute("estadoEnderecoMsg", estadoEnderecoMsg);
                         isValid = false;
+                        lg.info(estadoEnderecoMsg);
                         //TODO Fazer log
                         
                     }
@@ -491,6 +516,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     estadoEnderecoMsg = messages.getString(estadoEnderecoMsg);
                     request.setAttribute("estadoEnderecoMsg", estadoEnderecoMsg);
                     isValid = false;
+                    lg.info(estadoEnderecoMsg);
                     //TODO Fazer log
                    
                 }
@@ -500,16 +526,19 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 if (nomeSurpervisor.trim().isEmpty() || nomeSurpervisor == null) {
                     msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.nomeSupervisorInvalido");
                     isValid = false;
+                    lg.info(msg);
                 }
                 if (cargoSurpervisor.trim().isEmpty()) {
                     msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.cargoSupervisorInvalido");
                     isValid = false;
+                    lg.info(msg);
                 }
             }
 
         } else {
             msg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_termo_estagio_invalido");
             isValid = false;
+            lg.info(msg);
 
         }
         if (isValid) {
@@ -535,7 +564,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     } else if (messages.getLocale().toString().equals("en_US")) {
                         format = new SimpleDateFormat("MM/dd/yyyy");
                     } else {
-                        Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
                         lg.error("Idioma desconhecido");
                     }
 
@@ -544,11 +572,9 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         dataFimJsp = format.parse(dataFimTermoAditivo);
                         termoAditivo.setDataFimTermoEstagio(dataFimJsp);
                     } else {
-                        Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
                         lg.error("Sem padrão de formatação para data, Objeto format nulo");
                     } 
                 }catch (Exception e) {
-                    Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
                     lg.error("Exception devido a Data Inválida. ", e);
                 }
             }
@@ -586,7 +612,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
             }else {
                 termoAditivo.setTermoEstagioAditivo(termoEstagio.getTermoEstagioAditivo());
             }
-            Logger lg = Logger.getLogger(IncluirTermoEstagioServlet.class);
             try{
                 TermoAditivoServices.incluirTermoAditivo(termoAditivo);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
@@ -637,7 +662,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 } else if (messages.getLocale().toString().equals("en_US")) {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
-                    //fazer log de erro com a internacionalização
+                    lg.error("Idioma desconhecido");
                     
                 }
 
@@ -649,7 +674,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 }
             } catch (Exception e) {
                 //Fazer log de erro data vindas do bd do termo invalidas
-                Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                 lg.error("Exception devido a Data Inválida. ", e);
                 //System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
             }

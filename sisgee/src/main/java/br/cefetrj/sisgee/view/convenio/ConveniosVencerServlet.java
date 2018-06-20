@@ -45,6 +45,7 @@ public class ConveniosVencerServlet extends HttpServlet {
         Locale locale = ServletUtils.getLocale(req);
 	ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String msg ="";
+        Logger lg = Logger.getLogger(ConveniosVencerServlet.class);
         
         List<Convenio> listaVencidos=null ;
         Date dataInicio,dataFim;
@@ -75,7 +76,6 @@ public class ConveniosVencerServlet extends HttpServlet {
             dataFim = (Date)in.parse(fimMes2);
             listaVencidos =ConvenioServices.buscarListaDeVencidos(dataInicio,dataFim);
         }catch(Exception e){
-            Logger lg = Logger.getLogger(ConveniosVencerServlet.class);
             lg.error("Problema nas datas de inicio e fim :",e);
             
         }
@@ -84,6 +84,7 @@ public class ConveniosVencerServlet extends HttpServlet {
         if(listaVencidos==null || listaVencidos.isEmpty()){
             msg = messages.getString("br.cefetrj.sisgee.form_convenios_a_vencer.msg_relatorio_vazio");
             req.setAttribute("msg", msg);
+            lg.info(msg);
             
         }else{
             req.setAttribute("ListaConveniosAVencer", listaVencidos); 
