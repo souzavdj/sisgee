@@ -153,6 +153,8 @@ public class TermoAditivoServlet extends HttpServlet {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
                     //fazer log de erro com a internacionalização
+                    Logger lg = Logger.getLogger(TermoAditivoServlet.class);
+                    lg.error("Idioma selecionado desconhecido. ");
                     System.out.println("Idioma desconhecido");
                 }
 

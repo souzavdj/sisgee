@@ -108,7 +108,9 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                             format = new SimpleDateFormat("MM/dd/yyyy");
                         } else {
                             //fazer log de erro com a internacionalização
-                            System.out.println("Idioma desconhecido");
+                            Logger lg = Logger.getLogger(FormTermoRescisaoServlet.class);
+                            lg.error("Idioma selecionado desconhecido. ");
+                            //System.out.println("Idioma desconhecido");
                         }
                         if (format != null) {
                             dataRescisao = format.parse(dataTermoRescisao);

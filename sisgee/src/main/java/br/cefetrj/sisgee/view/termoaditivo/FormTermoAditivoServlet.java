@@ -541,7 +541,9 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
                     //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
+                    Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
+                    lg.error("Idioma selecionado desconhecido. ");
+                    //System.out.println("Idioma desconhecido");
                 }
 
                 if (format != null) {
@@ -549,7 +551,9 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     dataFimJsp = format.parse(dataFimTermoAditivo);
                 } else {
                     //fazer o log de erro com a internacionalização
-                    System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+                    Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
+                    lg.error("Erro na formaatação da Data. ");
+                    //System.out.println("Sem padrão de formatação para data, Objeto format nulo");
                 } 
             }catch (Exception e) {
                 Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
@@ -673,7 +677,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 //Fazer log de erro data vindas do bd do termo invalidas
                 Logger lg = Logger.getLogger(TermoAditivoServlet.class);
                 lg.error("Exception devido a Data Inválida. ", e);
-                System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
+                //System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
             }
             
             //Termo

@@ -88,6 +88,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                         format = new SimpleDateFormat("MM/dd/yyyy");
                     } else {
                         //fazer log de erro com a internacionalização
+                        lg.error("Idioma selecionado desconhecido. ");
                         //Idioma desconhecido
                     }
 
@@ -97,6 +98,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                         dataAssinaturaMsg = ValidaUtils.validaDataRenovacao(dataAtual, dataAssinatura);
                     } else {
                         //fazer o log de erro com a internacionalização
+                        lg.error("Erro ao formatar data. ");
                         //Sem padrão de formatação para data, Objeto format nulo
                     }
                     
