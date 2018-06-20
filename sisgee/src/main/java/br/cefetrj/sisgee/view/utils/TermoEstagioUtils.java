@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetrj.sisgee.view.utils;
 
 import br.cefetrj.sisgee.model.entity.Convenio;
@@ -12,11 +8,19 @@ import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 
-/**
+/** Class Utils associada ao TermoEstagio, com métodos focados ao tratamaneto dos atributos do termo de estagio
  *
  * @author vinicius
  */
 public class TermoEstagioUtils {
+    
+     /** Recupera a vigencia de convenio a partir de um intervalos de datas
+     * 
+     *  @param inicio Date com a data limite inferior do intervalo 
+     *  @param dfinal Date com a data limite final do intervalo 
+     * 
+     *  @return String com vigencia do termo
+     */
     public static String getVigencia(Date inicio, Date dfinal){
         String ini="";
         String fim="";
@@ -43,6 +47,12 @@ public class TermoEstagioUtils {
         
     }
     
+     /** Recupera a informação de termo estágio ativo
+     * 
+     *  @param termos List de TermoEstagio  
+     * 
+     *  @return String com o id do termo ativo
+     */
     public static String temTermoEstagioAtivo(List<TermoEstagio> termos) {
         String idTermoEstagioAtivo = "";
         int pos [] = new int[termos.size()];

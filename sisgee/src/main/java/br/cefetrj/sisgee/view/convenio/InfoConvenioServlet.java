@@ -21,10 +21,28 @@ public class InfoConvenioServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     
+    
+     /**
+     * Metodo doGet para fazer o RequestDispatcher para o form de renovar convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/form_renovar_convenio_infos.jsp").forward(req, resp);
     }
     
+     /* Metodo doPost para receber a requisição do convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         

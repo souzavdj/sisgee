@@ -28,6 +28,17 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ConveniosVencerServlet")
 public class ConveniosVencerServlet extends HttpServlet {
 
+    
+     /**
+     *
+     * Metodo que recebe informações voltados para convenios a vencer
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     

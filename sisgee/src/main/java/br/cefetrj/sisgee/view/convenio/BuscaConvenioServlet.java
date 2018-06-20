@@ -25,6 +25,17 @@ public class BuscaConvenioServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     
+     /**
+     *
+     * Metodo que recebe informações para busca de convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    
+    @Override 
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         Locale locale = ServletUtils.getLocale(req);

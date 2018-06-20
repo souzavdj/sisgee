@@ -20,9 +20,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/**Servlet para imprimir o relatório consolidado
  *
  * @author vinicius
+ * @since 2.0
  */
 @WebServlet("/ImprimirRelatorioConsolidadoServlet")
 public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {

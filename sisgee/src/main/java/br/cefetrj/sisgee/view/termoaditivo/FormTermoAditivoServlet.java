@@ -710,6 +710,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
         }
     }
 
+    /** Metodo que carrega lista 
+     *
+     * @param request
+     * @throws ServletException
+     * @throws IOException
+     * @return HttpServletRequest lista dos professores
+     */
     private static HttpServletRequest carregarListas(HttpServletRequest request) {
 
         List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
