@@ -7,6 +7,7 @@ import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import java.util.Date;
+import org.apache.log4j.Logger;
 
 /**
  * Serviços de Convenios. Trata a lógica de negócios associada com a entidade
@@ -30,6 +31,8 @@ public class ConvenioServices {
             convenioDao.incluir(convenio);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar incluir Convenio. ", e);
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -45,6 +48,8 @@ public class ConvenioServices {
             Integer maxIdConvenio = convenioDAO.getMaxIdConvenio();
             return maxIdConvenio;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar o ID maximo de Convenio. ", e);
             return 0;
         }
     }    
@@ -83,7 +88,9 @@ public class ConvenioServices {
 			Convenio c = convenioDao.buscarByCpf_Cnpj(cpf_cnpj);
 			return c;
 		}catch(Exception e){
-			return null;
+                    Logger lg = Logger.getLogger(ConvenioServices.class);
+                    lg.error("Exception ao tentar buscar Convenio por cpf ou cnpj. ", e);
+                    return null;
 		}
 		
 	}
@@ -102,6 +109,8 @@ public class ConvenioServices {
             Convenio c = convenioDao.buscarByNumero(numero);
             return c;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenio pelo numero. ", e);
             return null;
         }
     }
@@ -122,6 +131,8 @@ public class ConvenioServices {
             Convenio c = convenioDao.buscarByNomeConveniado(nomeConveniado);
             return c;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenio pelo nome do conveniado. ", e);
             return null;
         }
     }
@@ -139,6 +150,8 @@ public class ConvenioServices {
             List<Convenio> c = convenioDao.buscarByNumeroParcial(numero);            
             return c;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenio pelo numero parcial. ", e);
             return null;
         }
     }
@@ -158,6 +171,8 @@ public class ConvenioServices {
             List<Convenio> c = convenioDao.buscarByNomeParcial(nomeConveniado);
             return c;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenio pelo nome parcial. ", e);
             return null;
         }
     }
@@ -176,6 +191,8 @@ public class ConvenioServices {
             Convenio c = convenioDao.buscarById(id);
             return c;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenio pelo ID. ", e);
             return null;
         }
     }
@@ -193,6 +210,8 @@ public class ConvenioServices {
             convenioDao.alterar(convenio);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar alterar Convenio. ", e);
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -210,7 +229,9 @@ public class ConvenioServices {
 			Convenio c = convenioDao.buscarCpf_Cnpj(cpf_cnpj);
 			return c;
 		}catch(Exception e){
-			return null;
+                    Logger lg = Logger.getLogger(ConvenioServices.class);
+                    lg.error("Exception ao tentar buscar Convenio pelo cpf ou cnpj. ", e);
+                    return null;
 		}
 	}
 
@@ -229,6 +250,8 @@ public class ConvenioServices {
             List<Convenio> vencidos= convenioDao.buscaVencidos(dataInicio,dataFim);
             return vencidos;
         }catch(Exception e){
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenios Vencidos. ", e);
             return null;
         }
     }
@@ -247,6 +270,8 @@ public class ConvenioServices {
             Convenio c = convenioDao.buscarBy6Numero(numero);
             return c;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(ConvenioServices.class);
+            lg.error("Exception ao tentar buscar Convenio por numeros. ", e);
             return null;
         }
     }

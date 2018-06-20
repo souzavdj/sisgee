@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -58,6 +59,8 @@ public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {
 
         } catch (Exception e) {
             //fazer log de erro com a internacionalização
+            Logger lg = Logger.getLogger(ImprimirRelatorioConsolidadoServlet.class);
+            lg.error("Exception devido a formatação da data. ", e);
             System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
         }
         

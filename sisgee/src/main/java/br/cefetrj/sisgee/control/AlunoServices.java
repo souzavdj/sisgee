@@ -6,6 +6,7 @@ import br.cefetrj.sisgee.model.dao.AlunoDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import org.apache.log4j.Logger;
 
 /**
  * Serviços de alunos.
@@ -44,7 +45,9 @@ public class AlunoServices {
 			alunoDao.incluir(aluno);
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
-			PersistenceManager.getTransaction().rollback();
+                    Logger lg = Logger.getLogger(AlunoServices.class);
+                    lg.error("Exception ao tentar incluir Aluno. ", e);
+                    PersistenceManager.getTransaction().rollback();
 		}
 	}
 	/**
@@ -58,7 +61,9 @@ public class AlunoServices {
 			Aluno a = alunoDao.buscarByMatricula(matricula);
 			return a;
 		}catch(Exception e){
-			return null;
+                    Logger lg = Logger.getLogger(AlunoServices.class);
+                    lg.error("Exception ao tentar buscar Aluno. ", e);
+                    return null;
 		}
 	}
 	

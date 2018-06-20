@@ -166,6 +166,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                             request.setAttribute("dataFim", dataFim);
                             hasDataFim = true;
                         } catch (Exception e) {
+                            Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
+                            lg.error("Exception devido a Data Inválida. ", e);
                             isValid = false;
                         }
                     } else {
@@ -550,7 +552,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     System.out.println("Sem padrão de formatação para data, Objeto format nulo");
                 } 
             }catch (Exception e) {
-                
+                Logger lg = Logger.getLogger(FormTermoAditivoServlet.class);
+                lg.error("Exception devido a Data Inválida. ", e);
             }
             
             TermoEstagio termoAditivo = new TermoEstagio(dataInicioJsp, dataFimJsp, termoEstagio.getDataRescisaoTermoEstagio(), 
@@ -668,6 +671,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 }
             }catch (Exception e) {
                 //Fazer log de erro data vindas do bd do termo invalidas
+                Logger lg = Logger.getLogger(TermoAditivoServlet.class);
+                lg.error("Exception devido a Data Inválida. ", e);
                 System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
             }
             

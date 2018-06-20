@@ -17,12 +17,14 @@ import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.relatorio.ValidaRelatorioConsolidadoServlet;
 import br.cefetrj.sisgee.view.utils.ConvenioUtils;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.TermoEstagioUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.text.SimpleDateFormat;
+import org.apache.log4j.Logger;
 
 @WebServlet("/TermoAditivoServlet")
 public class TermoAditivoServlet extends HttpServlet {
@@ -164,6 +166,8 @@ public class TermoAditivoServlet extends HttpServlet {
                 }
             }catch (Exception e) {
                 //Fazer log de erro data vindas do bd do termo invalidas
+                Logger lg = Logger.getLogger(TermoAditivoServlet.class);
+                lg.error("Exception devido a Data Inválida. ", e);
                 System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
             }
             

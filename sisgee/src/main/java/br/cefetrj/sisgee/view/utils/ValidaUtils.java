@@ -1,7 +1,9 @@
 package br.cefetrj.sisgee.view.utils;
 
+import br.cefetrj.sisgee.view.termoestagio.FormTermoRescisaoServlet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.log4j.Logger;
 
 /**
  * Classe criada para métodos de validação, para melhor reuso de código.
@@ -98,7 +100,9 @@ public class ValidaUtils {
 		Float valorFloat = Float.parseFloat(param);				
 		
 		}catch(Exception e) {
-			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
+                    Logger lg = Logger.getLogger(ValidaUtils.class);
+                    lg.error("Exception ao tentar validar Float", e);
+                    msg = "br.cefetrj.sisgee.valida_utils.msg_valida_numerico";
 		}
 		
 		return msg;	
@@ -132,7 +136,9 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Boolean valorBoolean = Boolean.parseBoolean(param);				
 		}catch(Exception e) {
-			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_booleano";
+                    Logger lg = Logger.getLogger(ValidaUtils.class);
+                    lg.error("Exception ao tentar validar Boolean", e);
+                    msg = "br.cefetrj.sisgee.valida_utils.msg_valida_booleano";
 		}		
 		return msg;
 	}
@@ -152,7 +158,9 @@ public class ValidaUtils {
 			@SuppressWarnings("unused")
 			Date dataFormatada = format.parse(param);
 		}catch(Exception e) {
-			msg = "br.cefetrj.sisgee.valida_utils.msg_valida_date";
+                    Logger lg = Logger.getLogger(ValidaUtils.class);
+                    lg.error("Exception ao tentar validar Date", e);
+                    msg = "br.cefetrj.sisgee.valida_utils.msg_valida_date";
 		}		
 		return msg;
 	}
