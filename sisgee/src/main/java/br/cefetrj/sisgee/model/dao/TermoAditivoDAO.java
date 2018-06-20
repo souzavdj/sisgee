@@ -26,50 +26,6 @@ public class TermoAditivoDAO  extends GenericDAO<TermoEstagio> {
             super(TermoEstagio.class, PersistenceManager.getEntityManager());
     }
     
-    
-   /**
-     * Serviço que inclui no banco de dados, pelo seu DAO, um termo aditivo a partir de um termoAditivo recebido
-     *
-     * @author Vinicius Souza
-     * @param termoAditivo termoAditivo que será incluido
-     */
-    public void inserirTermoAditivo (TermoEstagio termoAditivo) {
-        Query query = manager.createNativeQuery("insert into TermoEstagio (idTermoEstagio, dataInicioTermoEstagio, "
-                + "dataFimTermoEstagio, cargaHorariaTermoEstagio, valorBolsa, enderecoTermoEstagio, "
-                + "complementoEnderecoTermoEstagio, bairroEnderecoTermoEstagio, cepEnderecoTermoEstagio, "
-                + "cidadeEnderecoTermoEstagio, estadoEnderecoTermoEstagio, nomesupervisor, cargosupervisor, "
-                + "motivoaditivo, eativo, eEstagioObrigatorio, agenciada, termoestagioaditivo_idtermoestagio, "
-                + "professororientador_idProfessorOrientador, aluno_idAluno, convenio_idConvenio) values "
-                + "(:idTermoAditivo, :dataInicio, :dataFim, :carga, :valor, :endereco, :complemento, "
-                + ":bairro, :cep, :cidade, :estado, :nomeSupervisor, :cargoSupervisor, "
-                + ":motivo, :eAtivo, :eObrigatorio, :agenciada, :idTermo, :idProfessor, :idAluno, :idConvenio);");
-
-        query.setParameter("idTermoAditivo", termoAditivo.getIdTermoEstagio());
-        query.setParameter("dataInicio", termoAditivo.getDataInicioTermoEstagio());
-        query.setParameter("dataFim", termoAditivo.getDataFimTermoEstagio());
-        query.setParameter("cargo", termoAditivo.getCargaHorariaTermoEstagio());
-        query.setParameter("valor", termoAditivo.getValorBolsa());
-        query.setParameter("endereco", termoAditivo.getEnderecoTermoEstagio());
-        query.setParameter("complemento", termoAditivo.getComplementoEnderecoTermoEstagio());
-        query.setParameter("bairro", termoAditivo.getBairroEnderecoTermoEstagio());
-        query.setParameter("cep", termoAditivo.getCepEnderecoTermoEstagio());
-        query.setParameter("cidade", termoAditivo.getCidadeEnderecoTermoEstagio());
-        query.setParameter("estado", termoAditivo.getEstadoEnderecoTermoEstagio());
-        query.setParameter("nomeSupervisor", termoAditivo.getNomeSupervisor());
-        query.setParameter("cargoSupervisor", termoAditivo.getCargoSupervisor());
-        query.setParameter("motivo", termoAditivo.getMotivoAditivo());
-        query.setParameter("eAtivo", termoAditivo.getEAtivo());
-        query.setParameter("eObrigatorio", termoAditivo.getEEstagioObrigatorio());
-        query.setParameter("agenciada", termoAditivo.getAgenciada());
-        query.setParameter("idTermo", termoAditivo.getTermoEstagioAditivo().getIdTermoEstagio());
-        query.setParameter("idProfessor", termoAditivo.getProfessorOrientador().getIdProfessorOrientador());
-        query.setParameter("idAluno", termoAditivo.getAluno().getIdAluno());
-        query.setParameter("idConvenio", termoAditivo.getConvenio().getIdConvenio());
-        
-        query.executeUpdate();
-    }
-
-    
     /**Serviço que busca a quantidade de termos aditivos a partir de um determinado curso.
      * 
      * @author Vinicius Souza

@@ -52,21 +52,6 @@ public class TermoAditivoServices {
     }
     
     /**
-     * Serviço que inclui no banco de dados um termo aditivo a partir de um termoAditivo recebido
-     *
-     * @author Vinicius Souza
-     * @param termoAditivo termoAditivo que será incluido
-     */
-    public static void inserirTermoAditivo(TermoEstagio termoAditivo) {
-        TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
-        try {
-            termoAditivoDAO.inserirTermoAditivo(termoAditivo);
-        }catch (Exception e) {
-            //Log de erro
-        }
-    }
-    
-    /**
     * Recupera o maior id dos termos de estágio e retorna um Integer referente a ele
     * 
     * @author Vinicius Souza

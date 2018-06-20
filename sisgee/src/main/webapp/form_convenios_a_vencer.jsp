@@ -48,7 +48,7 @@
                         </table>
                     </div>    
                     <div align='center'>
-                        <button type="button" class="btn btn-primary" onclick="javascript:window.open('ConveniosVencerServlet?imprimir=sim')"><fmt:message key = "br.cefetrj.sisgee.relatorio.relatorio_consolidado.bt_imprimir"/></button>
+                        <button type="button" class="btn btn-primary" onclick="javascript:window.open('ConveniosVencerServlet?imprimir=sim')"><fmt:message key = "br.cefetrj.sisgee.relatorio.relatorio_consolidado.bt_imprimir"/></button><br><br>
                     </div>
                 </c:when>
                 <c:otherwise>
