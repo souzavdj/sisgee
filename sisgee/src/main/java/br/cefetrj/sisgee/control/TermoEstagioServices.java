@@ -7,9 +7,8 @@ import java.util.List;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
 import br.cefetrj.sisgee.model.dao.TermoEstagioDAO;
-import br.cefetrj.sisgee.model.entity.Aluno;
-import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import org.apache.log4j.Logger;
 
 /**
  * Serviços de TermoEstagio. Trata a lógica de negócios associada com a entidade
@@ -60,6 +59,8 @@ public class TermoEstagioServices {
             List<String> cursos = termoEstagioDAO.buscarTermosRelatorioConsolidadoCursos(obrigatorio, inicio, termino);
             return cursos;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar buscar Termos Relatorio Consolidado. ", e);
             return null;
         }
     }
@@ -79,6 +80,8 @@ public class TermoEstagioServices {
             List<String> cursos = termoEstagioDAO.buscarTermosRelatorioConsolidadoCursos(inicio, termino);
             return cursos;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar buscar Termos Relatorio Consolidado. ", e);
             return null;
         }
     }
@@ -96,6 +99,8 @@ public class TermoEstagioServices {
             Long qtdTermosEstagio = termoEstagioDAO.buscarQuantidadeDeTermosEstagioParaNomeCurso(curso);
             return qtdTermosEstagio;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar buscar quantidade de Termos Estagio. ", e);
             return new Long(0);
         }
     }
@@ -113,6 +118,8 @@ public class TermoEstagioServices {
             Long qtdTermosEstagioRescindido = termoEstagioDAO.buscarQuantidadeDeTermosEstagioRescindidoParaNomeCurso(curso);
             return qtdTermosEstagioRescindido;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar buscar quantidade de Termos Estagio Rescindidos. ", e);
             return new Long(0);
         }
     }
@@ -131,6 +138,8 @@ public class TermoEstagioServices {
             termoEstagioDao.alterar(termoEstagio);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar alterar Termo Estagio. ", e);
             e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
@@ -144,17 +153,15 @@ public class TermoEstagioServices {
      * @param termoEstagio O Termo Estagio a ser inserido, do tipo TermoEstagio.
      */
     public static void incluirTermoEstagio(TermoEstagio termoEstagio) {
-        System.out.println("Antes");
         GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
         PersistenceManager.getTransaction().begin();
         try {
             termoEstagioDao.incluir(termoEstagio);
             PersistenceManager.getTransaction().commit();
-            System.out.println("Depois");
             
         } catch (Exception e) {
-            System.out.println("Errou");
-            e.printStackTrace();
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar icluir Termos Estagio. ", e);
             PersistenceManager.getTransaction().rollback();
         }
 
@@ -166,6 +173,8 @@ public class TermoEstagioServices {
             Integer maxIdTermoEstagio = termoEstagioDAO.getMaxIdTermoEstagio();
             return maxIdTermoEstagio;
         } catch (Exception e) {
+            Logger lg = Logger.getLogger(TermoEstagioServices.class);
+            lg.error("Exception ao tentar buscar o ID maximo de Termo Estagio. ", e);
             return 0;
         }
     }

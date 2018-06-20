@@ -92,4 +92,33 @@ public class TermoEstagioUtils {
         }
         return null;
     }
+    
+    /** Recupera o cep formatado do Termo
+    *   @param cep String com o cep a ser formatado 
+    * 
+    *   @return String com o cep passado formatado
+    */
+    public static String getCepFormatado(String cep) {
+        if (cep != null && cep.trim().length() > 0) {
+            StringBuilder cepFormatado = new StringBuilder();
+            try {
+                cepFormatado.append(cep.charAt(0));
+                cepFormatado.append(cep.charAt(1));
+                cepFormatado.append(cep.charAt(2));
+                cepFormatado.append(cep.charAt(3));
+                cepFormatado.append(cep.charAt(4));
+                cepFormatado.append("-");
+                cepFormatado.append(cep.charAt(5));
+                cepFormatado.append(cep.charAt(6));
+                cepFormatado.append(cep.charAt(7));
+            } catch (IndexOutOfBoundsException e) {
+                Logger lg = Logger.getLogger(TermoEstagio.class);
+                lg.error("CEP com menos de 8 caracteres. CEP = " + cep, e);
+                return cep;
+            }
+            return cepFormatado.toString();
+        } else {
+            return null;
+        }
+    }
 }

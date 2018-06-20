@@ -30,12 +30,6 @@ public class Aluno implements Serializable{
     @Column(length = 10, nullable = false, unique = true)
     private String matricula;
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;*/
-    
-    /*@ManyToOne(fetch = FetchType.EAGER)
-    private Curso curso;*/
-
     @OneToMany(mappedBy = "aluno")
     private List<TermoEstagio> termoEstagios;
 
@@ -45,9 +39,6 @@ public class Aluno implements Serializable{
     @Column(length = 100, nullable = false)
     private String nomeCampus;
     
-    //@Column(length = 50, nullable = false)
-    //private String codigoCurso;
-
     @Column(length = 255, nullable = false)
     private String nomeCurso;
 
@@ -97,21 +88,6 @@ public class Aluno implements Serializable{
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-
-    /*public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }*/
 
     /**
      * Recupera os termos de estágio vinculados ao aluno

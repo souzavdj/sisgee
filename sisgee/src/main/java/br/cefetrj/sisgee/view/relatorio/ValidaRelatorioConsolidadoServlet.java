@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.view.relatorio;
 
+import br.cefetrj.sisgee.control.AlunoServices;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.text.SimpleDateFormat;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -121,6 +123,8 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
 
             } catch (Exception e) {
                 //fazer log de erro com a internacionalização
+                Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
+                lg.error("Exception devido a formatação da data. ", e);
                 System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
             }
             String msgComparaDatas = "";

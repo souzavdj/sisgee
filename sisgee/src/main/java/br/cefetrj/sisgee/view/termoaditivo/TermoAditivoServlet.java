@@ -17,12 +17,14 @@ import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
+import br.cefetrj.sisgee.view.relatorio.ValidaRelatorioConsolidadoServlet;
 import br.cefetrj.sisgee.view.utils.ConvenioUtils;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.TermoEstagioUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.text.SimpleDateFormat;
+import org.apache.log4j.Logger;
 
 
 /**Servlet para tratar do termo aditivo
@@ -106,20 +108,9 @@ public class TermoAditivoServlet extends HttpServlet {
         }
 
         if (termoEstagio != null) {
-            //TODO implementar lógica de encaminhamento para a tela de registro
-            //termosAditivos = termoEstagio.getTermosAditivos();
-            //if (termosAditivos != null && !termosAditivos.isEmpty()) {
-            //    termoAditivo = termosAditivos.get(termosAditivos.size() - 1);
-            //}
-
-            // se existe algum termo aditivo para o termo estagio
-            //if (termoAditivo != null) {
-            //    termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);
-            //}
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             UF[] uf = UF.asList();
             if (!termoEstagio.getTermosAditivos().isEmpty()) {
-                System.out.println("IdTermo: " + termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1).getIdTermoEstagio());
                 request.setAttribute("termoEstagio", termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1));
                 termoEstagio = termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size()-1);
             }else {
@@ -158,21 +149,22 @@ public class TermoAditivoServlet extends HttpServlet {
                 } else if (messages.getLocale().toString().equals("en_US")) {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
-                    //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
+                    Logger lg = Logger.getLogger(TermoAditivoServlet.class);
+                    lg.error("Idioma desconhecido");
                 }
 
                 if (format != null) {
                     //Datas
                     SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
-                    System.out.println("Data de inicio: " + termoEstagio.getDataInicioTermoEstagio().toString());
                     request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
-                    System.out.println("Data de inicio formatada: "+ format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
                     request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
-                }
+                } else {
+                    Logger lg = Logger.getLogger(TermoAditivoServlet.class);
+                    lg.error("Sem padrão de formatação para data, Objeto format nulo");
+                } 
             }catch (Exception e) {
-                //Fazer log de erro data vindas do bd do termo invalidas
-                System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
+                Logger lg = Logger.getLogger(TermoAditivoServlet.class);
+                lg.error("Exception devido a Data Inválida. ", e);
             }
             
             //Termo
@@ -199,8 +191,7 @@ public class TermoAditivoServlet extends HttpServlet {
             professores.remove(termoEstagio.getProfessorOrientador());
             request.setAttribute("professores", professores);
             request.setAttribute("uf", uf);
-            //request.setAttribute("professor", termoEstagio.getProfessorOrientador());
-
+            
             request.setAttribute("updVigencia", vigencia);
             request.setAttribute("updCargaHoraria", carga);
             request.setAttribute("updProfessor", professor);
