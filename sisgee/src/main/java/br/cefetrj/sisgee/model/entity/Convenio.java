@@ -318,7 +318,7 @@ public class Convenio implements Serializable {
 
      /**
      * Alterar o telefone do conveniado
-     * @paramtelefone String com o telefone
+     * @param telefone String com o telefone
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;

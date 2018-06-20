@@ -35,10 +35,10 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
     /**
      * Metodo doGet para fazer o RequestDispatcher para o form de convenio
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req é a requisição que o servidor recebe do navegador
+     * @param resp é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
      */
     
     @Override
@@ -51,10 +51,10 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
      * Metodo que recebe informações do formulario da pagina de cadastrar
      * convenio e valida as informações.
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req é a requisição que o servidor recebe do navegador
+     * @param resp é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -38,7 +38,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
     }
 
     /**
-     * @método doPost
+     * Metodo que registra a rescisão de um termo estagio/aditivo e guarda essa informação no banco
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      */

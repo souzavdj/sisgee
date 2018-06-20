@@ -29,10 +29,10 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
      * Metodo que recebe informações do formulario da pagina de renovacao de
      * convenio e valida as informações.
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req é a requisição que o servidor recebe do navegador
+     * @param resp é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

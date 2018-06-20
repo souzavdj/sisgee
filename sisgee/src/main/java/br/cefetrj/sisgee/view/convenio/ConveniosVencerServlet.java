@@ -33,10 +33,10 @@ public class ConveniosVencerServlet extends HttpServlet {
      *
      * Metodo que recebe informações voltados para convenios a vencer
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req é a requisição que o servidor recebe do navegador
+     * @param resp é a resposta que o servidor envia ao navegador
+     * @throws ServletException exceção do Servlet
+     * @throws IOException exceção de IO
      */
     
     @Override
