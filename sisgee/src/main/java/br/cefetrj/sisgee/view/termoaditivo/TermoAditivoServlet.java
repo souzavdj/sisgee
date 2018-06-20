@@ -106,16 +106,6 @@ public class TermoAditivoServlet extends HttpServlet {
         }
 
         if (termoEstagio != null) {
-            //TODO implementar lógica de encaminhamento para a tela de registro
-            //termosAditivos = termoEstagio.getTermosAditivos();
-            //if (termosAditivos != null && !termosAditivos.isEmpty()) {
-            //    termoAditivo = termosAditivos.get(termosAditivos.size() - 1);
-            //}
-
-            // se existe algum termo aditivo para o termo estagio
-            //if (termoAditivo != null) {
-            //    termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);
-            //}
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             UF[] uf = UF.asList();
             if (!termoEstagio.getTermosAditivos().isEmpty()) {
@@ -165,9 +155,7 @@ public class TermoAditivoServlet extends HttpServlet {
                 if (format != null) {
                     //Datas
                     SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
-                    System.out.println("Data de inicio: " + termoEstagio.getDataInicioTermoEstagio().toString());
                     request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
-                    System.out.println("Data de inicio formatada: "+ format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
                     request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
                 }
             }catch (Exception e) {
@@ -199,8 +187,7 @@ public class TermoAditivoServlet extends HttpServlet {
             professores.remove(termoEstagio.getProfessorOrientador());
             request.setAttribute("professores", professores);
             request.setAttribute("uf", uf);
-            //request.setAttribute("professor", termoEstagio.getProfessorOrientador());
-
+            
             request.setAttribute("updVigencia", vigencia);
             request.setAttribute("updCargaHoraria", carga);
             request.setAttribute("updProfessor", professor);

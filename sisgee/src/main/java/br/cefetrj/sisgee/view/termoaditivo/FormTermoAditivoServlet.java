@@ -1,7 +1,6 @@
 package br.cefetrj.sisgee.view.termoaditivo;
 
 import br.cefetrj.sisgee.control.AlunoServices;
-import br.cefetrj.sisgee.control.ConvenioServices;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
-import br.cefetrj.sisgee.model.dao.TermoEstagioDAO;
 import br.cefetrj.sisgee.model.entity.Aluno;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
@@ -70,13 +68,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String motivo = "";
-        
+
         String dataInicioTermoAditivo = request.getParameter("dataInicioTermoEstagio");
         String dataFimTermoAditivo = request.getParameter("dataFimTermoEstagio");
         String cargaHorariaTermoAditivo = request.getParameter("cargaHorariaTermoEstagio");
         String valorBolsaTermoAditivo = request.getParameter("valorBolsa");
         String matricula = request.getParameter("matricula");
-        
+
         /**
          * campos de endereço
          */
@@ -106,7 +104,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
         String idTermoEstagio = request.getParameter("idTermoEstagio");
         String idAluno = request.getParameter("idAluno");
         String idConvenio = request.getParameter("idConvenio");
-        System.out.println("Cidade Antes: "+cidadeEnderecoTermoAditivo);
         TermoEstagio termoEstagio = null;
         Integer idTermo = null;
 
@@ -167,12 +164,19 @@ public class FormTermoAditivoServlet extends HttpServlet {
                             hasDataFim = true;
                         } catch (Exception e) {
                             isValid = false;
+                            //TODO log de erro
                         }
                     } else {
                         dataFimMsg = messages.getString(dataFimMsg);
                         request.setAttribute("dataFimMsg", dataFimMsg);
                         isValid = false;
+                        //TODO log info
                     }
+                } else {
+                    dataFimMsg = messages.getString(dataFimMsg);
+                    request.setAttribute("dataFimMsg", dataFimMsg);
+                    isValid = false;
+                    //TODO log info
                 }
                 request.setAttribute("hasDataFim", hasDataFim);
 
@@ -180,15 +184,16 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 if (dataFim == null) {
                     msg = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_termino");
                     isValid = false;
-                }else {
+                } else {
                     periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataFim);
                     if (!periodoMsg.trim().isEmpty()) {
                         periodoMsg = messages.getString(periodoMsg);
                         request.setAttribute("periodoMsg", periodoMsg);
                         isValid = false;
+                        //TODO log info
                     }
                 }
-                
+
             }
 
             /**
@@ -200,6 +205,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 campo = "Valor";
                 valorBolsaMsg = ValidaUtils.validaObrigatorio(campo, valorBolsaTermoAditivo);
                 if (valorBolsaMsg.trim().isEmpty()) {
+                    valorBolsaTermoAditivo = valorBolsaTermoAditivo.replaceAll("[.|,]", "");
                     valorBolsaMsg = ValidaUtils.validaFloat(campo, valorBolsaTermoAditivo);
                     if (valorBolsaMsg.trim().isEmpty()) {
                         valor = Float.parseFloat(valorBolsaTermoAditivo);
@@ -236,26 +242,37 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         if (cargaHorariaMsg.trim().isEmpty()) {
                             cargaHorariaMsg = ValidaUtils.validaTamanho(campo, tamanho, cargaHoraria);
                             if (cargaHorariaMsg.trim().isEmpty()) {
-                                request.setAttribute("cargaHoraria", cargaHoraria);
+                                cargaHorariaMsg = ValidaUtils.validaIntervaloPositivo(cargaHoraria, 7);
+                                if (cargaHorariaMsg.trim().isEmpty()) {
+                                    request.setAttribute("cargaHoraria", cargaHoraria);
+                                } else {
+                                    cargaHorariaMsg = messages.getString(cargaHorariaMsg);
+                                    request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
+                                    isValid = false;
+                                }
                             } else {
                                 cargaHorariaMsg = messages.getString(cargaHorariaMsg);
                                 cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                                 request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
+                                isValid = false;
                             }
                         } else {
                             cargaHorariaMsg = messages.getString(cargaHorariaMsg);
+                            cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                             request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
                             isValid = false;
 
                         }
                     } else {
                         cargaHorariaMsg = messages.getString(cargaHorariaMsg);
+                        cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                         request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
                         isValid = false;
 
                     }
                 } else {
                     cargaHorariaMsg = messages.getString(cargaHorariaMsg);
+                    cargaHorariaMsg = ServletUtils.mensagemFormatada(cargaHorariaMsg, locale, tamanho);
                     request.setAttribute("cargaHorariaMsg", cargaHorariaMsg);
                     isValid = false;
 
@@ -338,46 +355,15 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 }
 
                 /**
-                 * Validação do número do endereço do TermoEstagio usando os
-                 * métodos da Classe ValidaUtils. Campo obrigatório e tamanho
-                 * máximo de 10 caracteres.
-                 */
-                /*
-				String numeroEnderecoMsg = "";
-				campo = "Número";
-				tamanho = 10;
-				numeroEnderecoMsg = ValidaUtils.validaObrigatorio(campo , numeroEnderecoTermoAditivo);
-				if(numeroEnderecoMsg.trim().isEmpty()) {
-					numeroEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, numeroEnderecoTermoAditivo);
-					if(numeroEnderecoMsg.trim().isEmpty()) {
-						request.setAttribute("numeroEnderecoTermoEstagio", numeroEnderecoTermoAditivo);
-					}else {				
-						numeroEnderecoMsg = messages.getString(numeroEnderecoMsg);
-						numeroEnderecoMsg = ServletUtils.mensagemFormatada(numeroEnderecoMsg, locale, tamanho);
-						request.setAttribute("numeroEnderecoMsg", numeroEnderecoMsg);
-						isValid = false;
-						//TODO Fazer log
-						System.out.println(numeroEnderecoMsg);
-					}
-				}else {
-					numeroEnderecoMsg = messages.getString(numeroEnderecoMsg);
-					request.setAttribute("numeroEnderecoMsg", numeroEnderecoMsg);
-					isValid = false;
-					//TODO Fazer log
-					System.out.println(numeroEnderecoMsg);
-				}		
-                 */
-                /**
                  * Validação do complemento do endereço do TermoEstagio usando
-                 * os métodos da Classe ValidaUtils. Campo obrigatório e tamanho
-                 * máximo de 150 caracteres.
+                 * os métodos da Classe ValidaUtils. Campo opcional e tamanho
+                 * máximo de 100 caracteres.
                  */
                 String complementoEnderecoMsg = "";
                 campo = "Complemento";
-                tamanho = 150;
-                complementoEnderecoMsg = ValidaUtils.validaObrigatorio(campo, complementoEnderecoTermoAditivo);
-                if (complementoEnderecoMsg.trim().isEmpty()) {
-                    //numeroEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, complementoEnderecoTermoAditivo);
+                tamanho = 100;
+                if (!complementoEnderecoTermoAditivo.trim().isEmpty()) {
+                    complementoEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, complementoEnderecoTermoAditivo);
                     if (complementoEnderecoMsg.trim().isEmpty()) {
                         request.setAttribute("complementoEnderecoTermoEstagio", complementoEnderecoTermoAditivo);
                     } else {
@@ -385,12 +371,10 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         complementoEnderecoMsg = ServletUtils.mensagemFormatada(complementoEnderecoMsg, locale, tamanho);
                         request.setAttribute("complementoEnderecoMsg", complementoEnderecoMsg);
                         isValid = false;
-
+                        //TODO Fazer log
+                        System.out.println(enderecoMsg);
                     }
-                } else {
-                    complementoEnderecoMsg = messages.getString(complementoEnderecoMsg);
-                    request.setAttribute("complementoEnderecoMsg", complementoEnderecoMsg);
-                    isValid = false;
+
                 }
 
                 /**
@@ -509,57 +493,60 @@ public class FormTermoAditivoServlet extends HttpServlet {
             }
             if (updSupervisor != null && !updSupervisor.trim().isEmpty()) {
                 motivo = motivo + messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.supervisor");
-                if(nomeSurpervisor.trim().isEmpty() || nomeSurpervisor == null) {
+                if (nomeSurpervisor.trim().isEmpty() || nomeSurpervisor == null) {
                     msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.nomeSupervisorInvalido");
                     isValid = false;
                 }
-                if(cargoSurpervisor.trim().isEmpty()) {
+                if (cargoSurpervisor.trim().isEmpty()) {
                     msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.cargoSupervisorInvalido");
                     isValid = false;
                 }
             }
-            
 
         } else {
             msg = messages.getString("br.cefetrj.sisgee.form_termo_aditivo_servlet.msg_termo_estagio_invalido");
             isValid = false;
 
         }
-        if(isValid) {
+        if (isValid) {
             Aluno aluno = AlunoServices.buscarAlunoByMatricula(matricula);
             Convenio convenio = termoEstagio.getConvenio();
             Date dataInicioJsp = null;
             Date rescisao = null;
             Date dataFimJsp = null;
-            try {
-                SimpleDateFormat format = null;
-                if (messages.getLocale().toString().equals("pt_BR")) {
-                    format = new SimpleDateFormat("dd/MM/yyyy");
-                } else if (messages.getLocale().toString().equals("en_US")) {
-                    format = new SimpleDateFormat("MM/dd/yyyy");
-                } else {
-                    //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
-                }
-
-                if (format != null) {
-                    dataInicioJsp = format.parse(dataInicioTermoAditivo);
-                    dataFimJsp = format.parse(dataFimTermoAditivo);
-                } else {
-                    //fazer o log de erro com a internacionalização
-                    System.out.println("Sem padrão de formatação para data, Objeto format nulo");
-                } 
-            }catch (Exception e) {
-                
-            }
             
-            TermoEstagio termoAditivo = new TermoEstagio(dataInicioJsp, dataFimJsp, termoEstagio.getDataRescisaoTermoEstagio(), 
-                    termoEstagio.getCargaHorariaTermoEstagio(), termoEstagio.getValorBolsa(), termoEstagio.getEnderecoTermoEstagio(), 
-                    termoEstagio.getComplementoEnderecoTermoEstagio(), termoEstagio.getBairroEnderecoTermoEstagio(), 
-                    termoEstagio.getCepEnderecoTermoEstagio(), termoEstagio.getCidadeEnderecoTermoEstagio(), 
-                    termoEstagio.getEstadoEnderecoTermoEstagio(), termoEstagio.getEEstagioObrigatorio(), 
-                    termoEstagio.getNomeSupervisor(), termoEstagio.getCargoSupervisor(), motivo, 
+            TermoEstagio termoAditivo = new TermoEstagio(termoEstagio.getDataInicioTermoEstagio(), termoEstagio.getDataFimTermoEstagio(), 
+                    termoEstagio.getDataRescisaoTermoEstagio(), termoEstagio.getCargaHorariaTermoEstagio(), termoEstagio.getValorBolsa(), 
+                    termoEstagio.getEnderecoTermoEstagio(), termoEstagio.getComplementoEnderecoTermoEstagio(), 
+                    termoEstagio.getBairroEnderecoTermoEstagio(), termoEstagio.getCepEnderecoTermoEstagio(), 
+                    termoEstagio.getCidadeEnderecoTermoEstagio(), termoEstagio.getEstadoEnderecoTermoEstagio(), 
+                    termoEstagio.getEEstagioObrigatorio(), termoEstagio.getNomeSupervisor(), termoEstagio.getCargoSupervisor(), motivo, 
                     termoEstagio.getEAtivo(), aluno, convenio, termoEstagio.getProfessorOrientador(), termoEstagio.getAgenciada());
+            
+            if (updVigencia.equals("sim")) {
+                try {
+                    SimpleDateFormat format = null;
+                    if (messages.getLocale().toString().equals("pt_BR")) {
+                        format = new SimpleDateFormat("dd/MM/yyyy");
+                    } else if (messages.getLocale().toString().equals("en_US")) {
+                        format = new SimpleDateFormat("MM/dd/yyyy");
+                    } else {
+                        //fazer log de erro com a internacionalização
+                        System.out.println("Idioma desconhecido");
+                    }
+
+                    if (format != null) {
+                        dataInicioJsp = format.parse(dataInicioTermoAditivo);
+                        dataFimJsp = format.parse(dataFimTermoAditivo);
+                        termoAditivo.setDataFimTermoEstagio(dataFimJsp);
+                    } else {
+                        //fazer o log de erro com a internacionalização
+                        System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+                    } 
+                }catch (Exception e) {
+
+                }
+            }
             
             if (updCargaHoraria.equals("sim")) {
                 termoAditivo.setCargaHorariaTermoEstagio(Integer.parseInt(cargaHorariaTermoAditivo));
@@ -587,7 +574,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
             }
             termoAditivo.setMotivoAditivo(motivo);
             
-            termoAditivo.setIdTermoEstagio(null);
+            termoAditivo.setIdTermoEstagio(TermoAditivoServices.getIdMaxTermoEstagio()+1);
             if (termoEstagio.getTermoEstagioAditivo() == null) {
                 termoAditivo.setTermoEstagioAditivo(termoEstagio);
             }else {
@@ -603,34 +590,35 @@ public class FormTermoAditivoServlet extends HttpServlet {
             }catch(Exception e) {
                 msg = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_ocorreuErro");
                 request.setAttribute("msg", msg);
+                System.err.println("erro: " +e.getMessage());
                 lg.error("Exception ao tentar inserir o Termo de Estágio", e);
                 request.getRequestDispatcher("/form_termo_estagio.jsp").forward(request, response);
-            }
-        }else {
+            }   
+        } else {
             Aluno aluno = null;
             request.setAttribute("termoEstagio", termoEstagio);
-            
+
             Integer idAlunoInt = Integer.parseInt(idAluno);
-                aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
-                if (aluno != null) {
-                    List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();
-                    if (TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio) != null) {
-                        for (TermoEstagio termo : termosEstagio) {
-                            if (termo.getIdTermoEstagio() == Integer.parseInt(TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio))) {
-                                termoEstagio = termo;
-                            }
+            aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
+            if (aluno != null) {
+                List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();
+                if (TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio) != null) {
+                    for (TermoEstagio termo : termosEstagio) {
+                        if (termo.getIdTermoEstagio() == Integer.parseInt(TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio))) {
+                            termoEstagio = termo;
                         }
                     }
-
                 }
-            
+
+            }
+
             //Aluno
             request.setAttribute("idAluno", aluno.getIdAluno());
             request.setAttribute("matricula", aluno.getMatricula());
             request.setAttribute("nome", aluno.getNome());
             request.setAttribute("nomeCurso", aluno.getNomeCurso());
             request.setAttribute("nomeCampus", aluno.getNomeCampus());
-            
+
             //Convenio
             request.setAttribute("idConvenio", termoEstagio.getConvenio().getIdConvenio());
             request.setAttribute("numeroConvenio", ConvenioUtils.getNumeroConvenioFormatado(termoEstagio.getConvenio().getNumeroConvenio()));
@@ -641,13 +629,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
             request.setAttribute("agencia", termoEstagio.getConvenio().getNomeConveniado());
             if (termoEstagio.getConvenio().getIsPessoaJuridica()) {
                 request.setAttribute("CpfCnpj", ConvenioUtils.getCnpjEmpresaFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
-            }else {
+            } else {
                 request.setAttribute("CpfCnpj", ConvenioUtils.getCpfFormatado(termoEstagio.getConvenio().getCpf_cnpj()));
             }
-            
+
             request.setAttribute("agenciada", termoEstagio.getAgenciada());
             request.setAttribute("razaoSocial", termoEstagio.getConvenio().getNomeConveniado());
-            try {    
+            try {
                 SimpleDateFormat format = null;
                 if (messages.getLocale().toString().equals("pt_BR")) {
                     format = new SimpleDateFormat("dd/MM/yyyy");
@@ -660,38 +648,38 @@ public class FormTermoAditivoServlet extends HttpServlet {
 
                 if (format != null) {
                     //Datas
-                    SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
                     System.out.println("Data de inicio: " + termoEstagio.getDataInicioTermoEstagio().toString());
                     request.setAttribute("dataInicioTermoEstagio", format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
-                    System.out.println("Data de inicio formatada: "+ format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
+                    System.out.println("Data de inicio formatada: " + format.format(in.parse(termoEstagio.getDataInicioTermoEstagio().toString())));
                     request.setAttribute("dataFimTermoEstagio", format.format(in.parse(termoEstagio.getDataFimTermoEstagio().toString())));
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 //Fazer log de erro data vindas do bd do termo invalidas
                 System.err.println("Datas de inicio ou de fim do termo de estagio invalidas");
             }
-            
+
             //Termo
             request.setAttribute("cargaHorariaTermoEstagio", termoEstagio.getCargaHorariaTermoEstagio());
             request.setAttribute("valorBolsa", termoEstagio.getValorBolsa());
-            
+
             //Endereço
             request.setAttribute("enderecoTermoEstagio", termoEstagio.getEnderecoTermoEstagio());
             request.setAttribute("complementoEnderecoTermoEstagio", termoEstagio.getComplementoEnderecoTermoEstagio());
             request.setAttribute("bairroEnderecoTermoEstagio", termoEstagio.getBairroEnderecoTermoEstagio());
             request.setAttribute("cidadeEnderecoTermoEstagio", termoEstagio.getCidadeEnderecoTermoEstagio());
             request.setAttribute("cepEnderecoTermoEstagio", termoEstagio.getCepEnderecoTermoEstagio());
-            request.setAttribute("ufTermo", termoEstagio.getEstadoEnderecoTermoEstagio()); 
+            request.setAttribute("ufTermo", termoEstagio.getEstadoEnderecoTermoEstagio());
             if (termoEstagio.getEEstagioObrigatorio()) {
                 request.setAttribute("eEstagioObrigatorio", "sim");
-            }else {
+            } else {
                 request.setAttribute("eEstagioObrigatorio", "nao");
             }
-            
+
             request.setAttribute("nomeSupervisor", termoEstagio.getNomeSupervisor());
             request.setAttribute("cargoSupervisor", termoEstagio.getCargoSupervisor());
             request.setAttribute("professorTermo", termoEstagio.getProfessorOrientador());
-            
+
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             UF[] uf = UF.asList();
             professores.remove(termoEstagio.getProfessorOrientador());
@@ -710,7 +698,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
         }
     }
 
-    /** Metodo que carrega lista 
+    /**
+     * Metodo que carrega lista
      *
      * @param request
      * @throws ServletException

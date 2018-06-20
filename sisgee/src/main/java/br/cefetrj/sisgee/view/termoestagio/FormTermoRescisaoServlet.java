@@ -202,6 +202,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
             }else {
                 termoAditivo.setTermoEstagioAditivo(termoAtual.getTermoEstagioAditivo());
             }
+            termoAditivo.setIdTermoEstagio(TermoAditivoServices.getIdMaxTermoEstagio()+1);
             try {
                 TermoAditivoServices.incluirTermoAditivo(termoAditivo);
                 msg = messages.getString("br.cefetrj.sisgee.resources.form.consultar.termo.registroSucesso");

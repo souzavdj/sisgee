@@ -341,7 +341,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 */
 		String bairroEnderecoMsg = "";
 		campo = "Bairro";
-		tamanho = 100;
+		tamanho = 150;
 		if(!bairroEnderecoTermoEstagio.trim().isEmpty()) {
 			bairroEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, bairroEnderecoTermoEstagio);
 			if(bairroEnderecoMsg.trim().isEmpty()) {
@@ -388,7 +388,7 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		 */
 		String cidadeEnderecoMsg = "";
 		campo = "Cidade";
-		tamanho = 100;
+		tamanho = 150;
 		cidadeEnderecoMsg = ValidaUtils.validaObrigatorio(campo, cidadeEnderecoTermoEstagio);
 		if(cidadeEnderecoMsg.trim().isEmpty()) {
 			cidadeEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cidadeEnderecoTermoEstagio);
@@ -472,15 +472,12 @@ public class FormTermoEstagioServlet extends HttpServlet {
 		
 			/**
 		 * Validação do Professor Supervisor, usando métodos da Classe ValidaUtils.
-		 * É um campo obrigatório
+		 * Não é obrigatório
 		 */		
 		String nomeSupervisorMsg = "";
 		campo = "Nome Supervisor";
 		tamanho = 100;
-                nomeSupervisorMsg = ValidaUtils.validaObrigatorio(campo, nomesupervisor);
-		if(nomeSupervisorMsg.trim().isEmpty()) {
-		
-                        
+                if(!nomesupervisor.isEmpty()){                        
 			nomeSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, nomesupervisor);
 			if(nomeSupervisorMsg.trim().isEmpty()) {
 				request.setAttribute("nomeSupervisor", nomesupervisor);
@@ -491,14 +488,8 @@ public class FormTermoEstagioServlet extends HttpServlet {
 				Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
                                 lg.info(nomeSupervisorMsg);
 			}
-		}else{
-                    nomeSupervisorMsg = messages.getString(nomeSupervisorMsg);
-                    request.setAttribute("nomeSupervisorMsg", nomeSupervisorMsg);
-                    isValid = false;
-                    Logger lg = Logger.getLogger(FormTermoEstagioServlet.class);
-                    lg.info(nomeSupervisorMsg);
-                }
 		
+                }
 		
 		/**
 		 * Validação do Cargo do professor Supervisor, usando métodos da Classe ValidaUtils.

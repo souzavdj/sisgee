@@ -22,7 +22,6 @@ import br.cefetrj.sisgee.view.utils.ValidaUtils;
  * @author Paulo Cantuária
  *
  */
-
 @WebServlet("/VerTermoAditivoServlet")
 public class VerTermoAditivoServlet extends HttpServlet {
 
@@ -41,39 +40,29 @@ public class VerTermoAditivoServlet extends HttpServlet {
         String msg = "";
         String campo = "Termo Aditivo";
         boolean isValid = true;
-        System.out.println("IdTermo estagio: " + idTermoEstagio);
         
         msg = ValidaUtils.validaObrigatorio("campo", idTermoEstagio);
-        if(msg.trim().isEmpty()){
-                msg = ValidaUtils.validaInteger(campo, idTermoEstagio);
-                if(msg.trim().isEmpty()) {
-                        id = Integer.parseInt(idTermoEstagio);
-                        termoEstagio = TermoEstagioServices.buscarTermoEstagio(id);
-                        //termoAditivo = TermoAditivoServices.buscarTermoAditivo(id);
-                        if(termoEstagio != null) {
-                        //	termoEstagio = TermoAditivoServices.termoEstagioAtualizadoByTermoAditivo(termoAditivo);					
-                                request.setAttribute("termoEstagio", termoEstagio);				
-
-                        }else {
-                                isValid = false;
-                                msg = messages.getString("br.cefetrj.sisgee.ver_termo_aditivo_servlet.id_termo_invalido");
-                        }
-                }else {
-                        isValid = false;
-                        msg = messages.getString(msg);				
+        if (msg.trim().isEmpty()) {
+            msg = ValidaUtils.validaInteger(campo, idTermoEstagio);
+            if (msg.trim().isEmpty()) {
+                id = Integer.parseInt(idTermoEstagio);
+                termoEstagio = TermoEstagioServices.buscarTermoEstagio(id);
+                if (termoEstagio != null) {
+                    request.setAttribute("termoEstagio", termoEstagio);
+                } else {
+                    isValid = false;
+                    msg = messages.getString("br.cefetrj.sisgee.ver_termo_aditivo_servlet.id_termo_invalido");
                 }
-        }else {
+            } else {
                 isValid = false;
-                msg = messages.getString(msg);	
+                msg = messages.getString(msg);
+            }
+        } else {
+            isValid = false;
+            msg = messages.getString(msg);
         }
 
-        if(isValid) {
-                //boolean isVisualizacao = true;
-                //String aditivo = "sim";
-                //request.setAttribute("isVisualizacao", isVisualizacao);
-                //request.setAttribute("aditivo", aditivo);
-                
-                        
+        if (isValid) {
             request.getRequestDispatcher("/form_visualizar_termos.jsp").forward(request, response);
         }
     }
