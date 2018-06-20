@@ -17,13 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Classe responsavel por verificar se as informações dos campos da pagina de
+ * Servlet responsavel por verificar se as informações dos campos da pagina de
  * cadastrar convenio estão corretas.Se as informações forem validas vai para o
  * IncluirConvenioServlet.Se não forem validas aparecerá na pagina de cadastro
  * de convenio mensagens de erro especificias.
  *
  * @author Andre
- * @version 1
+ * @since 2.0
  *
  */
 @WebServlet("/ValidarCadastroConvenioServlet")
@@ -31,6 +31,17 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    
+    /**
+     * Metodo doGet para fazer o RequestDispatcher para o form de convenio
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/form_convenio.jsp").forward(req, resp);
     }

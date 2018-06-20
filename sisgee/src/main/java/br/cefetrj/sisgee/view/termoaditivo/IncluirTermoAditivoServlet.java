@@ -17,7 +17,7 @@ import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 
-/**
+/**Servlet para tratar da inclusão do termo aditivo servlet
  * 
  * @author Paulo Cantuária
  * @since 1.0

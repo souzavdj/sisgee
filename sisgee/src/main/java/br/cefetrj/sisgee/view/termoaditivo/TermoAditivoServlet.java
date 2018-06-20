@@ -24,6 +24,14 @@ import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
 import java.text.SimpleDateFormat;
 
+
+/**Servlet para tratar do termo aditivo
+ * 
+ * @author Paulo Cantuária
+ * @since 1.0
+ *
+ */
+
 @WebServlet("/TermoAditivoServlet")
 public class TermoAditivoServlet extends HttpServlet {
 

@@ -15,7 +15,7 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
  * Serviços de TermoEstagio. Trata a lógica de negócios associada com a entidade
  * TermoEstagio.
  *
- * @author Paulo Cantuária, Augusto Jose
+ * @author Paulo Cantuária, Augusto Jose,  André Alves, Leticia Silva
  * @since 1.0
  */
 public class TermoEstagioServices {
@@ -30,11 +30,30 @@ public class TermoEstagioServices {
         return termoEstagioDao.buscarTodos();
     }
 
+    /**
+     * Serviço que busca um Termo de Estágio a partir do seu id
+     * 
+     * @author André Alves
+     * @param idTermoEstagio Integer com o id do termo estagio que se quer buscar
+     * @return Um termo estagio - TermoEstagio
+     */
     public static TermoEstagio buscarTermoEstagio(Integer idTermoEstagio) {
         GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
         return termoEstagioDao.buscar(idTermoEstagio);
     }
-
+    
+    
+     /**
+     * Serviço que busca Termos Relatórios Consolidados dos cursos, a partir de 3 parâmetro definidos pelo usuário
+     * e retorna uma lista.
+     * 
+     * @author André Alves
+     * @param obrigatorio boolean informando se é obrigatório ou não 
+     * (nesse caso, é verdadeiro, para diferenciar do outro método na quantidade de parâmetros)
+     * @param inicio Date com a data inicial do intervalo que se deseja pesquisar
+     * @param termino Date com a data final (término) do intervalo que se deseja pesquisar
+     * @return lista de String com os cursos retornados na busca
+     */
     public static List<String> buscarTermosRelatorioConsolidadoCursos(boolean obrigatorio, Date inicio, Date termino) {
         TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
         try {
@@ -45,6 +64,15 @@ public class TermoEstagioServices {
         }
     }
 
+    /**
+     * Serviço que busca Termos Relatórios Consolidados dos cursos, a partir de 2 parâmetro definidos pelo usuário
+     * e retorna uma lista.
+     * 
+     * @author André Alves
+     * @param inicio Date com a data inicial do intervalo que se deseja pesquisar
+     * @param termino Date com a data final (término) do intervalo que se deseja pesquisar
+     * @return lista de String com os cursos retornados
+     */
     public static List<String> buscarTermosRelatorioConsolidadoCursos(Date inicio, Date termino) {
         TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
         try {
@@ -55,6 +83,13 @@ public class TermoEstagioServices {
         }
     }
 
+    /**
+     * Serviço que busca a quantidade de termos de estágio de determinado curso, escolhido pelo usuário
+     * 
+     * @author André Alves
+     * @param curso String nome do curso para busca 
+     * @return Long com a quantidade de termos de estágio no curso escolhido
+     */
     public static Long buscarQuantidadeDeTermosEstagioParaNomeCurso(String curso) {
         TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
         try {
@@ -65,6 +100,13 @@ public class TermoEstagioServices {
         }
     }
 
+    /**
+     * Serviço que busca a quantidade de Termos Estágios rescindidos, a partir do nome do curso
+     * 
+     * @author André Alves
+     * @param curso String nome do curso para busca 
+     * @return Long com a quantidade de termos de estágio rescindidos no curso escolhido
+     */
     public static Long buscarQuantidadeDeTermosEstagioRescindidoParaNomeCurso(String curso) {
         TermoEstagioDAO termoEstagioDAO = new TermoEstagioDAO();
         try {
@@ -97,11 +139,9 @@ public class TermoEstagioServices {
 
     /**
      * Insere um Termo de Estágio no Banco de Dados.
-     *
-     * @param termoEstagio O Termo Estagio a ser inserido.
-     * @param c O convenio ao qual o Termo Estagio estará ligado.
-     * @param a O Agente aluno ao qual o Termo Estagio estará ligado.
-     *
+     * 
+     * @author Letícia Silva 
+     * @param termoEstagio O Termo Estagio a ser inserido, do tipo TermoEstagio.
      */
     public static void incluirTermoEstagio(TermoEstagio termoEstagio) {
         GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
