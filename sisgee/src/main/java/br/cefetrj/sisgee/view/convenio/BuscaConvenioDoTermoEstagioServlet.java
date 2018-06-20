@@ -57,17 +57,16 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         String numeroConvenioMsg = "";
         String nomeConvenioMsg = "";
         //Todo referencia em ingles
-        System.out.println("NomeConveniado:" + nomeConveniado);
-        System.out.println("NumeroConveniado:" + numConvenio);
+        
         if(!numConvenio.trim().isEmpty()){
-            System.out.println("Entrou no busca convenio pelo numero");
+            
             String num =String.format("%06d",Integer.parseInt(numConvenio.trim()));
             numeroConvenioMsg=ValidaUtils.validaTamanho("numeroConvenio",6,numConvenio);
             if(numeroConvenioMsg.trim().isEmpty()){
                 buscado = ConvenioServices.buscarBy6Numero(num);
 
             }else{
-                System.out.println("Aqui erro numero");
+              
                 isValid=false;
                 erroConvenioNumero=true;
                 Logger lg = Logger.getLogger(BuscaConvenioDoTermoEstagioServlet.class);
@@ -75,12 +74,12 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
             }
           
         }else{
-            System.out.println("Entrou no busca convenio pelo nome");
+            
             nomeConvenioMsg=ValidaUtils.validaTamanho("nomeConveniado",100,nomeConveniado);
             if(nomeConvenioMsg.trim().isEmpty()){
                 buscado = ConvenioServices.buscarConvenioByNomeConveniado(nomeConveniado.toUpperCase());
             }else{
-                System.out.println("Aqui erro nome");
+                
                 isValid=false;
                 erroConvenioNome=true;
                 Logger lg = Logger.getLogger(BuscaConvenioDoTermoEstagioServlet.class);
@@ -90,12 +89,11 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
           
         }
        
-        System.out.println("Passou :" +buscado);
+        
         if (buscado != null) {
             idConvenio = Integer.toString(buscado.getIdConvenio());
-            System.out.println("Tipo pessoa :" +buscado.getIsPessoaJuridica());
+           
             tipo=Boolean.toString(buscado.getIsPessoaJuridica());
-            System.out.println("Tipo agente :" +buscado.getIsAgenteIntegracao());
             agente = Boolean.toString(buscado.getIsAgenteIntegracao());
             razao = buscado.getNomeConveniado();
             if(buscado.getIsAgenteIntegracao()){
