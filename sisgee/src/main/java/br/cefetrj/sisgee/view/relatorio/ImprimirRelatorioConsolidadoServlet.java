@@ -46,7 +46,9 @@ public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {
                 format = new SimpleDateFormat("MM/dd/yyyy");
             } else {
                 //fazer log de erro com a internacionalização
-                System.out.println("Idioma desconhecido");
+                Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
+                lg.error("Idioma selecionado desconhecido. ");
+                //System.out.println("Idioma desconhecido");
             }
 
             if (format != null) {
@@ -55,7 +57,9 @@ public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {
                 dataTermino = format.parse(dataDeTermino);
             } else {
                 //fazer o log de erro com a internacionalização
-                System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+                Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
+                lg.error("Erro na formatação da Data. ");
+                //System.out.println("Sem padrão de formatação para data, Objeto format nulo");
             }
 
         } catch (Exception e) {
@@ -149,7 +153,9 @@ public class ImprimirRelatorioConsolidadoServlet extends HttpServlet {
 
         } else {
             //usar log info eu acho
-            System.out.println("Nenhum registro encontrado nesse período de tempo");
+            Logger lg = Logger.getLogger(ImprimirRelatorioConsolidadoServlet.class);
+            lg.info("Nenhum registro encontrado nesse periodo de tempo.");
+            //System.out.println("Nenhum registro encontrado nesse período de tempo");
             //String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
             req.setAttribute("msgRelatorio", "Não há termos");
         }

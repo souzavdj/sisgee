@@ -60,19 +60,26 @@ public class BuscaConvenioDoTermoEstagioServlet extends HttpServlet {
         
         if(!numConvenio.trim().isEmpty()){
             
-            String num =String.format("%06d",Integer.parseInt(numConvenio.trim()));
-            numeroConvenioMsg=ValidaUtils.validaTamanho("numeroConvenio",6,numConvenio);
-            if(numeroConvenioMsg.trim().isEmpty()){
-                buscado = ConvenioServices.buscarBy6Numero(num);
+            try{
+                String num =String.format("%06d",Integer.parseInt(numConvenio.trim()));
+            
+                numeroConvenioMsg=ValidaUtils.validaTamanho("numeroConvenio",6,numConvenio);
+                if(numeroConvenioMsg.trim().isEmpty()){
+                    buscado = ConvenioServices.buscarBy6Numero(num);
 
-            }else{
-              
+                }else{
+
+                    isValid=false;
+                    erroConvenioNumero=true;
+                    Logger lg = Logger.getLogger(BuscaConvenioDoTermoEstagioServlet.class);
+                    lg.info(numeroConvenioMsg);
+                }
+            }catch(Exception e){
                 isValid=false;
                 erroConvenioNumero=true;
                 Logger lg = Logger.getLogger(BuscaConvenioDoTermoEstagioServlet.class);
-                lg.info(numeroConvenioMsg);
-            }
-          
+                lg.info("Erro no formato do numConvenio");
+            }   
         }else{
             
             nomeConvenioMsg=ValidaUtils.validaTamanho("nomeConveniado",100,nomeConveniado);

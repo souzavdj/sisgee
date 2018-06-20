@@ -50,6 +50,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         String estagioNaoObrigatorio = request.getParameter("estagioNaoObrigatorio");
 
         Locale locale = getLocale(request);
+        Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
 
         request.setAttribute("Locale", locale);
 
@@ -75,11 +76,13 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
             } else {
                 msgDataInicio = messages.getString(msgDataInicio);
                 request.setAttribute("msgDataInicio", msgDataInicio);
+                lg.info(msgDataInicio);
                 isValid = false;
             }
         } else {
             msgDataInicio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_inicio");
             request.setAttribute("msgDataInicio", msgDataInicio);
+            lg.info(msgDataInicio);
             isValid = false;
         }
 
@@ -93,11 +96,13 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
             } else {
                 msgDataTermino = messages.getString(msgDataTermino);
                 request.setAttribute("msgDataTermino", msgDataTermino);
+                lg.info(msgDataTermino);
                 isValid = false;
             }
         } else {
             msgDataTermino = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.alert_data_termino");
             request.setAttribute("msgDataTermino", msgDataTermino);
+            lg.info(msgDataTermino);
             isValid = false;
         }
 
@@ -110,7 +115,8 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
                     format = new SimpleDateFormat("MM/dd/yyyy");
                 } else {
                     //fazer log de erro com a internacionalização
-                    System.out.println("Idioma desconhecido");
+                    lg.error("Idioma selecionado desconhecido. ");
+                    //System.out.println("Idioma desconhecido");
                 }
 
                 if (format != null) {
@@ -118,14 +124,14 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
                     dataTermino = format.parse(dataDeTermino);
                 } else {
                     //fazer o log de erro com a internacionalização
-                    System.out.println("Sem padrão de formatação para data, Objeto format nulo");
+                    lg.error("Erro ao formatar data. ");
+                    //System.out.println("Sem padrão de formatação para data, Objeto format nulo");
                 }
 
             } catch (Exception e) {
                 //fazer log de erro com a internacionalização
-                Logger lg = Logger.getLogger(ValidaRelatorioConsolidadoServlet.class);
                 lg.error("Exception devido a formatação da data. ", e);
-                System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
+                //System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
             }
             String msgComparaDatas = "";
 
@@ -136,6 +142,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
             } else {
                 msgComparaDatas = messages.getString(msgComparaDatas);
                 request.setAttribute("msgComparaDatas", msgComparaDatas);
+                lg.info(msgComparaDatas);
                 isValid = false;
 
             }
@@ -144,6 +151,7 @@ public class ValidaRelatorioConsolidadoServlet extends HttpServlet {
         if (estagioObrigatorio == null && estagioNaoObrigatorio == null) {
             msgCheckEstagio = messages.getString("br.cefetrj.sisgee.relatorio.relatorio_consolidado_servlet.msg_check_estagio_not_null");
             request.setAttribute("msgCheckEstagio", msgCheckEstagio);
+            lg.info(msgCheckEstagio);
             isValid = false;
 
         } else {

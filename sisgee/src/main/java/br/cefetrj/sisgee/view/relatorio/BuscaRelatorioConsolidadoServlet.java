@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.view.utils.ItemRelatorio;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet para buscar e processar os dados obtidos do banco.
@@ -62,6 +63,8 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
         List<Long> qtdTermosEstagio = null;
         List<Long> qtdTermosAdivos = null;
         List<Long> qtdTermosRescindido = null;
+        
+        Logger lg = Logger.getLogger(BuscaRelatorioConsolidadoServlet.class);
 
         if (estagioObrig == true && estagioNaoObrig == true) {
             cursos = TermoEstagioServices.buscarTermosRelatorioConsolidadoCursos(dataInicio, dataTermino);
@@ -136,8 +139,9 @@ public class BuscaRelatorioConsolidadoServlet extends HttpServlet {
 
         } else {
             //usar log info eu acho
-            System.out.println("Nenhum registro encontrado nesse período de tempo");
+            //System.out.println("Nenhum registro encontrado nesse período de tempo");
             String msgRelatorio = messages.getString("br.cefetrj.sisgee.relatorio.busca_relatorio_consolidado_servlet.nenhum_resultado");
+            lg.info(msgRelatorio);
             request.setAttribute("msgRelatorio", msgRelatorio);
         }
 

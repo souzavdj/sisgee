@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet para validar informações para a busca do convenio
@@ -39,6 +40,7 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
     
         Locale locale = ServletUtils.getLocale(req);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(ValidaBuscaConvenioServlet.class);
         
         String numConvenio = req.getParameter("numConvenio");
         String nomeConveniado = req.getParameter("nomeConveniado");
@@ -48,10 +50,12 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
         if(numConvenio.trim().isEmpty() && nomeConveniado.trim().isEmpty()){
             campoMsg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_campos");
             req.setAttribute("campoMsg", campoMsg);
+            lg.info(campoMsg);
             isValid = false;
         }else if(!(numConvenio.trim().isEmpty()) && !(nomeConveniado.trim().isEmpty())){
             campoMsg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_umCampo");
             req.setAttribute("campoMsg", campoMsg);
+            lg.info(campoMsg);
             isValid = false;
         }
         
@@ -71,12 +75,14 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
                 numConvenioMsg = messages.getString(numConvenioMsg);
                 numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 6);
                 req.setAttribute("numConvenioMsg", numConvenioMsg);
+                lg.info(numConvenioMsg);
                 isValid = false;
             }
         }else{
             numConvenioMsg = messages.getString(numConvenioMsg);
             numConvenioMsg = ServletUtils.mensagemFormatada(numConvenioMsg, locale, 6);
             req.setAttribute("numConvenioMsg", numConvenioMsg);
+            lg.info(numConvenioMsg);
             isValid = false;
         }
         }else if(numConvenio.trim().isEmpty() && !(nomeConveniado.trim().isEmpty())){
@@ -94,6 +100,7 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
                 nomeConveniadoMsg = messages.getString(nomeConveniadoMsg);
                 nomeConveniadoMsg = ServletUtils.mensagemFormatada(nomeConveniadoMsg, locale, 100);
                 req.setAttribute("nomeConveniadoMsg", nomeConveniadoMsg);
+                lg.info(nomeConveniadoMsg);
                 isValid = false;
             }
         }
@@ -103,6 +110,7 @@ public class ValidaBuscaConvenioServlet extends HttpServlet {
         } else {
             String msg = messages.getString("br.cefetrj.sisgee.valida_busca_convenio_servlet.msg_atencao");
             req.setAttribute("msg", msg);
+            lg.info(msg);
             req.getRequestDispatcher("/form_renovar_convenio.jsp").forward(req, resp);
         }
         

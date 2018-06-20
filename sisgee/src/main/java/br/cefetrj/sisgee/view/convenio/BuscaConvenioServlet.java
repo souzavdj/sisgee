@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /** 
  * Servlet para recuperar os dados do Convenio 
@@ -40,6 +41,7 @@ public class BuscaConvenioServlet extends HttpServlet {
         
         Locale locale = ServletUtils.getLocale(req);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(BuscaConvenioServlet.class);
         
         List<Convenio> listaBusca = null;
         Convenio x = null;
@@ -62,6 +64,7 @@ public class BuscaConvenioServlet extends HttpServlet {
         if(listaBusca == null && x == null){
             String msgBusca = messages.getString("br.cefetrj.sisgee.busca_convenio_servlet.msg_erroBusca");
             req.setAttribute("msgBusca",msgBusca);
+            lg.info(msgBusca);
         }
             
         req.getRequestDispatcher("/form_renovar_convenio.jsp").forward(req, resp);

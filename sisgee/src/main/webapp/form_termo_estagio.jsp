@@ -274,6 +274,9 @@
                                 <c:choose>
                                     <c:when test="${not empty termoEstagio}">
                                         <option value="${ufTermo}">${ufTermo}</option>
+                                        <c:forEach items="${ uf }" var="uf">
+                                            <option value="${ uf }" ${uf eq estadoEnderecoTermoEstagio ? "selected": ""}>${ uf }</option>
+                                        </c:forEach>
                                     </c:when>
                                     <c:otherwise>
                                         <option value="" selected>---</option>

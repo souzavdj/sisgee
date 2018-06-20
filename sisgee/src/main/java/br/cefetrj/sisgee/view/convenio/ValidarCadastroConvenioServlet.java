@@ -240,6 +240,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         pessoaContatoMsg = messages.getString(pessoaContatoMsg);
                         pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
                         req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                        lg.info(pessoaContatoMsg);
                         isValid = false;
                     }
                 } else {
@@ -314,6 +315,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         nomeMsg = messages.getString(nomeMsg);
                         nomeMsg = ServletUtils.mensagemFormatada(nomeMsg, locale, tamanho);
                         req.setAttribute("nomeMsg", nomeMsg);
+                        lg.info(nomeMsg);
                         isValid = false;
                     }
                 } else {
@@ -351,6 +353,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         format = new SimpleDateFormat("MM/dd/yyyy");
                     } else {
                         //fazer log de erro com a internacionalização
+                        lg.error("Idioma selecionado desconhecido. ");
                         //Idioma desconhecido
                     }
 
@@ -359,6 +362,7 @@ public class ValidarCadastroConvenioServlet extends HttpServlet {
                         req.setAttribute("dataAssinatura", dataAssinatura);
                     } else {
                         //fazer o log de erro com a internacionalização
+                        lg.error("Erro ao formatar Data. ");
                         //Sem padrão de formatação para data, Objeto format nulo
                     }                    
                 } catch (Exception e) {

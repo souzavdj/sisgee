@@ -107,6 +107,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                         format = new SimpleDateFormat("MM/dd/yyyy");
                     } else {
                         //fazer log de erro com a internacionalização
+                        lg.error("Idioma selecionado desconhecido. ");
                         //Idioma desconhecido
                     }
 
@@ -116,6 +117,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                         dataAssinaturaMsg = ValidaUtils.validaDataRenovacao(dataAtual, dataAssinatura);
                     } else {
                         //fazer o log de erro com a internacionalização
+                        lg.error("Erro ao formatar data. ");
                         //Sem padrão de formatação para data, Objeto format nulo
                     }
                     
@@ -125,6 +127,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                         dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
                         req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
                         req.setAttribute("dataAssinatura", dataAssinatura);
+                        lg.info(dataAssinaturaMsg);
                         isValid = false;
                     }
 
@@ -136,12 +139,14 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                 dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
                 req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
                 req.setAttribute("dataAssinatura", dataAssinatura);
+                lg.info(dataAssinaturaMsg);
                 isValid = false;
             }
         } else {
             dataAssinaturaMsg = messages.getString(dataAssinaturaMsg);
             req.setAttribute("dataAssinaturaMsg", dataAssinaturaMsg);
             req.setAttribute("dataAssinatura", dataAssinatura);
+            lg.info(dataAssinaturaMsg);
             isValid = false;
         }
 
@@ -166,6 +171,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                     telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
                     req.setAttribute("telefone", telefone);
                     req.setAttribute("telefoneMsg", telefoneMsg);
+                    lg.info(telefoneMsg);
                     isValid = false;
                 }
             } else {
@@ -173,6 +179,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                 telefoneMsg = ServletUtils.mensagemFormatada(telefoneMsg, locale, tamanho);
                 req.setAttribute("telefone", telefone);
                 req.setAttribute("telefoneMsg", telefoneMsg);
+                lg.info(telefoneMsg);
                 isValid = false;
             }
 
@@ -197,6 +204,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                     emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
                     req.setAttribute("email", email);
                     req.setAttribute("emailMsg", emailMsg);
+                    lg.info(emailMsg);
                     isValid = false;
                 }
             } else {
@@ -204,6 +212,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                 emailMsg = ServletUtils.mensagemFormatada(emailMsg, locale, tamanho);
                 req.setAttribute("email", email);
                 req.setAttribute("emailMsg", emailMsg);
+                lg.info(emailMsg);
                 isValid = false;
             }
         }
@@ -229,6 +238,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                         pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
                         req.setAttribute("pessoaContato", pessoaContato);
                         req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                        lg.info(pessoaContatoMsg);
                         isValid = false;
                     }
                 } else {
@@ -236,6 +246,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
                     pessoaContatoMsg = ServletUtils.mensagemFormatada(pessoaContatoMsg, locale, tamanho);
                     req.setAttribute("pessoaContato", pessoaContato);
                     req.setAttribute("pessoaContatoMsg", pessoaContatoMsg);
+                    lg.info(pessoaContatoMsg);
                     isValid = false;
                 }
             }
@@ -246,6 +257,7 @@ public class ValidaRenovacaoConvenioServlet extends HttpServlet {
         } else {
             String msg = messages.getString("br.cefetrj.sisgee.validar_cadastro_convenio_servlet.msg_atencao");
             req.setAttribute("msg", msg);
+            lg.info(msg);
             req.getRequestDispatcher("/form_renovar_convenio_infos.jsp").forward(req, resp);
         }
     }

@@ -15,6 +15,7 @@ import br.cefetrj.sisgee.control.TermoEstagioServices;
 import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet criada para visualização dos termos aditivos na tela
@@ -32,6 +33,7 @@ public class VerTermoAditivoServlet extends HttpServlet {
             throws ServletException, IOException {
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
+        Logger lg = Logger.getLogger(VerTermoAditivoServlet.class);
 
         String idTermoEstagio = request.getParameter("idTermoEstagio");
         Integer id = null;
@@ -52,14 +54,17 @@ public class VerTermoAditivoServlet extends HttpServlet {
                 } else {
                     isValid = false;
                     msg = messages.getString("br.cefetrj.sisgee.ver_termo_aditivo_servlet.id_termo_invalido");
+                    lg.info(msg);
                 }
             } else {
                 isValid = false;
                 msg = messages.getString(msg);
+                lg.info(msg);
             }
         } else {
             isValid = false;
             msg = messages.getString(msg);
+            lg.info(msg);
         }
 
         if (isValid) {
