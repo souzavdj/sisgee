@@ -23,6 +23,7 @@ import br.cefetrj.sisgee.view.utils.ValidaUtils;
 
 /**
  * Servlet implementation class FormTermoRescisaoServlet
+ * 
  */
 @WebServlet("/FormTermoRescisaoServlet")
 public class FormTermoRescisaoServlet extends HttpServlet {
@@ -36,8 +37,9 @@ public class FormTermoRescisaoServlet extends HttpServlet {
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
+     * @método doPost
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
