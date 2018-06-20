@@ -211,7 +211,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     valorBolsaTermoAditivo = valorBolsaTermoAditivo.replaceAll("[.|,]", "");
                     valorBolsaMsg = ValidaUtils.validaFloat(campo, valorBolsaTermoAditivo);
                     if (valorBolsaMsg.trim().isEmpty()) {
-                        valor = Float.parseFloat(valorBolsaTermoAditivo);
+                        valor = Float.parseFloat(valorBolsaTermoAditivo)/100;
                         request.setAttribute("valor", valor);
                     } else {
                         valorBolsaMsg = messages.getString(valorBolsaMsg);
@@ -419,6 +419,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 tamanho = 15;
                 cepEnderecoMsg = ValidaUtils.validaObrigatorio(campo, cepEnderecoTermoAditivo);
                 if (cepEnderecoMsg.trim().isEmpty()) {
+                    cepEnderecoTermoAditivo = cepEnderecoTermoAditivo.replaceAll("[.|,-]", "");
                     cepEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cepEnderecoTermoAditivo);
                     if (bairroEnderecoMsg.trim().isEmpty()) {
                         request.setAttribute("cepEnderecoTermoEstagio", cepEnderecoTermoAditivo);
@@ -557,6 +558,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
             }
             if(updEndereco.equals("sim")) {
                 termoAditivo.setBairroEnderecoTermoEstagio(bairroEnderecoTermoAditivo);
+                System.err.println("CEP: "+cepEnderecoTermoAditivo);
                 termoAditivo.setCepEnderecoTermoEstagio(cepEnderecoTermoAditivo);
                 termoAditivo.setCidadeEnderecoTermoEstagio(cidadeEnderecoTermoAditivo);
                 termoAditivo.setComplementoEnderecoTermoEstagio(complementoEnderecoTermoAditivo);
@@ -571,7 +573,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 termoAditivo.setCargoSupervisor(cargoSurpervisor);
             }
             if(updValorBolsa.equals("sim")) {
-                termoAditivo.setValorBolsa(Float.parseFloat(valorBolsaTermoAditivo));
+                termoAditivo.setValorBolsa(valor);
             }
             if(updVigencia.equals("sim")) {
                 termoAditivo.setDataFimTermoEstagio(dataFimJsp);
@@ -604,17 +606,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
 
             Integer idAlunoInt = Integer.parseInt(idAluno);
             aluno = AlunoServices.buscarAluno(new Aluno(idAlunoInt));
-            if (aluno != null) {
-                List<TermoEstagio> termosEstagio = aluno.getTermoEstagios();
-                if (TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio) != null) {
-                    for (TermoEstagio termo : termosEstagio) {
-                        if (termo.getIdTermoEstagio() == Integer.parseInt(TermoEstagioUtils.temTermoEstagioAtivo(termosEstagio))) {
-                            termoEstagio = termo;
-                        }
-                    }
-                }
-
-            }
 
             //Aluno
             request.setAttribute("idAluno", aluno.getIdAluno());
@@ -665,7 +656,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
 
             //Termo
             request.setAttribute("cargaHorariaTermoEstagio", termoEstagio.getCargaHorariaTermoEstagio());
-            request.setAttribute("valorBolsa", termoEstagio.getValorBolsa());
+            request.setAttribute("valorBolsa", termoEstagio.getValorBolsa()*10);
 
             //Endereço
             request.setAttribute("enderecoTermoEstagio", termoEstagio.getEnderecoTermoEstagio());
@@ -688,6 +679,15 @@ public class FormTermoAditivoServlet extends HttpServlet {
             UF[] uf = UF.asList();
             professores.remove(termoEstagio.getProfessorOrientador());
             request.setAttribute("professores", professores);
+            int j = 0;
+            UF[] uf2 = new UF[uf.length-1];
+            for(int i = 0; i<uf.length;i++) {
+                if (i==0 || !uf[i].getUf().equals(termoEstagio.getEstadoEnderecoTermoEstagio())) {
+                    uf2[j] =uf[i];
+                    j++;
+                }
+            }
+            uf = uf2;
             request.setAttribute("uf", uf);
             //request.setAttribute("professor", termoEstagio.getProfessorOrientador());
 

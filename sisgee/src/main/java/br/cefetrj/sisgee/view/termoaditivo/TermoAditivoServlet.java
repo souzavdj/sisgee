@@ -190,6 +190,15 @@ public class TermoAditivoServlet extends HttpServlet {
             request.setAttribute("professorTermo", termoEstagio.getProfessorOrientador());
             professores.remove(termoEstagio.getProfessorOrientador());
             request.setAttribute("professores", professores);
+            int j = 0;
+            UF[] uf2 = new UF[uf.length-1];
+            for(int i = 0; i<uf.length;i++) {
+                if (i==0 || !uf[i].getUf().equals(termoEstagio.getEstadoEnderecoTermoEstagio())) {
+                    uf2[j] =uf[i];
+                    j++;
+                }
+            }
+            uf = uf2;
             request.setAttribute("uf", uf);
             
             request.setAttribute("updVigencia", vigencia);
